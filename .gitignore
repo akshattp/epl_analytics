@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+.env
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+npm-debug.log*
+
+# Backups, Logs & Transient Artifacts
+backups/
+logs/*.log
+data/database/*_backup_*.db
+reports/v1_2_screenshots/*.png
+
+# OS & Editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
