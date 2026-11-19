@@ -7,11 +7,12 @@ import {
   Trophy, Users, GitCompare, Sparkles, Activity,
   BarChart3, Shield, Layers, DollarSign, Bookmark,
   Settings, Menu, X, ChevronDown, FlaskConical, History,
-  Award, Sun, Moon
+  Award, Sun, Moon, LayoutDashboard
 } from "lucide-react";
 import { useTheme } from "@/lib/theme";
+import { EplBrandLogo } from "@/components/EplBrandLogo";
 
-const CURRENT_APP_VERSION = "1.3.0";
+const CURRENT_APP_VERSION = "2.0.0";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -42,19 +43,20 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: "Overview", href: "/", icon: Trophy },
+    { name: "Landing", href: "/", icon: Trophy },
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "Players", href: "/players", icon: Users },
-    { name: "Records & Hall of Fame", href: "/analytics/records", icon: Award },
-    { name: "Advanced Analytics", href: "/analytics/advanced", icon: Activity },
-    { name: "Intelligence Lab", href: "/intelligence-lab", icon: FlaskConical },
+    { name: "Records", href: "/analytics/records", icon: Award },
+    { name: "Advanced", href: "/analytics/advanced", icon: Activity },
+    { name: "Intel Lab", href: "/intelligence-lab", icon: FlaskConical },
     { name: "Comparison", href: "/comparison", icon: GitCompare },
-    { name: "Similar Cohorts", href: "/similar-players", icon: Layers },
+    { name: "Cohorts", href: "/similar-players", icon: Layers },
     { name: "Insights", href: "/insights", icon: Sparkles },
     { name: "Teams", href: "/teams", icon: Shield },
     { name: "Seasons", href: "/seasons", icon: BarChart3 },
     { name: "Auction", href: "/auction", icon: DollarSign },
     { name: "Shortlists", href: "/shortlists", icon: Bookmark },
-    { name: "Release Notes", href: "/changelog", icon: History },
+    { name: "Changelog", href: "/changelog", icon: History },
     { name: "Admin", href: "/admin", icon: Settings },
   ];
 
@@ -62,25 +64,15 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-white/90 dark:bg-[#0B1120]/90 backdrop-blur-md border-b border-[#E2E8F0] dark:border-[#334155] shadow-sm no-print text-[#101828] dark:text-[#F8FAFC] transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Brand Logo & Bold Space Grotesk Title + Version Pill */}
+          {/* Brand Logo & Original EPL Insignia */}
           <div className="flex items-center space-x-3">
-            <Link href="/" className="flex items-center space-x-2.5 group">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#0891B2] dark:from-[#3B82F6] dark:to-[#22D3EE] flex items-center justify-center text-white font-display font-bold text-lg shadow-sm group-hover:scale-105 transition-transform">
-                E
-              </div>
-              <div>
-                <span className="font-display text-base font-bold tracking-tight text-[#101828] dark:text-[#F8FAFC] block leading-none">
-                  EPL <span className="text-[#2563EB] dark:text-[#38BDF8]">INTELLIGENCE</span>
-                </span>
-                <span className="text-[10px] tracking-wider uppercase font-medium text-[#64748B] dark:text-[#94A3B8] block mt-0.5">
-                  Exotica Premier League
-                </span>
-              </div>
+            <Link href="/" className="flex items-center group">
+              <EplBrandLogo variant="full" size="md" />
             </Link>
 
             <Link
               href="/changelog"
-              title="View Version 1.3.0 Release Notes & Changelog"
+              title="View Version 2.0 Signature Release Notes"
               className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#F1F5F9] dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8] hover:text-[#2563EB] dark:hover:text-[#38BDF8] transition-colors"
             >
               <span>v{CURRENT_APP_VERSION}</span>
@@ -98,25 +90,27 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
             <Link
-              href="/"
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                isActive("/") && pathname === "/"
-                  ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-sm"
-                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
+              href="/dashboard"
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+                pathname === "/dashboard"
+                  ? "bg-[#2563EB] text-white shadow-sm font-bold"
+                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-slate-100 dark:hover:bg-[#1E293B]"
               }`}
             >
-              Overview
+              <LayoutDashboard className="w-3.5 h-3.5" />
+              <span>Terminal</span>
             </Link>
 
             <Link
               href="/players"
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                 isActive("/players")
-                  ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-sm"
-                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
+                  ? "bg-[#2563EB] text-white shadow-sm font-bold"
+                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-slate-100 dark:hover:bg-[#1E293B]"
               }`}
             >
-              Players
+              <Users className="w-3.5 h-3.5" />
+              <span>Players</span>
             </Link>
 
             {/* Analytics Dropdown */}
@@ -124,61 +118,60 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setAnalyticsOpen(!analyticsOpen)}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center space-x-1 transition-colors ${
-                  pathname.startsWith("/analytics") || pathname.startsWith("/similar-players")
-                    ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-sm"
-                    : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors inline-flex items-center space-x-1 ${
+                  pathname.startsWith("/analytics")
+                    ? "bg-[#2563EB] text-white shadow-sm font-bold"
+                    : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-slate-100 dark:hover:bg-[#1E293B]"
                 }`}
               >
                 <span>Analytics</span>
-                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+                <ChevronDown className="w-3.5 h-3.5" />
               </button>
+
               {analyticsOpen && (
                 <div
-                  className="absolute left-0 mt-1.5 w-56 bg-white dark:bg-[#151F32] border border-[#E2E8F0] dark:border-[#334155] rounded-xl shadow-xl py-1.5 z-50 overflow-hidden"
+                  className="absolute left-0 mt-2 w-56 rounded-xl bg-white dark:bg-[#151F32] border border-[#E2E8F0] dark:border-[#334155] shadow-xl py-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
                   onMouseLeave={() => setAnalyticsOpen(false)}
                 >
                   <Link
                     href="/analytics/records"
                     onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs font-bold text-[#2563EB] dark:text-[#38BDF8] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] transition-colors border-b border-[#E2E8F0] dark:border-[#334155]"
+                    className="flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-[#101828] dark:text-[#F8FAFC] hover:bg-blue-50 dark:hover:bg-[#1E293B] hover:text-[#2563EB] dark:hover:text-[#38BDF8]"
                   >
-                    Tournament Records (v1.3)
-                  </Link>
-                  <Link
-                    href="/analytics/advanced"
-                    onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs font-semibold text-[#101828] dark:text-[#F8FAFC] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] transition-colors"
-                  >
-                    Advanced Analytics
+                    <Award className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
+                    <span>Tournament Records</span>
                   </Link>
                   <Link
                     href="/analytics/batting"
                     onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] transition-colors"
+                    className="flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-[#101828] dark:text-[#F8FAFC] hover:bg-blue-50 dark:hover:bg-[#1E293B] hover:text-[#2563EB] dark:hover:text-[#38BDF8]"
                   >
-                    Batting Leaderboards
+                    <Trophy className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
+                    <span>Batting Analytics</span>
                   </Link>
                   <Link
                     href="/analytics/bowling"
                     onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] transition-colors"
+                    className="flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-[#101828] dark:text-[#F8FAFC] hover:bg-blue-50 dark:hover:bg-[#1E293B] hover:text-[#2563EB] dark:hover:text-[#38BDF8]"
                   >
-                    Bowling Leaderboards
+                    <Shield className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
+                    <span>Bowling Analytics</span>
                   </Link>
                   <Link
                     href="/analytics/all-rounders"
                     onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] transition-colors"
+                    className="flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-[#101828] dark:text-[#F8FAFC] hover:bg-blue-50 dark:hover:bg-[#1E293B] hover:text-[#2563EB] dark:hover:text-[#38BDF8]"
                   >
-                    All-Rounder Rankings
+                    <Activity className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
+                    <span>All-Rounder Index</span>
                   </Link>
                   <Link
-                    href="/similar-players"
+                    href="/analytics/advanced"
                     onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F8FAFC] dark:hover:bg-[#1E293B] transition-colors border-t border-[#E2E8F0] dark:border-[#334155]"
+                    className="flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-[#101828] dark:text-[#F8FAFC] hover:bg-blue-50 dark:hover:bg-[#1E293B] hover:text-[#2563EB] dark:hover:text-[#38BDF8]"
                   >
-                    Similar Player Cohorts
+                    <Activity className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
+                    <span>Advanced Analytics (6-in-1)</span>
                   </Link>
                 </div>
               )}
@@ -186,163 +179,107 @@ export default function Navbar() {
 
             <Link
               href="/intelligence-lab"
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                 isActive("/intelligence-lab")
-                  ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-sm"
-                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
+                  ? "bg-[#2563EB] text-white shadow-sm font-bold"
+                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-slate-100 dark:hover:bg-[#1E293B]"
               }`}
             >
-              Intel Lab
+              <FlaskConical className="w-3.5 h-3.5" />
+              <span>Intel Lab</span>
             </Link>
 
             <Link
               href="/comparison"
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                 isActive("/comparison")
-                  ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-sm"
-                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
+                  ? "bg-[#2563EB] text-white shadow-sm font-bold"
+                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-slate-100 dark:hover:bg-[#1E293B]"
               }`}
             >
-              Compare
-            </Link>
-
-            <Link
-              href="/insights"
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                isActive("/insights")
-                  ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-sm"
-                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
-              }`}
-            >
-              Insights
+              <GitCompare className="w-3.5 h-3.5" />
+              <span>Compare</span>
             </Link>
 
             <Link
               href="/teams"
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                 isActive("/teams")
-                  ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-sm"
-                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
+                  ? "bg-[#2563EB] text-white shadow-sm font-bold"
+                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-slate-100 dark:hover:bg-[#1E293B]"
               }`}
             >
-              Teams
-            </Link>
-
-            <Link
-              href="/seasons"
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                isActive("/seasons")
-                  ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-sm"
-                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
-              }`}
-            >
-              Seasons
+              <Shield className="w-3.5 h-3.5" />
+              <span>Teams</span>
             </Link>
 
             <Link
               href="/auction"
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
                 isActive("/auction")
-                  ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-sm"
-                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
+                  ? "bg-[#2563EB] text-white shadow-sm"
+                  : "bg-blue-50 dark:bg-[#1E293B] text-[#2563EB] dark:text-[#38BDF8] border border-blue-200 dark:border-[#334155] hover:bg-blue-100 dark:hover:bg-[#283850]"
               }`}
             >
-              Auction
+              <DollarSign className="w-3.5 h-3.5" />
+              <span>Live Auction</span>
             </Link>
-
-            <Link
-              href="/shortlists"
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                isActive("/shortlists")
-                  ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-sm"
-                  : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
-              }`}
-            >
-              Shortlists
-            </Link>
-
-            <Link
-              href="/admin"
-              className={`px-2 py-1 rounded-lg text-xs font-medium transition-colors border border-[#E2E8F0] dark:border-[#334155] ml-1 ${
-                isActive("/admin")
-                  ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white"
-                  : "text-[#64748B] dark:text-[#94A3B8] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B]"
-              }`}
-              title="Admin Portal"
-            >
-              <Settings className="w-3.5 h-3.5 inline mr-1 text-[#64748B] dark:text-[#94A3B8]" />
-              Admin
-            </Link>
-
-            {/* Light / Dark Mode Toggle */}
-            <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-              title={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-              className="ml-2 p-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#1E293B] text-[#101828] dark:text-[#F8FAFC] hover:text-[#2563EB] dark:hover:text-[#38BDF8] transition-colors flex items-center justify-center shadow-sm"
-            >
-              {mounted ? (
-                theme === "dark" ? (
-                  <Sun className="w-4 h-4 text-[#FACC15] animate-in spin-in-180 duration-200" />
-                ) : (
-                  <Moon className="w-4 h-4 text-[#2563EB] animate-in spin-in-180 duration-200" />
-                )
-              ) : (
-                <div className="w-4 h-4" />
-              )}
-            </button>
           </nav>
 
-          {/* Mobile menu and theme toggle */}
-          <div className="flex lg:hidden items-center gap-2">
+          {/* Right Controls: Sun/Moon Theme Toggle + Mobile Menu Trigger */}
+          <div className="flex items-center space-x-2">
+            {/* Signature Page-Curl Theme Toggle Button */}
             <button
               type="button"
               onClick={toggleTheme}
-              aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-              className="p-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#1E293B] text-[#101828] dark:text-[#F8FAFC] shadow-sm"
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode (Page Curl)`}
+              className="relative p-2 rounded-xl bg-slate-100 dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] hover:text-[#2563EB] dark:hover:text-[#38BDF8] hover:border-[#2563EB] dark:hover:border-[#38BDF8] transition-all shadow-sm group"
             >
-              {mounted && (theme === "dark" ? <Sun className="w-4 h-4 text-[#FACC15]" /> : <Moon className="w-4 h-4 text-[#2563EB]" />)}
+              {mounted && theme === "dark" ? (
+                <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
+              ) : (
+                <Moon className="w-4 h-4 text-[#2563EB] group-hover:-rotate-12 transition-transform duration-300" />
+              )}
             </button>
-            <Link
-              href="/changelog"
-              className="px-2 py-0.5 rounded-full bg-[#F1F5F9] dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8]"
-            >
-              v{CURRENT_APP_VERSION}
-            </Link>
+
+            {/* Mobile Hamburger Toggle */}
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[#101828] dark:text-[#F8FAFC] hover:text-[#2563EB] dark:hover:text-[#38BDF8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#3B82F6]"
-              aria-label="Toggle Navigation Menu"
+              className="lg:hidden p-2 rounded-xl bg-slate-100 dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] hover:text-[#2563EB]"
+              aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6 text-[#2563EB] dark:text-[#38BDF8]" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white dark:bg-[#0B1120] border-b border-[#E2E8F0] dark:border-[#334155] px-4 pt-2 pb-5 space-y-1.5 shadow-2xl">
-          {navLinks.map((link) => {
-            const Icon = link.icon;
-            const active = isActive(link.href) && (link.href === "/" ? pathname === "/" : true);
-            return (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors min-h-[44px] ${
-                  active
-                    ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold"
-                    : "text-[#64748B] dark:text-[#94A3B8] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B] hover:text-[#101828] dark:hover:text-[#F8FAFC]"
-                }`}
-              >
-                <Icon className={`w-4 h-4 ${active ? "text-white" : "text-[#2563EB] dark:text-[#38BDF8]"}`} />
-                <span>{link.name}</span>
-              </Link>
-            );
-          })}
+        <div className="lg:hidden border-t border-[#E2E8F0] dark:border-[#334155] bg-white dark:bg-[#0B1120] px-4 pt-3 pb-6 space-y-1.5 shadow-xl animate-in slide-in-from-top-4 duration-200">
+          <div className="grid grid-cols-2 gap-1.5">
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-xs font-semibold transition ${
+                    active
+                      ? "bg-[#2563EB] text-white shadow-sm"
+                      : "text-[#64748B] dark:text-[#94A3B8] hover:bg-slate-100 dark:hover:bg-[#151F32] hover:text-[#101828] dark:hover:text-[#F8FAFC]"
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span>{link.name}</span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       )}
     </header>

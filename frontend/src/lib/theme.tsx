@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
+import { PageCurlProvider, useCurlTransition } from "@/components/PageCurlTransition";
 
 type Theme = "light" | "dark";
 
@@ -18,9 +19,12 @@ const ThemeContext = createContext<ThemeContextType>({
   mounted: false,
 });
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+function ThemeInternalProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
+  const { startCurl } = useCurlTransition();
+  const themeRef = useRef<Theme>("dark");
+  themeRef.current = theme;
 
   useEffect(() => {
     try {
@@ -52,23 +56,34 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-    applyTheme(newTheme);
-    try {
-      localStorage.setItem("epl-theme", newTheme);
-    } catch {}
-  };
+  const setTheme = useCallback((newTheme: Theme) => {
+    if (newTheme === themeRef.current) return;
+    startCurl(newTheme, () => {
+      setThemeState(newTheme);
+      applyTheme(newTheme);
+      try {
+        localStorage.setItem("epl-theme", newTheme);
+      } catch {}
+    });
+  }, [startCurl]);
 
-  const toggleTheme = () => {
-    const nextTheme: Theme = theme === "dark" ? "light" : "dark";
+  const toggleTheme = useCallback(() => {
+    const nextTheme: Theme = themeRef.current === "dark" ? "light" : "dark";
     setTheme(nextTheme);
-  };
+  }, [setTheme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, mounted }}>
       {children}
     </ThemeContext.Provider>
+  );
+}
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <PageCurlProvider>
+      <ThemeInternalProvider>{children}</ThemeInternalProvider>
+    </PageCurlProvider>
   );
 }
 
