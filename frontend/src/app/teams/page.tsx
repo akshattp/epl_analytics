@@ -39,14 +39,14 @@ export default function TeamsPage() {
       key: "team_name",
       header: "Franchise Team",
       minWidth: "175px",
-      render: (t) => <span className="font-bold text-sm text-[#EBDED4]">{t.team_name}</span>,
+      render: (t) => <span className="font-display font-bold text-sm text-[#101828] dark:text-[#F8FAFC]">{t.team_name}</span>,
     },
     {
       key: "seasons",
       header: "Season(s)",
       sortable: false,
       minWidth: "95px",
-      render: (t) => <span className="font-mono text-[11px] text-[#D9AA90]/80">{(t.seasons || []).join(", ")}</span>,
+      render: (t) => <span className="font-mono text-[11px] text-[#64748B] dark:text-[#94A3B8]">{(t.seasons || []).join(", ")}</span>,
     },
     { key: "matches_played", header: "Played", align: "right", minWidth: "70px" },
     {
@@ -54,7 +54,7 @@ export default function TeamsPage() {
       header: "Won",
       align: "right",
       minWidth: "66px",
-      render: (t) => <span className="font-mono font-bold text-[#A65E46]">{t.matches_won}</span>,
+      render: (t) => <span className="font-mono font-bold text-[#2563EB] dark:text-[#3B82F6]">{t.matches_won}</span>,
     },
     { key: "matches_lost", header: "Lost", align: "right", minWidth: "66px" },
     {
@@ -62,7 +62,7 @@ export default function TeamsPage() {
       header: "Win %",
       align: "right",
       minWidth: "78px",
-      render: (t) => <span className="font-mono font-bold text-[#D9AA90]">{Number(t.win_percentage || 0).toFixed(1)}%</span>,
+      render: (t) => <span className="font-mono font-bold text-[#0891B2] dark:text-[#22D3EE]">{Number(t.win_percentage || 0).toFixed(1)}%</span>,
     },
     { key: "total_runs_scored", header: "Runs For", align: "right", minWidth: "84px" },
     { key: "total_runs_conceded", header: "Runs Against", align: "right", minWidth: "96px" },
@@ -72,7 +72,7 @@ export default function TeamsPage() {
       tooltip: "Batting Run Rate (Runs per Over)",
       align: "right",
       minWidth: "78px",
-      render: (t) => <span className="font-mono text-[#EBDED4]">{Number(t.batting_run_rate || 0).toFixed(2)}</span>,
+      render: (t) => <span className="font-mono text-[#101828] dark:text-[#F8FAFC]">{Number(t.batting_run_rate || 0).toFixed(2)}</span>,
     },
     {
       key: "bowling_economy",
@@ -80,7 +80,7 @@ export default function TeamsPage() {
       tooltip: "Bowling Economy Rate (Runs conceded per Over)",
       align: "right",
       minWidth: "86px",
-      render: (t) => <span className="font-mono text-[#EBDED4]">{Number(t.bowling_economy || 0).toFixed(2)}</span>,
+      render: (t) => <span className="font-mono text-[#101828] dark:text-[#F8FAFC]">{Number(t.bowling_economy || 0).toFixed(2)}</span>,
     },
     {
       key: "net_run_rate",
@@ -89,7 +89,7 @@ export default function TeamsPage() {
       align: "right",
       minWidth: "78px",
       render: (t) => (
-        <span className={`font-mono font-bold ${t.net_run_rate >= 0 ? "text-[#D9AA90]" : "text-[#A65E46]"}`}>
+        <span className={`font-mono font-bold ${t.net_run_rate >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
           {t.net_run_rate > 0 ? `+${Number(t.net_run_rate).toFixed(2)}` : Number(t.net_run_rate).toFixed(2)}
         </span>
       ),
@@ -99,32 +99,32 @@ export default function TeamsPage() {
   if (loading) {
     return (
       <div className="py-24 text-center space-y-4">
-        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#A65E46] border-t-transparent rounded-full"></div>
-        <p className="font-serif text-lg text-[#EBDED4]">Aggregating Historical Franchise Analytics...</p>
+        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#2563EB] border-t-transparent rounded-full"></div>
+        <p className="font-display text-lg text-[#101828] dark:text-[#F8FAFC]">Aggregating Historical Franchise Analytics...</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-8">
-      <div className="border-b border-[#D9AA90]/20 pb-6 pt-2">
+      <div className="border-b border-[#E2E8F0] dark:border-[#334155] pb-6 pt-2">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <div className="text-xs uppercase font-semibold tracking-wider text-[#A65E46] mb-1">
+            <div className="text-xs uppercase font-semibold tracking-wider text-[#2563EB] dark:text-[#3B82F6] mb-1">
               Historical Team Performance &amp; Net Run Rates
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#EBDED4]">
+            <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#101828] dark:text-[#F8FAFC]">
               Team Analytics
             </h1>
-            <p className="text-sm text-[#EBDED4]/80 mt-1 max-w-xl leading-relaxed">
+            <p className="text-sm text-[#64748B] dark:text-[#94A3B8] mt-1 max-w-xl leading-relaxed">
               Win records, batting unit outputs, bowling discipline, championship progression, and net run rates across all EPL franchise campaigns (2023–2025).
             </p>
           </div>
           <Link
             href="/intelligence-lab"
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#07203F] border border-[#D9AA90]/35 text-[#EBDED4] hover:bg-[#A65E46] text-xs font-semibold transition shadow-sm"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-white dark:bg-[#151F32] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] hover:bg-slate-50 dark:hover:bg-[#1E293B] text-xs font-semibold transition shadow-sm"
           >
-            <Shield className="w-3.5 h-3.5 text-[#D9AA90]" />
+            <Shield className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
             <span>Explore Team Combinations in Intel Lab</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -146,8 +146,8 @@ export default function TeamsPage() {
             }))}
             xKey="team"
             bars={[
-              { dataKey: "Bat RR", name: "Batting RR", color: EPL_PALETTE.peach },
-              { dataKey: "Bowl Econ", name: "Bowling Econ", color: EPL_PALETTE.terracotta },
+              { dataKey: "Bat RR", name: "Batting RR", color: EPL_PALETTE.blue },
+              { dataKey: "Bowl Econ", name: "Bowling Econ", color: EPL_PALETTE.cyan },
             ]}
             height={280}
           />
@@ -162,9 +162,9 @@ export default function TeamsPage() {
           data={chartTeams.filter((t) => t.semifinals > 0 || t.finals > 0 || t.titles > 0)}
           xKey="team"
           bars={[
-            { dataKey: "semifinals", name: "Semifinals", color: EPL_PALETTE.peach },
-            { dataKey: "finals", name: "Finals", color: EPL_PALETTE.beige },
-            { dataKey: "titles", name: "Championships", color: EPL_PALETTE.terracotta },
+            { dataKey: "semifinals", name: "Semifinals", color: EPL_PALETTE.cyan },
+            { dataKey: "finals", name: "Finals", color: "#8B5CF6" },
+            { dataKey: "titles", name: "Championships", color: EPL_PALETTE.blue },
           ]}
           height={250}
         />

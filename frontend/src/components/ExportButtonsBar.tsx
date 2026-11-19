@@ -41,7 +41,7 @@ export function ExportButtonsBar({ role, sortBy = "overall_rating" }: ExportButt
         type="button"
         onClick={() => download("pdf")}
         disabled={busy !== null}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#A65E46] text-[#EBDED4] hover:bg-[#A65E46]/90 text-xs font-semibold transition disabled:opacity-40 shadow-sm"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] text-white text-xs font-semibold transition disabled:opacity-40 shadow-sm"
       >
         <FileText className="w-3.5 h-3.5" />
         <span>{busy === "pdf" ? "Exporting PDF..." : "Export PDF"}</span>
@@ -50,18 +50,18 @@ export function ExportButtonsBar({ role, sortBy = "overall_rating" }: ExportButt
         type="button"
         onClick={() => download("xlsx")}
         disabled={busy !== null}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#07203F] border border-[#D9AA90]/35 text-[#EBDED4] hover:bg-[#A65E46] text-xs font-semibold transition disabled:opacity-40 shadow-sm"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] hover:bg-[#F8FAFC] dark:hover:bg-[#334155] text-xs font-semibold transition disabled:opacity-40 shadow-sm"
       >
-        <FileSpreadsheet className="w-3.5 h-3.5 text-[#D9AA90]" />
+        <FileSpreadsheet className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#38BDF8]" />
         <span>{busy === "xlsx" ? "Exporting Excel..." : "Excel"}</span>
       </button>
       <button
         type="button"
         onClick={() => download("csv")}
         disabled={busy !== null}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#07203F] border border-[#D9AA90]/35 text-[#EBDED4] hover:bg-[#A65E46] text-xs font-semibold transition disabled:opacity-40 shadow-sm"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] hover:bg-[#F8FAFC] dark:hover:bg-[#334155] text-xs font-semibold transition disabled:opacity-40 shadow-sm"
       >
-        <Download className="w-3.5 h-3.5 text-[#D9AA90]" />
+        <Download className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#38BDF8]" />
         <span>{busy === "csv" ? "Exporting CSV..." : "CSV"}</span>
       </button>
     </div>

@@ -63,8 +63,8 @@ export default function IntelligenceLabPage() {
       minWidth: "230px",
       render: (r) => (
         <div>
-          <span className="font-bold text-[#EBDED4]">{r.combination_label}</span>
-          <span className="block text-[10px] text-[#D9AA90]/70 font-mono">
+          <span className="font-bold text-[#101828] dark:text-[#F8FAFC]">{r.combination_label}</span>
+          <span className="block text-[10px] text-[#64748B] dark:text-[#94A3B8] font-mono">
             {(r.teams || []).join(", ")} • {(r.seasons || []).join(", ")}
           </span>
         </div>
@@ -76,14 +76,14 @@ export default function IntelligenceLabPage() {
       tooltip: "Shared matches played on the same franchise",
       align: "right",
       minWidth: "84px",
-      render: (r) => <span className="font-mono font-bold text-[#EBDED4]">{r.matches_together}</span>,
+      render: (r) => <span className="font-mono font-bold text-[#101828] dark:text-[#F8FAFC]">{r.matches_together}</span>,
     },
     {
       key: "wins_together",
       header: "Wins",
       align: "right",
       minWidth: "64px",
-      render: (r) => <span className="font-mono font-bold text-[#A65E46]">{r.wins_together}</span>,
+      render: (r) => <span className="font-mono font-bold text-[#2563EB] dark:text-[#3B82F6]">{r.wins_together}</span>,
     },
     {
       key: "win_pct_with",
@@ -91,7 +91,7 @@ export default function IntelligenceLabPage() {
       tooltip: "Franchise win percentage when this combination played together",
       align: "right",
       minWidth: "88px",
-      render: (r) => <span className="font-mono font-bold text-[#D9AA90]">{r.win_pct_with}%</span>,
+      render: (r) => <span className="font-mono font-bold text-[#2563EB] dark:text-[#3B82F6]">{r.win_pct_with}%</span>,
     },
     {
       key: "win_pct_without",
@@ -100,7 +100,7 @@ export default function IntelligenceLabPage() {
       align: "right",
       minWidth: "96px",
       render: (r) => (
-        <span className="font-mono text-[#EBDED4]/70">
+        <span className="font-mono text-[#64748B] dark:text-[#94A3B8]">
           {r.win_pct_without !== null && r.win_pct_without !== undefined ? `${r.win_pct_without}%` : "N/A"}
         </span>
       ),
@@ -113,7 +113,7 @@ export default function IntelligenceLabPage() {
       align: "right",
       minWidth: "60px",
       render: (r) => (
-        <span className={`font-mono font-bold ${r.championships_won > 0 ? "text-[#A65E46]" : "text-[#EBDED4]/40"}`}>
+        <span className={`font-mono font-bold ${r.championships_won > 0 ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-[#64748B] dark:text-[#94A3B8]"}`}>
           {r.championships_won}
         </span>
       ),
@@ -129,15 +129,15 @@ export default function IntelligenceLabPage() {
         <div>
           <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
             r.confidence_level === "Moderate Exploratory"
-              ? "bg-[#07203F] text-[#D9AA90] border border-[#D9AA90]/40"
+              ? "bg-white dark:bg-[#151F32] text-[#2563EB] dark:text-[#3B82F6] border border-blue-200 dark:border-[#334155]"
               : r.confidence_level === "Low Exploratory"
-              ? "bg-[#02000D] text-[#EBDED4]/80 border border-[#D9AA90]/20"
-              : "bg-[#A65E46]/20 text-[#A65E46] border border-[#A65E46]/40"
+              ? "bg-[#F8FAFC] dark:bg-[#0B1120] text-[#64748B] dark:text-[#94A3B8] border border-[#E2E8F0] dark:border-[#334155]"
+              : "bg-blue-50 dark:bg-blue-900/30 text-[#2563EB] dark:text-[#3B82F6] border border-[#2563EB]/40"
           }`}>
             {r.confidence_level}
           </span>
           {r.matches_together < 4 && (
-            <span className="block text-[9px] text-[#A65E46] mt-0.5 leading-tight font-mono">
+            <span className="block text-[9px] text-[#2563EB] dark:text-[#3B82F6] mt-0.5 leading-tight font-mono">
               Insufficient evidence (n&lt;4)
             </span>
           )}
@@ -149,8 +149,8 @@ export default function IntelligenceLabPage() {
   if (loading) {
     return (
       <div className="py-20 text-center">
-        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#A65E46] border-t-transparent rounded-full mb-3"></div>
-        <p className="font-serif text-lg text-[#D9AA90]">Mining Historical Team Combinations &amp; Patterns...</p>
+        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#2563EB] border-t-transparent rounded-full mb-3"></div>
+        <p className="font-display text-lg text-[#2563EB] dark:text-[#3B82F6]">Mining Historical Team Combinations &amp; Patterns...</p>
       </div>
     );
   }
@@ -165,26 +165,26 @@ export default function IntelligenceLabPage() {
   return (
     <div className="space-y-8">
       {/* Editorial Hero */}
-      <div className="bg-[#02000D] text-[#EBDED4] rounded-xl p-6 sm:p-8 border border-[#D9AA90]/30 shadow-lg">
+      <div className="bg-[#F8FAFC] dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] rounded-xl p-6 sm:p-8 border border-[#E2E8F0] dark:border-[#334155] shadow-lg">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center space-x-2 text-xs uppercase tracking-widest text-[#D9AA90] font-semibold mb-2">
-              <FlaskConical className="w-4 h-4 text-[#A65E46]" />
+            <div className="inline-flex items-center space-x-2 text-xs uppercase tracking-widest text-[#2563EB] dark:text-[#3B82F6] font-semibold mb-2">
+              <FlaskConical className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
               <span>EPL Intelligence Lab • Exploratory Pattern Discovery</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#EBDED4]">
+            <h1 className="font-display text-3xl sm:text-4xl font-bold text-[#101828] dark:text-[#F8FAFC]">
               Team Combinations &amp; Winning Patterns
             </h1>
-            <p className="text-sm text-[#EBDED4]/80 mt-2 max-w-2xl">
+            <p className="text-sm text-[#64748B] dark:text-[#94A3B8] mt-2 max-w-2xl">
               Uncovers two-player and three-player franchise synergies, recurring semifinal cores, multi-season finalists, and structural hypotheses hidden beneath ordinary leaderboards.
             </p>
           </div>
-          <div className="bg-[#07203F] border border-[#D9AA90]/30 rounded-xl px-4 py-3 text-xs max-w-xs shadow-sm">
-            <div className="font-bold text-[#D9AA90] flex items-center gap-1.5 mb-1">
-              <AlertTriangle className="w-3.5 h-3.5 text-[#A65E46]" />
+          <div className="bg-white dark:bg-[#151F32] border border-[#E2E8F0] dark:border-[#334155] rounded-xl px-4 py-3 text-xs max-w-xs shadow-sm">
+            <div className="font-bold text-[#2563EB] dark:text-[#3B82F6] flex items-center gap-1.5 mb-1">
+              <AlertTriangle className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6]" />
               <span>Statistical Reliability Guardrail</span>
             </div>
-            <p className="text-[11px] text-[#EBDED4]/80 leading-relaxed">
+            <p className="text-[11px] text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
               Dataset spans 27 historical matches. Every discovery displays sample size (n) and confidence level; exploratory patterns never imply guaranteed outcomes.
             </p>
           </div>
@@ -193,17 +193,17 @@ export default function IntelligenceLabPage() {
 
       {/* SECTION A: INTERACTIVE COMBINATION EXPLORER */}
       <div className="space-y-5">
-        <div className="bg-[#07203F] text-[#EBDED4] rounded-xl border border-[#D9AA90]/25 p-5 shadow-md flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+        <div className="bg-white dark:bg-[#151F32] text-[#101828] dark:text-[#F8FAFC] rounded-xl border border-[#E2E8F0] dark:border-[#334155] p-5 shadow-md flex flex-col lg:flex-row lg:items-end justify-between gap-4">
           <div className="flex flex-wrap items-end gap-4">
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#D9AA90] mb-1">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#2563EB] dark:text-[#3B82F6] mb-1">
                 Combination Size
               </label>
-              <div className="inline-flex rounded-lg border border-[#D9AA90]/30 overflow-hidden text-xs">
+              <div className="inline-flex rounded-lg border border-[#E2E8F0] dark:border-[#334155] overflow-hidden text-xs">
                 <button
                   onClick={() => setComboSize(2)}
                   className={`px-3.5 py-1.5 font-semibold transition ${
-                    comboSize === 2 ? "bg-[#A65E46] text-[#EBDED4]" : "bg-[#02000D] text-[#EBDED4]/70 hover:text-[#EBDED4]"
+                    comboSize === 2 ? "bg-[#2563EB] text-white" : "bg-[#F8FAFC] dark:bg-[#0B1120] text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:text-[#F8FAFC]"
                   }`}
                 >
                   2-Player Pairs
@@ -211,7 +211,7 @@ export default function IntelligenceLabPage() {
                 <button
                   onClick={() => setComboSize(3)}
                   className={`px-3.5 py-1.5 font-semibold transition ${
-                    comboSize === 3 ? "bg-[#A65E46] text-[#EBDED4]" : "bg-[#02000D] text-[#EBDED4]/70 hover:text-[#EBDED4]"
+                    comboSize === 3 ? "bg-[#2563EB] text-white" : "bg-[#F8FAFC] dark:bg-[#0B1120] text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:text-[#F8FAFC]"
                   }`}
                 >
                   3-Player Trios
@@ -220,13 +220,13 @@ export default function IntelligenceLabPage() {
             </div>
 
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#D9AA90] mb-1">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#2563EB] dark:text-[#3B82F6] mb-1">
                 Minimum Shared Matches (n)
               </label>
               <select
                 value={minMatches}
                 onChange={(e) => setMinMatches(Number(e.target.value))}
-                className="px-3 py-1.5 rounded-lg border border-[#D9AA90]/30 bg-[#02000D] text-xs font-mono font-semibold text-[#EBDED4] focus:outline-none focus:border-[#D9AA90]"
+                className="px-3 py-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] text-xs font-mono font-semibold text-[#101828] dark:text-[#F8FAFC] focus:outline-none focus:border-[#E2E8F0] dark:border-[#334155]"
               >
                 <option value={2}>n ≥ 2 matches (Exploratory)</option>
                 <option value={3}>n ≥ 3 matches (Standard)</option>
@@ -236,13 +236,13 @@ export default function IntelligenceLabPage() {
             </div>
 
             <div className="min-w-[220px]">
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#D9AA90] mb-1">
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#2563EB] dark:text-[#3B82F6] mb-1">
                 Anchor Player Filter (&ldquo;With Player X...&rdquo;)
               </label>
               <select
                 value={selectedPlayerId}
                 onChange={(e) => setSelectedPlayerId(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg border border-[#D9AA90]/30 bg-[#02000D] text-xs text-[#EBDED4] focus:outline-none focus:border-[#D9AA90]"
+                className="w-full px-3 py-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] text-xs text-[#101828] dark:text-[#F8FAFC] focus:outline-none focus:border-[#E2E8F0] dark:border-[#334155]"
               >
                 <option value="">All EPL Players (League-Wide)</option>
                 {players.map((p) => (
@@ -255,10 +255,10 @@ export default function IntelligenceLabPage() {
           </div>
 
           <div className="text-right text-xs">
-            <span className="font-mono font-bold text-2xl text-[#A65E46] block">
+            <span className="font-mono font-bold text-2xl text-[#2563EB] dark:text-[#3B82F6] block">
               {comboData?.total_qualifying_combinations || 0}
             </span>
-            <span className="text-[10px] uppercase tracking-wider text-[#D9AA90]">
+            <span className="text-[10px] uppercase tracking-wider text-[#2563EB] dark:text-[#3B82F6]">
               Qualifying Combinations
             </span>
           </div>
@@ -295,12 +295,12 @@ export default function IntelligenceLabPage() {
       {/* SECTION C: STATISTICAL PATTERN DISCOVERY */}
       {discoveries && (
         <div className="space-y-4">
-          <div className="border-b border-[#07203F] pb-2">
-            <h2 className="font-serif text-2xl font-bold text-[#EBDED4] flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#A65E46]" />
+          <div className="border-b border-[#E2E8F0] dark:border-[#334155] pb-2">
+            <h2 className="font-display text-2xl font-bold text-[#101828] dark:text-[#F8FAFC] flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-[#2563EB] dark:text-[#3B82F6]" />
               <span>Empirical Tournament Hypothesis Testing</span>
             </h2>
-            <p className="text-xs text-[#EBDED4]/70 mt-0.5">
+            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] mt-0.5">
               {discoveries.disclaimer}
             </p>
           </div>
@@ -309,32 +309,32 @@ export default function IntelligenceLabPage() {
             {(discoveries.statistical_discoveries || []).map((d: any) => (
               <div
                 key={d.id}
-                className="bg-[#07203F] text-[#EBDED4] rounded-xl border border-[#D9AA90]/25 shadow-md p-5 flex flex-col justify-between space-y-4 hover:border-[#D9AA90]/50 transition"
+                className="bg-white dark:bg-[#151F32] text-[#101828] dark:text-[#F8FAFC] rounded-xl border border-[#E2E8F0] dark:border-[#334155] shadow-md p-5 flex flex-col justify-between space-y-4 hover:border-[#E2E8F0] dark:border-[#334155]/50 transition"
               >
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between text-[10px] font-mono">
-                    <span className="px-2 py-0.5 rounded bg-[#02000D] border border-[#D9AA90]/30 text-[#D9AA90] font-bold">{d.id}</span>
-                    <span className="text-[#A65E46] font-semibold">n = {d.sample_size} {d.sample_unit}</span>
+                    <span className="px-2 py-0.5 rounded bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#334155] text-[#2563EB] dark:text-[#3B82F6] font-bold">{d.id}</span>
+                    <span className="text-[#2563EB] dark:text-[#3B82F6] font-semibold">n = {d.sample_size} {d.sample_unit}</span>
                   </div>
-                  <h3 className="font-serif text-base font-bold text-[#EBDED4] leading-snug">
+                  <h3 className="font-display text-base font-bold text-[#101828] dark:text-[#F8FAFC] leading-snug">
                     {d.question}
                   </h3>
                   <div className="space-y-2 pt-1 text-xs">
-                    <div className="p-2.5 rounded-lg bg-[#02000D]/70 border-l-3 border-[#D9AA90]">
-                      <span className="text-[10px] uppercase font-bold text-[#D9AA90] block">{d.metric_a_label}</span>
-                      <span className="font-mono font-bold text-[#EBDED4]">{d.metric_a_value}</span>
+                    <div className="p-2.5 rounded-lg bg-[#F8FAFC] dark:bg-[#0B1120]/70 border-l-3 border-[#E2E8F0] dark:border-[#334155]">
+                      <span className="text-[10px] uppercase font-bold text-[#2563EB] dark:text-[#3B82F6] block">{d.metric_a_label}</span>
+                      <span className="font-mono font-bold text-[#101828] dark:text-[#F8FAFC]">{d.metric_a_value}</span>
                     </div>
-                    <div className="p-2.5 rounded-lg bg-[#02000D]/70 border-l-3 border-[#A65E46]">
-                      <span className="text-[10px] uppercase font-bold text-[#D9AA90] block">{d.metric_b_label}</span>
-                      <span className="font-mono font-bold text-[#A65E46]">{d.metric_b_value}</span>
+                    <div className="p-2.5 rounded-lg bg-[#F8FAFC] dark:bg-[#0B1120]/70 border-l-3 border-[#2563EB]">
+                      <span className="text-[10px] uppercase font-bold text-[#2563EB] dark:text-[#3B82F6] block">{d.metric_b_label}</span>
+                      <span className="font-mono font-bold text-[#2563EB] dark:text-[#3B82F6]">{d.metric_b_value}</span>
                     </div>
                   </div>
                 </div>
-                <div className="pt-3 border-t border-[#D9AA90]/15 space-y-1">
-                  <span className="inline-block px-2 py-0.5 rounded bg-[#02000D] text-[#D9AA90] border border-[#D9AA90]/25 text-[10px] font-bold font-mono">
+                <div className="pt-3 border-t border-[#E2E8F0] dark:border-[#334155] space-y-1">
+                  <span className="inline-block px-2 py-0.5 rounded bg-[#F8FAFC] dark:bg-[#0B1120] text-[#2563EB] dark:text-[#3B82F6] border border-[#E2E8F0] dark:border-[#334155] text-[10px] font-bold font-mono">
                     Confidence: {d.confidence}
                   </span>
-                  <p className="text-[11px] text-[#EBDED4]/80 leading-relaxed">{d.interpretation}</p>
+                  <p className="text-[11px] text-[#64748B] dark:text-[#94A3B8] leading-relaxed">{d.interpretation}</p>
                 </div>
               </div>
             ))}
@@ -353,20 +353,20 @@ export default function IntelligenceLabPage() {
                 header: "Player",
                 minWidth: "150px",
                 render: (r) => (
-                  <Link href={`/players/${r.player_id}`} className="font-bold text-[#EBDED4] hover:text-[#D9AA90] transition">
+                  <Link href={`/players/${r.player_id}`} className="font-bold text-[#101828] dark:text-[#F8FAFC] hover:text-[#2563EB] dark:text-[#3B82F6] transition">
                     {r.name}
                   </Link>
                 ),
               },
-              { key: "titles_count", header: "Titles", align: "right", minWidth: "60px", render: (r) => <span className="font-mono font-bold text-[#A65E46]">{r.titles_count}</span> },
+              { key: "titles_count", header: "Titles", align: "right", minWidth: "60px", render: (r) => <span className="font-mono font-bold text-[#2563EB] dark:text-[#3B82F6]">{r.titles_count}</span> },
               { key: "finals_count", header: "Finals", align: "right", minWidth: "64px" },
-              { key: "win_pct", header: "Career Win %", align: "right", minWidth: "90px", render: (r) => <span className="font-mono text-[#D9AA90] font-semibold">{r.win_pct}%</span> },
+              { key: "win_pct", header: "Career Win %", align: "right", minWidth: "90px", render: (r) => <span className="font-mono text-[#2563EB] dark:text-[#3B82F6] font-semibold">{r.win_pct}%</span> },
               {
                 key: "final_seasons",
                 header: "Final Seasons",
                 sortable: false,
                 minWidth: "110px",
-                render: (r) => <span className="font-mono text-[11px] text-[#EBDED4]/80">{(r.final_seasons || []).join(", ")}</span>,
+                render: (r) => <span className="font-mono text-[11px] text-[#64748B] dark:text-[#94A3B8]">{(r.final_seasons || []).join(", ")}</span>,
               },
             ]}
             rowKey={(r) => r.player_id}
@@ -378,22 +378,22 @@ export default function IntelligenceLabPage() {
           <DataTable
             data={discoveries.recurring_semifinal_combinations || []}
             columns={[
-              { key: "combination_label", header: "Semifinal Duo", minWidth: "180px", render: (r) => <span className="font-bold text-[#EBDED4]">{r.combination_label}</span> },
-              { key: "semifinals_together", header: "SFs Together", align: "right", minWidth: "86px", render: (r) => <span className="font-mono font-bold text-[#A65E46]">{r.semifinals_together}</span> },
+              { key: "combination_label", header: "Semifinal Duo", minWidth: "180px", render: (r) => <span className="font-bold text-[#101828] dark:text-[#F8FAFC]">{r.combination_label}</span> },
+              { key: "semifinals_together", header: "SFs Together", align: "right", minWidth: "86px", render: (r) => <span className="font-mono font-bold text-[#2563EB] dark:text-[#3B82F6]">{r.semifinals_together}</span> },
               { key: "semifinal_wins", header: "SF Wins", align: "right", minWidth: "74px" },
               {
                 key: "seasons",
                 header: "Seasons",
                 sortable: false,
                 minWidth: "96px",
-                render: (r) => <span className="font-mono text-[11px] text-[#EBDED4]/80">{(r.seasons || []).join(", ")}</span>,
+                render: (r) => <span className="font-mono text-[11px] text-[#64748B] dark:text-[#94A3B8]">{(r.seasons || []).join(", ")}</span>,
               },
               {
                 key: "confidence_level",
                 header: "Note",
                 sortable: false,
                 minWidth: "130px",
-                render: (r) => <span className="text-[10px] text-[#D9AA90] font-mono">{r.confidence_level}</span>,
+                render: (r) => <span className="text-[10px] text-[#2563EB] dark:text-[#3B82F6] font-mono">{r.confidence_level}</span>,
               },
             ]}
             rowKey={(r) => r.player_ids.join("-")}

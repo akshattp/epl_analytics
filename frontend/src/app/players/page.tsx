@@ -55,20 +55,20 @@ export default function PlayersPage() {
     const r = role.toLowerCase();
     if (r.includes("all-round")) {
       return (
-        <span className="px-2 py-0.5 rounded bg-[#D9AA90] text-[#02000D] text-[10px] font-bold tracking-wide">
+        <span className="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-[#60A5FA] border border-blue-200 dark:border-blue-800 text-[10px] font-bold tracking-wide">
           All-Rounder
         </span>
       );
     }
     if (r.includes("bat")) {
       return (
-        <span className="px-2 py-0.5 rounded bg-[#A65E46] text-[#EBDED4] text-[10px] font-semibold tracking-wide">
+        <span className="px-2 py-0.5 rounded-full bg-cyan-50 dark:bg-cyan-950/60 text-[#0891B2] dark:text-[#22D3EE] border border-cyan-200 dark:border-cyan-800 text-[10px] font-semibold tracking-wide">
           Pure Batsman
         </span>
       );
     }
     return (
-      <span className="px-2 py-0.5 rounded bg-[#02000D] border border-[#D9AA90]/40 text-[#D9AA90] text-[10px] font-medium tracking-wide">
+      <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800/80 text-[#64748B] dark:text-[#94A3B8] border border-slate-200 dark:border-slate-700 text-[10px] font-medium tracking-wide">
         Pure Bowler
       </span>
     );
@@ -83,14 +83,14 @@ export default function PlayersPage() {
       sortAccessor: (p) => p.name,
       render: (p) => (
         <div className="flex items-center space-x-2.5">
-          <div className="w-8 h-8 rounded-full bg-[#02000D] border border-[#D9AA90]/35 flex items-center justify-center font-bold text-xs text-[#D9AA90] font-mono shrink-0 shadow-sm">
+          <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-[#1E293B] border border-blue-200 dark:border-[#334155] flex items-center justify-center font-bold text-xs text-[#2563EB] dark:text-[#38BDF8] font-mono shrink-0 shadow-sm">
             {getInitials(p.name)}
           </div>
           <div className="min-w-0">
-            <Link href={`/players/${p.player_id}`} className="font-bold text-sm text-[#EBDED4] hover:text-[#D9AA90] transition truncate block">
+            <Link href={`/players/${p.player_id}`} className="font-bold text-sm text-[#101828] dark:text-[#F8FAFC] hover:text-[#2563EB] dark:hover:text-[#38BDF8] transition truncate block">
               {p.name}
             </Link>
-            <span className="block text-[10px] font-mono text-[#D9AA90]/70">
+            <span className="block text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8]">
               {p.player_id} • {p.batting_hand || "RHB"}
             </span>
           </div>
@@ -111,7 +111,7 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "64px",
       sortAccessor: (p) => p.matches,
-      render: (p) => <span className="font-mono font-semibold text-[#EBDED4]">{p.matches}</span>,
+      render: (p) => <span className="font-mono font-semibold">{p.matches}</span>,
     },
     {
       key: "total_runs",
@@ -120,7 +120,7 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "70px",
       sortAccessor: (p) => p.total_runs,
-      render: (p) => <span className="font-mono font-bold text-[#D9AA90]">{p.total_runs}</span>,
+      render: (p) => <span className="font-mono font-bold text-[#2563EB] dark:text-[#38BDF8]">{p.total_runs}</span>,
     },
     {
       key: "batting_average",
@@ -129,7 +129,7 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "78px",
       sortAccessor: (p) => p.batting_average,
-      render: (p) => <span className="font-mono text-[#EBDED4]">{Number(p.batting_average || 0).toFixed(1)}</span>,
+      render: (p) => <span className="font-mono">{Number(p.batting_average || 0).toFixed(1)}</span>,
     },
     {
       key: "strike_rate",
@@ -138,7 +138,7 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "78px",
       sortAccessor: (p) => p.strike_rate,
-      render: (p) => <span className="font-mono text-[#EBDED4]">{Number(p.strike_rate || 0).toFixed(1)}</span>,
+      render: (p) => <span className="font-mono">{Number(p.strike_rate || 0).toFixed(1)}</span>,
     },
     {
       key: "wickets",
@@ -147,7 +147,7 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "66px",
       sortAccessor: (p) => p.wickets,
-      render: (p) => <span className="font-mono font-bold text-[#A65E46]">{p.wickets}</span>,
+      render: (p) => <span className="font-mono font-bold text-[#0891B2] dark:text-[#22D3EE]">{p.wickets}</span>,
     },
     {
       key: "economy",
@@ -156,7 +156,7 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "74px",
       sortAccessor: (p) => (p.legal_balls > 0 ? p.economy : 99),
-      render: (p) => <span className="font-mono text-[#EBDED4]">{p.legal_balls > 0 ? Number(p.economy).toFixed(2) : "—"}</span>,
+      render: (p) => <span className="font-mono">{p.legal_balls > 0 ? Number(p.economy).toFixed(2) : "—"}</span>,
     },
     {
       key: "overall_rating",
@@ -175,14 +175,14 @@ export default function PlayersPage() {
       sortAccessor: (p) => p.valuation?.estimated_valuation || 0,
       render: (p) => (
         <div>
-          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
+          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
             (p.valuation?.category || "").includes("Marquee")
-              ? "bg-[#A65E46] text-[#EBDED4]"
-              : "bg-[#02000D] border border-[#D9AA90]/35 text-[#D9AA90]"
+              ? "bg-[#2563EB] text-white"
+              : "bg-slate-100 dark:bg-slate-800 text-[#64748B] dark:text-[#94A3B8]"
           }`}>
             {p.valuation?.category}
           </span>
-          <span className="block font-mono text-[10px] text-[#A65E46] font-bold mt-0.5">
+          <span className="block font-mono text-[10px] text-[#2563EB] dark:text-[#38BDF8] font-bold mt-0.5">
             Est: ₹{Number(p.valuation?.estimated_valuation || 0).toFixed(1)}L
           </span>
         </div>
@@ -197,7 +197,7 @@ export default function PlayersPage() {
       render: (p) => (
         <Link
           href={`/players/${p.player_id}`}
-          className="inline-block px-3 py-1 rounded-lg bg-[#02000D] border border-[#D9AA90]/30 text-[#EBDED4] hover:bg-[#A65E46] hover:border-[#A65E46] text-[11px] font-semibold transition shadow-sm"
+          className="inline-block px-3 py-1 rounded-lg bg-white dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] hover:bg-[#2563EB] hover:text-white dark:hover:bg-[#3B82F6] text-[11px] font-semibold transition shadow-sm"
         >
           Inspect →
         </Link>
@@ -208,8 +208,8 @@ export default function PlayersPage() {
   if (loading) {
     return (
       <div className="py-24 text-center space-y-4">
-        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#A65E46] border-t-transparent rounded-full"></div>
-        <p className="font-serif text-lg text-[#EBDED4]">Loading Master Player Registry...</p>
+        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#2563EB] dark:border-[#38BDF8] border-t-transparent rounded-full"></div>
+        <p className="font-display text-lg text-[#101828] dark:text-[#F8FAFC]">Loading Master Player Registry...</p>
       </div>
     );
   }
@@ -217,16 +217,16 @@ export default function PlayersPage() {
   return (
     <div className="space-y-6">
       {/* Editorial Header + Export Controls */}
-      <div className="border-b border-[#D9AA90]/20 pb-6 pt-2">
+      <div className="border-b border-[#E2E8F0] dark:border-[#334155] pb-6 pt-2">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
           <div>
-            <div className="text-xs uppercase font-semibold tracking-wider text-[#A65E46] mb-1">
+            <div className="text-xs uppercase font-semibold tracking-wider text-[#2563EB] dark:text-[#38BDF8] mb-1 font-mono">
               Historical Player Master Database
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#EBDED4]">
+            <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#101828] dark:text-[#F8FAFC]">
               Player Directory
             </h1>
-            <p className="text-sm text-[#EBDED4]/80 mt-1 max-w-2xl leading-relaxed">
+            <p className="text-sm text-[#64748B] dark:text-[#94A3B8] mt-1 max-w-2xl leading-relaxed">
               Complete catalog of {players.length} canonical cricketers across EPL 2023–2025. Displays Player Intelligence Scores (PIS), 6-over milestones, and verified auction tiers.
             </p>
           </div>
@@ -237,16 +237,16 @@ export default function PlayersPage() {
         </div>
       </div>
 
-      {/* Modern Dark Filters Bar */}
-      <div className="bg-[#07203F] rounded-xl p-4 border border-[#D9AA90]/25 shadow-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      {/* Modern Filters Bar */}
+      <div className="bg-white dark:bg-[#151F32] rounded-xl p-4 border border-[#E2E8F0] dark:border-[#334155] shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="relative">
-          <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#D9AA90]/60 pointer-events-none" />
+          <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#64748B] dark:text-[#94A3B8] pointer-events-none" />
           <input
             type="text"
             placeholder="Search player name or ID..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-[#D9AA90]/30 bg-[#02000D] focus:outline-none focus:border-[#A65E46] focus:ring-1 focus:ring-[#A65E46] text-[#EBDED4] placeholder-[#EBDED4]/40 transition"
+            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#3B82F6] focus:ring-1 focus:ring-[#2563EB] dark:focus:ring-[#3B82F6] text-[#101828] dark:text-[#F8FAFC] placeholder-[#64748B]/60 dark:placeholder-[#94A3B8]/60 transition"
           />
         </div>
 
@@ -254,7 +254,7 @@ export default function PlayersPage() {
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
           aria-label="Filter by role"
-          className="px-3 py-1.5 text-xs rounded-lg border border-[#D9AA90]/30 bg-[#02000D] text-[#EBDED4] focus:outline-none focus:border-[#A65E46] transition"
+          className="px-3 py-1.5 text-xs rounded-lg border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#3B82F6] transition"
         >
           <option value="ALL">All Playing Roles</option>
           <option value="All-rounder">All-rounders</option>
@@ -266,7 +266,7 @@ export default function PlayersPage() {
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
           aria-label="Filter by auction category"
-          className="px-3 py-1.5 text-xs rounded-lg border border-[#D9AA90]/30 bg-[#02000D] text-[#EBDED4] focus:outline-none focus:border-[#A65E46] transition"
+          className="px-3 py-1.5 text-xs rounded-lg border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#3B82F6] transition"
         >
           <option value="ALL">All Auction Tiers</option>
           <option value="Marquee / Elite">Marquee / Elite</option>
@@ -280,7 +280,7 @@ export default function PlayersPage() {
           value={seasonFilter}
           onChange={(e) => setSeasonFilter(e.target.value)}
           aria-label="Filter by season"
-          className="px-3 py-1.5 text-xs rounded-lg border border-[#D9AA90]/30 bg-[#02000D] text-[#EBDED4] focus:outline-none focus:border-[#A65E46] transition"
+          className="px-3 py-1.5 text-xs rounded-lg border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] focus:outline-none focus:border-[#2563EB] dark:focus:border-[#3B82F6] transition"
         >
           <option value="ALL">All Seasons (2023–2025)</option>
           <option value="2025">EPL 2025</option>

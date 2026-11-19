@@ -255,10 +255,10 @@ export function AuctionSetupWizard({
       minWidth: "165px",
       render: (r) => (
         <div>
-          <Link href={`/players/${r.player_id}`} className="font-bold text-[#07203F] hover:text-[#A65E46]">
+          <Link href={`/players/${r.player_id}`} className="font-bold text-[#101828] dark:text-[#F8FAFC] hover:text-[#2563EB] dark:text-[#3B82F6]">
             {r.name}
           </Link>
-          <span className="block text-[10px] font-mono text-[#07203F]/60">
+          <span className="block text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8]">
             {r.player_id} • {r.is_returning ? "Returning" : "New Uncapped"}
           </span>
         </div>
@@ -297,7 +297,7 @@ export function AuctionSetupWizard({
             const v = parseFloat(e.target.value);
             if (v !== r.base_price) handleUpdatePoolBasePrice(r, v);
           }}
-          className="w-16 px-1.5 py-0.5 text-right font-mono text-xs rounded border border-[#07203F]/20 bg-[#EBDED4]/30 disabled:opacity-60"
+          className="w-16 px-1.5 py-0.5 text-right font-mono text-xs rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] disabled:opacity-60"
         />
       ),
     },
@@ -313,8 +313,8 @@ export function AuctionSetupWizard({
           onClick={() => handleToggleAvailability(r)}
           className={`px-2 py-0.5 rounded text-[10px] font-bold transition ${
             r.is_available
-              ? "bg-[#07203F] text-[#EBDED4]"
-              : "bg-[#EBDED4] text-[#A65E46] border border-[#A65E46]/40"
+              ? "bg-[#2563EB] text-white"
+              : "bg-[#F8FAFC] dark:bg-[#0B1120] text-[#2563EB] dark:text-[#3B82F6] border border-blue-200 dark:border-[#334155]"
           }`}
         >
           {r.is_available ? "AVAILABLE" : "UNAVAILABLE"}
@@ -332,13 +332,13 @@ export function AuctionSetupWizard({
           <button
             type="button"
             onClick={() => handleRemoveEntry(r.entry_id)}
-            className="p-1 text-[#A65E46] hover:text-[#02000D]"
+            className="p-1 text-[#2563EB] dark:text-[#3B82F6] hover:text-red-500"
             title="Remove from pool"
           >
             <Trash2 className="w-3.5 h-3.5" />
           </button>
         ) : (
-          <span className="text-[10px] text-[#07203F]/40">—</span>
+          <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8]">—</span>
         ),
     },
   ];
@@ -346,8 +346,8 @@ export function AuctionSetupWizard({
   if (loading || !config) {
     return (
       <div className="py-16 text-center">
-        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#07203F] border-t-transparent rounded-full mb-3"></div>
-        <p className="font-serif text-base text-[#07203F]">Loading Pre-Auction Setup Wizard...</p>
+        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#E2E8F0] dark:border-[#334155] border-t-transparent rounded-full mb-3"></div>
+        <p className="font-display text-base text-[#101828] dark:text-[#F8FAFC]">Loading Pre-Auction Setup Wizard...</p>
       </div>
     );
   }
@@ -356,9 +356,9 @@ export function AuctionSetupWizard({
     <div className="space-y-6">
       {/* Lock / Role Notice */}
       {config.locked ? (
-        <div className="bg-[#07203F] text-[#EBDED4] p-4 rounded-xl border border-[#D9AA90]/35 flex items-center justify-between text-xs">
+        <div className="bg-[#2563EB] text-white p-4 rounded-xl border border-[#E2E8F0] dark:border-[#334155] flex items-center justify-between text-xs">
           <div className="flex items-center gap-2.5">
-            <Lock className="w-4 h-4 text-[#D9AA90]" />
+            <Lock className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
             <span>
               <strong>Configuration Locked ({config.status})</strong> — Auction has started. Setup parameters are read-only until reset by the Auctioneer.
             </span>
@@ -366,14 +366,14 @@ export function AuctionSetupWizard({
           <button
             type="button"
             onClick={onAuctionStarted}
-            className="px-3 py-1.5 rounded bg-[#A65E46] text-[#EBDED4] font-semibold hover:bg-[#A65E46]/90"
+            className="px-3 py-1.5 rounded bg-[#2563EB] text-white font-semibold hover:bg-[#1D4ED8]"
           >
             Enter Live Bidding Room →
           </button>
         </div>
       ) : !isAuctioneer ? (
-        <div className="bg-[#EBDED4] border-l-4 border-[#A65E46] p-3.5 rounded-r-lg text-xs text-[#07203F] flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-[#A65E46] shrink-0" />
+        <div className="bg-[#F8FAFC] dark:bg-[#0B1120] border-l-4 border-[#2563EB] p-3.5 rounded-r-lg text-xs text-[#101828] dark:text-[#F8FAFC] flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6] shrink-0" />
           <span>
             Viewing Pre-Auction Setup in <strong>read-only mode</strong>. Select the <strong>Official Auctioneer</strong> persona in the top bar to configure rules, teams, player pool, and launch the auction.
           </span>
@@ -397,18 +397,18 @@ export function AuctionSetupWizard({
               onClick={() => setStep(st.id as any)}
               className={`p-4 rounded-xl border text-left transition ${
                 active
-                  ? "bg-[#07203F] text-[#EBDED4] border-[#A65E46] shadow-md"
-                  : "bg-white/90 text-[#07203F] border-[#07203F]/15 hover:bg-[#EBDED4]/50"
+                  ? "bg-[#2563EB] text-white border-[#2563EB] shadow-md"
+                  : "bg-white dark:bg-[#151F32] text-[#101828] dark:text-[#F8FAFC] border-[#E2E8F0] dark:border-[#334155] hover:bg-blue-50/50 dark:bg-[#0B1120]/50"
               }`}
             >
               <div className="flex items-center justify-between mb-1">
-                <span className={`font-mono text-xs font-bold ${active ? "text-[#D9AA90]" : "text-[#A65E46]"}`}>
+                <span className={`font-mono text-xs font-bold ${active ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-[#2563EB] dark:text-[#3B82F6]"}`}>
                   STEP {st.num}
                 </span>
                 <Icon className="w-4 h-4 opacity-80" />
               </div>
-              <div className="font-serif font-bold text-sm">{st.title}</div>
-              <div className={`text-[10px] mt-0.5 ${active ? "text-[#EBDED4]/75" : "text-[#07203F]/65"}`}>
+              <div className="font-display font-bold text-sm">{st.title}</div>
+              <div className={`text-[10px] mt-0.5 ${active ? "text-[#64748B] dark:text-[#94A3B8]" : "text-[#64748B] dark:text-[#94A3B8]"}`}>
                 {st.sub}
               </div>
             </button>
@@ -418,61 +418,61 @@ export function AuctionSetupWizard({
 
       {/* STEP 1: AUCTION RULES */}
       {step === "rules" && (
-        <form onSubmit={handleSaveConfig} className="bg-white/95 rounded-xl border border-[#07203F]/20 p-6 shadow-sm space-y-5">
-          <div className="flex items-center justify-between border-b border-[#07203F]/10 pb-3">
+        <form onSubmit={handleSaveConfig} className="bg-white dark:bg-[#151F32] rounded-xl border border-[#E2E8F0] dark:border-[#334155] p-6 shadow-sm space-y-5">
+          <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#334155] pb-3">
             <div>
-              <h3 className="font-serif text-xl font-bold text-[#07203F]">Auction Configuration &amp; Governance Rules</h3>
-              <p className="text-xs text-[#07203F]/70">Every tournament parameter is persisted in SQLite and survives backend restarts.</p>
+              <h3 className="font-display text-xl font-bold text-[#101828] dark:text-[#F8FAFC]">Auction Configuration &amp; Governance Rules</h3>
+              <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">Every tournament parameter is persisted in SQLite and survives backend restarts.</p>
             </div>
-            <span className="font-mono text-xs px-2.5 py-1 rounded bg-[#EBDED4] text-[#07203F] font-bold">
+            <span className="font-mono text-xs px-2.5 py-1 rounded bg-[#F8FAFC] dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] font-bold">
               STATUS: {config.status}
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">1. Auction Name</label>
-              <input type="text" disabled={!isAuctioneer || config.locked} value={config.auction_name} onChange={(e) => setConfig({ ...config, auction_name: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">1. Auction Name</label>
+              <input type="text" disabled={!isAuctioneer || config.locked} value={config.auction_name} onChange={(e) => setConfig({ ...config, auction_name: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">2. Season / Year</label>
-              <input type="number" disabled={!isAuctioneer || config.locked} value={config.season_year} onChange={(e) => setConfig({ ...config, season_year: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">2. Season / Year</label>
+              <input type="number" disabled={!isAuctioneer || config.locked} value={config.season_year} onChange={(e) => setConfig({ ...config, season_year: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">3. Auction Date</label>
-              <input type="date" disabled={!isAuctioneer || config.locked} value={config.auction_date} onChange={(e) => setConfig({ ...config, auction_date: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">3. Auction Date</label>
+              <input type="date" disabled={!isAuctioneer || config.locked} value={config.auction_date} onChange={(e) => setConfig({ ...config, auction_date: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">4. Number of Teams</label>
-              <input type="number" min={2} max={12} disabled={!isAuctioneer || config.locked} value={config.num_teams} onChange={(e) => setConfig({ ...config, num_teams: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">4. Number of Teams</label>
+              <input type="number" min={2} max={12} disabled={!isAuctioneer || config.locked} value={config.num_teams} onChange={(e) => setConfig({ ...config, num_teams: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">5. Initial Purse per Team (Lakhs)</label>
-              <input type="number" step="1" disabled={!isAuctioneer || config.locked} value={config.initial_purse} onChange={(e) => setConfig({ ...config, initial_purse: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">5. Initial Purse per Team (Lakhs)</label>
+              <input type="number" step="1" disabled={!isAuctioneer || config.locked} value={config.initial_purse} onChange={(e) => setConfig({ ...config, initial_purse: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">6. Minimum Base Price (Lakhs)</label>
-              <input type="number" step="0.5" disabled={!isAuctioneer || config.locked} value={config.min_base_price} onChange={(e) => setConfig({ ...config, min_base_price: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">6. Minimum Base Price (Lakhs)</label>
+              <input type="number" step="0.5" disabled={!isAuctioneer || config.locked} value={config.min_base_price} onChange={(e) => setConfig({ ...config, min_base_price: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">7. Minimum Bid Increment (Lakhs)</label>
-              <input type="number" step="0.1" disabled={!isAuctioneer || config.locked} value={config.min_bid_increment} onChange={(e) => setConfig({ ...config, min_bid_increment: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">7. Minimum Bid Increment (Lakhs)</label>
+              <input type="number" step="0.1" disabled={!isAuctioneer || config.locked} value={config.min_bid_increment} onChange={(e) => setConfig({ ...config, min_bid_increment: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">8. Minimum Squad Size</label>
-              <input type="number" min={4} max={15} disabled={!isAuctioneer || config.locked} value={config.min_squad_size} onChange={(e) => setConfig({ ...config, min_squad_size: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">8. Minimum Squad Size</label>
+              <input type="number" min={4} max={15} disabled={!isAuctioneer || config.locked} value={config.min_squad_size} onChange={(e) => setConfig({ ...config, min_squad_size: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">9. Maximum Squad Size</label>
-              <input type="number" min={6} max={18} disabled={!isAuctioneer || config.locked} value={config.max_squad_size} onChange={(e) => setConfig({ ...config, max_squad_size: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">9. Maximum Squad Size</label>
+              <input type="number" min={6} max={18} disabled={!isAuctioneer || config.locked} value={config.max_squad_size} onChange={(e) => setConfig({ ...config, max_squad_size: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">10. Bidding Timer (Seconds)</label>
-              <input type="number" min={5} max={120} disabled={!isAuctioneer || config.locked} value={config.timer_duration} onChange={(e) => setConfig({ ...config, timer_duration: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">10. Bidding Timer (Seconds)</label>
+              <input type="number" min={5} max={120} disabled={!isAuctioneer || config.locked} value={config.timer_duration} onChange={(e) => setConfig({ ...config, timer_duration: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">11. Nomination Order</label>
-              <select disabled={!isAuctioneer || config.locked} value={config.nomination_order} onChange={(e) => setConfig({ ...config, nomination_order: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25">
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">11. Nomination Order</label>
+              <select disabled={!isAuctioneer || config.locked} value={config.nomination_order} onChange={(e) => setConfig({ ...config, nomination_order: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]">
                 <option>Category Tier (Marquee First)</option>
                 <option>Highest EPL Rating First</option>
                 <option>Randomized Within Tier</option>
@@ -480,33 +480,33 @@ export function AuctionSetupWizard({
               </select>
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">12. Auction Format</label>
-              <select disabled={!isAuctioneer || config.locked} value={config.auction_format} onChange={(e) => setConfig({ ...config, auction_format: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25">
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">12. Auction Format</label>
+              <select disabled={!isAuctioneer || config.locked} value={config.auction_format} onChange={(e) => setConfig({ ...config, auction_format: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]">
                 <option>Live Ascending English Auction</option>
                 <option>Accelerated Hybrid Auction</option>
               </select>
             </div>
             <div className="sm:col-span-2 lg:col-span-1">
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">13. Unsold Player Rule</label>
-              <input type="text" disabled={!isAuctioneer || config.locked} value={config.unsold_rule} onChange={(e) => setConfig({ ...config, unsold_rule: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">13. Unsold Player Rule</label>
+              <input type="text" disabled={!isAuctioneer || config.locked} value={config.unsold_rule} onChange={(e) => setConfig({ ...config, unsold_rule: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]" />
             </div>
             <div className="sm:col-span-2">
-              <label className="block text-[10px] font-bold uppercase text-[#07203F] mb-1">14. Retention Rules</label>
-              <input type="text" disabled={!isAuctioneer || config.locked} value={config.retention_rule} onChange={(e) => setConfig({ ...config, retention_rule: e.target.value })} className="w-full px-3 py-2 rounded border border-[#07203F]/20 bg-[#EBDED4]/25" />
+              <label className="block text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC] mb-1">14. Retention Rules</label>
+              <input type="text" disabled={!isAuctioneer || config.locked} value={config.retention_rule} onChange={(e) => setConfig({ ...config, retention_rule: e.target.value })} className="w-full px-3 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]" />
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-3 border-t border-[#07203F]/10">
-            <span className="text-[11px] text-[#07203F]/70">
+          <div className="flex items-center justify-between pt-3 border-t border-[#E2E8F0] dark:border-[#334155]">
+            <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8]">
               Active Categories: {(config.categories || []).join(" • ")}
             </span>
             <div className="flex gap-2">
               {isAuctioneer && !config.locked && (
-                <button type="submit" disabled={saving} className="px-4 py-2 rounded bg-[#A65E46] text-[#EBDED4] hover:bg-[#A65E46]/90 text-xs font-semibold transition">
+                <button type="submit" disabled={saving} className="px-4 py-2 rounded bg-[#2563EB] text-white hover:bg-[#1D4ED8] text-xs font-semibold transition">
                   {saving ? "Saving..." : "Save Configuration"}
                 </button>
               )}
-              <button type="button" onClick={() => setStep("teams")} className="px-4 py-2 rounded bg-[#07203F] text-[#EBDED4] hover:bg-[#02000D] text-xs font-semibold transition">
+              <button type="button" onClick={() => setStep("teams")} className="px-4 py-2 rounded bg-[#2563EB] text-white hover:bg-[#F8FAFC] dark:bg-[#0B1120] text-xs font-semibold transition">
                 Next: Franchise Setup →
               </button>
             </div>
@@ -519,20 +519,20 @@ export function AuctionSetupWizard({
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {teams.map((t, idx) => (
-              <div key={t.team_id} className="bg-white/95 rounded-xl border border-[#07203F]/20 p-4 shadow-sm space-y-3 text-xs">
-                <div className="flex items-center justify-between border-b border-[#07203F]/10 pb-2">
+              <div key={t.team_id} className="bg-white dark:bg-[#151F32] rounded-xl border border-[#E2E8F0] dark:border-[#334155] p-4 shadow-sm space-y-3 text-xs">
+                <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#334155] pb-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded bg-[#07203F] text-[#D9AA90] font-serif font-bold flex items-center justify-center text-xs">
+                    <div className="w-8 h-8 rounded bg-blue-50 dark:bg-[#0B1120] text-[#2563EB] dark:text-[#3B82F6] font-display font-bold flex items-center justify-center text-xs">
                       {t.logo_text || `T${t.team_id}`}
                     </div>
-                    <span className="font-mono text-[10px] uppercase text-[#A65E46] font-bold">Franchise #{t.team_id}</span>
+                    <span className="font-mono text-[10px] uppercase text-[#2563EB] dark:text-[#3B82F6] font-bold">Franchise #{t.team_id}</span>
                   </div>
-                  <span className="font-mono text-[10px] text-[#07203F]/60">Authenticated Owner</span>
+                  <span className="font-mono text-[10px] text-[#64748B] dark:text-[#94A3B8]">Authenticated Owner</span>
                 </div>
 
                 <div className="space-y-2">
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-[#07203F]">Team Name</label>
+                    <label className="text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC]">Team Name</label>
                     <input
                       type="text"
                       disabled={!isAuctioneer || config.locked}
@@ -542,11 +542,11 @@ export function AuctionSetupWizard({
                         copy[idx] = { ...t, team_name: e.target.value };
                         setTeams(copy);
                       }}
-                      className="w-full px-2.5 py-1.5 rounded border border-[#07203F]/20 bg-[#EBDED4]/25"
+                      className="w-full px-2.5 py-1.5 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]"
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-[#07203F]">Owner Name</label>
+                    <label className="text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC]">Owner Name</label>
                     <input
                       type="text"
                       disabled={!isAuctioneer || config.locked}
@@ -556,12 +556,12 @@ export function AuctionSetupWizard({
                         copy[idx] = { ...t, owner_name: e.target.value };
                         setTeams(copy);
                       }}
-                      className="w-full px-2.5 py-1.5 rounded border border-[#07203F]/20 bg-[#EBDED4]/25"
+                      className="w-full px-2.5 py-1.5 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]"
                     />
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     <div>
-                      <label className="text-[10px] font-bold uppercase text-[#07203F]">Monogram</label>
+                      <label className="text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC]">Monogram</label>
                       <input
                         type="text"
                         maxLength={4}
@@ -572,11 +572,11 @@ export function AuctionSetupWizard({
                           copy[idx] = { ...t, logo_text: e.target.value.toUpperCase() };
                           setTeams(copy);
                         }}
-                        className="w-full px-2 py-1 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono"
+                        className="w-full px-2 py-1 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold uppercase text-[#07203F]">Purse (L)</label>
+                      <label className="text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC]">Purse (L)</label>
                       <input
                         type="number"
                         disabled={!isAuctioneer || config.locked}
@@ -586,11 +586,11 @@ export function AuctionSetupWizard({
                           copy[idx] = { ...t, purse_total: parseFloat(e.target.value) || 100 };
                           setTeams(copy);
                         }}
-                        className="w-full px-2 py-1 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono"
+                        className="w-full px-2 py-1 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold uppercase text-[#07203F]">Max Squad</label>
+                      <label className="text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC]">Max Squad</label>
                       <input
                         type="number"
                         disabled={!isAuctioneer || config.locked}
@@ -600,7 +600,7 @@ export function AuctionSetupWizard({
                           copy[idx] = { ...t, max_squad_size: parseInt(e.target.value) || 8 };
                           setTeams(copy);
                         }}
-                        className="w-full px-2 py-1 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono"
+                        className="w-full px-2 py-1 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono"
                       />
                     </div>
                   </div>
@@ -610,7 +610,7 @@ export function AuctionSetupWizard({
                   <button
                     type="button"
                     onClick={() => handleSaveTeam(t)}
-                    className="w-full py-1.5 rounded bg-[#07203F] text-[#EBDED4] hover:bg-[#A65E46] font-semibold transition"
+                    className="w-full py-1.5 rounded bg-[#2563EB] text-white hover:bg-[#2563EB] font-semibold transition"
                   >
                     Save Team #{t.team_id}
                   </button>
@@ -619,7 +619,7 @@ export function AuctionSetupWizard({
             ))}
           </div>
           <div className="flex justify-end">
-            <button type="button" onClick={() => setStep("pool")} className="px-4 py-2 rounded bg-[#07203F] text-[#EBDED4] hover:bg-[#A65E46] text-xs font-semibold transition">
+            <button type="button" onClick={() => setStep("pool")} className="px-4 py-2 rounded bg-[#2563EB] text-white hover:bg-[#2563EB] text-xs font-semibold transition">
               Next: Auction Player Pool →
             </button>
           </div>
@@ -630,13 +630,13 @@ export function AuctionSetupWizard({
       {step === "pool" && (
         <div className="space-y-5">
           {isAuctioneer && !config.locked && (
-            <div className="bg-white/95 rounded-xl border border-[#07203F]/20 p-5 shadow-sm space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#07203F]/10 pb-2.5">
-                <h3 className="font-serif text-base font-bold text-[#07203F]">Register New Player or Bulk CSV Import</h3>
+            <div className="bg-white dark:bg-[#151F32] rounded-xl border border-[#E2E8F0] dark:border-[#334155] p-5 shadow-sm space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#E2E8F0] dark:border-[#334155] pb-2.5">
+                <h3 className="font-display text-base font-bold text-[#101828] dark:text-[#F8FAFC]">Register New Player or Bulk CSV Import</h3>
                 <button
                   type="button"
                   onClick={() => setShowCsvBox(!showCsvBox)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#EBDED4] text-[#07203F] hover:bg-[#D9AA90] text-xs font-semibold transition"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#F8FAFC] dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] hover:bg-blue-100 dark:hover:bg-[#1E293B] text-xs font-semibold transition"
                 >
                   <Upload className="w-3.5 h-3.5" />
                   <span>{showCsvBox ? "Close CSV Importer" : "Import Players via CSV"}</span>
@@ -645,20 +645,20 @@ export function AuctionSetupWizard({
 
               <form onSubmit={handleAddPoolPlayer} className="grid grid-cols-1 sm:grid-cols-6 gap-2.5 items-end text-xs">
                 <div className="sm:col-span-2">
-                  <label className="text-[10px] font-bold uppercase text-[#07203F]">Player Name</label>
-                  <input type="text" required placeholder="Full Name..." value={newName} onChange={(e) => setNewName(e.target.value)} className="w-full px-2.5 py-1.5 rounded border border-[#07203F]/20 bg-[#EBDED4]/25" />
+                  <label className="text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC]">Player Name</label>
+                  <input type="text" required placeholder="Full Name..." value={newName} onChange={(e) => setNewName(e.target.value)} className="w-full px-2.5 py-1.5 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]" />
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold uppercase text-[#07203F]">Role</label>
-                  <select value={newRole} onChange={(e) => setNewRole(e.target.value)} className="w-full px-2 py-1.5 rounded border border-[#07203F]/20 bg-[#EBDED4]/25">
+                  <label className="text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC]">Role</label>
+                  <select value={newRole} onChange={(e) => setNewRole(e.target.value)} className="w-full px-2 py-1.5 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]">
                     <option>All-rounder</option>
                     <option>Specialist Batsman</option>
                     <option>Specialist Bowler</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold uppercase text-[#07203F]">Category</label>
-                  <select value={newCat} onChange={(e) => setNewCat(e.target.value)} className="w-full px-2 py-1.5 rounded border border-[#07203F]/20 bg-[#EBDED4]/25">
+                  <label className="text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC]">Category</label>
+                  <select value={newCat} onChange={(e) => setNewCat(e.target.value)} className="w-full px-2 py-1.5 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]">
                     <option>Marquee / Elite</option>
                     <option>Tier 1 (High Impact)</option>
                     <option>Tier 2 (Solid Core)</option>
@@ -667,28 +667,28 @@ export function AuctionSetupWizard({
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold uppercase text-[#07203F]">Base (L)</label>
-                  <input type="number" step="0.5" min="1" value={newBasePrice} onChange={(e) => setNewBasePrice(parseFloat(e.target.value) || 2)} className="w-full px-2 py-1.5 rounded border border-[#07203F]/20 bg-[#EBDED4]/25 font-mono" />
+                  <label className="text-[10px] font-bold uppercase text-[#101828] dark:text-[#F8FAFC]">Base (L)</label>
+                  <input type="number" step="0.5" min="1" value={newBasePrice} onChange={(e) => setNewBasePrice(parseFloat(e.target.value) || 2)} className="w-full px-2 py-1.5 rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] font-mono" />
                 </div>
-                <button type="submit" className="px-3 py-1.5 rounded bg-[#07203F] text-[#EBDED4] hover:bg-[#A65E46] font-semibold inline-flex items-center justify-center gap-1 transition">
+                <button type="submit" className="px-3 py-1.5 rounded bg-[#2563EB] text-white hover:bg-[#2563EB] font-semibold inline-flex items-center justify-center gap-1 transition">
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add Player</span>
                 </button>
               </form>
 
               {showCsvBox && (
-                <div className="pt-3 border-t border-[#07203F]/10 space-y-2 text-xs">
-                  <p className="text-[#07203F]/75">
-                    Paste CSV with headers <code className="font-mono bg-[#EBDED4] px-1 rounded">name,role,category,base_price,batting_hand</code>. Returning canonical EPL players are matched automatically without creating duplicates.
+                <div className="pt-3 border-t border-[#E2E8F0] dark:border-[#334155] space-y-2 text-xs">
+                  <p className="text-[#64748B] dark:text-[#94A3B8]">
+                    Paste CSV with headers <code className="font-mono bg-[#F8FAFC] dark:bg-[#0B1120] px-1 rounded">name,role,category,base_price,batting_hand</code>. Returning canonical EPL players are matched automatically without creating duplicates.
                   </p>
                   <textarea
                     rows={4}
                     value={csvText}
                     onChange={(e) => setCsvText(e.target.value)}
                     placeholder={"name,role,category,base_price,batting_hand\nRohan Mehta,All-rounder,Uncapped / New,2.0,RHB"}
-                    className="w-full p-2.5 font-mono text-xs rounded border border-[#07203F]/20 bg-[#EBDED4]/20"
+                    className="w-full p-2.5 font-mono text-xs rounded border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120]"
                   />
-                  <button type="button" onClick={handleCsvImport} className="px-4 py-1.5 rounded bg-[#A65E46] text-[#EBDED4] font-semibold hover:bg-[#A65E46]/90">
+                  <button type="button" onClick={handleCsvImport} className="px-4 py-1.5 rounded bg-[#2563EB] text-white font-semibold hover:bg-[#1D4ED8]">
                     Run Duplicate-Safe CSV Import
                   </button>
                 </div>
@@ -707,7 +707,7 @@ export function AuctionSetupWizard({
           />
 
           <div className="flex justify-end">
-            <button type="button" onClick={() => setStep("preview")} className="px-4 py-2 rounded bg-[#A65E46] text-[#EBDED4] hover:bg-[#A65E46]/90 text-xs font-semibold transition">
+            <button type="button" onClick={() => setStep("preview")} className="px-4 py-2 rounded bg-[#2563EB] text-white hover:bg-[#1D4ED8] text-xs font-semibold transition">
               Proceed to Pre-Auction Preview →
             </button>
           </div>
@@ -717,65 +717,65 @@ export function AuctionSetupWizard({
       {/* STEP 4: PRE-AUCTION PREVIEW & START AUCTION */}
       {step === "preview" && preview && (
         <div className="space-y-6">
-          <div className="bg-white/95 rounded-xl border border-[#07203F]/20 p-6 shadow-sm space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#07203F]/10 pb-4">
+          <div className="bg-white dark:bg-[#151F32] rounded-xl border border-[#E2E8F0] dark:border-[#334155] p-6 shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E8F0] dark:border-[#334155] pb-4">
               <div>
-                <span className="text-[10px] uppercase tracking-widest font-bold text-[#A65E46]">
+                <span className="text-[10px] uppercase tracking-widest font-bold text-[#2563EB] dark:text-[#3B82F6]">
                   Pre-Auction Readiness Audit
                 </span>
-                <h3 className="font-serif text-2xl font-bold text-[#07203F]">{preview.config.auction_name}</h3>
-                <p className="text-xs text-[#07203F]/70 mt-0.5">
+                <h3 className="font-display text-2xl font-bold text-[#101828] dark:text-[#F8FAFC]">{preview.config.auction_name}</h3>
+                <p className="text-xs text-[#64748B] dark:text-[#94A3B8] mt-0.5">
                   Date: {preview.config.auction_date} • Format: {preview.config.auction_format} • Order: {preview.config.nomination_order}
                 </p>
               </div>
-              <span className="px-3 py-1 rounded bg-[#07203F] text-[#D9AA90] font-mono text-xs font-bold">
+              <span className="px-3 py-1 rounded bg-blue-50 dark:bg-[#0B1120] text-[#2563EB] dark:text-[#3B82F6] font-mono text-xs font-bold">
                 {preview.pool_sufficient ? "POOL VERIFIED READY" : "POOL BELOW MIN SLOTS"}
               </span>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-[#07203F] text-[#EBDED4] p-4 rounded-lg">
-                <span className="text-[10px] uppercase text-[#D9AA90] block">Registered Pool</span>
+              <div className="bg-[#2563EB] text-white p-4 rounded-lg">
+                <span className="text-[10px] uppercase text-[#2563EB] dark:text-[#3B82F6] block">Registered Pool</span>
                 <span className="font-mono text-2xl font-bold">{preview.total_registered_players}</span>
-                <span className="text-[11px] text-[#EBDED4]/75 block">
+                <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8] block">
                   {preview.returning_players} Returning • {preview.new_players} New
                 </span>
               </div>
-              <div className="bg-[#07203F] text-[#EBDED4] p-4 rounded-lg">
-                <span className="text-[10px] uppercase text-[#D9AA90] block">Franchises &amp; Purse</span>
+              <div className="bg-[#2563EB] text-white p-4 rounded-lg">
+                <span className="text-[10px] uppercase text-[#2563EB] dark:text-[#3B82F6] block">Franchises &amp; Purse</span>
                 <span className="font-mono text-2xl font-bold">₹{preview.total_available_purse}L</span>
-                <span className="text-[11px] text-[#EBDED4]/75 block">{preview.number_of_teams} Teams Total Pool</span>
+                <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8] block">{preview.number_of_teams} Teams Total Pool</span>
               </div>
-              <div className="bg-[#07203F] text-[#EBDED4] p-4 rounded-lg">
-                <span className="text-[10px] uppercase text-[#D9AA90] block">Squad Limits</span>
+              <div className="bg-[#2563EB] text-white p-4 rounded-lg">
+                <span className="text-[10px] uppercase text-[#2563EB] dark:text-[#3B82F6] block">Squad Limits</span>
                 <span className="font-mono text-2xl font-bold">{preview.min_squad_size} – {preview.max_squad_size}</span>
-                <span className="text-[11px] text-[#EBDED4]/75 block">Max {preview.max_league_slots} league roster slots</span>
+                <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8] block">Max {preview.max_league_slots} league roster slots</span>
               </div>
-              <div className="bg-[#07203F] text-[#EBDED4] p-4 rounded-lg">
-                <span className="text-[10px] uppercase text-[#D9AA90] block">Bidding Rules</span>
+              <div className="bg-[#2563EB] text-white p-4 rounded-lg">
+                <span className="text-[10px] uppercase text-[#2563EB] dark:text-[#3B82F6] block">Bidding Rules</span>
                 <span className="font-mono text-2xl font-bold">+₹{preview.config.min_bid_increment}L</span>
-                <span className="text-[11px] text-[#EBDED4]/75 block">Min Base ₹{preview.config.min_base_price}L • {preview.config.timer_duration}s Timer</span>
+                <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8] block">Min Base ₹{preview.config.min_base_price}L • {preview.config.timer_duration}s Timer</span>
               </div>
             </div>
 
             {/* Category Distribution */}
             <div>
-              <h4 className="font-serif text-sm font-bold text-[#07203F] mb-2">Category Distribution</h4>
+              <h4 className="font-display text-sm font-bold text-[#101828] dark:text-[#F8FAFC] mb-2">Category Distribution</h4>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(preview.category_distribution || {}).map(([cat, cnt]: [string, any]) => (
-                  <div key={cat} className="px-3 py-1.5 rounded bg-[#EBDED4]/70 border border-[#07203F]/15 text-xs">
-                    <span className="font-semibold text-[#07203F]">{cat}:</span>{" "}
-                    <span className="font-mono font-bold text-[#A65E46]">{cnt}</span>
+                  <div key={cat} className="px-3 py-1.5 rounded bg-blue-50 dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#334155] text-xs">
+                    <span className="font-semibold text-[#101828] dark:text-[#F8FAFC]">{cat}:</span>{" "}
+                    <span className="font-mono font-bold text-[#2563EB] dark:text-[#3B82F6]">{cnt}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* START AUCTION CTA */}
-            <div className="bg-[#02000D] text-[#EBDED4] p-5 rounded-xl border border-[#A65E46]/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="bg-[#F8FAFC] dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] p-5 rounded-xl border border-[#2563EB]/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h4 className="font-serif text-lg font-bold text-[#EBDED4]">Ready to Launch Live Auction?</h4>
-                <p className="text-xs text-[#EBDED4]/75 mt-0.5">
+                <h4 className="font-display text-lg font-bold text-[#101828] dark:text-[#F8FAFC]">Ready to Launch Live Auction?</h4>
+                <p className="text-xs text-[#64748B] dark:text-[#94A3B8] mt-0.5">
                   Starting locks all configuration parameters, activates team purses, and opens the real-time WebSocket bidding room for all six franchise owners.
                 </p>
               </div>
@@ -783,7 +783,7 @@ export function AuctionSetupWizard({
                 <button
                   type="button"
                   onClick={onAuctionStarted}
-                  className="px-5 py-3 rounded-lg bg-[#A65E46] text-[#EBDED4] font-bold text-xs uppercase tracking-wider hover:bg-[#A65E46]/90 transition shrink-0"
+                  className="px-5 py-3 rounded-lg bg-[#2563EB] text-white font-bold text-xs uppercase tracking-wider hover:bg-[#1D4ED8] transition shrink-0"
                 >
                   Enter Active Live Room →
                 </button>
@@ -792,7 +792,7 @@ export function AuctionSetupWizard({
                   type="button"
                   disabled={!isAuctioneer}
                   onClick={() => setConfirmOpen(true)}
-                  className="px-6 py-3 rounded-lg bg-[#A65E46] text-[#EBDED4] font-bold text-xs uppercase tracking-wider hover:bg-[#A65E46]/90 transition inline-flex items-center gap-2 disabled:opacity-40 shrink-0"
+                  className="px-6 py-3 rounded-lg bg-[#2563EB] text-white font-bold text-xs uppercase tracking-wider hover:bg-[#1D4ED8] transition inline-flex items-center gap-2 disabled:opacity-40 shrink-0"
                 >
                   <Play className="w-4 h-4" />
                   <span>START AUCTION</span>
@@ -803,24 +803,24 @@ export function AuctionSetupWizard({
 
           {/* Explicit Confirmation Modal */}
           {confirmOpen && (
-            <div className="fixed inset-0 z-50 bg-[#02000D]/75 flex items-center justify-center p-4">
-              <div className="bg-white rounded-xl border-2 border-[#07203F] max-w-md w-full p-6 space-y-4 shadow-2xl">
-                <h3 className="font-serif text-xl font-bold text-[#07203F]">Confirm Official Auction Start</h3>
-                <p className="text-xs text-[#07203F]/80 leading-relaxed">
+            <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+              <div className="bg-white rounded-xl border-2 border-[#E2E8F0] dark:border-[#334155] max-w-md w-full p-6 space-y-4 shadow-2xl">
+                <h3 className="font-display text-xl font-bold text-[#101828] dark:text-[#F8FAFC]">Confirm Official Auction Start</h3>
+                <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
                   You are about to lock the configuration for <strong>{preview.config.auction_name}</strong> ({preview.total_registered_players} players, {preview.number_of_teams} franchises, ₹{preview.total_available_purse}L combined purse) and launch the live bidding room.
                 </p>
                 <div className="flex justify-end gap-2 pt-2">
                   <button
                     type="button"
                     onClick={() => setConfirmOpen(false)}
-                    className="px-4 py-2 rounded border border-[#07203F]/25 text-xs font-semibold text-[#07203F] hover:bg-[#EBDED4]"
+                    className="px-4 py-2 rounded border border-[#E2E8F0] dark:border-[#334155] text-xs font-semibold text-[#101828] dark:text-[#F8FAFC] hover:bg-[#F8FAFC] dark:bg-[#0B1120]"
                   >
                     Cancel
                   </button>
                   <button
                     type="button"
                     onClick={handleStartAuction}
-                    className="px-4 py-2 rounded bg-[#A65E46] text-[#EBDED4] text-xs font-bold hover:bg-[#A65E46]/90 inline-flex items-center gap-1.5"
+                    className="px-4 py-2 rounded bg-[#2563EB] text-white text-xs font-bold hover:bg-[#1D4ED8] inline-flex items-center gap-1.5"
                   >
                     <CheckCircle2 className="w-4 h-4" />
                     <span>Confirm &amp; Start Live Auction</span>

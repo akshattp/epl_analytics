@@ -49,8 +49,8 @@ export default function OverviewPage() {
   if (loading) {
     return (
       <div className="py-24 text-center space-y-4">
-        <div className="inline-block animate-spin w-9 h-9 border-4 border-[#A65E46] border-t-transparent rounded-full"></div>
-        <p className="font-serif text-lg text-[#EBDED4]">Initializing EPL Cricket Intelligence Suite...</p>
+        <div className="inline-block animate-spin w-9 h-9 border-4 border-[#2563EB] dark:border-[#38BDF8] border-t-transparent rounded-full"></div>
+        <p className="font-display text-lg text-[#101828] dark:text-[#F8FAFC]">Initializing EPL Cricket Intelligence Suite...</p>
       </div>
     );
   }
@@ -62,25 +62,25 @@ export default function OverviewPage() {
   return (
     <div className="space-y-10">
       {/* Top Release Telemetry Strip */}
-      <div className="bg-[#07203F] text-[#EBDED4] rounded-xl px-4 py-3 border border-[#D9AA90]/25 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-md">
+      <div className="bg-[#F1F5F9] dark:bg-[#101828] text-[#101828] dark:text-[#F8FAFC] rounded-xl px-4 py-3 border border-[#E2E8F0] dark:border-[#334155] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-sm transition-colors duration-200">
         <div className="flex items-center space-x-2.5">
-          <span className="px-2 py-0.5 rounded bg-[#A65E46] text-[#EBDED4] font-mono text-[10px] font-bold tracking-wider">
+          <span className="px-2 py-0.5 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] text-white font-mono text-[10px] font-bold tracking-wider">
             v1.3.0
           </span>
-          <span className="text-[#EBDED4]/90 font-medium">
+          <span className="text-[#64748B] dark:text-[#94A3B8] font-medium">
             Active: 100-Pt Player Intelligence Scores (PIS), Situational Splits, 6-Over Milestones &amp; Live Auction Engine.
           </span>
         </div>
         <div className="flex items-center space-x-3 shrink-0">
-          <Link href="/analytics/records" className="text-[#D9AA90] hover:text-[#EBDED4] font-semibold inline-flex items-center gap-1 transition">
-            <Award className="w-3.5 h-3.5 text-[#A65E46]" />
+          <Link href="/analytics/records" className="text-[#2563EB] dark:text-[#38BDF8] hover:underline font-semibold inline-flex items-center gap-1 transition">
+            <Award className="w-3.5 h-3.5" />
             <span>Records</span>
           </Link>
-          <Link href="/intelligence-lab" className="text-[#D9AA90] hover:text-[#EBDED4] font-semibold inline-flex items-center gap-1 transition">
+          <Link href="/intelligence-lab" className="text-[#2563EB] dark:text-[#38BDF8] hover:underline font-semibold inline-flex items-center gap-1 transition">
             <FlaskConical className="w-3.5 h-3.5" />
             <span>Intel Lab</span>
           </Link>
-          <Link href="/changelog" className="text-[#EBDED4]/75 hover:text-[#D9AA90] underline inline-flex items-center gap-1 transition">
+          <Link href="/changelog" className="text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] underline inline-flex items-center gap-1 transition">
             <History className="w-3.5 h-3.5" />
             <span>Changelog</span>
           </Link>
@@ -88,43 +88,43 @@ export default function OverviewPage() {
       </div>
 
       {/* Hero Editorial Header */}
-      <div className="border-b border-[#D9AA90]/20 pb-8 pt-1">
+      <div className="border-b border-[#E2E8F0] dark:border-[#334155] pb-8 pt-1">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-          <div className="space-y-2">
-            <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-[#D9AA90] bg-[#07203F] border border-[#D9AA90]/20 px-3 py-1 rounded-full">
+          <div className="space-y-2.5">
+            <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-[#2563EB] dark:text-[#38BDF8] bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 px-3 py-1 rounded-full">
               <span>Historical Tournament Analytics</span>
               <span>•</span>
               <span>3 Seasons (2023 – 2025)</span>
               <span>•</span>
               <span>27 Verified Matches</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#EBDED4] leading-tight">
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#101828] dark:text-[#F8FAFC] leading-tight">
               Exotica Premier League
             </h1>
-            <p className="text-sm sm:text-base text-[#EBDED4]/80 max-w-2xl leading-relaxed">
+            <p className="text-sm sm:text-base text-[#64748B] dark:text-[#94A3B8] max-w-2xl leading-relaxed">
               Official player performance records, transparent statistical ratings, partnership &amp; fielding intelligence, and live auction operations built for six franchise owners.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/auction"
-              className="inline-flex items-center space-x-2 bg-[#A65E46] text-[#EBDED4] px-4 py-2.5 rounded-lg text-xs font-bold hover:bg-[#A65E46]/90 transition shadow-md"
+              className="inline-flex items-center space-x-2 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] text-white px-4 py-2.5 rounded-lg text-xs font-bold transition shadow-sm"
             >
               <DollarSign className="w-4 h-4" />
               <span>Live Auction Room</span>
             </Link>
             <Link
               href="/analytics/records"
-              className="inline-flex items-center space-x-2 bg-[#07203F] border border-[#D9AA90]/35 text-[#EBDED4] px-4 py-2.5 rounded-lg text-xs font-semibold hover:bg-[#A65E46] transition shadow-sm"
+              className="inline-flex items-center space-x-2 bg-white dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] px-4 py-2.5 rounded-lg text-xs font-semibold hover:bg-[#F8FAFC] dark:hover:bg-[#334155] transition shadow-sm"
             >
-              <Award className="w-4 h-4 text-[#D9AA90]" />
+              <Award className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
               <span>Tournament Records</span>
             </Link>
             <Link
               href="/players"
-              className="inline-flex items-center space-x-2 bg-[#07203F] border border-[#D9AA90]/25 text-[#EBDED4] px-4 py-2.5 rounded-lg text-xs font-semibold hover:border-[#D9AA90]/50 transition shadow-sm"
+              className="inline-flex items-center space-x-2 bg-white dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] px-4 py-2.5 rounded-lg text-xs font-semibold hover:bg-[#F8FAFC] dark:hover:bg-[#334155] transition shadow-sm"
             >
-              <Users className="w-4 h-4 text-[#D9AA90]" />
+              <Users className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
               <span>Players Directory</span>
             </Link>
           </div>
@@ -175,28 +175,28 @@ export default function OverviewPage() {
 
       {/* Marquee Performer Highlight Banner */}
       {s?.best_overall_player && (
-        <div className="bg-[#07203F] text-[#EBDED4] rounded-xl p-6 border border-[#D9AA90]/30 shadow-lg">
+        <div className="bg-white dark:bg-[#151F32] rounded-xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm hover:shadow-md transition-all duration-200">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-[#D9AA90] font-bold">
-                <Sparkles className="w-3.5 h-3.5 text-[#A65E46]" />
+              <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-[#2563EB] dark:text-[#38BDF8] font-bold">
+                <Sparkles className="w-3.5 h-3.5 text-[#0891B2] dark:text-[#22D3EE]" />
                 <span>Tournament Marquee Player (#1 All-Rounder)</span>
               </div>
-              <h2 className="font-serif text-2xl lg:text-3xl font-bold text-[#EBDED4]">
+              <h2 className="font-display text-2xl lg:text-3xl font-bold text-[#101828] dark:text-[#F8FAFC]">
                 {s.best_overall_player.name}
               </h2>
-              <p className="text-xs text-[#EBDED4]/80 max-w-xl leading-relaxed">
+              <p className="text-xs text-[#64748B] dark:text-[#94A3B8] max-w-xl leading-relaxed">
                 Leads all registered EPL cricketers with a composite 100-point Player Intelligence Score of {s.best_overall_player.rating}. Delivers verified top-tier volume with both bat and ball in high-pressure 6-over games.
               </p>
             </div>
             <div className="flex items-center space-x-6">
               <div className="text-right">
-                <div className="text-xs text-[#D9AA90] uppercase tracking-wider mb-1 font-semibold">Overall Rating</div>
+                <div className="text-xs text-[#64748B] dark:text-[#94A3B8] uppercase tracking-wider mb-1 font-semibold">Overall Rating</div>
                 <RatingBadge score={s.best_overall_player.rating} size="lg" />
               </div>
               <Link
                 href={`/players/${s.best_overall_player.player_id}`}
-                className="bg-[#A65E46] text-[#EBDED4] px-4 py-2.5 rounded-lg text-xs font-bold hover:bg-[#A65E46]/90 transition inline-flex items-center space-x-1.5 shadow"
+                className="bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] text-white px-4 py-2.5 rounded-lg text-xs font-bold transition inline-flex items-center space-x-1.5 shadow-sm"
               >
                 <span>Full Intelligence Profile</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -209,16 +209,16 @@ export default function OverviewPage() {
       {/* Visual Tournament Analytics Charts */}
       {charts && (
         <div className="space-y-5">
-          <div className="flex items-center justify-between border-b border-[#D9AA90]/20 pb-2.5">
+          <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#334155] pb-2.5">
             <div>
-              <h2 className="font-serif text-2xl font-bold text-[#EBDED4] tracking-tight">
+              <h2 className="font-display text-2xl font-bold text-[#101828] dark:text-[#F8FAFC] tracking-tight">
                 Visual Tournament Analytics
               </h2>
-              <p className="text-xs text-[#D9AA90]/80 mt-0.5">
+              <p className="text-xs text-[#64748B] dark:text-[#94A3B8] mt-0.5">
                 Dynamically computed from all 27 verified match scorecards with strict regulation and Super Over isolation.
               </p>
             </div>
-            <Link href="/analytics/advanced" className="text-xs font-semibold text-[#A65E46] hover:text-[#D9AA90] flex items-center transition">
+            <Link href="/analytics/advanced" className="text-xs font-semibold text-[#2563EB] dark:text-[#38BDF8] hover:underline flex items-center transition">
               <span>Explore Partnerships &amp; Fielding</span>
               <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
@@ -266,16 +266,16 @@ export default function OverviewPage() {
 
       {/* Historical Seasons Breakdown */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between border-b border-[#D9AA90]/20 pb-2.5">
+        <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#334155] pb-2.5">
           <div>
-            <h2 className="font-serif text-2xl font-bold text-[#EBDED4] tracking-tight">
+            <h2 className="font-display text-2xl font-bold text-[#101828] dark:text-[#F8FAFC] tracking-tight">
               Historical Season Archive
             </h2>
-            <p className="text-xs text-[#D9AA90]/80 mt-0.5">
+            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] mt-0.5">
               Comparative analysis across EPL 2023, EPL 2024, and EPL 2025.
             </p>
           </div>
-          <Link href="/seasons" className="text-xs font-semibold text-[#A65E46] hover:text-[#D9AA90] flex items-center transition">
+          <Link href="/seasons" className="text-xs font-semibold text-[#2563EB] dark:text-[#38BDF8] hover:underline flex items-center transition">
             <span>Detailed Season Comparison</span>
             <ArrowRight className="w-3.5 h-3.5 ml-1" />
           </Link>
@@ -285,39 +285,39 @@ export default function OverviewPage() {
           {data?.seasons?.map((season: any) => (
             <div
               key={season.season}
-              className="bg-[#07203F] rounded-xl p-5 border border-[#D9AA90]/25 shadow-md space-y-4 hover:border-[#D9AA90]/50 transition"
+              className="bg-white dark:bg-[#151F32] rounded-xl p-5 border border-[#E2E8F0] dark:border-[#334155] shadow-sm hover:shadow-md transition space-y-4"
             >
               <div className="flex items-center justify-between">
-                <span className="font-serif text-xl font-bold text-[#EBDED4]">
+                <span className="font-display text-xl font-bold text-[#101828] dark:text-[#F8FAFC]">
                   EPL {season.season}
                 </span>
-                <span className="text-[11px] font-semibold bg-[#02000D] border border-[#D9AA90]/35 text-[#D9AA90] px-2.5 py-0.5 rounded-full font-mono">
+                <span className="text-[11px] font-semibold bg-[#F1F5F9] dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-[#2563EB] dark:text-[#38BDF8] px-2.5 py-0.5 rounded-full font-mono">
                   {season.matches_count} Matches
                 </span>
               </div>
 
-              <div className="space-y-2 text-xs text-[#EBDED4]/85">
-                <div className="flex justify-between py-1 border-b border-[#D9AA90]/15">
-                  <span className="text-[#D9AA90]/75">Tournament Champion</span>
-                  <span className="font-bold text-[#A65E46]">{season.champion}</span>
+              <div className="space-y-2 text-xs text-[#64748B] dark:text-[#94A3B8]">
+                <div className="flex justify-between py-1 border-b border-[#E2E8F0] dark:border-[#334155]">
+                  <span>Tournament Champion</span>
+                  <span className="font-bold text-[#101828] dark:text-[#F8FAFC]">{season.champion}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[#D9AA90]/15">
-                  <span className="text-[#D9AA90]/75">Average Innings Total</span>
-                  <span className="font-mono font-bold text-[#EBDED4]">{season.average_score} runs</span>
+                <div className="flex justify-between py-1 border-b border-[#E2E8F0] dark:border-[#334155]">
+                  <span>Average Innings Total</span>
+                  <span className="font-mono font-bold text-[#101828] dark:text-[#F8FAFC]">{season.average_score} runs</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-[#D9AA90]/15">
-                  <span className="text-[#D9AA90]/75">Tournament Run Rate</span>
-                  <span className="font-mono font-bold text-[#EBDED4]">{season.run_rate} RPO</span>
+                <div className="flex justify-between py-1 border-b border-[#E2E8F0] dark:border-[#334155]">
+                  <span>Tournament Run Rate</span>
+                  <span className="font-mono font-bold text-[#2563EB] dark:text-[#38BDF8]">{season.run_rate} RPO</span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-[#D9AA90]/75">Total Runs Scored</span>
-                  <span className="font-mono font-bold text-[#EBDED4]">{season.total_runs} runs</span>
+                  <span>Total Runs Scored</span>
+                  <span className="font-mono font-bold text-[#101828] dark:text-[#F8FAFC]">{season.total_runs} runs</span>
                 </div>
               </div>
 
               <Link
                 href="/seasons"
-                className="block text-center text-xs font-semibold text-[#EBDED4] bg-[#02000D] hover:bg-[#A65E46] py-2 rounded-lg border border-[#D9AA90]/20 transition"
+                className="block text-center text-xs font-semibold text-[#2563EB] dark:text-[#38BDF8] bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/50 py-2 rounded-lg border border-blue-200 dark:border-blue-800/50 transition"
               >
                 Inspect Season Records →
               </Link>
@@ -328,14 +328,14 @@ export default function OverviewPage() {
 
       {/* Automated Tournament Insights Preview */}
       <div className="space-y-4 pt-2">
-        <div className="flex items-center justify-between border-b border-[#D9AA90]/20 pb-2.5">
+        <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#334155] pb-2.5">
           <div className="flex items-center space-x-2">
-            <Sparkles className="w-5 h-5 text-[#A65E46]" />
-            <h2 className="font-serif text-2xl font-bold text-[#EBDED4] tracking-tight">
+            <Sparkles className="w-5 h-5 text-[#2563EB] dark:text-[#38BDF8]" />
+            <h2 className="font-display text-2xl font-bold text-[#101828] dark:text-[#F8FAFC] tracking-tight">
               Automated Tournament Intelligence
             </h2>
           </div>
-          <Link href="/insights" className="text-xs font-semibold text-[#A65E46] hover:text-[#D9AA90] flex items-center transition">
+          <Link href="/insights" className="text-xs font-semibold text-[#2563EB] dark:text-[#38BDF8] hover:underline flex items-center transition">
             <span>Explore All 16 Insights</span>
             <ArrowRight className="w-3.5 h-3.5 ml-1" />
           </Link>
@@ -345,23 +345,23 @@ export default function OverviewPage() {
           {insights.map((item, idx) => (
             <div
               key={idx}
-              className="bg-[#07203F] text-[#EBDED4] rounded-xl p-5 border border-[#D9AA90]/25 shadow-md flex flex-col justify-between hover:border-[#D9AA90]/50 transition"
+              className="bg-white dark:bg-[#151F32] rounded-xl p-5 border border-[#E2E8F0] dark:border-[#334155] shadow-sm hover:shadow-md transition flex flex-col justify-between"
             >
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#D9AA90]">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#2563EB] dark:text-[#38BDF8] font-mono">
                   {item.category}
                 </span>
-                <h3 className="font-serif text-lg font-bold text-[#EBDED4] mt-1 mb-2 leading-snug">
+                <h3 className="font-display text-lg font-bold text-[#101828] dark:text-[#F8FAFC] mt-1 mb-2 leading-snug">
                   {item.title}
                 </h3>
-                <p className="text-xs text-[#EBDED4]/80 leading-relaxed">
+                <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
                   {item.short_explanation}
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#D9AA90]/20 flex items-center justify-between text-[11px] text-[#D9AA90]">
+              <div className="mt-4 pt-3 border-t border-[#E2E8F0] dark:border-[#334155] flex items-center justify-between text-[11px] text-[#64748B] dark:text-[#94A3B8]">
                 <span>{item.season_references}</span>
-                <span className="flex items-center space-x-1">
-                  <CheckCircle2 className="w-3 h-3 text-[#D9AA90]" />
+                <span className="flex items-center space-x-1 font-medium text-[#0891B2] dark:text-[#22D3EE]">
+                  <CheckCircle2 className="w-3 h-3" />
                   <span>Verified</span>
                 </span>
               </div>
