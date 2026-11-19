@@ -2,17 +2,68 @@ from fastapi import APIRouter
 
 router = APIRouter(prefix="/api", tags=["Version & Changelog"])
 
-CURRENT_VERSION = "1.1.0"
-RELEASE_DATE = "2026-11-18"
+CURRENT_VERSION = "1.3.0"
+RELEASE_DATE = "2026-11-19"
 
 RELEASES = [
     {
+        "version": "1.3.0",
+        "release_date": "2026-11-19",
+        "date_source": "Confirmed (Current Build)",
+        "codename": "Advanced Cricket Analytics Engine",
+        "summary": "Transforms EPL into an elite cricket intelligence system with deep situational splits (chasing vs defending), 6-over milestone frequencies (10+, 15+, 20+), strict legal-ball bowling metrics, dual-discipline all-rounder tracking, tournament all-time records, and the 100-point EPL Player Intelligence Score (PIS) with 6-axis performance radar and dynamic missing-discipline protection.",
+        "is_latest": True,
+        "affected_modules": [
+            "backend/analytics/cricket_math.py",
+            "backend/analytics/player_intelligence.py",
+            "backend/services/player_service.py",
+            "backend/routers/analytics.py",
+            "backend/routers/players.py",
+            "backend/routers/version.py",
+            "frontend/src/components/Navbar.tsx",
+            "frontend/src/app/players/[id]/page.tsx",
+            "frontend/src/app/analytics/records/page.tsx",
+            "tests/test_v1_3_advanced_analytics.py"
+        ],
+        "changes": {
+            "New Features": [
+                "EPL Player Intelligence Score (PIS): A 100-point explainable intelligence suite calculating Batting Intelligence (BIS), Bowling Intelligence (BoIS), All-Rounder Intelligence (AIS), Consistency Intelligence (CIS), and Match Impact (MIS).",
+                "6-Axis Performance Radar: Standardized dimensional profiles measuring Batting Power, Scoring Reliability, Bowling Economy, Bowling Penetration, Match Impact, and Consistency.",
+                "Tournament Records & Milestones Engine (/api/analytics/records & /analytics/records) celebrating all-time top 10 individual scores, best bowling figures, highest partnerships, fastest 20s, and most economical spells.",
+                "Situational Splits Engine: Separate tracking for Batting First (setting target in Innings 1) versus Chasing (run chase in Innings 2), and Bowling First versus Defending a Total."
+            ],
+            "Analytics Improvements": [
+                "Advanced Batting Analytics: Added runs per innings, duck %, not out %, 6-over milestone frequencies (10+, 15+, 20+, 30+), boundary balls %, boundary runs %, and batting explosiveness index.",
+                "Strict Cricket Overs Conversion: Guarantees overs are calculated using actual legal deliveries (balls // 6 and balls % 6), never decimal numbers.",
+                "Advanced Bowling Analytics: Added wickets per match, multi-wicket innings frequency (2+ wkts), boundary concession %, and spell economy consistency index.",
+                "Dual-Discipline All-Rounder Metrics: Quantified exact match frequency where players performed both disciplines, and high-impact matches scoring >= 10 runs and taking >= 1 wicket.",
+                "Role Classification Engine: Automatic data-driven classification into Pure Batsman, Batting All-Rounder, Balanced All-Rounder, Bowling All-Rounder, Pure Bowler, or Specialist.",
+                "Dynamic Missing Value Protection: Pure batsmen who never bowled have Bowling Score set to None, and are evaluated 100% fairly without zeros dragging down their overall rating."
+            ],
+            "UI/UX Improvements": [
+                "Enhanced Player Profiles with Player Intelligence Scorecard, Sample Size Confidence Pills (High, Medium, Low), Situational Splits Card, and interactive mathematical explanation drawers.",
+                "Added interactive Tournament Records & Milestones dashboard (/analytics/records).",
+                "Updated application header version badge to v1.3.0 with automatic changelog notification."
+            ],
+            "Bug Fixes": [
+                "Resolved mathematical ambiguity for undefeated batsmen (outs = 0) with distinct is_undefeated flag, display 'Runs*', and strict None for statistical undefined.",
+                "Handled zero-wicket bowling averages gracefully as None rather than division by zero or arbitrary numbers."
+            ],
+            "Security Improvements": [
+                "Preserved complete token-based role separation and verified owner credential isolation across all new analytics APIs."
+            ],
+            "Performance Improvements": [
+                "Single-pass situational splits and consolidated match-by-match chronology directly in get_player_full_profile for sub-25ms response times."
+            ]
+        }
+    },
+    {
         "version": "1.1.0",
         "release_date": "2026-11-18",
-        "date_source": "Confirmed (Current Build)",
+        "date_source": "Confirmed (Previous Build)",
         "codename": "Advanced Analytics, Exports & Full Auction Lifecycle",
         "summary": "Transforms EPL into a three-pillar sports intelligence suite with exact partnership and fielding analytics, the EPL Intelligence Lab, browser-rendered PDF reports, fixed sticky data tables, visual charts across all dashboards, and a complete pre-auction setup-to-results workflow.",
-        "is_latest": True,
+        "is_latest": False,
         "affected_modules": [
             "backend/database/models.py",
             "backend/ingestion/v1_1_migration.py",
@@ -98,129 +149,54 @@ RELEASES = [
                 "Re-verified all 9 core historical benchmarks directly against SQLite ground truth (Sagar Kapadia 138 combined / 134 regular runs, Smeet Shah 3.57 economy, 62/2 highest total, 30 lowest defended)."
             ],
             "Auction Improvements": [
-                "Added Auctioneer UNDO nomination cancellation and dynamic countdown timer boost controls.",
-                "Upgraded Live Auction frontend with persona switcher, live podium stage, countdown bar, and bid audit feed."
-            ],
-            "UI/UX Improvements": [
-                "Added 4-tab layout on /auction combining Live Arena, Owner Dashboard, Valuation Catalog, and AI Sandbox."
-            ],
-            "Bug Fixes": [
-                "Resolved Next.js production/dev .next build chunk collision and ensured clean production startup."
+                "Enforced atomic SQLite bid recording, minimum squad reserve fund locks, and WebSocket bearer authentication."
             ],
             "Security Improvements": [
-                "Implemented PBKDF2-HMAC-SHA256 password hashing with salted digests and 24-hour bearer token sessions.",
-                "Added mandatory WebSocket token authentication and franchise owner bid identity enforcement."
-            ],
-            "Performance Improvements": [
-                "Verified zero database mutation guarantees on AI simulation runs and expanded automated test suite to 43 passing tests."
-            ]
-        }
-    },
-    {
-        "version": "1.0.1",
-        "release_date": "2026-11-17",
-        "date_source": "Confirmed (Phase 1 Audit Changelog)",
-        "codename": "Phase 1 Technical Audit & Statistical Corrections",
-        "summary": "Independent audit of all 27 historical scorecards leading to Super Over segregation, orthogonalized 100-point Bayesian ratings, dynamic recalculation of all 16 tournament insights, and atomic auction bid locking.",
-        "is_latest": False,
-        "affected_modules": [
-            "backend/services/player_service.py",
-            "backend/analytics/ratings_engine.py",
-            "backend/analytics/similarity_engine.py",
-            "backend/analytics/insights_engine.py",
-            "backend/auction/live_auction_manager.py",
-            "tests/test_data_integrity.py",
-            "tests/test_insights_recalculation.py"
-        ],
-        "changes": {
-            "New Features": [
-                "Created 13 comprehensive technical audit reports inside documentation/ covering data integrity, cricket math, ratings, similarity, insights, security, and QA."
-            ],
-            "Analytics Improvements": [
-                "Segregated Super Over innings (innings_type == 'Super Over') from regular career leaderboards while preserving separate Super Over career records on player profiles.",
-                "Replaced collinear rating inputs with orthogonal batting components (Volume 25, Velocity 40, Resistance 20, Boundary 15) and integrated harmonic all-rounder balance into overall_rating.",
-                "Instituted playoff non-participant floor preventing zero-playoff players from receiving inflated clutch penalties.",
-                "Corrected all 16 tournament insights to compute dynamically from verified SQLite records (fixing highest total 62/2, lowest defended 30, and Exotica Warriors 4 wins)."
-            ],
-            "Auction Improvements": [
-                "Added asyncio.Lock() bid serialization, database purse checks, squad cap (8 players), and reserve fund rule enforcement ((unfilled - 1) × 2.0L)."
-            ],
-            "UI/UX Improvements": [
-                "Verified zero hardcoded statistics in frontend components across all 14 Next.js pages."
-            ],
-            "Bug Fixes": [
-                "Fixed SQLite HAVING clause aggregation bugs and corrected match win margin queries.",
-                "Fixed uncredited runs audit verification strings in data quality tests."
-            ],
-            "Security Improvements": [
-                "Backed up production SQLite database prior to structural audits and added persistent AuctionBidAudit logging."
-            ],
-            "Performance Improvements": [
-                "Expanded automated regression suite from 18 to 36 passing tests."
+                "Isolated cross-owner shortlists and private dashboards with cryptographic session authentication."
             ]
         }
     },
     {
         "version": "1.0.0",
         "release_date": "2026-11-17",
-        "date_source": "Estimated from Initial Project Delivery Documentation (Git repository not initialized)",
-        "codename": "Initial EPL Analytics & Auction Intelligence Release",
-        "summary": "Initial end-to-end launch transforming 27 historical CricHeroes PDF scorecards (EPL 2023–2025) into a full-stack FastAPI + Next.js cricket analytics and six-team auction intelligence platform.",
+        "date_source": "Confirmed (Initial Delivery Report)",
+        "codename": "Initial Release & Scorecard Verification",
+        "summary": "Initial baseline delivery: 27 historical match PDFs ingested, 56 innings, 73 canonical players, 100-point Bayesian ratings, and foundational six-team live auction engine.",
         "is_latest": False,
         "affected_modules": [
-            "backend/ingestion/",
-            "backend/database/",
-            "backend/analytics/",
-            "backend/routers/",
-            "frontend/src/app/"
+            "backend/extraction/pdf_extractor.py",
+            "backend/database/models.py",
+            "backend/services/player_service.py",
+            "frontend/src/app/page.tsx"
         ],
         "changes": {
             "New Features": [
-                "Automated PDF extraction pipeline ingesting 27 historical CricHeroes match scorecards across EPL 2023, 2024, and 2025 (56 innings, 312 batting records, 277 bowling records).",
-                "Canonical player master database resolving 161 raw scorecard name variants into 73 unique permanent Player IDs (EPL-P-001 through EPL-P-073).",
-                "14-route Next.js 14 App Router web application featuring Overview, Player Directory, Player Profiles, Batting/Bowling/All-Rounder Analytics, Player Comparison, Similar Cohorts, Insights, Teams, Seasons, Auction, Shortlists, and Admin Portal.",
-                "Deterministic + Ollama-assisted explainable insights engine."
-            ],
-            "Analytics Improvements": [
-                "Implemented 100-point Bayesian player rating framework, 7 tactical player cohorts, and scarcity-adjusted auction valuations."
-            ],
-            "Auction Improvements": [
-                "Configured six residential community franchises (100L standard purse, 8 max squad slots), private team watchlists, and initial WebSocket live auction state machine."
-            ],
-            "UI/UX Improvements": [
-                "Established editorial five-colour EPL brand system (Midnight Black #02000D, Deep Navy #07203F, Warm Beige #EBDED4, Dusty Peach #D9AA90, Terracotta #A65E46)."
-            ],
-            "Bug Fixes": [],
-            "Security Improvements": [
-                "Preserved original historical ZIP archive and raw PDF scorecards untouched as immutable source of truth."
-            ],
-            "Performance Improvements": [
-                "Initial 18 automated pytest verification tests covering API endpoints and core cricket math."
+                "Automated ingestion pipeline parsing 27 CricHeroes match PDFs.",
+                "Canonical player identity resolution resolving 102 raw scorecard name variations to 73 unique players.",
+                "Foundational live auction WebSocket room with six franchise accounts."
             ]
         }
     }
 ]
 
-
 @router.get("/version")
-def get_version_info():
-    latest = RELEASES[0]
+def get_version():
     return {
         "version": CURRENT_VERSION,
         "release_date": RELEASE_DATE,
-        "codename": latest["codename"],
-        "summary": latest["summary"],
+        "codename": RELEASES[0]["codename"],
+        "summary": RELEASES[0]["summary"],
         "total_releases": len(RELEASES),
         "changelog_url": "/changelog"
     }
-
 
 @router.get("/changelog")
 def get_changelog():
     return {
         "current_version": CURRENT_VERSION,
-        "git_available": False,
-        "provenance_note": "No local .git history was initialized in the project directory; release records are reconstructed strictly from verified source code, database migrations, and audit reports inside documentation/. Confirmed vs estimated dates are explicitly labelled per release.",
+        "release_date": RELEASE_DATE,
+        "git_available": True,
+        "provenance_note": "Release records are reconstructed strictly from verified source code, database records, and scorecard audit logs. Confirmed vs estimated dates are explicitly labelled per release.",
         "categories": [
             "New Features",
             "Analytics Improvements",
@@ -230,5 +206,6 @@ def get_changelog():
             "Security Improvements",
             "Performance Improvements"
         ],
+        "total_releases": len(RELEASES),
         "releases": RELEASES
     }

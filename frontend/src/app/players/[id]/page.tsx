@@ -6,7 +6,8 @@ import Link from "next/link";
 import {
   ArrowLeft, Trophy, Flame, Shield, TrendingUp,
   ExternalLink, DollarSign, Sparkles, CheckCircle2, AlertCircle,
-  FileText, Share2, Copy, Check, Globe, Lock
+  FileText, Share2, Copy, Check, Globe, Lock, Info, ChevronDown,
+  ChevronUp, Target, Award, Zap, Crosshair, BarChart2
 } from "lucide-react";
 import { fetchApi } from "@/lib/api";
 import { RatingBadge } from "@/components/RatingBadge";
@@ -25,7 +26,7 @@ export default function PlayerProfilePage() {
   const [profile, setProfile] = useState<any>(null);
   const [charts, setCharts] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"career" | "seasons" | "matches" | "auction">("career");
+  const [activeTab, setActiveTab] = useState<"career" | "situational" | "seasons" | "matches" | "auction">("career");
   const [isPrintMode, setIsPrintMode] = useState(false);
   const [isPublicMode, setIsPublicMode] = useState(false);
   const [downloadingPdf, setDownloadingPdf] = useState(false);
@@ -34,6 +35,7 @@ export default function PlayerProfilePage() {
   const [copied, setCopied] = useState(false);
   const [origin, setOrigin] = useState("");
   const [isLocalHost, setIsLocalHost] = useState(false);
+  const [showFormulaDetails, setShowFormulaDetails] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -118,10 +120,13 @@ export default function PlayerProfilePage() {
     );
   }
 
-  const b = profile.career_batting;
-  const bw = profile.career_bowling;
-  const r = profile.ratings;
-  const v = profile.valuation;
+  const b = profile.career_batting || {};
+  const bw = profile.career_bowling || {};
+  const r = profile.ratings || {};
+  const v = profile.valuation || {};
+  const pi = profile.player_intelligence || {};
+  const ar = profile.all_rounder_metrics || {};
+  const ss = profile.situational_splits || {};
 
   return (
     <div className="space-y-8" data-profile-ready="true">
@@ -212,7 +217,7 @@ export default function PlayerProfilePage() {
                     <span>Local Environment Notice</span>
                   </div>
                   <p>
-                    This instance is currently running locally (<code>{origin}</code>). Recipients outside your machine can only open this link via your local Wi-Fi network IP or an active reverse tunnel (e.g., Cloudflare Tunnel / ngrok) or once deployed to a public domain.
+                    This instance is currently running locally (<code>{origin}</code>). External recipients can open this URL via the active ngrok tunnel.
                   </p>
                 </div>
               ) : (
@@ -234,11 +239,25 @@ export default function PlayerProfilePage() {
                 {profile.player_id}
               </span>
               <span className="text-xs font-semibold uppercase tracking-wider bg-[#A65E46] text-[#EBDED4] px-2.5 py-0.5 rounded">
-                {profile.primary_role}
+                {ar.role_classification || profile.primary_role}
               </span>
               <span className="text-xs font-medium text-[#EBDED4]/70 bg-[#02000D]/30 px-2.5 py-0.5 rounded">
                 {profile.batting_hand}
               </span>
+              {pi.confidence_level && (
+                <span
+                  title={pi.confidence_badge}
+                  className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded border ${
+                    pi.confidence_level === "HIGH"
+                      ? "bg-emerald-900/60 border-emerald-500/50 text-emerald-300"
+                      : pi.confidence_level === "MEDIUM"
+                      ? "bg-amber-900/60 border-amber-500/50 text-amber-300"
+                      : "bg-stone-800/60 border-stone-600/50 text-stone-300"
+                  }`}
+                >
+                  {pi.confidence_level} Confidence
+                </span>
+              )}
               {profile.is_new_player && (
                 <span className="text-xs font-bold bg-[#D9AA90] text-[#02000D] px-2.5 py-0.5 rounded">
                   NEW UNCAPPED PLAYER
@@ -263,7 +282,7 @@ export default function PlayerProfilePage() {
               <span>•</span>
               <span>Innings: <strong className="text-[#EBDED4]">{b.innings}</strong></span>
               <span>•</span>
-              <span>Overs Bowled: <strong className="text-[#EBDED4]">{bw.overs}</strong></span>
+              <span>Overs Bowled: <strong className="text-[#EBDED4]">{bw.overs_display || bw.overs}</strong></span>
             </div>
           </div>
 
@@ -271,18 +290,21 @@ export default function PlayerProfilePage() {
           <div className="flex items-center gap-4 bg-[#02000D]/60 p-4 rounded-lg border border-[#D9AA90]/20">
             <div className="text-center px-3 border-r border-[#D9AA90]/20">
               <span className="text-[10px] uppercase font-bold tracking-widest text-[#D9AA90] block mb-1">
-                EPL Rating
+                Player Intelligence (PIS)
               </span>
-              <RatingBadge score={r.overall_rating} size="lg" />
+              <div className="font-serif text-2xl font-bold text-[#EBDED4]">
+                {pi.overall_player_intelligence_score?.toFixed(1) || r.overall_rating?.toFixed(1)}
+              </div>
+              <div className="text-[10px] text-[#D9AA90]">v1.3 100-pt PIS</div>
             </div>
             <div className="text-center px-3">
               <span className="text-[10px] uppercase font-bold tracking-widest text-[#D9AA90] block mb-1">
                 Auction Value
               </span>
               <div className="font-mono text-2xl font-bold text-[#A65E46]">
-                {v.estimated_valuation.toFixed(1)} <span className="text-xs text-[#EBDED4]/70">pts</span>
+                {v.estimated_valuation?.toFixed(1)} <span className="text-xs text-[#EBDED4]/70">pts</span>
               </div>
-              <div className="text-[10px] text-[#EBDED4]/50">Base: {v.base_price.toFixed(1)} pts</div>
+              <div className="text-[10px] text-[#EBDED4]/50">Base: {v.base_price?.toFixed(1)} pts</div>
             </div>
           </div>
         </div>
@@ -300,51 +322,135 @@ export default function PlayerProfilePage() {
         )}
       </div>
 
-      {/* Tabs Navigation */}
-      <div className="border-b border-[#07203F]/20 flex space-x-6 text-sm no-print">
-        <button
-          onClick={() => setActiveTab("career")}
-          className={`pb-3 font-semibold transition border-b-2 ${
-            activeTab === "career"
-              ? "border-[#A65E46] text-[#A65E46]"
-              : "border-transparent text-[#07203F]/70 hover:text-[#07203F]"
-          }`}
-        >
-          Career Statistics &amp; Visual Charts
-        </button>
-        <button
-          onClick={() => setActiveTab("seasons")}
-          className={`pb-3 font-semibold transition border-b-2 ${
-            activeTab === "seasons"
-              ? "border-[#A65E46] text-[#A65E46]"
-              : "border-transparent text-[#07203F]/70 hover:text-[#07203F]"
-          }`}
-        >
-          Season-wise Breakdown
-        </button>
-        <button
-          onClick={() => setActiveTab("matches")}
-          className={`pb-3 font-semibold transition border-b-2 ${
-            activeTab === "matches"
-              ? "border-[#A65E46] text-[#A65E46]"
-              : "border-transparent text-[#07203F]/70 hover:text-[#07203F]"
-          }`}
-        >
-          Match History Log
-        </button>
-        <button
-          onClick={() => setActiveTab("auction")}
-          className={`pb-3 font-semibold transition border-b-2 ${
-            activeTab === "auction"
-              ? "border-[#A65E46] text-[#A65E46]"
-              : "border-transparent text-[#07203F]/70 hover:text-[#07203F]"
-          }`}
-        >
-          Auction Intelligence &amp; Valuation
-        </button>
+      {/* EPL v1.3 Player Intelligence Scorecard (PIS) */}
+      <div className="bg-[#07203F] text-[#EBDED4] rounded-lg p-6 border border-[#D9AA90]/25 shadow-md space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#D9AA90]/20 pb-3">
+          <div>
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#D9AA90]" />
+              <h2 className="font-serif text-lg font-bold text-[#EBDED4]">
+                EPL Player Intelligence Score (PIS)
+              </h2>
+              <span className="text-[10px] font-mono bg-[#A65E46] text-[#EBDED4] px-2 py-0.5 rounded">
+                v1.3 Engine
+              </span>
+            </div>
+            <p className="text-xs text-[#EBDED4]/70 mt-0.5">
+              Role: <strong className="text-[#D9AA90]">{ar.role_classification || "Specialist"}</strong> • Missing disciplines are never penalized as zero.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowFormulaDetails(!showFormulaDetails)}
+            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded bg-[#02000D]/50 border border-[#D9AA90]/30 text-[#D9AA90] hover:text-white transition"
+          >
+            <Info className="w-3.5 h-3.5" />
+            <span>{showFormulaDetails ? "Hide Methodology" : "Why this score?"}</span>
+            {showFormulaDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </button>
+        </div>
+
+        {/* 5-Pillar Score Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+          <div className="bg-[#02000D]/50 p-3 rounded border border-[#D9AA90]/15 space-y-1">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-[#D9AA90] block">Batting (BIS)</span>
+            <div className="font-mono text-xl font-bold text-[#EBDED4]">
+              {pi.batting_intelligence_score !== null && pi.batting_intelligence_score !== undefined
+                ? pi.batting_intelligence_score.toFixed(1)
+                : <span className="text-xs text-[#EBDED4]/40 font-normal">N/A (Did not bat)</span>}
+            </div>
+            <div className="text-[10px] text-[#EBDED4]/60">Volume &amp; Velocity</div>
+          </div>
+
+          <div className="bg-[#02000D]/50 p-3 rounded border border-[#D9AA90]/15 space-y-1">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-[#D9AA90] block">Bowling (BoIS)</span>
+            <div className="font-mono text-xl font-bold text-[#EBDED4]">
+              {pi.bowling_intelligence_score !== null && pi.bowling_intelligence_score !== undefined
+                ? pi.bowling_intelligence_score.toFixed(1)
+                : <span className="text-xs text-[#EBDED4]/40 font-normal">N/A (Did not bowl)</span>}
+            </div>
+            <div className="text-[10px] text-[#EBDED4]/60">Wickets &amp; Economy</div>
+          </div>
+
+          <div className="bg-[#02000D]/50 p-3 rounded border border-[#D9AA90]/15 space-y-1">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-[#D9AA90] block">All-Rounder (AIS)</span>
+            <div className="font-mono text-xl font-bold text-[#EBDED4]">
+              {pi.all_rounder_intelligence_score?.toFixed(1) || "0.0"}
+            </div>
+            <div className="text-[10px] text-[#EBDED4]/60">{ar.impact_all_rounder_matches || 0} dual games</div>
+          </div>
+
+          <div className="bg-[#02000D]/50 p-3 rounded border border-[#D9AA90]/15 space-y-1">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-[#D9AA90] block">Consistency (CIS)</span>
+            <div className="font-mono text-xl font-bold text-[#EBDED4]">
+              {pi.consistency_intelligence_score?.toFixed(1) || "50.0"}
+            </div>
+            <div className="text-[10px] text-[#EBDED4]/60">Score Variance</div>
+          </div>
+
+          <div className="bg-[#02000D]/50 p-3 rounded border border-[#D9AA90]/15 space-y-1 col-span-2 sm:col-span-1">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-[#D9AA90] block">Match Impact (MIS)</span>
+            <div className="font-mono text-xl font-bold text-[#A65E46]">
+              {pi.match_impact_intelligence_score?.toFixed(1) || "20.0"}
+            </div>
+            <div className="text-[10px] text-[#EBDED4]/60">Milestones &amp; Playoff</div>
+          </div>
+        </div>
+
+        {/* Collapsible Explanations & Formula Drawer */}
+        {showFormulaDetails && pi.explanations && (
+          <div className="bg-[#02000D]/80 p-4 rounded-lg border border-[#D9AA90]/30 space-y-2.5 text-xs">
+            <h4 className="font-serif font-bold text-[#D9AA90] uppercase tracking-wider text-[11px]">
+              Mathematical Breakdown &amp; Sub-Factor Derivations
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-[11px] text-[#EBDED4]/85">
+              <div className="space-y-1">
+                <strong>Batting Formula:</strong>
+                <p className="font-mono text-[10px] text-[#D9AA90]">{pi.explanations.batting}</p>
+              </div>
+              <div className="space-y-1">
+                <strong>Bowling Formula:</strong>
+                <p className="font-mono text-[10px] text-[#D9AA90]">{pi.explanations.bowling}</p>
+              </div>
+              <div className="space-y-1">
+                <strong>All-Rounder Balance:</strong>
+                <p className="font-mono text-[10px] text-[#D9AA90]">{pi.explanations.all_rounder}</p>
+              </div>
+              <div className="space-y-1">
+                <strong>Consistency &amp; Match Impact:</strong>
+                <p className="font-mono text-[10px] text-[#D9AA90]">
+                  {pi.explanations.consistency} • {pi.explanations.match_impact}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* TAB CONTENT 1: CAREER STATISTICS */}
+      {/* Tabs Navigation */}
+      <div className="border-b border-[#07203F]/20 flex flex-wrap gap-6 text-sm no-print">
+        {[
+          { id: "career", label: "Career & Visual Charts" },
+          { id: "situational", label: "Situational Splits (1st vs Chasing)" },
+          { id: "seasons", label: "Season-wise Breakdown" },
+          { id: "matches", label: "Match History Log" },
+          { id: "auction", label: "Auction Intelligence" },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as any)}
+            className={`pb-3 font-semibold transition border-b-2 ${
+              activeTab === tab.id
+                ? "border-[#A65E46] text-[#A65E46]"
+                : "border-transparent text-[#07203F]/70 hover:text-[#07203F]"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* TAB CONTENT 1: CAREER STATISTICS & CHARTS */}
       {(activeTab === "career" || isPrintMode) && (
         <div className="space-y-8">
           {/* Key Stat Cards Grid */}
@@ -352,27 +458,70 @@ export default function PlayerProfilePage() {
             <StatCard
               title="Career Runs"
               value={b.total_runs}
-              subtitle={`${b.innings} innings, HS: ${b.highest_score}`}
+              subtitle={`${b.innings} innings, HS: ${b.highest_score_display || b.highest_score}`}
               icon={<Flame className="w-4 h-4" />}
             />
             <StatCard
               title="Strike Rate"
-              value={b.strike_rate.toFixed(1)}
-              subtitle={`${b.boundary_percentage.toFixed(1)}% boundary scoring`}
+              value={b.strike_rate ? b.strike_rate.toFixed(1) : "0.0"}
+              subtitle={`${b.boundary_percentage ? b.boundary_percentage.toFixed(1) : "0.0"}% boundary scoring`}
               icon={<TrendingUp className="w-4 h-4" />}
             />
             <StatCard
               title="Career Wickets"
-              value={bw.wickets}
-              subtitle={`${bw.overs} overs bowled`}
+              value={bw.wickets || 0}
+              subtitle={`${bw.overs_display || bw.overs} overs bowled`}
               icon={<Shield className="w-4 h-4" />}
             />
             <StatCard
               title="Bowling Economy"
               value={bw.legal_balls > 0 ? bw.economy.toFixed(2) : "-"}
-              subtitle={`${bw.dot_ball_percentage.toFixed(1)}% dot balls`}
+              subtitle={`${bw.dot_ball_percentage ? bw.dot_ball_percentage.toFixed(1) : "0.0"}% dot balls`}
               icon={<Trophy className="w-4 h-4" />}
             />
+          </div>
+
+          {/* 6-Over Cricket Milestone Rack */}
+          <div className="bg-white/80 backdrop-blur rounded-lg p-5 border border-[#07203F]/15 shadow-sm space-y-3">
+            <div className="flex items-center justify-between border-b border-[#07203F]/10 pb-2">
+              <span className="font-serif text-base font-bold text-[#07203F] flex items-center gap-1.5">
+                <Award className="w-4 h-4 text-[#A65E46]" />
+                <span>6-Over Cricket Milestones &amp; Impact Frequencies</span>
+              </span>
+              <span className="text-[10px] font-mono text-[#07203F]/60">Regulation Tournament Data</span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-6 gap-3 text-center">
+              <div className="p-2 rounded bg-[#EBDED4]/40 border border-[#07203F]/10">
+                <span className="text-[10px] text-[#07203F]/70 uppercase block font-semibold">10+ Scores</span>
+                <span className="font-mono text-base font-bold text-[#07203F]">{b.scores_10_plus || 0}</span>
+                <span className="text-[9px] text-[#07203F]/60 block">{b.pct_10_plus || 0}% inn</span>
+              </div>
+              <div className="p-2 rounded bg-[#EBDED4]/40 border border-[#07203F]/10">
+                <span className="text-[10px] text-[#07203F]/70 uppercase block font-semibold">15+ Scores</span>
+                <span className="font-mono text-base font-bold text-[#07203F]">{b.scores_15_plus || 0}</span>
+                <span className="text-[9px] text-[#07203F]/60 block">{b.pct_15_plus || 0}% inn</span>
+              </div>
+              <div className="p-2 rounded bg-[#EBDED4]/40 border border-[#07203F]/10">
+                <span className="text-[10px] text-[#07203F]/70 uppercase block font-semibold">20+ Scores</span>
+                <span className="font-mono text-base font-bold text-[#A65E46]">{b.scores_20_plus || 0}</span>
+                <span className="text-[9px] text-[#07203F]/60 block">{b.pct_20_plus || 0}% inn</span>
+              </div>
+              <div className="p-2 rounded bg-[#EBDED4]/40 border border-[#07203F]/10">
+                <span className="text-[10px] text-[#07203F]/70 uppercase block font-semibold">Multi-Wkts (2+)</span>
+                <span className="font-mono text-base font-bold text-[#07203F]">{bw.two_plus_wickets || 0}</span>
+                <span className="text-[9px] text-[#07203F]/60 block">{bw.multi_wicket_frequency || 0}% sp</span>
+              </div>
+              <div className="p-2 rounded bg-[#EBDED4]/40 border border-[#07203F]/10">
+                <span className="text-[10px] text-[#07203F]/70 uppercase block font-semibold">Ducks / Not-Outs</span>
+                <span className="font-mono text-base font-bold text-[#07203F]">{b.duck_count || 0} / {b.not_outs || 0}</span>
+                <span className="text-[9px] text-[#07203F]/60 block">{b.not_out_percentage || 0}% NO</span>
+              </div>
+              <div className="p-2 rounded bg-[#EBDED4]/40 border border-[#07203F]/10">
+                <span className="text-[10px] text-[#07203F]/70 uppercase block font-semibold">Explosiveness</span>
+                <span className="font-mono text-base font-bold text-[#A65E46]">{b.explosiveness_index || 0}</span>
+                <span className="text-[9px] text-[#07203F]/60 block">Index / 100</span>
+              </div>
+            </div>
           </div>
 
           {/* Batting & Bowling Deep Analysis Tables */}
@@ -381,12 +530,18 @@ export default function PlayerProfilePage() {
             <div className="bg-white/80 backdrop-blur rounded-lg p-5 border border-[#07203F]/15 shadow-sm space-y-4">
               <div className="flex items-center justify-between border-b border-[#07203F]/10 pb-2">
                 <h3 className="font-serif text-lg font-bold text-[#07203F]">Batting Performance Metrics</h3>
-                <span className="font-mono text-xs font-bold text-[#A65E46]">{r.batting_rating.toFixed(1)} / 100</span>
+                <span className="font-mono text-xs font-bold text-[#A65E46]">
+                  {pi.batting_intelligence_score ? `${pi.batting_intelligence_score.toFixed(1)} / 100` : "N/A"}
+                </span>
               </div>
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between py-1 border-b border-[#07203F]/5">
                   <span className="text-[#07203F]/60">Batting Average</span>
-                  <span className="font-mono font-bold text-[#02000D]">{b.batting_average.toFixed(2)}</span>
+                  <span className="font-mono font-bold text-[#02000D]">{b.average_display || b.batting_average?.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-[#07203F]/5">
+                  <span className="text-[#07203F]/60">Runs Per Innings</span>
+                  <span className="font-mono font-bold text-[#02000D]">{b.runs_per_innings?.toFixed(2) || "0.00"}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-[#07203F]/5">
                   <span className="text-[#07203F]/60">Balls Faced</span>
@@ -394,19 +549,23 @@ export default function PlayerProfilePage() {
                 </div>
                 <div className="flex justify-between py-1 border-b border-[#07203F]/5">
                   <span className="text-[#07203F]/60">Dismissals / Not-Outs</span>
-                  <span className="font-mono font-bold text-[#02000D]">{b.outs} outs / {b.not_outs} NO</span>
+                  <span className="font-mono font-bold text-[#02000D]">{b.outs} outs / {b.not_outs} NO ({b.not_out_percentage?.toFixed(1)}%)</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-[#07203F]/5">
                   <span className="text-[#07203F]/60">Fours / Sixes</span>
                   <span className="font-mono font-bold text-[#02000D]">{b.fours} 4s / {b.sixes} 6s</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-[#07203F]/5">
+                  <span className="text-[#07203F]/60">Boundary Runs Share</span>
+                  <span className="font-mono font-bold text-[#02000D]">{b.boundary_runs_percentage?.toFixed(1)}% of runs</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-[#07203F]/5">
                   <span className="text-[#07203F]/60">Balls Per Boundary</span>
-                  <span className="font-mono font-bold text-[#02000D]">{b.balls_per_boundary.toFixed(1)} balls</span>
+                  <span className="font-mono font-bold text-[#02000D]">{b.balls_per_boundary?.toFixed(1)} balls</span>
                 </div>
                 <div className="flex justify-between py-1">
                   <span className="text-[#07203F]/60">Consistency Index</span>
-                  <span className="font-mono font-bold text-[#02000D]">{b.consistency_index.toFixed(1)} / 100</span>
+                  <span className="font-mono font-bold text-[#02000D]">{b.consistency_index?.toFixed(1)} / 100</span>
                 </div>
               </div>
             </div>
@@ -415,12 +574,14 @@ export default function PlayerProfilePage() {
             <div className="bg-white/80 backdrop-blur rounded-lg p-5 border border-[#07203F]/15 shadow-sm space-y-4">
               <div className="flex items-center justify-between border-b border-[#07203F]/10 pb-2">
                 <h3 className="font-serif text-lg font-bold text-[#07203F]">Bowling Performance Metrics</h3>
-                <span className="font-mono text-xs font-bold text-[#A65E46]">{r.bowling_rating.toFixed(1)} / 100</span>
+                <span className="font-mono text-xs font-bold text-[#A65E46]">
+                  {pi.bowling_intelligence_score ? `${pi.bowling_intelligence_score.toFixed(1)} / 100` : "N/A"}
+                </span>
               </div>
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between py-1 border-b border-[#07203F]/5">
-                  <span className="text-[#07203F]/60">Runs Conceded</span>
-                  <span className="font-mono font-bold text-[#02000D]">{bw.runs_conceded} runs</span>
+                  <span className="text-[#07203F]/60">Runs Conceded / Legal Balls</span>
+                  <span className="font-mono font-bold text-[#02000D]">{bw.runs_conceded} runs / {bw.legal_balls} balls</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-[#07203F]/5">
                   <span className="text-[#07203F]/60">Bowling Average</span>
@@ -431,66 +592,24 @@ export default function PlayerProfilePage() {
                   <span className="font-mono font-bold text-[#02000D]">{bw.bowling_strike_rate ? `${bw.bowling_strike_rate.toFixed(1)} balls/wkt` : "N/A"}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-[#07203F]/5">
-                  <span className="text-[#07203F]/60">Dot Balls (Frequency)</span>
-                  <span className="font-mono font-bold text-[#02000D]">{bw.dot_balls} dots ({bw.dot_ball_percentage.toFixed(1)}%)</span>
+                  <span className="text-[#07203F]/60">Wickets Per Match</span>
+                  <span className="font-mono font-bold text-[#02000D]">{bw.wickets_per_match?.toFixed(2) || "0.00"}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-[#07203F]/5">
-                  <span className="text-[#07203F]/60">Best Bowling Figures</span>
+                  <span className="text-[#07203F]/60">Dot Balls (Frequency)</span>
+                  <span className="font-mono font-bold text-[#02000D]">{bw.dot_balls} dots ({bw.dot_ball_percentage?.toFixed(1)}%)</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-[#07203F]/5">
+                  <span className="text-[#07203F]/60">Boundary Concession %</span>
+                  <span className="font-mono font-bold text-[#02000D]">{bw.boundary_concession_percentage?.toFixed(1)}%</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-[#07203F]/5">
+                  <span className="text-[#07203F]/60">Best Figures</span>
                   <span className="font-mono font-bold text-[#02000D]">{bw.best_figures}</span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-[#07203F]/60">Extras Conceded (WD / NB)</span>
-                  <span className="font-mono font-bold text-[#02000D]">{bw.wides} wides / {bw.no_balls} no-balls</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 100-Point Ratings Component Breakdown */}
-          <div className="bg-[#07203F] text-[#EBDED4] rounded-lg p-6 border border-[#D9AA90]/20 space-y-4 shadow-sm">
-            <h3 className="font-serif text-xl font-bold text-[#EBDED4]">
-              Transparent Rating Breakdown (100-Point Scale)
-            </h3>
-            <p className="text-xs text-[#EBDED4]/70">
-              Ratings use normalized Bayesian shrinkage against EPL benchmarks to avoid sample-size distortion.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div className="bg-[#02000D]/40 p-4 rounded border border-[#D9AA90]/15 space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs uppercase text-[#D9AA90] font-semibold">Batting Rating</span>
-                  <span className="font-mono text-lg font-bold text-[#EBDED4]">{r.batting_rating.toFixed(1)}</span>
-                </div>
-                <div className="text-[11px] text-[#EBDED4]/70 space-y-1">
-                  <div>Volume: {r.batting_breakdown.scoring_volume_score} / 35</div>
-                  <div>Velocity (SR): {r.batting_breakdown.scoring_velocity_score} / 35</div>
-                  <div>Reliability: {r.batting_breakdown.reliability_score} / 15</div>
-                  <div>Boundaries: {r.batting_breakdown.boundary_prowess_score} / 15</div>
-                </div>
-              </div>
-
-              <div className="bg-[#02000D]/40 p-4 rounded border border-[#D9AA90]/15 space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs uppercase text-[#D9AA90] font-semibold">Bowling Rating</span>
-                  <span className="font-mono text-lg font-bold text-[#EBDED4]">{r.bowling_rating.toFixed(1)}</span>
-                </div>
-                <div className="text-[11px] text-[#EBDED4]/70 space-y-1">
-                  <div>Wickets: {r.bowling_breakdown.wicket_threat_score} / 40</div>
-                  <div>Economy: {r.bowling_breakdown.economy_control_score} / 35</div>
-                  <div>Dots: {r.bowling_breakdown.dot_ball_score} / 15</div>
-                  <div>Multi-Wkts: {r.bowling_breakdown.multi_wicket_score} / 10</div>
-                </div>
-              </div>
-
-              <div className="bg-[#02000D]/40 p-4 rounded border border-[#D9AA90]/15 space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs uppercase text-[#D9AA90] font-semibold">All-Rounder Rating</span>
-                  <span className="font-mono text-lg font-bold text-[#EBDED4]">{r.all_rounder_rating.toFixed(1)}</span>
-                </div>
-                <div className="text-[11px] text-[#EBDED4]/70 space-y-1">
-                  <div>Consistency: {r.consistency_rating.toFixed(1)} / 100</div>
-                  <div>Knockout Rating: {r.knockout_rating.toFixed(1)} / 100</div>
-                  <div>Overall Index: {r.overall_rating.toFixed(1)} / 100</div>
+                  <span className="text-[#07203F]/60">Spell Consistency Index</span>
+                  <span className="font-mono font-bold text-[#02000D]">{bw.bowling_consistency_index?.toFixed(1)} / 100</span>
                 </div>
               </div>
             </div>
@@ -568,7 +687,84 @@ export default function PlayerProfilePage() {
         </div>
       )}
 
-      {/* TAB CONTENT 2: SEASONS */}
+      {/* TAB CONTENT 2: SITUATIONAL SPLITS (1st vs Chasing) */}
+      {activeTab === "situational" && ss && (
+        <div className="space-y-6">
+          <div className="bg-[#07203F] text-[#EBDED4] p-5 rounded-lg border border-[#D9AA90]/20 space-y-2">
+            <h3 className="font-serif text-lg font-bold text-[#EBDED4]">
+              Situational Pressure Splits
+            </h3>
+            <p className="text-xs text-[#EBDED4]/70">
+              Evaluates execution under differing match scripts: setting targets (Innings 1) versus chasing totals (Innings 2), 
+              and bowling first versus defending totals under scoreboard pressure.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Batting 1st vs Chasing */}
+            <div className="bg-white/80 backdrop-blur rounded-lg p-5 border border-[#07203F]/15 shadow-sm space-y-4">
+              <h4 className="font-serif text-base font-bold text-[#07203F] border-b border-[#07203F]/10 pb-2">
+                Batting: Setting Target vs Run Chase
+              </h4>
+              <div className="grid grid-cols-2 gap-4 text-xs">
+                <div className="bg-[#EBDED4]/30 p-3 rounded border border-[#07203F]/10 space-y-2">
+                  <span className="font-bold text-[#07203F] block">Batting 1st (Setting)</span>
+                  <div className="space-y-1">
+                    <div>Runs: <strong>{ss.batting_first?.total_runs || 0}</strong> ({ss.batting_first?.innings || 0} inn)</div>
+                    <div>SR: <strong>{ss.batting_first?.strike_rate?.toFixed(1) || "0.0"}</strong></div>
+                    <div>Avg: <strong>{ss.batting_first?.average_display || "0.00"}</strong></div>
+                    <div>Boundaries: <strong>{ss.batting_first?.fours || 0}x4, {ss.batting_first?.sixes || 0}x6</strong></div>
+                    <div>HS: <strong>{ss.batting_first?.highest_score_display || "0"}</strong></div>
+                  </div>
+                </div>
+
+                <div className="bg-[#EBDED4]/30 p-3 rounded border border-[#07203F]/10 space-y-2">
+                  <span className="font-bold text-[#A65E46] block">Chasing (Innings 2)</span>
+                  <div className="space-y-1">
+                    <div>Runs: <strong>{ss.chasing?.total_runs || 0}</strong> ({ss.chasing?.innings || 0} inn)</div>
+                    <div>SR: <strong>{ss.chasing?.strike_rate?.toFixed(1) || "0.0"}</strong></div>
+                    <div>Avg: <strong>{ss.chasing?.average_display || "0.00"}</strong></div>
+                    <div>Boundaries: <strong>{ss.chasing?.fours || 0}x4, {ss.chasing?.sixes || 0}x6</strong></div>
+                    <div>HS: <strong>{ss.chasing?.highest_score_display || "0"}</strong></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bowling 1st vs Defending */}
+            <div className="bg-white/80 backdrop-blur rounded-lg p-5 border border-[#07203F]/15 shadow-sm space-y-4">
+              <h4 className="font-serif text-base font-bold text-[#07203F] border-b border-[#07203F]/10 pb-2">
+                Bowling: First Inning vs Defending Total
+              </h4>
+              <div className="grid grid-cols-2 gap-4 text-xs">
+                <div className="bg-[#EBDED4]/30 p-3 rounded border border-[#07203F]/10 space-y-2">
+                  <span className="font-bold text-[#07203F] block">Bowling 1st</span>
+                  <div className="space-y-1">
+                    <div>Overs: <strong>{ss.bowling_first?.overs_display || "0.0"}</strong></div>
+                    <div>Wickets: <strong>{ss.bowling_first?.wickets || 0}</strong></div>
+                    <div>Economy: <strong>{ss.bowling_first?.economy?.toFixed(2) || "0.00"}</strong></div>
+                    <div>Runs Conceded: <strong>{ss.bowling_first?.runs_conceded || 0}</strong></div>
+                    <div>Dots: <strong>{ss.bowling_first?.dot_balls || 0} ({ss.bowling_first?.dot_ball_percentage?.toFixed(1) || 0}%)</strong></div>
+                  </div>
+                </div>
+
+                <div className="bg-[#EBDED4]/30 p-3 rounded border border-[#07203F]/10 space-y-2">
+                  <span className="font-bold text-[#A65E46] block">Defending Total</span>
+                  <div className="space-y-1">
+                    <div>Overs: <strong>{ss.defending?.overs_display || "0.0"}</strong></div>
+                    <div>Wickets: <strong>{ss.defending?.wickets || 0}</strong></div>
+                    <div>Economy: <strong>{ss.defending?.economy?.toFixed(2) || "0.00"}</strong></div>
+                    <div>Runs Conceded: <strong>{ss.defending?.runs_conceded || 0}</strong></div>
+                    <div>Dots: <strong>{ss.defending?.dot_balls || 0} ({ss.defending?.dot_ball_percentage?.toFixed(1) || 0}%)</strong></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB CONTENT 3: SEASONS */}
       {(activeTab === "seasons" || isPrintMode) && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -589,18 +785,22 @@ export default function PlayerProfilePage() {
                       <div className="font-semibold text-[#07203F] mb-1">Batting Performance</div>
                       <div className="grid grid-cols-2 gap-2 text-[#07203F]/80">
                         <div>Runs: <strong>{sBat.total_runs}</strong> ({sBat.innings} inn)</div>
-                        <div>SR: <strong>{sBat.strike_rate.toFixed(1)}</strong></div>
-                        <div>Avg: <strong>{sBat.batting_average.toFixed(1)}</strong></div>
-                        <div>HS: <strong>{sBat.highest_score}</strong></div>
+                        <div>SR: <strong>{sBat.strike_rate?.toFixed(1)}</strong></div>
+                        <div>Avg: <strong>{sBat.average_display || sBat.batting_average?.toFixed(1)}</strong></div>
+                        <div>HS: <strong>{sBat.highest_score_display || sBat.highest_score}</strong></div>
+                        <div>10+ Scores: <strong>{sBat.scores_10_plus || 0}</strong></div>
+                        <div>Boundaries: <strong>{sBat.boundary_percentage?.toFixed(1)}%</strong></div>
                       </div>
                     </div>
                     <div className="pt-2 border-t border-[#07203F]/10">
                       <div className="font-semibold text-[#07203F] mb-1">Bowling Performance</div>
                       <div className="grid grid-cols-2 gap-2 text-[#07203F]/80">
-                        <div>Wickets: <strong>{sBowl.wickets}</strong> ({sBowl.overs} ov)</div>
-                        <div>Economy: <strong>{sBowl.legal_balls > 0 ? sBowl.economy.toFixed(2) : "-"}</strong></div>
+                        <div>Wickets: <strong>{sBowl.wickets}</strong> ({sBowl.overs_display || sBowl.overs} ov)</div>
+                        <div>Economy: <strong>{sBowl.legal_balls > 0 ? sBowl.economy?.toFixed(2) : "-"}</strong></div>
                         <div>Runs C: <strong>{sBowl.runs_conceded}</strong></div>
                         <div>Dots: <strong>{sBowl.dot_balls}</strong></div>
+                        <div>Best: <strong>{sBowl.best_figures}</strong></div>
+                        <div>Multi-Wkts: <strong>{sBowl.two_plus_wickets || 0}</strong></div>
                       </div>
                     </div>
                   </div>
@@ -611,19 +811,20 @@ export default function PlayerProfilePage() {
         </div>
       )}
 
-      {/* TAB CONTENT 3: MATCH HISTORY */}
+      {/* TAB CONTENT 4: MATCH HISTORY */}
       {activeTab === "matches" && (
         <div 
           tabIndex={0} 
           role="region" 
           aria-label="Player Match History Log"
-          className="table-wrapper bg-white/90 backdrop-blur rounded-lg border border-[#07203F]/15 shadow-sm"
+          className="table-wrapper bg-white/90 backdrop-blur rounded-lg border border-[#07203F]/15 shadow-sm overflow-x-auto"
         >
-          <table className="w-full text-left table-editorial table-sticky-col">
+          <table className="w-full text-left text-xs">
             <thead className="bg-[#07203F] text-[#EBDED4]">
               <tr>
                 <th scope="col" className="p-3">Season / Stage</th>
                 <th scope="col" className="p-3">Opponent</th>
+                <th scope="col" className="p-3">Role In Match</th>
                 <th scope="col" className="p-3">Batting</th>
                 <th scope="col" className="p-3">SR</th>
                 <th scope="col" className="p-3">Dismissal</th>
@@ -631,37 +832,46 @@ export default function PlayerProfilePage() {
                 <th scope="col" className="p-3">Figures</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#07203F]/10 text-xs">
-              {profile.match_history?.map((m: any, idx: number) => (
-                <tr key={idx} className="hover:bg-[#EBDED4]/40 transition">
-                  <td className="p-3 font-medium">
-                    <span className="font-bold text-[#07203F]">EPL {m.season}</span>
-                    <span className="text-[10px] text-[#07203F]/60 block">{m.stage}</span>
-                  </td>
-                  <td className="p-3 font-semibold text-[#02000D]">{m.opponent}</td>
-                  <td className="p-3 font-mono font-bold text-[#02000D]">
-                    {m.runs !== undefined ? `${m.runs} (${m.balls}b)` : "-"}
-                  </td>
-                  <td className="p-3 font-mono text-[#07203F]">
-                    {m.strike_rate ? m.strike_rate.toFixed(1) : "-"}
-                  </td>
-                  <td className="p-3 text-[#07203F]/80">
-                    {m.dismissal || "-"}
-                  </td>
-                  <td className="p-3 font-mono text-[#07203F]">
-                    {m.overs !== undefined ? `${m.overs} ov` : "-"}
-                  </td>
-                  <td className="p-3 font-mono font-bold text-[#A65E46]">
-                    {m.wickets !== undefined ? `${m.wickets}/${m.runs_conceded}` : "-"}
-                  </td>
-                </tr>
-              ))}
+            <tbody className="divide-y divide-[#07203F]/10">
+              {profile.match_history?.map((m: any, idx: number) => {
+                const hasBat = m.batting !== null && m.batting !== undefined;
+                const hasBowl = m.bowling !== null && m.bowling !== undefined;
+                return (
+                  <tr key={idx} className="hover:bg-[#EBDED4]/40 transition">
+                    <td className="p-3 font-medium">
+                      <span className="font-bold text-[#07203F]">EPL {m.season}</span>
+                      <span className="text-[10px] text-[#07203F]/60 block">{m.stage}</span>
+                    </td>
+                    <td className="p-3 font-semibold text-[#02000D]">{m.opponent}</td>
+                    <td className="p-3">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#EBDED4] text-[#07203F] font-semibold">
+                        {hasBat && hasBowl ? "Bat & Bowl" : hasBat ? "Batting" : hasBowl ? "Bowling" : "-"}
+                      </span>
+                    </td>
+                    <td className="p-3 font-mono font-bold text-[#02000D]">
+                      {hasBat ? `${m.batting.runs}${m.batting.is_not_out ? "*" : ""} (${m.batting.balls}b)` : "-"}
+                    </td>
+                    <td className="p-3 font-mono text-[#07203F]">
+                      {hasBat && m.batting.strike_rate ? m.batting.strike_rate.toFixed(1) : "-"}
+                    </td>
+                    <td className="p-3 text-[#07203F]/80">
+                      {hasBat ? (m.batting.dismissal || "not out") : "-"}
+                    </td>
+                    <td className="p-3 font-mono text-[#07203F]">
+                      {hasBowl ? `${m.bowling.overs} ov` : "-"}
+                    </td>
+                    <td className="p-3 font-mono font-bold text-[#A65E46]">
+                      {hasBowl ? `${m.bowling.wickets}/${m.bowling.runs_conceded}` : "-"}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
       )}
 
-      {/* TAB CONTENT 4: AUCTION INTELLIGENCE */}
+      {/* TAB CONTENT 5: AUCTION INTELLIGENCE */}
       {(activeTab === "auction" || isPrintMode) && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -680,10 +890,10 @@ export default function PlayerProfilePage() {
                 <div>
                   <span className="text-xs text-[#EBDED4]/60 block">Projected Bidding Valuation</span>
                   <div className="font-mono text-3xl font-bold text-[#A65E46] mt-1">
-                    {v.estimated_valuation.toFixed(1)} <span className="text-sm text-[#EBDED4]">Auction Points</span>
+                    {v.estimated_valuation?.toFixed(1)} <span className="text-sm text-[#EBDED4]">Auction Points</span>
                   </div>
                   <div className="text-xs text-[#D9AA90] mt-0.5">
-                    Target Bidding Range: {v.valuation_range} pts (Base Price: {v.base_price.toFixed(1)} pts)
+                    Target Bidding Range: {v.valuation_range} pts (Base Price: {v.base_price?.toFixed(1)} pts)
                   </div>
                 </div>
 
@@ -707,7 +917,7 @@ export default function PlayerProfilePage() {
             {/* Strengths & Weaknesses */}
             <div className="bg-white/80 backdrop-blur rounded-lg p-6 border border-[#07203F]/15 space-y-4 shadow-sm">
               <h3 className="font-serif text-xl font-bold text-[#07203F]">
-                Scouting Strengths & Considerations
+                Scouting Strengths &amp; Considerations
               </h3>
 
               <div className="space-y-3 text-xs">
@@ -717,7 +927,7 @@ export default function PlayerProfilePage() {
                     <span>Verified Core Strengths</span>
                   </span>
                   <ul className="list-disc list-inside space-y-1 text-[#07203F]/80 pl-1">
-                    {v.strengths.map((str: string, i: number) => (
+                    {v.strengths?.map((str: string, i: number) => (
                       <li key={i}>{str}</li>
                     ))}
                   </ul>
@@ -729,7 +939,7 @@ export default function PlayerProfilePage() {
                     <span>Tactical Considerations</span>
                   </span>
                   <ul className="list-disc list-inside space-y-1 text-[#07203F]/80 pl-1">
-                    {v.weaknesses.map((w: string, i: number) => (
+                    {v.weaknesses?.map((w: string, i: number) => (
                       <li key={i}>{w}</li>
                     ))}
                   </ul>

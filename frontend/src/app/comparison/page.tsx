@@ -208,21 +208,39 @@ export default function ComparisonPage() {
               {/* Overall Ratings */}
               <tr className="bg-[#EBDED4]/50 font-semibold">
                 <td colSpan={comparedData.length + 1} className="p-2.5 text-[#07203F] uppercase tracking-wider text-[11px]">
-                  1. Ratings & Auction Valuation
+                  1. Ratings &amp; Player Intelligence (v1.3 PIS)
                 </td>
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#07203F]">Overall EPL Rating</td>
+                <td className="p-3 font-medium text-[#07203F]">Player Intelligence Score (PIS)</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10">
-                    <RatingBadge score={p.ratings.overall_rating} size="sm" />
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10 font-serif font-bold text-base text-[#07203F]">
+                    {p.player_intelligence?.overall_player_intelligence_score?.toFixed(1) || p.ratings.overall_rating.toFixed(1)} / 100
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-3 font-medium text-[#07203F]">Role Classification</td>
+                {comparedData.map((p) => (
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10 font-semibold text-[#A65E46]">
+                    {p.all_rounder_metrics?.role_classification || p.primary_role}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-3 font-medium text-[#07203F]">Confidence Level</td>
+                {comparedData.map((p) => (
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10 font-mono text-[11px]">
+                    <span className="px-2 py-0.5 rounded bg-[#EBDED4] text-[#07203F] font-semibold">
+                      {p.player_intelligence?.confidence_level || "MEDIUM"}
+                    </span>
                   </td>
                 ))}
               </tr>
               <tr>
                 <td className="p-3 font-medium text-[#07203F]">Auction Category</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10 font-semibold text-[#A65E46]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10 font-semibold text-[#07203F]">
                     {p.valuation.category}
                   </td>
                 ))}
@@ -334,6 +352,45 @@ export default function ComparisonPage() {
                 {comparedData.map((p) => (
                   <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10 font-mono font-semibold">
                     {p.career_bowling.best_figures}
+                  </td>
+                ))}
+              </tr>
+
+              {/* Situational Splits & 6-Over Milestones */}
+              <tr className="bg-[#EBDED4]/50 font-semibold">
+                <td colSpan={comparedData.length + 1} className="p-2.5 text-[#07203F] uppercase tracking-wider text-[11px]">
+                  4. Situational Splits &amp; 6-Over Milestones (v1.3)
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3 font-medium text-[#07203F]">Batting 1st vs Chasing Runs</td>
+                {comparedData.map((p) => (
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10 font-mono">
+                    {p.situational_splits?.batting_first?.total_runs || 0} runs (1st) / {p.situational_splits?.chasing?.total_runs || 0} runs (Chase)
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-3 font-medium text-[#07203F]">Bowling 1st vs Defending Economy</td>
+                {comparedData.map((p) => (
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10 font-mono">
+                    {p.situational_splits?.bowling_first?.economy ? `${p.situational_splits.bowling_first.economy.toFixed(2)}` : "-"} / {p.situational_splits?.defending?.economy ? `${p.situational_splits.defending.economy.toFixed(2)}` : "-"} RPO
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-3 font-medium text-[#07203F]">10+ / 15+ / 20+ Innings</td>
+                {comparedData.map((p) => (
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10 font-mono font-semibold text-[#A65E46]">
+                    {p.career_batting.scores_10_plus || 0} / {p.career_batting.scores_15_plus || 0} / {p.career_batting.scores_20_plus || 0}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="p-3 font-medium text-[#07203F]">Multi-Wicket Spells (2+ Wkts)</td>
+                {comparedData.map((p) => (
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#07203F]/10 font-mono font-semibold text-[#07203F]">
+                    {p.career_bowling.two_plus_wickets || 0} spells ({p.career_bowling.multi_wicket_frequency || 0}%)
                   </td>
                 ))}
               </tr>

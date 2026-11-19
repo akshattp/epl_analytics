@@ -9,7 +9,7 @@ import {
   Settings, Menu, X, ChevronDown, FlaskConical, History
 } from "lucide-react";
 
-const CURRENT_APP_VERSION = "1.1.0";
+const CURRENT_APP_VERSION = "1.3.0";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -168,6 +168,13 @@ export default function Navbar() {
                     className="block px-4 py-2 text-xs text-[#EBDED4] hover:bg-[#A65E46]/30 transition-colors"
                   >
                     Similar Player Cohorts
+                  </Link>
+                  <Link
+                    href="/analytics/records"
+                    onClick={() => setAnalyticsOpen(false)}
+                    className="block px-4 py-2 text-xs font-semibold text-[#D9AA90] hover:bg-[#A65E46]/30 transition-colors border-t border-[#D9AA90]/15"
+                  >
+                    Tournament Records &amp; Milestones (v1.3)
                   </Link>
                 </div>
               )}
