@@ -14,6 +14,8 @@ import { fetchApi } from "@/lib/api";
 import { EplBrandLogo } from "@/components/EplBrandLogo";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { RatingBadge } from "@/components/RatingBadge";
+import { ParallelScrollColumns } from "@/components/ParallelScrollColumns";
+import { HorizontalScrollDossiers } from "@/components/HorizontalScrollDossiers";
 
 // Helper to compute initials from name
 function getInitials(name: string): string {
@@ -30,7 +32,6 @@ export default function LandingPage() {
   const [auctionTeams, setAuctionTeams] = useState<any[]>([]);
   const [insights, setInsights] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTeamTab, setSelectedTeamTab] = useState<number>(0);
 
   // Parallel Scrolling & Parallax Hooks
   const containerRef = useRef<HTMLDivElement>(null);
@@ -40,11 +41,11 @@ export default function LandingPage() {
   });
 
   // Parallax Layer Transforms
-  const heroY = useTransform(scrollYProgress, [0, 0.18], [0, -80]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.22], [1, 0.2]);
+  const heroY = useTransform(scrollYProgress, [0, 0.18], [0, -60]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.22], [1, 0.3]);
   const trajectoryY1 = useTransform(scrollYProgress, [0, 1], [0, 240]);
   const trajectoryY2 = useTransform(scrollYProgress, [0, 1], [0, -180]);
-  const telemetryFloatY = useTransform(scrollYProgress, [0.05, 0.3], [30, -30]);
+  const telemetryFloatY = useTransform(scrollYProgress, [0.05, 0.3], [20, -20]);
 
   useEffect(() => {
     async function loadLandingData() {
@@ -153,7 +154,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div ref={containerRef} className="space-y-28 sm:space-y-44 pb-24 overflow-hidden relative">
+    <div ref={containerRef} className="pb-24 overflow-hidden relative">
       {/* 
         ========================================================================
         MULTI-LAYER PARALLAX KINETIC CANVAS
@@ -199,101 +200,191 @@ export default function LandingPage() {
         </motion.svg>
       </div>
 
-      {/* 
-        ========================================================================
-        HERO STAGE: HIGH-IMPACT BROADCAST TYPOGRAPHY & TELEMETRY
-        ========================================================================
-      */}
-      <section className="relative min-h-[85vh] flex flex-col justify-between pt-6 sm:pt-14">
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="space-y-8 max-w-5xl">
-          {/* Top Telemetry Header */}
-          <div className="flex flex-wrap items-center gap-3">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-50/90 dark:bg-[#151F32]/90 border border-blue-200/80 dark:border-[#334155] backdrop-blur-md text-xs font-mono"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#2563EB] dark:bg-[#38BDF8] animate-pulse"></span>
-              <span className="font-bold text-[#101828] dark:text-[#F8FAFC]">EPL CRICKET INTELLIGENCE</span>
-              <span className="text-[#64748B] dark:text-[#94A3B8]">|</span>
-              <span className="text-[#2563EB] dark:text-[#38BDF8] font-semibold">27 Historical Scorecards Audited</span>
-            </motion.div>
+      <div className="space-y-20 sm:space-y-32">
+        {/* 
+          ========================================================================
+          HERO STAGE: ASYMMETRIC TWO-PART ARCHITECTURE (FIXES B1, B2, B3)
+          ========================================================================
+          - Defect B1 Eliminated: Orphaned blue pulsing dot replaced with crisp icon badge.
+          - Defect B2 Eliminated: min-h-[85vh] and justify-between removed, tight top padding (pt-0).
+          - Feature B3 Delivered: 12-column asymmetric split (7 cols Left, 5 cols Right Telemetry HUD).
+        */}
+        <section className="relative pt-0 space-y-10">
+        <motion.div
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+        >
+          {/* LEFT COLUMN: Editorial Typography & Action Hub (7 Cols) */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+            {/* Top Telemetry Header - Crisp Badge (No orphaned pulsing circle) */}
+            <div className="flex flex-wrap items-center gap-3">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 dark:bg-[#151F32]/90 border border-blue-200/80 dark:border-[#334155] backdrop-blur-md text-xs font-mono"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#38BDF8]" />
+                <span className="font-bold text-[#101828] dark:text-[#F8FAFC]">EPL CRICKET INTELLIGENCE</span>
+                <span className="text-[#64748B] dark:text-[#94A3B8]">|</span>
+                <span className="text-[#2563EB] dark:text-[#38BDF8] font-semibold">27 Historical Scorecards Audited</span>
+              </motion.div>
 
-            <span className="text-[11px] font-mono uppercase tracking-widest text-[#64748B] dark:text-[#94A3B8] hidden sm:inline-block">
-              100-Point Bayesian Model
-            </span>
-          </div>
-
-          {/* Oversized Signature Typography Headline */}
-          <div className="space-y-3">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display font-black text-5xl sm:text-7xl lg:text-8xl tracking-[-0.035em] leading-[0.9] text-[#101828] dark:text-[#F8FAFC]"
-            >
-              MORE THAN A GAME.
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-[#0891B2] to-[#38BDF8] dark:from-[#3B82F6] dark:via-[#22D3EE] dark:to-[#60A5FA]">
-                A GAME OF NUMBERS.
+              <span className="text-[11px] font-mono uppercase tracking-widest text-[#64748B] dark:text-[#94A3B8] hidden sm:inline-block">
+                100-Point Bayesian Model
               </span>
-            </motion.h1>
+            </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
+            {/* Oversized Signature Typography Headline */}
+            <div className="space-y-3">
+              <motion.h1
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="font-display font-black text-5xl sm:text-7xl lg:text-8xl tracking-[-0.035em] leading-[0.92] text-[#101828] dark:text-[#F8FAFC]"
+              >
+                MORE THAN A GAME.
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] via-[#0891B2] to-[#38BDF8] dark:from-[#3B82F6] dark:via-[#22D3EE] dark:to-[#60A5FA]">
+                  A GAME OF NUMBERS.
+                </span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="font-sans text-base sm:text-xl text-[#64748B] dark:text-[#94A3B8] max-w-2xl font-normal leading-relaxed pt-1"
+              >
+                The definitive cricket intelligence platform for 6-over competition. 73 canonical athletes, situational pressure splits, and atomic auction economics.
+              </motion.p>
+            </div>
+
+            {/* Action Hub CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="font-sans text-lg sm:text-2xl text-[#64748B] dark:text-[#94A3B8] max-w-3xl font-normal leading-relaxed pt-3"
+              transition={{ duration: 0.75, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap items-center gap-4 pt-1"
             >
-              The definitive cricket intelligence platform for 6-over competition. 73 canonical athletes, situational pressure splits, and atomic auction economics.
-            </motion.p>
+              <Link
+                href="/dashboard"
+                data-cursor="view"
+                data-cursor-label="ENTER"
+                className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-display font-bold text-base shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-[1.02]"
+              >
+                <LayoutDashboard className="w-5 h-5 text-white/90" />
+                <span>Launch Terminal</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+
+              <Link
+                href="/auction"
+                data-cursor="view"
+                data-cursor-label="AUCTION"
+                className="inline-flex items-center gap-2.5 px-7 py-4 rounded-2xl bg-white dark:bg-[#151F32] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] font-display font-bold text-base hover:bg-slate-50 dark:hover:bg-[#1E293B] shadow-sm transition-all duration-300 hover:border-[#2563EB]"
+              >
+                <DollarSign className="w-5 h-5 text-[#2563EB] dark:text-[#38BDF8]" />
+                <span>Live Auction Room</span>
+              </Link>
+
+              <Link
+                href="/players"
+                className="text-xs font-semibold text-[#64748B] dark:text-[#94A3B8] hover:text-[#2563EB] dark:hover:text-[#38BDF8] underline decoration-blue-500/40 underline-offset-4 px-2 py-2 transition-colors"
+              >
+                Explore 73 Athlete Dossiers →
+              </Link>
+            </motion.div>
           </div>
 
-          {/* Action Hub CTAs */}
+          {/* RIGHT COLUMN: Asymmetric Cricket Telemetry HUD & Visual Composition (5 Cols) */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap items-center gap-4 pt-3"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.85, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 relative"
           >
-            <Link
-              href="/dashboard"
-              data-cursor="view"
-              data-cursor-label="ENTER"
-              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-display font-bold text-base shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-[1.02]"
-            >
-              <LayoutDashboard className="w-5 h-5 text-white/90" />
-              <span>Launch Terminal</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            {/* Visual Telemetry Cockpit Card */}
+            <div className="relative bg-gradient-to-br from-slate-900 via-[#0B1528] to-slate-950 text-white rounded-3xl p-6 sm:p-7 border border-white/10 shadow-2xl overflow-hidden space-y-6">
+              {/* Cricket Ball Vector Seam Glow Effect */}
+              <div className="absolute -top-12 -right-12 w-48 h-48 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-10 -left-10 w-44 h-44 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
 
-            <Link
-              href="/auction"
-              data-cursor="view"
-              data-cursor-label="AUCTION"
-              className="inline-flex items-center gap-2.5 px-7 py-4 rounded-2xl bg-white dark:bg-[#151F32] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] font-display font-bold text-base hover:bg-slate-50 dark:hover:bg-[#1E293B] shadow-sm transition-all duration-300 hover:border-[#2563EB]"
-            >
-              <DollarSign className="w-5 h-5 text-[#2563EB] dark:text-[#38BDF8]" />
-              <span>Live Auction Room</span>
-            </Link>
+              {/* Status Header */}
+              <div className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
+                <div className="flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-cyan-400" />
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300">
+                    MATCH TELEMETRY HUD
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  6 TEAMS LOCKED
+                </span>
+              </div>
 
-            <Link
-              href="/players"
-              className="text-xs font-semibold text-[#64748B] dark:text-[#94A3B8] hover:text-[#2563EB] dark:hover:text-[#38BDF8] underline decoration-blue-500/40 underline-offset-4 px-3 py-2 transition-colors"
-            >
-              Explore 73 Athlete Dossiers →
-            </Link>
+              {/* Dominant Highlight: All-Time Record Score */}
+              <div className="relative z-10 space-y-2 p-4 rounded-2xl bg-white/[0.04] border border-white/10">
+                <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
+                  <span>HIGHEST INNINGS TOTAL</span>
+                  <span className="text-amber-400 font-bold">2025 FINALS</span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <div className="font-display font-black text-4xl sm:text-5xl tracking-tight text-white">
+                    62<span className="text-2xl text-slate-400 font-medium">/2</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs font-mono font-bold text-cyan-300 block">10.33 RPO</span>
+                    <span className="text-[10px] text-slate-400 font-sans">Exotica Warriors</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dual Telemetry Metric Tiles */}
+              <div className="grid grid-cols-2 gap-3 relative z-10 text-xs font-mono">
+                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
+                  <div className="flex items-center gap-1.5 text-slate-400 text-[10px] uppercase font-bold">
+                    <Flame className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Run Leader</span>
+                  </div>
+                  <div className="font-display font-bold text-xl text-white">
+                    138 <span className="text-xs text-slate-400 font-sans">Runs</span>
+                  </div>
+                  <div className="text-[10px] text-slate-400 font-sans truncate">
+                    Sagar Kapadia • 17 Boundaries
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
+                  <div className="flex items-center gap-1.5 text-slate-400 text-[10px] uppercase font-bold">
+                    <Shield className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Best Economy</span>
+                  </div>
+                  <div className="font-display font-bold text-xl text-cyan-300">
+                    3.57 <span className="text-xs text-slate-400 font-sans">Econ</span>
+                  </div>
+                  <div className="text-[10px] text-slate-400 font-sans truncate">
+                    Aarya Shah • 14 Overs
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Concurrency Bar */}
+              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs relative z-10 font-mono">
+                <span className="text-slate-400 text-[11px]">Purse Cap: ₹100.0L Hard Ceiling</span>
+                <span className="text-emerald-400 text-[11px] font-semibold">Atomic Concurrency</span>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
 
         {/* Real Ground-Truth Telemetry Counter Strip */}
         <motion.div
           style={{ y: telemetryFloatY }}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, delay: 0.5 }}
-          className="mt-14 sm:mt-20 pt-8 border-t border-[#E2E8F0] dark:border-[#334155] grid grid-cols-2 sm:grid-cols-5 gap-6 sm:gap-8"
+          transition={{ duration: 0.75, delay: 0.4 }}
+          className="pt-8 border-t border-[#E2E8F0] dark:border-[#334155] grid grid-cols-2 sm:grid-cols-5 gap-6 sm:gap-8"
         >
           <div>
             <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">
@@ -351,8 +442,6 @@ export default function LandingPage() {
         ========================================================================
         SECTION 1: THE COMPETITIVE ARCHITECTURE (ASYMMETRIC EDITORIAL OVERHAUL)
         ========================================================================
-        Completely eliminates generic 3-box cards!
-        Pairs sticky editorial anchor with interactive 6-Franchise Competition Matrix.
       */}
       <section className="space-y-12">
         <div className="border-b border-[#E2E8F0] dark:border-[#334155] pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -461,7 +550,7 @@ export default function LandingPage() {
               {franchiseList.map((team, idx) => (
                 <div
                   key={idx}
-                  className={`bg-white dark:bg-[#151F32] rounded-2xl p-5 border border-[#E2E8F0] dark:border-[#334155] shadow-sm hover:border-[#2563EB] dark:hover:border-[#38BDF8] transition-all duration-300 space-y-4 group`}
+                  className="bg-white dark:bg-[#151F32] rounded-2xl p-5 border border-[#E2E8F0] dark:border-[#334155] shadow-sm hover:border-[#2563EB] dark:hover:border-[#38BDF8] transition-all duration-300 space-y-4 group"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 text-[#64748B] dark:text-[#94A3B8]">
@@ -528,114 +617,34 @@ export default function LandingPage() {
 
       {/* 
         ========================================================================
-        SECTION 2: MARQUEE ATHLETE SHOWCASE (BUG FIX: RUNS & WICKETS VERIFIED)
+        SECTION 2: GSAP PARALLEL SCROLLING OPPOSING STREAMS
         ========================================================================
-        Eliminates zero values by correctly drawing from flat total_runs/wickets!
+        Multi-stream vertical motion:
+        - Stream 1: Moves upward (-140px)
+        - Stream 2: Opposing direction! Moves downward (+120px)
+        - Stream 3: Fast upward velocity (-200px)
       */}
-      <section className="space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#E2E8F0] dark:border-[#334155] pb-6">
-          <div>
-            <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#2563EB] dark:text-[#38BDF8]">
-              02 • ATHLETE PERFORMANCE DOSSIERS
-            </span>
-            <h2 className="font-display font-black text-3xl sm:text-4xl text-[#101828] dark:text-[#F8FAFC] tracking-tight mt-1">
-              LEAGUE PROFILES &amp; HERO PERFORMANCE DOSSIERS
-            </h2>
-          </div>
-          <Link
-            href="/players"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] dark:text-[#38BDF8] hover:underline"
-          >
-            <span>Explore All 73 Canonical Athletes</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        {/* Asymmetrical Athlete Dossier Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {topPlayers.slice(0, 4).map((p) => {
-            // VERIFIED DATA EXTRACTION (NO ZERO BUGS)
-            const runs = p.total_runs ?? p.career_batting?.total_runs ?? 0;
-            const sr = p.strike_rate ?? p.career_batting?.strike_rate ?? 0;
-            const wkts = p.wickets ?? p.career_bowling?.wickets ?? 0;
-            const econ = p.economy ?? p.career_bowling?.economy ?? 0;
-            const score = p.player_intelligence?.overall_player_intelligence_score ?? p.ratings?.overall_rating ?? 75;
-
-            return (
-              <Link
-                key={p.player_id}
-                href={`/players/${p.player_id}`}
-                data-cursor="view"
-                data-cursor-label="DOSSIER"
-                className="group relative bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm hover:border-[#2563EB] dark:hover:border-[#38BDF8] transition-all duration-300 flex flex-col justify-between space-y-6 hover:shadow-xl"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs uppercase font-bold text-[#2563EB] dark:text-[#38BDF8] bg-blue-50 dark:bg-[#0B1120] px-3 py-1 rounded-full border border-blue-200 dark:border-[#334155]">
-                      {p.player_id}
-                    </span>
-                    <RatingBadge score={score} size="sm" />
-                  </div>
-
-                  <div className="mt-5 flex items-center gap-3.5">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 text-white flex items-center justify-center font-display font-black text-lg border border-white/20 shadow-md shrink-0">
-                      {getInitials(p.name)}
-                    </div>
-                    <div>
-                      <h3 className="font-display font-black text-2xl text-[#101828] dark:text-[#F8FAFC] group-hover:text-[#2563EB] dark:group-hover:text-[#38BDF8] transition-colors">
-                        {p.name}
-                      </h3>
-                      <span className="text-xs text-[#64748B] dark:text-[#94A3B8] font-semibold uppercase tracking-wider block">
-                        {p.role_classification || p.primary_role} • {p.batting_hand}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Verified Ground-Truth Statistics Rack */}
-                <div className="grid grid-cols-2 gap-2.5 pt-4 border-t border-[#E2E8F0] dark:border-[#334155] text-xs">
-                  <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-3 rounded-xl border border-slate-200 dark:border-[#1E293B]">
-                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block uppercase font-bold">Career Runs</span>
-                    <span className="font-mono font-bold text-xl text-[#101828] dark:text-[#F8FAFC]">
-                      {runs}
-                    </span>
-                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block mt-0.5">
-                      SR: <strong className="text-[#101828] dark:text-[#F8FAFC]">{Number(sr).toFixed(1)}</strong>
-                    </span>
-                  </div>
-
-                  <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-3 rounded-xl border border-slate-200 dark:border-[#1E293B]">
-                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block uppercase font-bold">Wickets</span>
-                    <span className="font-mono font-bold text-xl text-[#2563EB] dark:text-[#38BDF8]">
-                      {wkts}
-                    </span>
-                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block mt-0.5">
-                      Econ: <strong className="text-[#101828] dark:text-[#F8FAFC]">{wkts > 0 || p.legal_balls > 0 ? Number(econ).toFixed(2) : "—"}</strong>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="pt-1 flex items-center justify-between text-xs font-semibold text-[#2563EB] dark:text-[#38BDF8]">
-                  <span>Inspect Full Dossier</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+      <ParallelScrollColumns />
 
       {/* 
         ========================================================================
-        SECTION 3: DATA INTELLIGENCE COCKPIT (ASYMMETRIC ANALYTICAL SUITES)
+        SECTION 3: PINNED HORIZONTAL SCROLLING ATHLETE SHOWCASE
         ========================================================================
-        Eliminates the generic 3 boxes! Replaced with an asymmetric command suite.
+        GSAP ScrollTrigger Pinned Track: Vertical scroll drives horizontal movement
+        through verified player dossiers with career metrics and PIS ratings.
+      */}
+      <HorizontalScrollDossiers players={topPlayers} />
+
+      {/* 
+        ========================================================================
+        SECTION 4: DATA INTELLIGENCE COCKPIT (ASYMMETRIC ANALYTICAL SUITES)
+        ========================================================================
       */}
       <section className="space-y-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E2E8F0] dark:border-[#334155] pb-6">
           <div>
             <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#2563EB] dark:text-[#38BDF8]">
-              03 • DATA INTELLIGENCE
+              04 • DATA INTELLIGENCE
             </span>
             <h2 className="font-display font-black text-3xl sm:text-4xl text-[#101828] dark:text-[#F8FAFC] tracking-tight mt-1">
               ANALYTICS ENGINES &amp; EXPLORATION
@@ -770,7 +779,7 @@ export default function LandingPage() {
 
       {/* 
         ========================================================================
-        SECTION 4: REAL-TIME AUCTION TERMINAL PREVIEW
+        SECTION 5: REAL-TIME AUCTION TERMINAL PREVIEW
         ========================================================================
       */}
       <section className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-[#0B1120] to-[#0A192F] text-white p-8 sm:p-14 border border-white/10 shadow-2xl">
@@ -848,7 +857,7 @@ export default function LandingPage() {
 
       {/* 
         ========================================================================
-        SECTION 5: EDITORIAL FINAL CALL TO ACTION
+        SECTION 6: EDITORIAL FINAL CALL TO ACTION
         ========================================================================
       */}
       <section className="border-t border-[#E2E8F0] dark:border-[#334155] pt-16 flex flex-col items-center text-center space-y-6">
@@ -880,6 +889,7 @@ export default function LandingPage() {
           </Link>
         </div>
       </section>
+      </div>
     </div>
   );
 }

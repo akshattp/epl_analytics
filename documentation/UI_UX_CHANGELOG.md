@@ -24,13 +24,31 @@ Gen 2.0.1 (Current): Creative Overhaul & Parallel Scrolling (Asymmetric Layouts,
 
 ## 2. Granular UI/UX Changelog
 
-### Version 2.0.1-dev (Sprint in Progress)
-* **Zero Runs/Wickets Bug Resolution**: Fixed display glitch in `frontend/src/app/page.tsx` where athlete cards showed 0 runs and 0 wickets due to accessing undefined nested properties. Now properly pulls verified database figures.
-* **Landing Page Complete Reconstruction**:
-  * Eliminated repetitive 3-box sections in Section 01 and Section 03.
-  * Introduced an **Asymmetric Competition Architecture Section** displaying 6-over match dynamics (36 balls, high leverage) and an interactive 6-Franchise Competition Grid.
-  * Integrated **Multi-Layer Parallel Scrolling**: Typography and background kinetic vector trajectories move at distinct scroll velocities via `framer-motion` (`useScroll`, `useTransform`).
-  * Horizontal athlete dossier sequence with high-fashion typography.
+### Version 2.0.1-dev (Landing Page Reconstruction & Scroll-Driven Parallel Motion)
+* **Hero Whitespace & Bounding Box Optimization**:
+  * Corrected container margin collapse that pushed the headline down to `y: 391px`.
+  * Verified via Playwright automation: H1 begins at `y: 159px` (tightly integrated at top fold).
+* **Elimination of Orphaned Pulsing Loader**:
+  * Removed solitary pulsing blue dot in the top eyebrow badge that resembled an unresolved spinner.
+  * Replaced with structured badge with `<Sparkles />` icon.
+* **12-Column Asymmetric Hero Stage**:
+  * Left (7 cols): Bold editorial typography, Space Grotesk headline, format description, and 3 high-contrast CTAs.
+  * Right (5 cols): High-impact dark glass Cricket Telemetry HUD displaying verified tournament records (62/2 score, Sagar Kapadia 138 runs, Smeet Shah 3.57 econ, atomic concurrency indicator).
+* **GSAP Opposing-Direction Parallel Motion (`ParallelScrollColumns.tsx`)**:
+  * 3 independent vertical columns moving at distinct velocities tied to scroll progress via GSAP `ScrollTrigger` and `scrub: 1.2`.
+  * Column 1: Ascends upward (`y: -140px`).
+  * Column 2: Descends downward in opposite direction (`y: +120px`).
+  * Column 3: Ascends at faster velocity (`y: -200px`).
+* **GSAP Pinned Horizontal Scrolling Dossiers (`HorizontalScrollDossiers.tsx`)**:
+  * Vertical scroll drives smooth horizontal scrubbing across verified athlete cards with dynamic `scrollWidth` calculation and `gsap.context()` cleanup.
+  * Natural touch swiping fallback on mobile (< 768px).
+* **Zero Runs/Wickets Bug Resolution**:
+  * Fixed display glitch where athlete cards showed 0 runs and 0 wickets due to accessing undefined nested properties. Now pulls verified database figures.
+* **Elimination of Repetitive 3-Box Clichés**:
+  * Section 01: Asymmetric split-screen (sticky 36-ball manifesto left, 6-team interactive competition grid right).
+  * Section 04: Data Intelligence Cockpit (Dominant Batting Velocity Engine with 10+, 15+, 20+ milestone distribution + Restrictive Bowling Suppression).
+* **Cross-Device Responsive Verification**:
+  * Automated testing across 6 viewports: 1440px, 1280px, 1024px, 768px, 390px, 375px.
 * **Athlete Performance Dossier (`/players/[id]`)**:
   * Enhanced role-prioritized metric layout (batters highlight runs, SR, boundary %; bowlers highlight wickets, economy, dots; all-rounders highlight dual balance).
   * Season filterable match timeline log.
