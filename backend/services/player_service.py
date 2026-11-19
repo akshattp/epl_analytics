@@ -253,6 +253,8 @@ def get_all_players_summary(db: Session) -> List[Dict[str, Any]]:
                 "bowling_strike_rate": prof["career_bowling"]["bowling_strike_rate"],
                 "dot_ball_percentage": prof["career_bowling"]["dot_ball_percentage"],
                 "multi_wicket_frequency": prof["career_bowling"]["multi_wicket_frequency"],
+                "career_batting": prof["career_batting"],
+                "career_bowling": prof["career_bowling"],
                 "ratings": prof["ratings"],
                 "player_intelligence": prof["player_intelligence"],
                 "all_rounder_metrics": prof["all_rounder_metrics"],

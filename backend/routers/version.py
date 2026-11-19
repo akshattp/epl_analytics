@@ -2,17 +2,135 @@ from fastapi import APIRouter
 
 router = APIRouter(prefix="/api", tags=["Version & Changelog"])
 
-CURRENT_VERSION = "1.3.0"
+CURRENT_VERSION = "2.0.1-dev"
 RELEASE_DATE = "2026-11-19"
 
 RELEASES = [
     {
+        "version": "2.0.1-dev",
+        "release_date": "2026-11-19",
+        "date_source": "Active Development Sprint (2.0.1-dev)",
+        "codename": "Creative Overhaul, Landing Page Reconstruction & Documentation Governance",
+        "summary": "Fixes critical landing page 0 runs/wickets bug via unified schema enrichment; completely reconstructs landing page with agency-grade parallel scrolling, asymmetric competition matrix, and multi-layer parallax storytelling; institutes permanent strict documentation governance across the codebase.",
+        "is_latest": True,
+        "affected_modules": [
+            "backend/services/player_service.py",
+            "backend/routers/version.py",
+            "frontend/src/app/page.tsx",
+            "frontend/src/app/players/[id]/page.tsx",
+            "frontend/src/components/Navbar.tsx",
+            "documentation/CHANGELOG.md",
+            "documentation/VERSION_HISTORY.md",
+            "documentation/RELEASE_REGISTER.md",
+            "documentation/CURRENT_SYSTEM_INVENTORY.md",
+            "documentation/UI_UX_CHANGELOG.md",
+            "documentation/DESIGN_SYSTEM.md",
+            "documentation/RELEASES/v2.0.1_release_notes.md",
+            "scripts/verify_documentation_governance.py",
+            "tests/test_v2_0_1_governance_and_fixes.py"
+        ],
+        "changes": {
+            "Bug Fixes": [
+                "Resolved critical landing page bug where player runs and wickets displayed as zero due to missing nested career_batting and career_bowling objects in /api/players summary. Enriched backend player service to provide both flat and nested properties.",
+                "Updated frontend binding logic to use fallback coalition (p.total_runs ?? p.career_batting?.total_runs ?? 0) across all landing and profile components."
+            ],
+            "New Features": [
+                "Parallel Scrolling Experience on Landing Page: Multi-layer depth where typography, kinetic trajectory arcs, and telemetry chips scroll with coordinated physics offsets.",
+                "Asymmetric Competition Architecture Matrix: Replaced generic 3-card layout with an editorial split-screen showcasing 6-over high-leverage geometry, 36-ball dynamics, and interactive 6-franchise team telemetry.",
+                "Permanent Documentation Governance: Created automated verification script (scripts/verify_documentation_governance.py) enforcing documented changes, version manifests, and test records."
+            ],
+            "UI/UX Improvements": [
+                "Completely eliminated repetitive AI-style 3-box sections from the landing page in favor of diverse, magazine-grade layouts.",
+                "Added horizontal parallax athlete dossier sequence and split-screen analytics cockpit.",
+                "Refined Athlete Performance Dossiers with role-adaptive statistical prominence (batting-first, bowling-first, dual-impact)."
+            ],
+            "Security Improvements": [
+                "Verified zero leakage of private franchise credentials or auction secrets across all new landing page components."
+            ],
+            "Performance Improvements": [
+                "Optimized scroll listeners with passive Framer Motion transforms and hardware-accelerated transforms to eliminate main-thread jank."
+            ]
+        }
+    },
+    {
+        "version": "2.0.0",
+        "release_date": "2026-11-19",
+        "date_source": "Confirmed (Signature Release Commit ab69371)",
+        "codename": "Signature Design Experience",
+        "summary": "Transformed EPL from an AI-generated dashboard into an award-worthy digital experience with a custom geometric vector brand identity, 3D Page-Curl theme transition, custom desktop magnetic cursor, initial cinematic landing page, and athlete performance dossier profile.",
+        "is_latest": False,
+        "affected_modules": [
+            "frontend/src/components/EplBrandLogo.tsx",
+            "frontend/src/components/PageCurlTransition.tsx",
+            "frontend/src/components/CustomCursor.tsx",
+            "frontend/src/components/AnimatedCounter.tsx",
+            "frontend/src/app/page.tsx",
+            "frontend/src/app/dashboard/page.tsx",
+            "frontend/src/app/players/[id]/page.tsx",
+            "frontend/public/favicon.svg"
+        ],
+        "changes": {
+            "New Features": [
+                "Bespoke EPL Geometric Crest & Logo System (EplBrandLogo.tsx) featuring three kinetic stump pillars, aerodynamic ribbons tracing 'EPL', and precision apex sensor.",
+                "Signature 3D Page-Curl Theme Transition (PageCurlTransition.tsx) simulating a folded glossy page reveal when toggling light/dark themes.",
+                "Desktop Custom Interactive Cursor (CustomCursor.tsx) with spring follower and 'VIEW' label expansion.",
+                "Cinematic Landing Page (/) and preserved operational dashboard at (/dashboard)."
+            ],
+            "UI/UX Improvements": [
+                "Transformed player profiles into Athlete Performance Dossiers with oversized typography, custom initials monogram crest, and 6-over milestone grid."
+            ]
+        }
+    },
+    {
+        "version": "1.5.0",
+        "release_date": "2026-11-19",
+        "date_source": "Reconstructed from Git history (commit 6e434ef)",
+        "codename": "Global Dual-Theme Redesign & Bold Editorial Typography",
+        "summary": "Historically implemented — reconstructed from Git history. Introduced Light and Dark dual-theme switch with CSS variables, Space Grotesk display typography, Inter body font, electric blue and laser cyan brand palette, and comprehensive redesign of all 19 application routes.",
+        "is_latest": False,
+        "affected_modules": [
+            "frontend/src/lib/theme.tsx",
+            "frontend/src/app/globals.css",
+            "frontend/tailwind.config.js",
+            "frontend/src/components/Navbar.tsx",
+            "frontend/src/components/EplCharts.tsx"
+        ],
+        "changes": {
+            "New Features": [
+                "Dual-Theme Switcher (Light and Dark) with localStorage persistence and CSS custom properties.",
+                "Space Grotesk Google Font integration for high-contrast architectural headings."
+            ],
+            "UI/UX Improvements": [
+                "Replaced generic brown/beige styling with high-contrast Midnight Black (#02000D), Deep Navy (#07203F), Electric Blue (#2563EB), and Cyan (#0891B2)."
+            ]
+        }
+    },
+    {
+        "version": "1.4.0",
+        "release_date": "2026-11-19",
+        "date_source": "Reconstructed from Git history (commit c2a0b9a)",
+        "codename": "Premium Dark Sports Intelligence Modernization",
+        "summary": "Historically implemented — reconstructed from Git history. Upgraded the entire platform to a unified dark sports analytics theme with modernized card styling, high-contrast tables, and enhanced data visualizations.",
+        "is_latest": False,
+        "affected_modules": [
+            "frontend/src/app/globals.css",
+            "frontend/src/components/DataTable.tsx",
+            "frontend/src/app/analytics/*/page.tsx"
+        ],
+        "changes": {
+            "UI/UX Improvements": [
+                "System-wide visual modernization across all analytics dashboards.",
+                "Added high-contrast borders and elevated card surfaces for low-light legibility."
+            ]
+        }
+    },
+    {
         "version": "1.3.0",
         "release_date": "2026-11-19",
-        "date_source": "Confirmed (Current Build)",
+        "date_source": "Confirmed (Official Release)",
         "codename": "Advanced Cricket Analytics Engine",
-        "summary": "Transforms EPL into an elite cricket intelligence system with deep situational splits (chasing vs defending), 6-over milestone frequencies (10+, 15+, 20+), strict legal-ball bowling metrics, dual-discipline all-rounder tracking, tournament all-time records, and the 100-point EPL Player Intelligence Score (PIS) with 6-axis performance radar and dynamic missing-discipline protection.",
-        "is_latest": True,
+        "summary": "Transforms EPL into an elite cricket intelligence system with deep situational splits (chasing vs defending), 6-over milestone frequencies (10+, 15+, 20+), strict legal-ball bowling metrics, dual-discipline all-rounder tracking, tournament all-time records, and the 100-point EPL Player Intelligence Score (PIS) with 6-axis performance radar.",
+        "is_latest": False,
         "affected_modules": [
             "backend/analytics/cricket_math.py",
             "backend/analytics/player_intelligence.py",
@@ -20,47 +138,50 @@ RELEASES = [
             "backend/routers/analytics.py",
             "backend/routers/players.py",
             "backend/routers/version.py",
-            "frontend/src/components/Navbar.tsx",
-            "frontend/src/app/players/[id]/page.tsx",
             "frontend/src/app/analytics/records/page.tsx",
             "tests/test_v1_3_advanced_analytics.py"
         ],
         "changes": {
             "New Features": [
-                "EPL Player Intelligence Score (PIS): A 100-point explainable intelligence suite calculating Batting Intelligence (BIS), Bowling Intelligence (BoIS), All-Rounder Intelligence (AIS), Consistency Intelligence (CIS), and Match Impact (MIS).",
-                "6-Axis Performance Radar: Standardized dimensional profiles measuring Batting Power, Scoring Reliability, Bowling Economy, Bowling Penetration, Match Impact, and Consistency.",
-                "Tournament Records & Milestones Engine (/api/analytics/records & /analytics/records) celebrating all-time top 10 individual scores, best bowling figures, highest partnerships, fastest 20s, and most economical spells.",
-                "Situational Splits Engine: Separate tracking for Batting First (setting target in Innings 1) versus Chasing (run chase in Innings 2), and Bowling First versus Defending a Total."
+                "100-point EPL Player Intelligence Score (PIS) covering BIS, BoIS, AIS, CIS, and MIS.",
+                "6-Axis Performance Radar Chart data model.",
+                "Tournament All-Time Records & Milestones Engine (/api/analytics/records).",
+                "Situational Splits (Target Setting in 1st Innings vs Chasing in 2nd Innings)."
             ],
             "Analytics Improvements": [
-                "Advanced Batting Analytics: Added runs per innings, duck %, not out %, 6-over milestone frequencies (10+, 15+, 20+, 30+), boundary balls %, boundary runs %, and batting explosiveness index.",
-                "Strict Cricket Overs Conversion: Guarantees overs are calculated using actual legal deliveries (balls // 6 and balls % 6), never decimal numbers.",
-                "Advanced Bowling Analytics: Added wickets per match, multi-wicket innings frequency (2+ wkts), boundary concession %, and spell economy consistency index.",
-                "Dual-Discipline All-Rounder Metrics: Quantified exact match frequency where players performed both disciplines, and high-impact matches scoring >= 10 runs and taking >= 1 wicket.",
-                "Role Classification Engine: Automatic data-driven classification into Pure Batsman, Batting All-Rounder, Balanced All-Rounder, Bowling All-Rounder, Pure Bowler, or Specialist.",
-                "Dynamic Missing Value Protection: Pure batsmen who never bowled have Bowling Score set to None, and are evaluated 100% fairly without zeros dragging down their overall rating."
-            ],
-            "UI/UX Improvements": [
-                "Enhanced Player Profiles with Player Intelligence Scorecard, Sample Size Confidence Pills (High, Medium, Low), Situational Splits Card, and interactive mathematical explanation drawers.",
-                "Added interactive Tournament Records & Milestones dashboard (/analytics/records).",
-                "Updated application header version badge to v1.3.0 with automatic changelog notification."
-            ],
-            "Bug Fixes": [
-                "Resolved mathematical ambiguity for undefeated batsmen (outs = 0) with distinct is_undefeated flag, display 'Runs*', and strict None for statistical undefined.",
-                "Handled zero-wicket bowling averages gracefully as None rather than division by zero or arbitrary numbers."
-            ],
+                "Strict legal-ball overs conversion (balls // 6 and balls % 6).",
+                "6-over milestone frequencies (10+, 15+, 20+ runs; 2+ wickets).",
+                "Dynamic missing value protection for pure batsmen/bowlers."
+            ]
+        }
+    },
+    {
+        "version": "1.2.0",
+        "release_date": "2026-11-18",
+        "date_source": "Confirmed (Acceptance Test Release)",
+        "codename": "System Acceptance & Concurrency Hardening",
+        "summary": "Complete 6-team live auction rehearsal, single-tunnel ngrok gateway, token-based role separation, zero credential leakage verification, and database corruption recovery procedure.",
+        "is_latest": False,
+        "affected_modules": [
+            "backend/auction/live_auction_manager.py",
+            "backend/auth/security.py",
+            "scripts/gateway.mjs",
+            "tests/test_v1_2_acceptance_rehearsal.py"
+        ],
+        "changes": {
             "Security Improvements": [
-                "Preserved complete token-based role separation and verified owner credential isolation across all new analytics APIs."
+                "Owner authentication isolation with zero secret leakage in public payloads.",
+                "Multi-client WebSocket locking preventing concurrent over-budget bids."
             ],
-            "Performance Improvements": [
-                "Single-pass situational splits and consolidated match-by-match chronology directly in get_player_full_profile for sub-25ms response times."
+            "New Features": [
+                "Unified single-tunnel Node.js gateway (port 8080) routing both frontend and backend."
             ]
         }
     },
     {
         "version": "1.1.0",
         "release_date": "2026-11-18",
-        "date_source": "Confirmed (Previous Build)",
+        "date_source": "Confirmed (Product Enhancement Release)",
         "codename": "Advanced Analytics, Exports & Full Auction Lifecycle",
         "summary": "Transforms EPL into a three-pillar sports intelligence suite with exact partnership and fielding analytics, the EPL Intelligence Lab, browser-rendered PDF reports, fixed sticky data tables, visual charts across all dashboards, and a complete pre-auction setup-to-results workflow.",
         "is_latest": False,
@@ -70,56 +191,16 @@ RELEASES = [
             "backend/analytics/advanced_analytics.py",
             "backend/analytics/intelligence_lab.py",
             "backend/services/export_service.py",
-            "backend/routers/version.py",
-            "backend/routers/advanced_analytics.py",
-            "backend/routers/exports.py",
-            "backend/routers/auction_setup.py",
-            "frontend/src/components/DataTable.tsx",
-            "frontend/src/components/EplCharts.tsx",
             "frontend/src/app/changelog/page.tsx",
-            "frontend/src/app/analytics/advanced/page.tsx",
             "frontend/src/app/intelligence-lab/page.tsx",
             "frontend/src/app/auction/page.tsx"
         ],
         "changes": {
             "New Features": [
-                "Version management system with version indicator badge, 'What's New' indicator, and dedicated /changelog page.",
-                "Complete Player Statistics Export in CSV, Excel (.xlsx), and PDF respecting active filters and sorting across the full dataset.",
-                "Individual Player Profile PDF export rendered via headless Chromium (Playwright) preserving charts, tables, typography, and the 5-colour EPL palette.",
-                "Shareable stable player profile URLs (/players/EPL-P-XXX) with read-only public profile mode (?public=1) and local-network awareness notice.",
-                "EPL Intelligence Lab (/intelligence-lab) exploring 2-player and 3-player franchise combinations, winning patterns, and statistical discoveries with sample-size reliability safeguards.",
-                "Complete Auction Setup Wizard (18 configurable parameters, team editor, player pool CRUD + CSV import, pre-auction preview, explicit START confirmation, Pause/Resume/Complete lifecycle, and Auction Results PDF/Excel export)."
-            ],
-            "Analytics Improvements": [
-                "Recovered complete multi-line Fall of Wickets for 11 previously truncated innings directly from untouched historical CricHeroes PDFs.",
-                "Reconstructed 252 exact wicket-by-wicket batting partnerships across all 56 innings with opening stand, wicket-wise, pair-wise, season-wise, and winning-match splits.",
-                "Extracted 163 canonical fielding dismissals (catches, caught & bowled, direct run-outs, joint run-out assists, and stumpings) with admin manual entry support for future seasons.",
-                "Added Advanced Batting Analytics (boundary %, team run share %, not-out frequency, scoring consistency, high-impact innings, wins vs losses splits) with explicit Data Availability Matrix.",
-                "Added Advanced Bowling Analytics featuring directly verified Bowling Dot-Ball % (827 dot balls across 277 spells), opponent splits, economy progression, and best spells.",
-                "Implemented Player Impact Model distinguishing correlation from causation.",
-                "Expanded Player Comparison to support 2 or 3 players simultaneously with normalized radar charts."
-            ],
-            "Auction Improvements": [
-                "Added persisted AuctionConfig and AuctionPoolEntry tables so auction settings, team purses, and active state survive backend restarts without resetting.",
-                "Enforced configuration locking once an auction transitions to LIVE state.",
-                "Added auction pause/resume, next-player queue management, and post-auction analytical reporting (most expensive, best-value buys vs historical valuation, squad strength breakdown)."
-            ],
-            "UI/UX Improvements": [
-                "Fixed critical CSS specificity bug in globals.css (.table-editorial th) that previously rendered Deep Navy text on Deep Navy table headers.",
-                "Built reusable DataTable component with opaque sticky headers, sticky first identifying columns, wrapped/tooltip column headings, sorting, search, pagination, and responsive horizontal scrolling applied across all application tables.",
-                "Added interactive Recharts visual analytics across Overview, Player Profiles, Player Comparison, Teams, Advanced Analytics, and Intelligence Lab using strictly the five EPL brand colours."
-            ],
-            "Bug Fixes": [
-                "Aligned LiveAuctionManager WebSocket event names (NEW_HIGHEST_BID, TIMER_UPDATED, PLAYER_SOLD) between FastAPI backend and Next.js frontend.",
-                "Aligned /api/auth/accounts ('personas') and /api/auction/dashboard/{team_id} payload fields with the frontend auction portal."
-            ],
-            "Security Improvements": [
-                "Added public read-only player profile mode (?public=1) guaranteeing private franchise shortlists, auction credentials, and admin actions are never exposed.",
-                "Restricted Auction Setup Wizard mutations, CSV pool imports, manual fielding entries, and auction lifecycle start/pause/complete actions to authenticated auctioneer accounts."
-            ],
-            "Performance Improvements": [
-                "Pre-computed and persisted partnerships and fielding_events in indexed SQLite tables rather than re-parsing PDFs or regex-scanning dismissals on every request.",
-                "Added additive database indexes on match_id, innings_id, player_id, and season for sub-50ms analytical queries."
+                "Wicket-by-wicket partnership reconstruction across all 56 innings.",
+                "Canonical fielding events extraction (163 dismissals).",
+                "PDF, Excel, and CSV player and auction results export engine.",
+                "EPL Intelligence Lab for combination discovery."
             ]
         }
     },
@@ -128,31 +209,18 @@ RELEASES = [
         "release_date": "2026-11-17",
         "date_source": "Confirmed (Phase 2 Audit Documentation)",
         "codename": "Phase 2 Verification & Live Auction Hardening",
-        "summary": "Introduced cryptographic authentication for the auctioneer and all six franchise owners, WebSocket token enforcement, owner intelligence dashboards, market scarcity analysis, and an in-memory AI auction simulator.",
+        "summary": "Introduced cryptographic authentication for the auctioneer and all six franchise owners, WebSocket token enforcement, owner intelligence dashboards, and in-memory AI auction simulator.",
         "is_latest": False,
         "affected_modules": [
             "backend/auth/security.py",
             "backend/routers/auth.py",
             "backend/auction/intelligence_service.py",
-            "backend/auction/simulation_engine.py",
-            "backend/routers/auction.py",
-            "frontend/src/app/auction/page.tsx",
-            "tests/test_auth_and_simulation.py"
+            "backend/auction/simulation_engine.py"
         ],
         "changes": {
             "New Features": [
-                "Owner Intelligence Dashboard API (/api/auction/dashboard/{team_id}) with squad strength breakdown and target recommendations.",
-                "Market Scarcity Indicator API (/api/auction/scarcity/{player_id}) measuring remaining comparable unsold talent.",
-                "In-Memory 6-Team AI Auction Simulation Engine (/api/auction/simulate) with zero database mutations."
-            ],
-            "Analytics Improvements": [
-                "Re-verified all 9 core historical benchmarks directly against SQLite ground truth (Sagar Kapadia 138 combined / 134 regular runs, Smeet Shah 3.57 economy, 62/2 highest total, 30 lowest defended)."
-            ],
-            "Auction Improvements": [
-                "Enforced atomic SQLite bid recording, minimum squad reserve fund locks, and WebSocket bearer authentication."
-            ],
-            "Security Improvements": [
-                "Isolated cross-owner shortlists and private dashboards with cryptographic session authentication."
+                "Owner Intelligence Dashboard API and Market Scarcity Indicator.",
+                "In-Memory 6-Team AI Auction Simulation Engine."
             ]
         }
     },
@@ -196,7 +264,7 @@ def get_changelog():
         "current_version": CURRENT_VERSION,
         "release_date": RELEASE_DATE,
         "git_available": True,
-        "provenance_note": "Release records are reconstructed strictly from verified source code, database records, and scorecard audit logs. Confirmed vs estimated dates are explicitly labelled per release.",
+        "provenance_note": "Release records are reconstructed strictly from verified source code, Git history, database records, and scorecard audit logs. Confirmed vs historically reconstructed versions are explicitly labelled per release.",
         "categories": [
             "New Features",
             "Analytics Improvements",

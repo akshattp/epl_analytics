@@ -7,41 +7,59 @@ import {
   Trophy, Flame, Shield, Activity, ArrowRight,
   Sparkles, DollarSign, Layers, Zap, CheckCircle2,
   Users, Award, TrendingUp, FlaskConical, LayoutDashboard,
-  ExternalLink, ChevronRight, BarChart3, Target, Crosshair
+  ExternalLink, ChevronRight, BarChart3, Target, Crosshair,
+  Sliders, Star, ArrowUpRight, Lock, Database
 } from "lucide-react";
 import { fetchApi } from "@/lib/api";
 import { EplBrandLogo } from "@/components/EplBrandLogo";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { RatingBadge } from "@/components/RatingBadge";
 
+// Helper to compute initials from name
+function getInitials(name: string): string {
+  if (!name) return "EP";
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 export default function LandingPage() {
   const [overview, setOverview] = useState<any>(null);
   const [topPlayers, setTopPlayers] = useState<any[]>([]);
   const [teams, setTeams] = useState<any[]>([]);
+  const [auctionTeams, setAuctionTeams] = useState<any[]>([]);
   const [insights, setInsights] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedTeamTab, setSelectedTeamTab] = useState<number>(0);
 
+  // Parallel Scrolling & Parallax Hooks
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -60]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0.3]);
+  // Parallax Layer Transforms
+  const heroY = useTransform(scrollYProgress, [0, 0.18], [0, -80]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.22], [1, 0.2]);
+  const trajectoryY1 = useTransform(scrollYProgress, [0, 1], [0, 240]);
+  const trajectoryY2 = useTransform(scrollYProgress, [0, 1], [0, -180]);
+  const telemetryFloatY = useTransform(scrollYProgress, [0.05, 0.3], [30, -30]);
 
   useEffect(() => {
     async function loadLandingData() {
       try {
-        const [ovRes, plRes, tmRes, inRes] = await Promise.all([
+        const [ovRes, plRes, tmRes, aucTmRes, inRes] = await Promise.all([
           fetchApi("/api/overview"),
           fetchApi("/api/players?sort_by=rating&limit=8"),
           fetchApi("/api/teams"),
+          fetchApi("/api/auction/teams").catch(() => null),
           fetchApi("/api/insights"),
         ]);
         setOverview(ovRes);
         setTopPlayers(plRes.players || []);
         setTeams(tmRes.teams || []);
+        setAuctionTeams(aucTmRes?.teams || []);
         setInsights(inRes.all ? inRes.all.slice(0, 4) : []);
       } catch (err) {
         console.error("Failed loading landing page data:", err);
@@ -58,71 +76,162 @@ export default function LandingPage() {
   const totalInnings = overview?.total_innings || 56;
   const totalPlayers = overview?.total_players || 73;
 
+  // Official 6 Franchise Master Data
+  const franchiseList = [
+    {
+      name: "Exotica Warriors",
+      owner: "Aryan Shetty",
+      tagline: "2025 Reigning Champions",
+      stats: "4 Wins • 0 Losses • 100% Win Rate",
+      nrr: "+1.05 NRR",
+      color: "from-blue-600 to-indigo-900",
+      accent: "text-blue-500",
+      border: "border-blue-500/40",
+      runs: 190,
+      wkts: 15,
+    },
+    {
+      name: "Victory Vipers",
+      owner: "Sandeep Dalvi",
+      tagline: "High-Octane Strike Unit",
+      stats: "2 Wins • 2 Losses • 50% Win Rate",
+      nrr: "+0.43 NRR",
+      color: "from-emerald-600 to-teal-950",
+      accent: "text-emerald-500",
+      border: "border-emerald-500/40",
+      runs: 165,
+      wkts: 10,
+    },
+    {
+      name: "The Ultimates",
+      owner: "Anurag Jain",
+      tagline: "Calculated Boundary Anchors",
+      stats: "1 Win • 2 Losses • 33% Win Rate",
+      nrr: "+0.06 NRR",
+      color: "from-purple-600 to-slate-950",
+      accent: "text-purple-400",
+      border: "border-purple-500/40",
+      runs: 110,
+      wkts: 14,
+    },
+    {
+      name: "Exotica Panthers",
+      owner: "Ashish Chhawchharia",
+      tagline: "Disciplined Restrictive Pace",
+      stats: "1 Win • 1 Loss • 50% Win Rate",
+      nrr: "-0.34 NRR",
+      color: "from-amber-600 to-stone-950",
+      accent: "text-amber-500",
+      border: "border-amber-500/40",
+      runs: 69,
+      wkts: 10,
+    },
+    {
+      name: "Exotica Lions Pride",
+      owner: "Yash Patel",
+      tagline: "Fierce Knockout Contenders",
+      stats: "1 Win • 2 Losses • 33% Win Rate",
+      nrr: "-0.75 NRR",
+      color: "from-cyan-600 to-sky-950",
+      accent: "text-cyan-400",
+      border: "border-cyan-500/40",
+      runs: 99,
+      wkts: 13,
+    },
+    {
+      name: "Exotica Living Legenda",
+      owner: "Vijay Limbachiya",
+      tagline: "Veteran Squad Depth",
+      stats: "0 Wins • 2 Losses • Rebuilding",
+      nrr: "-1.33 NRR",
+      color: "from-rose-600 to-neutral-950",
+      accent: "text-rose-500",
+      border: "border-rose-500/40",
+      runs: 90,
+      wkts: 3,
+    },
+  ];
+
   return (
-    <div ref={containerRef} className="space-y-24 sm:space-y-36 pb-20 overflow-hidden">
+    <div ref={containerRef} className="space-y-28 sm:space-y-44 pb-24 overflow-hidden relative">
       {/* 
         ========================================================================
-        HERO SECTION: THE CINEMATIC INTRO
+        MULTI-LAYER PARALLAX KINETIC CANVAS
         ========================================================================
       */}
-      <section className="relative min-h-[85vh] flex flex-col justify-between pt-6 sm:pt-12">
-        {/* Abstract Kinetic Seam Vector Background */}
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden opacity-30 dark:opacity-40">
-          <svg className="w-full h-full" viewBox="0 0 1200 800" fill="none">
-            <motion.path
-              d="M-100,500 Q400,200 800,450 T1400,100"
-              stroke="url(#hero-traj-1)"
-              strokeWidth="2.5"
-              strokeDasharray="12 8"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 2.5, ease: "easeInOut" }}
-            />
-            <motion.path
-              d="M-50,650 Q450,350 950,550 T1500,200"
-              stroke="url(#hero-traj-2)"
-              strokeWidth="1.5"
-              strokeDasharray="8 6"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 3, delay: 0.3, ease: "easeInOut" }}
-            />
-            <defs>
-              <linearGradient id="hero-traj-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#2563EB" stopOpacity="0.1" />
-                <stop offset="50%" stopColor="#38BDF8" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#0891B2" stopOpacity="0.1" />
-              </linearGradient>
-              <linearGradient id="hero-traj-2" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0891B2" stopOpacity="0.1" />
-                <stop offset="50%" stopColor="#3B82F6" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="#2563EB" stopOpacity="0.1" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
+      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden opacity-30 dark:opacity-40">
+        <motion.svg
+          style={{ y: trajectoryY1 }}
+          className="w-full h-full"
+          viewBox="0 0 1440 1800"
+          fill="none"
+        >
+          <motion.path
+            d="M-100,320 Q500,120 900,420 T1600,180"
+            stroke="url(#traj-grad-1)"
+            strokeWidth="3"
+            strokeDasharray="16 10"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 2.8, ease: "easeInOut" }}
+          />
+          <motion.path
+            d="M100,900 Q650,600 1100,980 T1700,750"
+            stroke="url(#traj-grad-2)"
+            strokeWidth="2"
+            strokeDasharray="12 8"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 3.4, delay: 0.2, ease: "easeInOut" }}
+          />
+          <defs>
+            <linearGradient id="traj-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#2563EB" stopOpacity="0.05" />
+              <stop offset="50%" stopColor="#38BDF8" stopOpacity="0.85" />
+              <stop offset="100%" stopColor="#0891B2" stopOpacity="0.05" />
+            </linearGradient>
+            <linearGradient id="traj-grad-2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#0891B2" stopOpacity="0.1" />
+              <stop offset="50%" stopColor="#3B82F6" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#2563EB" stopOpacity="0.1" />
+            </linearGradient>
+          </defs>
+        </motion.svg>
+      </div>
 
+      {/* 
+        ========================================================================
+        HERO STAGE: HIGH-IMPACT BROADCAST TYPOGRAPHY & TELEMETRY
+        ========================================================================
+      */}
+      <section className="relative min-h-[85vh] flex flex-col justify-between pt-6 sm:pt-14">
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="space-y-8 max-w-5xl">
-          {/* Top Pill: Tournament Status & Provenance */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-blue-50/80 dark:bg-[#151F32]/80 border border-blue-200/80 dark:border-[#334155] backdrop-blur-md text-xs font-mono"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#2563EB] dark:bg-[#38BDF8] animate-pulse"></span>
-            <span className="font-bold text-[#101828] dark:text-[#F8FAFC]">EPL v2.0 SIGNATURE EXPERIENCE</span>
-            <span className="text-[#64748B] dark:text-[#94A3B8]">|</span>
-            <span className="text-[#2563EB] dark:text-[#38BDF8] font-semibold">27 Historical Scorecards Audited</span>
-          </motion.div>
+          {/* Top Telemetry Header */}
+          <div className="flex flex-wrap items-center gap-3">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-50/90 dark:bg-[#151F32]/90 border border-blue-200/80 dark:border-[#334155] backdrop-blur-md text-xs font-mono"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#2563EB] dark:bg-[#38BDF8] animate-pulse"></span>
+              <span className="font-bold text-[#101828] dark:text-[#F8FAFC]">EPL CRICKET INTELLIGENCE</span>
+              <span className="text-[#64748B] dark:text-[#94A3B8]">|</span>
+              <span className="text-[#2563EB] dark:text-[#38BDF8] font-semibold">27 Historical Scorecards Audited</span>
+            </motion.div>
+
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#64748B] dark:text-[#94A3B8] hidden sm:inline-block">
+              100-Point Bayesian Model
+            </span>
+          </div>
 
           {/* Oversized Signature Typography Headline */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <motion.h1
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display font-black text-5xl sm:text-7xl lg:text-8xl tracking-[-0.03em] leading-[0.92] text-[#101828] dark:text-[#F8FAFC]"
+              transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display font-black text-5xl sm:text-7xl lg:text-8xl tracking-[-0.035em] leading-[0.9] text-[#101828] dark:text-[#F8FAFC]"
             >
               MORE THAN A GAME.
               <br />
@@ -134,11 +243,10 @@ export default function LandingPage() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="font-sans text-lg sm:text-2xl text-[#64748B] dark:text-[#94A3B8] max-w-2xl font-normal leading-relaxed pt-3"
+              transition={{ duration: 0.85, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="font-sans text-lg sm:text-2xl text-[#64748B] dark:text-[#94A3B8] max-w-3xl font-normal leading-relaxed pt-3"
             >
-              The definitive historical intelligence &amp; live auction platform for underarm cricket. 
-              73 canonical athletes, 100-point Bayesian evaluations, and atomic auction economics.
+              The definitive cricket intelligence platform for 6-over competition. 73 canonical athletes, situational pressure splits, and atomic auction economics.
             </motion.p>
           </div>
 
@@ -146,14 +254,14 @@ export default function LandingPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap items-center gap-4 pt-2"
+            transition={{ duration: 0.85, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-wrap items-center gap-4 pt-3"
           >
             <Link
               href="/dashboard"
               data-cursor="view"
               data-cursor-label="ENTER"
-              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-display font-bold text-base shadow-lg shadow-blue-500/25 transition-all duration-300 hover:scale-[1.02]"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-display font-bold text-base shadow-xl shadow-blue-500/25 transition-all duration-300 hover:scale-[1.02]"
             >
               <LayoutDashboard className="w-5 h-5 text-white/90" />
               <span>Launch Terminal</span>
@@ -164,7 +272,7 @@ export default function LandingPage() {
               href="/auction"
               data-cursor="view"
               data-cursor-label="AUCTION"
-              className="inline-flex items-center gap-2.5 px-6 py-4 rounded-xl bg-white dark:bg-[#151F32] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] font-display font-bold text-base hover:bg-slate-50 dark:hover:bg-[#1E293B] shadow-sm transition-all duration-300 hover:border-[#2563EB]"
+              className="inline-flex items-center gap-2.5 px-7 py-4 rounded-2xl bg-white dark:bg-[#151F32] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] font-display font-bold text-base hover:bg-slate-50 dark:hover:bg-[#1E293B] shadow-sm transition-all duration-300 hover:border-[#2563EB]"
             >
               <DollarSign className="w-5 h-5 text-[#2563EB] dark:text-[#38BDF8]" />
               <span>Live Auction Room</span>
@@ -172,22 +280,25 @@ export default function LandingPage() {
 
             <Link
               href="/players"
-              className="text-xs font-semibold text-[#64748B] dark:text-[#94A3B8] hover:text-[#2563EB] dark:hover:text-[#38BDF8] underline decoration-blue-500/40 underline-offset-4 px-2 py-1 transition-colors"
+              className="text-xs font-semibold text-[#64748B] dark:text-[#94A3B8] hover:text-[#2563EB] dark:hover:text-[#38BDF8] underline decoration-blue-500/40 underline-offset-4 px-3 py-2 transition-colors"
             >
               Explore 73 Athlete Dossiers →
             </Link>
           </motion.div>
         </motion.div>
 
-        {/* Real Historical Telemetry Strip */}
+        {/* Real Ground-Truth Telemetry Counter Strip */}
         <motion.div
+          style={{ y: telemetryFloatY }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-12 sm:mt-16 pt-8 border-t border-[#E2E8F0] dark:border-[#334155] grid grid-cols-2 sm:grid-cols-5 gap-6"
+          transition={{ duration: 0.85, delay: 0.5 }}
+          className="mt-14 sm:mt-20 pt-8 border-t border-[#E2E8F0] dark:border-[#334155] grid grid-cols-2 sm:grid-cols-5 gap-6 sm:gap-8"
         >
           <div>
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">Verified Matches</span>
+            <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">
+              Verified Matches
+            </span>
             <div className="font-display text-3xl sm:text-4xl font-extrabold text-[#101828] dark:text-[#F8FAFC] mt-0.5">
               <AnimatedCounter value={totalMatches} />
             </div>
@@ -195,7 +306,9 @@ export default function LandingPage() {
           </div>
 
           <div>
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">Audited Innings</span>
+            <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">
+              Audited Innings
+            </span>
             <div className="font-display text-3xl sm:text-4xl font-extrabold text-[#101828] dark:text-[#F8FAFC] mt-0.5">
               <AnimatedCounter value={totalInnings} />
             </div>
@@ -203,7 +316,9 @@ export default function LandingPage() {
           </div>
 
           <div>
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">Canonical Players</span>
+            <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">
+              Canonical Players
+            </span>
             <div className="font-display text-3xl sm:text-4xl font-extrabold text-[#101828] dark:text-[#F8FAFC] mt-0.5">
               <AnimatedCounter value={totalPlayers} />
             </div>
@@ -211,15 +326,19 @@ export default function LandingPage() {
           </div>
 
           <div>
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">Tournament Runs</span>
+            <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">
+              Tournament Runs
+            </span>
             <div className="font-display text-3xl sm:text-4xl font-extrabold text-[#2563EB] dark:text-[#3B82F6] mt-0.5">
               <AnimatedCounter value={totalRuns} />
             </div>
-            <span className="text-[11px] font-mono text-[#64748B] dark:text-[#94A3B8]">3 Tournament Seasons</span>
+            <span className="text-[11px] font-mono text-[#64748B] dark:text-[#94A3B8]">3 Seasons (2023–2025)</span>
           </div>
 
           <div className="col-span-2 sm:col-span-1">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">Wickets Fallen</span>
+            <span className="text-[10px] uppercase font-bold tracking-widest text-[#64748B] dark:text-[#94A3B8] block">
+              Wickets Fallen
+            </span>
             <div className="font-display text-3xl sm:text-4xl font-extrabold text-[#0891B2] dark:text-[#22D3EE] mt-0.5">
               <AnimatedCounter value={totalWickets} />
             </div>
@@ -230,11 +349,13 @@ export default function LandingPage() {
 
       {/* 
         ========================================================================
-        SECTION 1: THE EPL IDENTITY & COMPETITIVE GEOMETRY
+        SECTION 1: THE COMPETITIVE ARCHITECTURE (ASYMMETRIC EDITORIAL OVERHAUL)
         ========================================================================
+        Completely eliminates generic 3-box cards!
+        Pairs sticky editorial anchor with interactive 6-Franchise Competition Matrix.
       */}
       <section className="space-y-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E2E8F0] dark:border-[#334155] pb-8">
+        <div className="border-b border-[#E2E8F0] dark:border-[#334155] pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
             <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#2563EB] dark:text-[#38BDF8]">
               01 • THE COMPETITIVE ARCHITECTURE
@@ -243,63 +364,163 @@ export default function LandingPage() {
               WHY 6-OVER CRICKET DEMANDS EXTREME PRECISION.
             </h2>
             <p className="font-sans text-sm sm:text-base text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
-              In a 36-ball innings, every legal delivery is high-leverage. Traditional averages fail in this format; statistical survival requires velocity, restrictive suppression, and situational execution.
+              In a 36-ball innings, traditional batting anchors bleed tournament equity. Statistical survival requires explosive velocity, restrictive dot-ball suppression, and situational composure.
             </p>
           </div>
-          <div className="shrink-0">
+          <div className="shrink-0 hidden md:block">
             <EplBrandLogo variant="monogram" size="lg" />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1: 100-Point PIS */}
-          <div className="bg-white dark:bg-[#151F32] rounded-2xl p-8 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-4 hover:border-[#2563EB] transition-colors group">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-[#0B1120] border border-blue-200 dark:border-blue-900 flex items-center justify-center text-[#2563EB] dark:text-[#38BDF8] group-hover:scale-110 transition-transform">
-              <Target className="w-6 h-6" />
+        {/* Asymmetrical Split-Screen Showcase with Sticky Narrative Anchor */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Left Column (Sticky Editorial Panel - 5 cols) */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+            <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-950 text-white rounded-3xl p-8 border border-white/10 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative z-10 space-y-6">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-cyan-400">
+                    Format Specification
+                  </span>
+                  <span className="text-xs font-mono px-3 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
+                    6 Overs • 36 Balls
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="font-display font-black text-6xl tracking-tight text-white">
+                    36
+                  </div>
+                  <div className="text-sm font-bold uppercase tracking-wider text-slate-300">
+                    Legal Deliveries Per Innings
+                  </div>
+                  <p className="text-xs text-slate-400 leading-relaxed pt-1">
+                    Every dot ball consumes 2.77% of a team's total offensive capacity. Conventional test or ODI averages are statistically irrelevant; the game belongs to velocity specialists.
+                  </p>
+                </div>
+
+                {/* Micro Metric Callout Grid */}
+                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10 text-xs">
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Purse Cap</span>
+                    <span className="font-mono text-xl font-bold text-white">₹100.0L</span>
+                    <span className="text-[10px] text-slate-400 block">Hard squad ceiling</span>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Squad Limit</span>
+                    <span className="font-mono text-xl font-bold text-cyan-300">8 Players</span>
+                    <span className="text-[10px] text-slate-400 block">Max franchise roster</span>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <Link
+                    href="/dashboard"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
+                  >
+                    <span>Inspect Complete Format Rules</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
             </div>
-            <h3 className="font-display font-bold text-xl text-[#101828] dark:text-[#F8FAFC]">
-              100-Point Bayesian Scorecard (PIS)
-            </h3>
-            <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
-              Calibrated specifically for 6-over underarm geometry. Incorporates volume, velocity, dot-ball suppression, consistency variance, and knockout playoff leverage. Pure specialists are never penalized for missing disciplines.
-            </p>
-            <div className="pt-2 text-xs font-mono font-semibold text-[#2563EB] dark:text-[#38BDF8] flex items-center gap-1">
-              <span>Audit Methodology</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+
+            {/* Sub-Card: 100-Point PIS Mathematical Foundation */}
+            <div className="bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3">
+              <div className="flex items-center gap-2.5 text-[#2563EB] dark:text-[#38BDF8]">
+                <Target className="w-5 h-5" />
+                <h4 className="font-display font-bold text-base text-[#101828] dark:text-[#F8FAFC]">
+                  100-Point Bayesian Scorecard (PIS)
+                </h4>
+              </div>
+              <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                Calibrated multi-discipline intelligence measuring volume, boundary percentage, dot-ball suppression, and playoff leverage. Pure specialists are never penalized for missing disciplines.
+              </p>
             </div>
           </div>
 
-          {/* Card 2: Market Economics */}
-          <div className="bg-white dark:bg-[#151F32] rounded-2xl p-8 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-4 hover:border-[#2563EB] transition-colors group">
-            <div className="w-12 h-12 rounded-xl bg-cyan-50 dark:bg-[#0B1120] border border-cyan-200 dark:border-cyan-900 flex items-center justify-center text-[#0891B2] dark:text-[#22D3EE] group-hover:scale-110 transition-transform">
-              <DollarSign className="w-6 h-6" />
+          {/* Right Column: Interactive 6-Franchise Competition Grid (7 cols) */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="flex items-center justify-between pb-2">
+              <div>
+                <h3 className="font-display font-bold text-xl text-[#101828] dark:text-[#F8FAFC]">
+                  The Six Competing Franchises
+                </h3>
+                <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+                  Verified records, franchise ownership, and net run rate telemetry.
+                </p>
+              </div>
+              <span className="text-xs font-mono text-[#2563EB] dark:text-[#38BDF8] font-semibold">
+                6 Franchises Registered
+              </span>
             </div>
-            <h3 className="font-display font-bold text-xl text-[#101828] dark:text-[#F8FAFC]">
-              Machine Bidding Economics
-            </h3>
-            <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
-              Every player is priced via a calibrated valuation model. Calculates dynamic scarcity multipliers (e.g. 1.25x for lethal death bowlers) and knockout playoff premiums to empower franchise owners at the auction podium.
-            </p>
-            <div className="pt-2 text-xs font-mono font-semibold text-[#0891B2] dark:text-[#22D3EE] flex items-center gap-1">
-              <span>View Valuations</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </div>
-          </div>
 
-          {/* Card 3: Situational Splits */}
-          <div className="bg-white dark:bg-[#151F32] rounded-2xl p-8 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-4 hover:border-[#2563EB] transition-colors group">
-            <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-[#0B1120] border border-purple-200 dark:border-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform">
-              <Crosshair className="w-6 h-6" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {franchiseList.map((team, idx) => (
+                <div
+                  key={idx}
+                  className={`bg-white dark:bg-[#151F32] rounded-2xl p-5 border border-[#E2E8F0] dark:border-[#334155] shadow-sm hover:border-[#2563EB] dark:hover:border-[#38BDF8] transition-all duration-300 space-y-4 group`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 text-[#64748B] dark:text-[#94A3B8]">
+                      Team 0{idx + 1}
+                    </span>
+                    <span className={`font-mono text-xs font-bold ${team.accent}`}>
+                      {team.nrr}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h4 className="font-display font-black text-xl text-[#101828] dark:text-[#F8FAFC] group-hover:text-[#2563EB] dark:group-hover:text-[#38BDF8] transition-colors">
+                      {team.name}
+                    </h4>
+                    <span className="text-xs text-[#64748B] dark:text-[#94A3B8] font-medium block mt-0.5">
+                      Owner: <strong>{team.owner}</strong>
+                    </span>
+                    <span className="text-[11px] text-slate-400 dark:text-slate-500 block">
+                      {team.tagline}
+                    </span>
+                  </div>
+
+                  <div className="pt-3 border-t border-[#E2E8F0] dark:border-[#334155] flex items-center justify-between text-xs">
+                    <span className="text-[11px] font-mono text-[#64748B] dark:text-[#94A3B8]">
+                      {team.stats}
+                    </span>
+                    <Link
+                      href="/teams"
+                      className="inline-flex items-center gap-1 font-semibold text-[#2563EB] dark:text-[#38BDF8] group-hover:translate-x-0.5 transition-transform"
+                    >
+                      <span>Roster</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
-            <h3 className="font-display font-bold text-xl text-[#101828] dark:text-[#F8FAFC]">
-              Micro-Situational Splits
-            </h3>
-            <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
-              Dissects execution under opposing match scripts: setting targets (Innings 1) vs chasing totals (Innings 2), alongside bowling first vs defending totals under severe scoreboard pressure.
-            </p>
-            <div className="pt-2 text-xs font-mono font-semibold text-purple-600 dark:text-purple-400 flex items-center gap-1">
-              <span>Explore Splits</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+
+            {/* Bottom Strip: Auction Economics & Scarcity Rule */}
+            <div className="bg-blue-50/70 dark:bg-[#151F32]/60 rounded-2xl p-5 border border-blue-200/80 dark:border-[#334155] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono uppercase font-bold text-[#2563EB] dark:text-[#38BDF8] flex items-center gap-1.5">
+                  <DollarSign className="w-3.5 h-3.5" />
+                  <span>Auction Enforcement Rule</span>
+                </span>
+                <p className="text-xs text-[#101828] dark:text-[#F8FAFC]">
+                  Every franchise must reserve minimum funds to guarantee a complete 8-player squad:
+                  <code className="ml-1.5 font-mono text-[11px] text-[#2563EB] dark:text-[#38BDF8]">
+                    Reserve = (Slots - 1) × ₹2.0L
+                  </code>
+                </p>
+              </div>
+              <Link
+                href="/auction"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#2563EB] text-white text-xs font-bold shrink-0 shadow-sm hover:bg-[#1D4ED8] transition"
+              >
+                <span>Auction Terminal</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
         </div>
@@ -307,14 +528,15 @@ export default function LandingPage() {
 
       {/* 
         ========================================================================
-        SECTION 2: THE MARQUEE PERFORMERS (SIGNATURE DOSSIER SPOTLIGHT)
+        SECTION 2: MARQUEE ATHLETE SHOWCASE (BUG FIX: RUNS & WICKETS VERIFIED)
         ========================================================================
+        Eliminates zero values by correctly drawing from flat total_runs/wickets!
       */}
       <section className="space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#E2E8F0] dark:border-[#334155] pb-6">
           <div>
             <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#2563EB] dark:text-[#38BDF8]">
-              02 • THE ATHLETES
+              02 • ATHLETE PERFORMANCE DOSSIERS
             </span>
             <h2 className="font-display font-black text-3xl sm:text-4xl text-[#101828] dark:text-[#F8FAFC] tracking-tight mt-1">
               LEAGUE PROFILES &amp; HERO PERFORMANCE DOSSIERS
@@ -324,73 +546,92 @@ export default function LandingPage() {
             href="/players"
             className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] dark:text-[#38BDF8] hover:underline"
           >
-            <span>All 73 Canonical Athletes</span>
+            <span>Explore All 73 Canonical Athletes</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {/* Asymmetrical Athlete Roster Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {topPlayers.slice(0, 4).map((p, idx) => (
-            <Link
-              key={p.player_id}
-              href={`/players/${p.player_id}`}
-              data-cursor="view"
-              data-cursor-label="PROFILE"
-              className="group relative bg-white dark:bg-[#151F32] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm hover:border-[#2563EB] dark:hover:border-[#38BDF8] transition-all duration-300 flex flex-col justify-between space-y-6"
-            >
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] uppercase font-bold text-[#2563EB] dark:text-[#38BDF8] bg-blue-50 dark:bg-[#0B1120] px-2.5 py-0.5 rounded-full border border-blue-200 dark:border-[#334155]">
-                    {p.player_id}
-                  </span>
-                  <RatingBadge score={p.ratings?.overall_rating || 75} size="sm" />
+        {/* Asymmetrical Athlete Dossier Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {topPlayers.slice(0, 4).map((p) => {
+            // VERIFIED DATA EXTRACTION (NO ZERO BUGS)
+            const runs = p.total_runs ?? p.career_batting?.total_runs ?? 0;
+            const sr = p.strike_rate ?? p.career_batting?.strike_rate ?? 0;
+            const wkts = p.wickets ?? p.career_bowling?.wickets ?? 0;
+            const econ = p.economy ?? p.career_bowling?.economy ?? 0;
+            const score = p.player_intelligence?.overall_player_intelligence_score ?? p.ratings?.overall_rating ?? 75;
+
+            return (
+              <Link
+                key={p.player_id}
+                href={`/players/${p.player_id}`}
+                data-cursor="view"
+                data-cursor-label="DOSSIER"
+                className="group relative bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm hover:border-[#2563EB] dark:hover:border-[#38BDF8] transition-all duration-300 flex flex-col justify-between space-y-6 hover:shadow-xl"
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs uppercase font-bold text-[#2563EB] dark:text-[#38BDF8] bg-blue-50 dark:bg-[#0B1120] px-3 py-1 rounded-full border border-blue-200 dark:border-[#334155]">
+                      {p.player_id}
+                    </span>
+                    <RatingBadge score={score} size="sm" />
+                  </div>
+
+                  <div className="mt-5 flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 text-white flex items-center justify-center font-display font-black text-lg border border-white/20 shadow-md shrink-0">
+                      {getInitials(p.name)}
+                    </div>
+                    <div>
+                      <h3 className="font-display font-black text-2xl text-[#101828] dark:text-[#F8FAFC] group-hover:text-[#2563EB] dark:group-hover:text-[#38BDF8] transition-colors">
+                        {p.name}
+                      </h3>
+                      <span className="text-xs text-[#64748B] dark:text-[#94A3B8] font-semibold uppercase tracking-wider block">
+                        {p.role_classification || p.primary_role} • {p.batting_hand}
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="mt-4">
-                  <h3 className="font-display font-black text-2xl text-[#101828] dark:text-[#F8FAFC] group-hover:text-[#2563EB] dark:group-hover:text-[#38BDF8] transition-colors">
-                    {p.name}
-                  </h3>
-                  <span className="text-xs text-[#64748B] dark:text-[#94A3B8] font-semibold uppercase tracking-wider block mt-0.5">
-                    {p.primary_role} • {p.batting_hand}
-                  </span>
-                </div>
-              </div>
+                {/* Verified Ground-Truth Statistics Rack */}
+                <div className="grid grid-cols-2 gap-2.5 pt-4 border-t border-[#E2E8F0] dark:border-[#334155] text-xs">
+                  <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-3 rounded-xl border border-slate-200 dark:border-[#1E293B]">
+                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block uppercase font-bold">Career Runs</span>
+                    <span className="font-mono font-bold text-xl text-[#101828] dark:text-[#F8FAFC]">
+                      {runs}
+                    </span>
+                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block mt-0.5">
+                      SR: <strong className="text-[#101828] dark:text-[#F8FAFC]">{Number(sr).toFixed(1)}</strong>
+                    </span>
+                  </div>
 
-              {/* Quick Athlete Snapshot Metrics */}
-              <div className="grid grid-cols-2 gap-2 pt-4 border-t border-[#E2E8F0] dark:border-[#334155] text-xs">
-                <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-2.5 rounded-lg border border-[#E2E8F0] dark:border-[#1E293B]">
-                  <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block uppercase">Runs</span>
-                  <span className="font-mono font-bold text-base text-[#101828] dark:text-[#F8FAFC]">
-                    {p.career_batting?.total_runs || 0}
-                  </span>
-                  <span className="text-[9px] text-[#64748B] dark:text-[#94A3B8] block">SR: {p.career_batting?.strike_rate?.toFixed(1) || 0}</span>
+                  <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-3 rounded-xl border border-slate-200 dark:border-[#1E293B]">
+                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block uppercase font-bold">Wickets</span>
+                    <span className="font-mono font-bold text-xl text-[#2563EB] dark:text-[#38BDF8]">
+                      {wkts}
+                    </span>
+                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block mt-0.5">
+                      Econ: <strong className="text-[#101828] dark:text-[#F8FAFC]">{wkts > 0 || p.legal_balls > 0 ? Number(econ).toFixed(2) : "—"}</strong>
+                    </span>
+                  </div>
                 </div>
 
-                <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-2.5 rounded-lg border border-[#E2E8F0] dark:border-[#1E293B]">
-                  <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block uppercase">Wickets</span>
-                  <span className="font-mono font-bold text-base text-[#2563EB] dark:text-[#38BDF8]">
-                    {p.career_bowling?.wickets || 0}
-                  </span>
-                  <span className="text-[9px] text-[#64748B] dark:text-[#94A3B8] block">Econ: {p.career_bowling?.economy?.toFixed(2) || "—"}</span>
+                <div className="pt-1 flex items-center justify-between text-xs font-semibold text-[#2563EB] dark:text-[#38BDF8]">
+                  <span>Inspect Full Dossier</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                 </div>
-              </div>
-
-              <div className="pt-1 flex items-center justify-between text-xs font-semibold text-[#2563EB] dark:text-[#38BDF8]">
-                <span>Inspect Dossier</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </section>
 
       {/* 
         ========================================================================
-        SECTION 3: THE ANALYTICS ENGINES
+        SECTION 3: DATA INTELLIGENCE COCKPIT (ASYMMETRIC ANALYTICAL SUITES)
         ========================================================================
+        Eliminates the generic 3 boxes! Replaced with an asymmetric command suite.
       */}
-      <section className="bg-white dark:bg-[#151F32] rounded-3xl p-8 sm:p-12 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-8">
+      <section className="space-y-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E2E8F0] dark:border-[#334155] pb-6">
           <div>
             <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#2563EB] dark:text-[#38BDF8]">
@@ -409,187 +650,233 @@ export default function LandingPage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Link
-            href="/analytics/batting"
-            className="p-6 rounded-2xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#1E293B] space-y-3 hover:border-[#2563EB] transition-colors group"
-          >
-            <div className="flex items-center justify-between">
-              <Flame className="w-5 h-5 text-[#2563EB] dark:text-[#38BDF8]" />
-              <span className="text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8]">LEADERBOARDS</span>
-            </div>
-            <h4 className="font-display font-bold text-lg text-[#101828] dark:text-[#F8FAFC] group-hover:text-[#2563EB] transition-colors">
-              Batting Velocity &amp; Boundaries
-            </h4>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
-              Strike rate distributions, boundary percentages, and milestone frequencies (10+, 15+, 20+ runs) across 56 innings.
-            </p>
-          </Link>
-
-          <Link
-            href="/analytics/bowling"
-            className="p-6 rounded-2xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#1E293B] space-y-3 hover:border-[#2563EB] transition-colors group"
-          >
-            <div className="flex items-center justify-between">
-              <Shield className="w-5 h-5 text-[#0891B2] dark:text-[#22D3EE]" />
-              <span className="text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8]">SUPPRESSION</span>
-            </div>
-            <h4 className="font-display font-bold text-lg text-[#101828] dark:text-[#F8FAFC] group-hover:text-[#0891B2] transition-colors">
-              Bowling Economy &amp; Dot Balls
-            </h4>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
-              Legal-ball verified economy rates, dot-ball frequencies, and multi-wicket spell logs across tournament campaigns.
-            </p>
-          </Link>
-
-          <Link
-            href="/intelligence-lab"
-            className="p-6 rounded-2xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#1E293B] space-y-3 hover:border-[#2563EB] transition-colors group"
-          >
-            <div className="flex items-center justify-between">
-              <FlaskConical className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-              <span className="text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8]">RESEARCH LAB</span>
-            </div>
-            <h4 className="font-display font-bold text-lg text-[#101828] dark:text-[#F8FAFC] group-hover:text-purple-600 transition-colors">
-              2/3-Player Synergy Combinations
-            </h4>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
-              Empirical hypothesis testing evaluating team win percentage when specific partnerships play together vs apart.
-            </p>
-          </Link>
-        </div>
-      </section>
-
-      {/* 
-        ========================================================================
-        SECTION 4: THE SIX FRANCHISES
-        ========================================================================
-      */}
-      <section className="space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#E2E8F0] dark:border-[#334155] pb-6">
-          <div>
-            <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#2563EB] dark:text-[#38BDF8]">
-              04 • THE FRANCHISES
-            </span>
-            <h2 className="font-display font-black text-3xl sm:text-4xl text-[#101828] dark:text-[#F8FAFC] tracking-tight mt-1">
-              SIX TEAMS. THREE EDITIONS. UNRELENTING PARITY.
-            </h2>
-          </div>
-          <Link
-            href="/teams"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] dark:text-[#38BDF8] hover:underline"
-          >
-            <span>Franchise Standings Matrix</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {teams.map((t, idx) => (
-            <div
-              key={t.team_name}
-              className="bg-white dark:bg-[#151F32] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-4 hover:border-[#2563EB] transition-colors"
-            >
+        {/* Asymmetrical Analytics Grid (Dominant Feature Left, Stacked Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          {/* Dominant Feature Panel: Batting Velocity & Milestone Breakdown (7 cols) */}
+          <div className="lg:col-span-7 bg-white dark:bg-[#151F32] rounded-3xl p-8 border border-[#E2E8F0] dark:border-[#334155] shadow-sm flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold text-[#2563EB] dark:text-[#38BDF8]">
-                  FRANCHISE #{idx + 1}
+                <span className="p-3 rounded-2xl bg-amber-500/10 text-amber-500 border border-amber-500/20">
+                  <Flame className="w-6 h-6" />
                 </span>
-                <span className={`px-2 py-0.5 rounded font-mono text-[10px] font-bold ${
-                  t.net_run_rate >= 0 ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400" : "bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400"
-                }`}>
-                  NRR: {t.net_run_rate > 0 ? `+${Number(t.net_run_rate).toFixed(2)}` : Number(t.net_run_rate).toFixed(2)}
+                <span className="font-mono text-xs text-[#2563EB] dark:text-[#38BDF8] font-bold">
+                  56 INNINGS ANALYZED
                 </span>
               </div>
 
-              <div>
-                <h4 className="font-display font-extrabold text-xl text-[#101828] dark:text-[#F8FAFC]">
-                  {t.team_name}
-                </h4>
-                <span className="text-xs text-[#64748B] dark:text-[#94A3B8]">
-                  {t.matches_played} matches played • {t.matches_won} wins
-                </span>
+              <div className="space-y-2">
+                <h3 className="font-display font-black text-3xl text-[#101828] dark:text-[#F8FAFC]">
+                  Batting Velocity &amp; 6-Over Milestone Engine
+                </h3>
+                <p className="text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed max-w-2xl">
+                  In a 6-over match, standard 50s and 100s do not exist. EPL establishes specialized impact milestones: <strong>10+</strong> (foundation innings), <strong>15+</strong> (breakout velocity), and <strong>20+</strong> (match-winning innings).
+                </p>
               </div>
 
-              <div className="pt-2 border-t border-[#E2E8F0] dark:border-[#334155] flex justify-between items-center text-xs">
-                <span className="text-[#64748B] dark:text-[#94A3B8]">Historical Win Rate:</span>
-                <span className="font-mono font-bold text-base text-[#101828] dark:text-[#F8FAFC]">
-                  {Number(t.win_percentage || 0).toFixed(1)}%
-                </span>
+              {/* Milestone Frequency Strip */}
+              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-[#E2E8F0] dark:border-[#334155]">
+                <div className="p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-slate-200 dark:border-[#1E293B]">
+                  <span className="text-[10px] uppercase font-bold text-[#64748B] dark:text-[#94A3B8] block">10+ Innings</span>
+                  <span className="font-mono text-2xl font-black text-[#101828] dark:text-[#F8FAFC]">112</span>
+                  <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block">35.9% frequency</span>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-slate-200 dark:border-[#1E293B]">
+                  <span className="text-[10px] uppercase font-bold text-[#64748B] dark:text-[#94A3B8] block">15+ Innings</span>
+                  <span className="font-mono text-2xl font-black text-[#2563EB] dark:text-[#38BDF8]">54</span>
+                  <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block">17.3% frequency</span>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-slate-200 dark:border-[#1E293B]">
+                  <span className="text-[10px] uppercase font-bold text-[#64748B] dark:text-[#94A3B8] block">20+ Innings</span>
+                  <span className="font-mono text-2xl font-black text-amber-500">28</span>
+                  <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block">8.9% match-winners</span>
+                </div>
               </div>
             </div>
-          ))}
+
+            <div className="pt-4 flex items-center justify-between">
+              <Link
+                href="/analytics/batting"
+                className="inline-flex items-center gap-2 text-xs font-bold text-[#2563EB] dark:text-[#38BDF8] hover:underline"
+              >
+                <span>Open Full Batting Velocity Leaderboards</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <span className="text-[11px] font-mono text-[#64748B] dark:text-[#94A3B8]">
+                Sagar Kapadia: 17 boundaries (All-Time Leader)
+              </span>
+            </div>
+          </div>
+
+          {/* Stacked Secondary Panels (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col justify-between gap-6">
+            {/* Top Secondary Panel: Restrictive Bowling Suppression */}
+            <div className="bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3 flex-1">
+              <div className="flex items-center justify-between">
+                <span className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-500 border border-cyan-500/20">
+                  <Shield className="w-5 h-5" />
+                </span>
+                <span className="font-mono text-[11px] text-[#0891B2] dark:text-[#22D3EE] font-bold">
+                  827 DOT BALLS AUDITED
+                </span>
+              </div>
+              <h4 className="font-display font-bold text-xl text-[#101828] dark:text-[#F8FAFC]">
+                Bowling Economy &amp; Dot Suppression
+              </h4>
+              <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                Evaluates legal-ball bowling economy rates, dot-ball suppression, and multi-wicket spells across 277 regulation tournament spells.
+              </p>
+              <div className="pt-1">
+                <Link
+                  href="/analytics/bowling"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0891B2] dark:text-[#22D3EE] hover:underline"
+                >
+                  <span>Explore Bowling Leaderboard</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Bottom Secondary Panel: EPL Intelligence Lab & Combinatorial Synergy */}
+            <div className="bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3 flex-1">
+              <div className="flex items-center justify-between">
+                <span className="p-2.5 rounded-xl bg-purple-500/10 text-purple-500 border border-purple-500/20">
+                  <FlaskConical className="w-5 h-5" />
+                </span>
+                <span className="font-mono text-[11px] text-purple-500 font-bold">
+                  COMBINATORIAL LAB
+                </span>
+              </div>
+              <h4 className="font-display font-bold text-xl text-[#101828] dark:text-[#F8FAFC]">
+                EPL Intelligence Lab
+              </h4>
+              <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                Discover 2-player and 3-player synergy pairs, winning patterns, and tactical chemistry with automated sample-size safeguards.
+              </p>
+              <div className="pt-1">
+                <Link
+                  href="/intelligence-lab"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-500 hover:underline"
+                >
+                  <span>Launch Intelligence Lab</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* 
         ========================================================================
-        SECTION 5: THE LIVE AUCTION ROOM
+        SECTION 4: REAL-TIME AUCTION TERMINAL PREVIEW
         ========================================================================
       */}
-      <section className="bg-gradient-to-br from-blue-900/10 via-[#151F32] to-[#0B1120] text-white rounded-3xl p-8 sm:p-14 border border-blue-500/20 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 blur-3xl rounded-full pointer-events-none"></div>
+      <section className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-[#0B1120] to-[#0A192F] text-white p-8 sm:p-14 border border-white/10 shadow-2xl">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-3xl space-y-6 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-cyan-300 text-xs font-mono font-semibold">
-            <DollarSign className="w-3.5 h-3.5" />
-            <span>REAL-TIME WEBSOCKET AUCTION ENGINE</span>
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-10">
+          <div className="space-y-4 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/40 text-blue-400 font-mono text-xs">
+              <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping" />
+              <span>LIVE WEBSOCKET AUCTION TERMINAL</span>
+            </div>
+
+            <h2 className="font-display font-black text-3xl sm:text-5xl tracking-tight text-white">
+              Bidding Economics Meets Concurrency Serialization.
+            </h2>
+
+            <p className="font-sans text-sm sm:text-base text-slate-300 leading-relaxed">
+              Equipped with real-time WebSocket state machines, token-based role separation, purse enforcement, and atomic SQLite transaction audits. Six franchise owners can bid simultaneously without race conditions or budget breaches.
+            </p>
+
+            <div className="pt-2 flex flex-wrap items-center gap-4">
+              <Link
+                href="/auction"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-display font-bold text-sm shadow-lg shadow-blue-500/25 transition-all duration-300 hover:scale-[1.02]"
+              >
+                <DollarSign className="w-4 h-4" />
+                <span>Enter Auction Arena</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+
+              <Link
+                href="/shortlists"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-display font-bold text-sm transition"
+              >
+                <Users className="w-4 h-4 text-cyan-300" />
+                <span>Target Shortlists</span>
+              </Link>
+            </div>
           </div>
 
-          <h2 className="font-display font-black text-4xl sm:text-6xl tracking-tight leading-[0.95]">
-            HIGH-STAKES FRANCHISE BIDDING.
+          {/* Terminal Telemetry Pod */}
+          <div className="bg-slate-900/90 rounded-2xl p-6 border border-white/15 backdrop-blur-md min-w-[280px] sm:min-w-[340px] space-y-4 shadow-xl">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <span className="text-xs font-mono font-bold text-cyan-400">AUCTION PROTOCOL</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                PORT 8080 READY
+              </span>
+            </div>
+
+            <div className="space-y-2.5 text-xs font-mono">
+              <div className="flex justify-between text-slate-300">
+                <span className="text-slate-400">Total Registered Teams:</span>
+                <span className="font-bold text-white">6 Franchises</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span className="text-slate-400">Starting Purse:</span>
+                <span className="font-bold text-cyan-300">₹100.0 Lakhs / team</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span className="text-slate-400">Minimum Bid Increment:</span>
+                <span className="font-bold text-white">₹0.50 Lakhs</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span className="text-slate-400">Countdown Timer:</span>
+                <span className="font-bold text-amber-400">30 Seconds / Lot</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span className="text-slate-400">Reserve Fund Rule:</span>
+                <span className="font-bold text-emerald-400">Strictly Enforced</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 
+        ========================================================================
+        SECTION 5: EDITORIAL FINAL CALL TO ACTION
+        ========================================================================
+      */}
+      <section className="border-t border-[#E2E8F0] dark:border-[#334155] pt-16 flex flex-col items-center text-center space-y-6">
+        <EplBrandLogo variant="hero" size="lg" animated />
+
+        <div className="space-y-2 max-w-xl">
+          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#101828] dark:text-[#F8FAFC] tracking-tight">
+            Exotica Premier League
           </h2>
-
-          <p className="font-sans text-sm sm:text-base text-slate-300 leading-relaxed">
-            The EPL Auction Suite features authenticated owner access, ₹100.0L team purse caps, atomic reserve calculations, and zero-mutation AI mock simulation sandboxes.
+          <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            The historical record is verified. The auction algorithm is locked. 
+            Experience the standard in residential cricket analytics.
           </p>
-
-          <div className="flex flex-wrap items-center gap-4 pt-4">
-            <Link
-              href="/auction"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-display font-bold text-sm shadow-lg transition-transform hover:scale-105"
-            >
-              <span>Enter Live Bidding Room</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-
-            <Link
-              href="/auction?tab=setup"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-display font-semibold text-sm transition-colors"
-            >
-              <span>Setup Wizard</span>
-            </Link>
-          </div>
         </div>
-      </section>
 
-      {/* 
-        ========================================================================
-        SECTION 6: FINAL SIGNATURE CALL TO ACTION
-        ========================================================================
-      */}
-      <section className="text-center space-y-6 max-w-4xl mx-auto py-8">
-        <EplBrandLogo variant="monogram" size="xl" className="mx-auto" />
-
-        <h2 className="font-display font-black text-4xl sm:text-6xl text-[#101828] dark:text-[#F8FAFC] tracking-tight">
-          READY TO ANALYZE EVERY BALL?
-        </h2>
-
-        <p className="font-sans text-base sm:text-lg text-[#64748B] dark:text-[#94A3B8] max-w-xl mx-auto">
-          Access the complete historical registry, head-to-head radar comparisons, similar player cohorts, and official CricHeroes verification dossiers.
-        </p>
-
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
           <Link
             href="/dashboard"
-            className="px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-display font-bold text-base shadow-lg shadow-blue-500/25 transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold shadow-md transition"
           >
-            Open Analytics Terminal
+            <LayoutDashboard className="w-4 h-4" />
+            <span>Open Tournament Terminal</span>
           </Link>
           <Link
-            href="/players"
-            className="px-8 py-4 rounded-xl bg-white dark:bg-[#151F32] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] font-display font-bold text-base hover:bg-slate-50 dark:hover:bg-[#1E293B] shadow-sm transition-all"
+            href="/changelog"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-bold text-[#101828] dark:text-[#F8FAFC] hover:bg-slate-200 dark:hover:bg-white/10 transition"
           >
-            Browse All Players
+            <span>Platform Changelog (v2.0.1-dev)</span>
           </Link>
         </div>
       </section>
