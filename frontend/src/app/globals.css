@@ -8,16 +8,19 @@
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans: 'Inter', system-ui, sans-serif;
 
+  /* Strict Five-Colour EPL Palette */
   --color-midnight: #02000D;
   --color-navy: #07203F;
   --color-beige: #EBDED4;
   --color-peach: #D9AA90;
   --color-terracotta: #A65E46;
+
+  color-scheme: dark;
 }
 
 body {
-  background-color: #EBDED4;
-  color: #02000D;
+  background-color: #02000D;
+  color: #EBDED4;
   font-family: var(--font-sans);
   min-height: 100vh;
   margin: 0;
@@ -25,23 +28,23 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Editorial Scrollbar */
+/* Custom Editorial Dark Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(7, 32, 63, 0.06);
+  background: #02000D;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(166, 94, 70, 0.45);
+  background: rgba(166, 94, 70, 0.55);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(166, 94, 70, 0.85);
+  background: #A65E46;
 }
 
 .font-editorial-title {
@@ -50,7 +53,7 @@ body {
 }
 
 /* =====================================================================
-   UNIVERSAL STICKY & RESPONSIVE DATA TABLE SYSTEM (v1.1)
+   UNIVERSAL STICKY & RESPONSIVE DATA TABLE SYSTEM (v1.3 Premium Dark)
    Fixes header contrast, vertical sticky headers, horizontal scrolling,
    and first-column pinning across all EPL tables.
    ===================================================================== */
@@ -61,6 +64,8 @@ body {
   max-height: 70vh;
   position: relative;
   -webkit-overflow-scrolling: touch;
+  background-color: #07203F;
+  border-radius: 0.75rem;
 }
 
 .table-editorial {
@@ -73,32 +78,38 @@ body {
   position: sticky;
   top: 0;
   z-index: 20;
-  background-color: #07203F !important;
-  color: #EBDED4 !important;
+  background-color: #02000D !important;
+  color: #D9AA90 !important;
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   line-height: 1.3;
   white-space: normal;
   vertical-align: bottom;
-  border-bottom: 2px solid #D9AA90;
-  box-shadow: 0 1px 0 rgba(2, 0, 13, 0.15);
+  border-bottom: 2px solid #A65E46;
+  box-shadow: 0 2px 4px rgba(2, 0, 13, 0.4);
 }
 
 .table-editorial tbody td {
   font-variant-numeric: tabular-nums;
   vertical-align: middle;
-  border-bottom: 1px solid rgba(7, 32, 63, 0.09);
+  border-bottom: 1px solid rgba(217, 170, 144, 0.12);
+  color: #EBDED4;
+}
+
+.table-editorial tbody tr {
+  background-color: #07203F;
+  transition: background-color 0.15s ease;
 }
 
 .table-editorial tbody tr:nth-child(even) {
-  background-color: rgba(235, 222, 212, 0.28);
+  background-color: rgba(2, 0, 13, 0.35);
 }
 
 .table-editorial tbody tr:hover {
-  background-color: rgba(217, 170, 144, 0.22);
+  background-color: rgba(166, 94, 70, 0.22);
 }
 
 /* Sticky identifying first column for wide horizontal tables */
@@ -106,24 +117,35 @@ body {
   position: sticky;
   left: 0;
   z-index: 30;
-  background-color: #07203F !important;
-  box-shadow: 2px 0 4px rgba(2, 0, 13, 0.18);
+  background-color: #02000D !important;
+  box-shadow: 2px 0 6px rgba(2, 0, 13, 0.45);
 }
 
 .table-sticky-col td:first-child {
   position: sticky;
   left: 0;
   z-index: 10;
-  background-color: #FFFFFF;
-  box-shadow: 2px 0 4px rgba(7, 32, 63, 0.06);
+  background-color: #07203F !important;
+  color: #EBDED4 !important;
+  box-shadow: 2px 0 6px rgba(2, 0, 13, 0.35);
 }
 
 .table-sticky-col tbody tr:nth-child(even) td:first-child {
-  background-color: #F7F1EC;
+  background-color: #051830 !important;
 }
 
 .table-sticky-col tbody tr:hover td:first-child {
-  background-color: #F1E3D8;
+  background-color: #0d284a !important;
+}
+
+/* Micro-interaction & Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* =====================================================================
@@ -140,7 +162,8 @@ body {
   }
 
   body {
-    background-color: #EBDED4 !important;
+    background-color: #02000D !important;
+    color: #EBDED4 !important;
   }
 
   .table-wrapper {

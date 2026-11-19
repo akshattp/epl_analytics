@@ -41,28 +41,28 @@ export function ExportButtonsBar({ role, sortBy = "overall_rating" }: ExportButt
         type="button"
         onClick={() => download("pdf")}
         disabled={busy !== null}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#A65E46] text-[#EBDED4] hover:bg-[#A65E46]/90 text-xs font-semibold transition disabled:opacity-50"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#A65E46] text-[#EBDED4] hover:bg-[#A65E46]/90 text-xs font-semibold transition disabled:opacity-40 shadow-sm"
       >
         <FileText className="w-3.5 h-3.5" />
-        <span>{busy === "pdf" ? "PDF..." : "PDF"}</span>
+        <span>{busy === "pdf" ? "Exporting PDF..." : "Export PDF"}</span>
       </button>
       <button
         type="button"
         onClick={() => download("xlsx")}
         disabled={busy !== null}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#07203F] text-[#EBDED4] hover:bg-[#02000D] text-xs font-semibold transition disabled:opacity-50"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#07203F] border border-[#D9AA90]/35 text-[#EBDED4] hover:bg-[#A65E46] text-xs font-semibold transition disabled:opacity-40 shadow-sm"
       >
         <FileSpreadsheet className="w-3.5 h-3.5 text-[#D9AA90]" />
-        <span>{busy === "xlsx" ? "Excel..." : "Excel"}</span>
+        <span>{busy === "xlsx" ? "Exporting Excel..." : "Excel"}</span>
       </button>
       <button
         type="button"
         onClick={() => download("csv")}
         disabled={busy !== null}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#07203F] bg-white text-[#07203F] hover:bg-[#EBDED4] text-xs font-semibold transition disabled:opacity-50"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#07203F] border border-[#D9AA90]/35 text-[#EBDED4] hover:bg-[#A65E46] text-xs font-semibold transition disabled:opacity-40 shadow-sm"
       >
-        <Download className="w-3.5 h-3.5" />
-        <span>{busy === "csv" ? "CSV..." : "CSV"}</span>
+        <Download className="w-3.5 h-3.5 text-[#D9AA90]" />
+        <span>{busy === "csv" ? "Exporting CSV..." : "CSV"}</span>
       </button>
     </div>
   );

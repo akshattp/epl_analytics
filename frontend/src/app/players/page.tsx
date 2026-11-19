@@ -2,10 +2,11 @@
 
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import { Search, Download, FileSpreadsheet, FileText } from "lucide-react";
+import { Search, Download, FileSpreadsheet, FileText, Users, Award, Shield } from "lucide-react";
 import { fetchApi } from "@/lib/api";
 import { RatingBadge } from "@/components/RatingBadge";
 import { DataTable, DataTableColumn } from "@/components/DataTable";
+import { ExportButtonsBar } from "@/components/ExportButtonsBar";
 
 export default function PlayersPage() {
   const [players, setPlayers] = useState<any[]>([]);
@@ -14,7 +15,6 @@ export default function PlayersPage() {
   const [roleFilter, setRoleFilter] = useState("ALL");
   const [categoryFilter, setCategoryFilter] = useState("ALL");
   const [seasonFilter, setSeasonFilter] = useState("ALL");
-  const [exporting, setExporting] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadPlayers() {
@@ -45,29 +45,33 @@ export default function PlayersPage() {
     });
   }, [players, search, roleFilter, categoryFilter, seasonFilter]);
 
-  const handleExport = async (format: "pdf" | "xlsx" | "csv") => {
-    setExporting(format);
-    try {
-      const params = new URLSearchParams({ format });
-      if (search.trim()) params.append("search", search.trim());
-      if (roleFilter !== "ALL") params.append("role", roleFilter);
-      if (categoryFilter !== "ALL") params.append("category", categoryFilter);
-      const res = await fetch(`/api/exports/players?${params.toString()}`);
-      if (!res.ok) throw new Error(`Export failed (${res.status})`);
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `EPL_Player_Statistics.${format}`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error("Export error:", err);
-    } finally {
-      setExporting(null);
+  const getInitials = (name: string) => {
+    const parts = name.replace(/\([^)]*\)/g, "").trim().split(" ");
+    if (parts.length >= 2) return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+    return (name[0] || "P").toUpperCase();
+  };
+
+  const getRoleBadge = (role: string) => {
+    const r = role.toLowerCase();
+    if (r.includes("all-round")) {
+      return (
+        <span className="px-2 py-0.5 rounded bg-[#D9AA90] text-[#02000D] text-[10px] font-bold tracking-wide">
+          All-Rounder
+        </span>
+      );
     }
+    if (r.includes("bat")) {
+      return (
+        <span className="px-2 py-0.5 rounded bg-[#A65E46] text-[#EBDED4] text-[10px] font-semibold tracking-wide">
+          Pure Batsman
+        </span>
+      );
+    }
+    return (
+      <span className="px-2 py-0.5 rounded bg-[#02000D] border border-[#D9AA90]/40 text-[#D9AA90] text-[10px] font-medium tracking-wide">
+        Pure Bowler
+      </span>
+    );
   };
 
   const columns: DataTableColumn<any>[] = [
@@ -75,16 +79,21 @@ export default function PlayersPage() {
       key: "name",
       header: "Player",
       tooltip: "Canonical Player Name & Permanent EPL ID",
-      minWidth: "180px",
+      minWidth: "210px",
       sortAccessor: (p) => p.name,
       render: (p) => (
-        <div>
-          <Link href={`/players/${p.player_id}`} className="font-bold text-sm text-[#07203F] hover:text-[#A65E46] transition">
-            {p.name}
-          </Link>
-          <span className="block text-[10px] font-mono text-[#07203F]/60">
-            {p.player_id} • {p.batting_hand || "RHB"}
-          </span>
+        <div className="flex items-center space-x-2.5">
+          <div className="w-8 h-8 rounded-full bg-[#02000D] border border-[#D9AA90]/35 flex items-center justify-center font-bold text-xs text-[#D9AA90] font-mono shrink-0 shadow-sm">
+            {getInitials(p.name)}
+          </div>
+          <div className="min-w-0">
+            <Link href={`/players/${p.player_id}`} className="font-bold text-sm text-[#EBDED4] hover:text-[#D9AA90] transition truncate block">
+              {p.name}
+            </Link>
+            <span className="block text-[10px] font-mono text-[#D9AA90]/70">
+              {p.player_id} • {p.batting_hand || "RHB"}
+            </span>
+          </div>
         </div>
       ),
     },
@@ -93,11 +102,7 @@ export default function PlayersPage() {
       header: "Role",
       tooltip: "Primary Playing Discipline",
       minWidth: "130px",
-      render: (p) => (
-        <span className="px-2 py-0.5 rounded bg-[#07203F]/10 text-[#07203F] text-[11px] font-medium">
-          {p.primary_role}
-        </span>
-      ),
+      render: (p) => getRoleBadge(p.primary_role),
     },
     {
       key: "matches",
@@ -106,7 +111,7 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "64px",
       sortAccessor: (p) => p.matches,
-      render: (p) => <span className="font-mono font-semibold">{p.matches}</span>,
+      render: (p) => <span className="font-mono font-semibold text-[#EBDED4]">{p.matches}</span>,
     },
     {
       key: "total_runs",
@@ -115,7 +120,7 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "70px",
       sortAccessor: (p) => p.total_runs,
-      render: (p) => <span className="font-mono font-bold text-[#07203F]">{p.total_runs}</span>,
+      render: (p) => <span className="font-mono font-bold text-[#D9AA90]">{p.total_runs}</span>,
     },
     {
       key: "batting_average",
@@ -124,7 +129,7 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "78px",
       sortAccessor: (p) => p.batting_average,
-      render: (p) => <span className="font-mono">{Number(p.batting_average || 0).toFixed(1)}</span>,
+      render: (p) => <span className="font-mono text-[#EBDED4]">{Number(p.batting_average || 0).toFixed(1)}</span>,
     },
     {
       key: "strike_rate",
@@ -133,7 +138,7 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "78px",
       sortAccessor: (p) => p.strike_rate,
-      render: (p) => <span className="font-mono">{Number(p.strike_rate || 0).toFixed(1)}</span>,
+      render: (p) => <span className="font-mono text-[#EBDED4]">{Number(p.strike_rate || 0).toFixed(1)}</span>,
     },
     {
       key: "wickets",
@@ -151,14 +156,14 @@ export default function PlayersPage() {
       align: "right",
       minWidth: "74px",
       sortAccessor: (p) => (p.legal_balls > 0 ? p.economy : 99),
-      render: (p) => <span className="font-mono">{p.legal_balls > 0 ? Number(p.economy).toFixed(2) : "—"}</span>,
+      render: (p) => <span className="font-mono text-[#EBDED4]">{p.legal_balls > 0 ? Number(p.economy).toFixed(2) : "—"}</span>,
     },
     {
       key: "overall_rating",
-      header: "EPL Rtg",
-      tooltip: "Composite 100-Point Bayesian EPL Player Rating",
+      header: "PIS Rating",
+      tooltip: "Composite 100-Point EPL Player Intelligence Score",
       align: "center",
-      minWidth: "86px",
+      minWidth: "96px",
       sortAccessor: (p) => p.ratings?.overall_rating || 0,
       render: (p) => <RatingBadge score={p.ratings?.overall_rating || 0} size="sm" />,
     },
@@ -166,14 +171,14 @@ export default function PlayersPage() {
       key: "category",
       header: "Auction Tier",
       tooltip: "Auction Valuation Tier",
-      minWidth: "145px",
+      minWidth: "150px",
       sortAccessor: (p) => p.valuation?.estimated_valuation || 0,
       render: (p) => (
         <div>
           <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
             (p.valuation?.category || "").includes("Marquee")
               ? "bg-[#A65E46] text-[#EBDED4]"
-              : "bg-[#EBDED4] text-[#07203F]"
+              : "bg-[#02000D] border border-[#D9AA90]/35 text-[#D9AA90]"
           }`}>
             {p.valuation?.category}
           </span>
@@ -188,11 +193,11 @@ export default function PlayersPage() {
       header: "Profile",
       sortable: false,
       align: "right",
-      minWidth: "85px",
+      minWidth: "95px",
       render: (p) => (
         <Link
           href={`/players/${p.player_id}`}
-          className="inline-block px-2.5 py-1 rounded bg-[#07203F] text-[#EBDED4] hover:bg-[#A65E46] text-[11px] font-semibold transition"
+          className="inline-block px-3 py-1 rounded-lg bg-[#02000D] border border-[#D9AA90]/30 text-[#EBDED4] hover:bg-[#A65E46] hover:border-[#A65E46] text-[11px] font-semibold transition shadow-sm"
         >
           Inspect →
         </Link>
@@ -202,9 +207,9 @@ export default function PlayersPage() {
 
   if (loading) {
     return (
-      <div className="py-20 text-center">
-        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#07203F] border-t-transparent rounded-full mb-4"></div>
-        <p className="font-serif text-lg text-[#07203F]">Loading Master Player Registry...</p>
+      <div className="py-24 text-center space-y-4">
+        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#A65E46] border-t-transparent rounded-full"></div>
+        <p className="font-serif text-lg text-[#EBDED4]">Loading Master Player Registry...</p>
       </div>
     );
   }
@@ -212,62 +217,36 @@ export default function PlayersPage() {
   return (
     <div className="space-y-6">
       {/* Editorial Header + Export Controls */}
-      <div className="border-b border-[#07203F]/20 pb-6 pt-2">
+      <div className="border-b border-[#D9AA90]/20 pb-6 pt-2">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
           <div>
             <div className="text-xs uppercase font-semibold tracking-wider text-[#A65E46] mb-1">
               Historical Player Master Database
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#02000D]">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#EBDED4]">
               Player Directory
             </h1>
-            <p className="text-sm text-[#07203F]/80 mt-1 max-w-2xl">
-              Complete catalog of {players.length} canonical cricketers across EPL 2023–2025. Exports include the entire active filtered dataset across all pages.
+            <p className="text-sm text-[#EBDED4]/80 mt-1 max-w-2xl leading-relaxed">
+              Complete catalog of {players.length} canonical cricketers across EPL 2023–2025. Displays Player Intelligence Scores (PIS), 6-over milestones, and verified auction tiers.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              onClick={() => handleExport("pdf")}
-              disabled={exporting !== null}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded bg-[#A65E46] text-[#EBDED4] hover:bg-[#A65E46]/90 text-xs font-semibold transition disabled:opacity-50"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>{exporting === "pdf" ? "Generating PDF..." : "Download PDF"}</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleExport("xlsx")}
-              disabled={exporting !== null}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded bg-[#07203F] text-[#EBDED4] hover:bg-[#02000D] text-xs font-semibold transition disabled:opacity-50"
-            >
-              <FileSpreadsheet className="w-3.5 h-3.5 text-[#D9AA90]" />
-              <span>{exporting === "xlsx" ? "Generating Excel..." : "Download Excel"}</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleExport("csv")}
-              disabled={exporting !== null}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded border border-[#07203F] bg-white text-[#07203F] hover:bg-[#EBDED4] text-xs font-semibold transition disabled:opacity-50"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>{exporting === "csv" ? "Exporting..." : "Download CSV"}</span>
-            </button>
+            <ExportButtonsBar sortBy="overall_rating" />
           </div>
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="bg-white/90 rounded-xl p-4 border border-[#07203F]/15 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      {/* Modern Dark Filters Bar */}
+      <div className="bg-[#07203F] rounded-xl p-4 border border-[#D9AA90]/25 shadow-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="relative">
-          <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#07203F]/50" />
+          <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#D9AA90]/60 pointer-events-none" />
           <input
             type="text"
             placeholder="Search player name or ID..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs rounded border border-[#07203F]/20 bg-[#EBDED4]/30 focus:outline-none focus:border-[#A65E46] text-[#02000D]"
+            className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-[#D9AA90]/30 bg-[#02000D] focus:outline-none focus:border-[#A65E46] focus:ring-1 focus:ring-[#A65E46] text-[#EBDED4] placeholder-[#EBDED4]/40 transition"
           />
         </div>
 
@@ -275,7 +254,7 @@ export default function PlayersPage() {
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
           aria-label="Filter by role"
-          className="px-3 py-1.5 text-xs rounded border border-[#07203F]/20 bg-[#EBDED4]/30 text-[#02000D]"
+          className="px-3 py-1.5 text-xs rounded-lg border border-[#D9AA90]/30 bg-[#02000D] text-[#EBDED4] focus:outline-none focus:border-[#A65E46] transition"
         >
           <option value="ALL">All Playing Roles</option>
           <option value="All-rounder">All-rounders</option>
@@ -287,7 +266,7 @@ export default function PlayersPage() {
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
           aria-label="Filter by auction category"
-          className="px-3 py-1.5 text-xs rounded border border-[#07203F]/20 bg-[#EBDED4]/30 text-[#02000D]"
+          className="px-3 py-1.5 text-xs rounded-lg border border-[#D9AA90]/30 bg-[#02000D] text-[#EBDED4] focus:outline-none focus:border-[#A65E46] transition"
         >
           <option value="ALL">All Auction Tiers</option>
           <option value="Marquee / Elite">Marquee / Elite</option>
@@ -301,7 +280,7 @@ export default function PlayersPage() {
           value={seasonFilter}
           onChange={(e) => setSeasonFilter(e.target.value)}
           aria-label="Filter by season"
-          className="px-3 py-1.5 text-xs rounded border border-[#07203F]/20 bg-[#EBDED4]/30 text-[#02000D]"
+          className="px-3 py-1.5 text-xs rounded-lg border border-[#D9AA90]/30 bg-[#02000D] text-[#EBDED4] focus:outline-none focus:border-[#A65E46] transition"
         >
           <option value="ALL">All Seasons (2023–2025)</option>
           <option value="2025">EPL 2025</option>
@@ -316,7 +295,7 @@ export default function PlayersPage() {
         columns={columns}
         rowKey={(p) => p.player_id}
         title={`Canonical Player Registry (${filteredPlayers.length} / ${players.length})`}
-        subtitle="Sticky opaque headers • Click any column heading to sort • Horizontal scroll pins Player identity"
+        subtitle="Sticky opaque headers • Click column heading to sort • Horizontal scroll pins Player identity"
         defaultSortKey="overall_rating"
         defaultSortDir="desc"
         defaultPageSize={25}

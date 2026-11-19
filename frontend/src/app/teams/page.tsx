@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Shield, ArrowRight } from "lucide-react";
+import { Shield, ArrowRight, Trophy, TrendingUp, Users } from "lucide-react";
 import { fetchApi } from "@/lib/api";
 import { DataTable, DataTableColumn } from "@/components/DataTable";
 import {
@@ -38,15 +38,15 @@ export default function TeamsPage() {
     {
       key: "team_name",
       header: "Franchise Team",
-      minWidth: "165px",
-      render: (t) => <span className="font-bold text-sm text-[#07203F]">{t.team_name}</span>,
+      minWidth: "175px",
+      render: (t) => <span className="font-bold text-sm text-[#EBDED4]">{t.team_name}</span>,
     },
     {
       key: "seasons",
       header: "Season(s)",
       sortable: false,
-      minWidth: "90px",
-      render: (t) => <span className="font-mono text-[11px] text-[#07203F]/75">{(t.seasons || []).join(", ")}</span>,
+      minWidth: "95px",
+      render: (t) => <span className="font-mono text-[11px] text-[#D9AA90]/80">{(t.seasons || []).join(", ")}</span>,
     },
     { key: "matches_played", header: "Played", align: "right", minWidth: "70px" },
     {
@@ -62,7 +62,7 @@ export default function TeamsPage() {
       header: "Win %",
       align: "right",
       minWidth: "78px",
-      render: (t) => <span className="font-mono font-semibold">{Number(t.win_percentage || 0).toFixed(1)}%</span>,
+      render: (t) => <span className="font-mono font-bold text-[#D9AA90]">{Number(t.win_percentage || 0).toFixed(1)}%</span>,
     },
     { key: "total_runs_scored", header: "Runs For", align: "right", minWidth: "84px" },
     { key: "total_runs_conceded", header: "Runs Against", align: "right", minWidth: "96px" },
@@ -72,7 +72,7 @@ export default function TeamsPage() {
       tooltip: "Batting Run Rate (Runs per Over)",
       align: "right",
       minWidth: "78px",
-      render: (t) => <span className="font-mono">{Number(t.batting_run_rate || 0).toFixed(2)}</span>,
+      render: (t) => <span className="font-mono text-[#EBDED4]">{Number(t.batting_run_rate || 0).toFixed(2)}</span>,
     },
     {
       key: "bowling_economy",
@@ -80,7 +80,7 @@ export default function TeamsPage() {
       tooltip: "Bowling Economy Rate (Runs conceded per Over)",
       align: "right",
       minWidth: "86px",
-      render: (t) => <span className="font-mono">{Number(t.bowling_economy || 0).toFixed(2)}</span>,
+      render: (t) => <span className="font-mono text-[#EBDED4]">{Number(t.bowling_economy || 0).toFixed(2)}</span>,
     },
     {
       key: "net_run_rate",
@@ -89,7 +89,7 @@ export default function TeamsPage() {
       align: "right",
       minWidth: "78px",
       render: (t) => (
-        <span className={`font-mono font-bold ${t.net_run_rate >= 0 ? "text-[#07203F]" : "text-[#A65E46]"}`}>
+        <span className={`font-mono font-bold ${t.net_run_rate >= 0 ? "text-[#D9AA90]" : "text-[#A65E46]"}`}>
           {t.net_run_rate > 0 ? `+${Number(t.net_run_rate).toFixed(2)}` : Number(t.net_run_rate).toFixed(2)}
         </span>
       ),
@@ -98,31 +98,31 @@ export default function TeamsPage() {
 
   if (loading) {
     return (
-      <div className="py-20 text-center">
-        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#07203F] border-t-transparent rounded-full mb-4"></div>
-        <p className="font-serif text-lg text-[#07203F]">Aggregating Historical Franchise Analytics...</p>
+      <div className="py-24 text-center space-y-4">
+        <div className="inline-block animate-spin w-8 h-8 border-4 border-[#A65E46] border-t-transparent rounded-full"></div>
+        <p className="font-serif text-lg text-[#EBDED4]">Aggregating Historical Franchise Analytics...</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-8">
-      <div className="border-b border-[#07203F]/20 pb-6 pt-2">
+      <div className="border-b border-[#D9AA90]/20 pb-6 pt-2">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <div className="text-xs uppercase font-semibold tracking-wider text-[#A65E46] mb-1">
               Historical Team Performance &amp; Net Run Rates
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#02000D]">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#EBDED4]">
               Team Analytics
             </h1>
-            <p className="text-sm text-[#07203F]/80 mt-1 max-w-xl">
+            <p className="text-sm text-[#EBDED4]/80 mt-1 max-w-xl leading-relaxed">
               Win records, batting unit outputs, bowling discipline, championship progression, and net run rates across all EPL franchise campaigns (2023–2025).
             </p>
           </div>
           <Link
             href="/intelligence-lab"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-[#07203F] text-[#EBDED4] hover:bg-[#A65E46] text-xs font-semibold transition"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#07203F] border border-[#D9AA90]/35 text-[#EBDED4] hover:bg-[#A65E46] text-xs font-semibold transition shadow-sm"
           >
             <Shield className="w-3.5 h-3.5 text-[#D9AA90]" />
             <span>Explore Team Combinations in Intel Lab</span>
@@ -131,7 +131,7 @@ export default function TeamsPage() {
         </div>
       </div>
 
-      {/* SECTION 6D: TEAM VISUAL ANALYTICS */}
+      {/* Team Visual Analytics Charts */}
       {chartTeams.length > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <TeamWinDistributionChart data={chartTeams.slice(0, 10)} />
@@ -146,7 +146,7 @@ export default function TeamsPage() {
             }))}
             xKey="team"
             bars={[
-              { dataKey: "Bat RR", name: "Batting RR", color: EPL_PALETTE.navy },
+              { dataKey: "Bat RR", name: "Batting RR", color: EPL_PALETTE.peach },
               { dataKey: "Bowl Econ", name: "Bowling Econ", color: EPL_PALETTE.terracotta },
             ]}
             height={280}
@@ -163,7 +163,7 @@ export default function TeamsPage() {
           xKey="team"
           bars={[
             { dataKey: "semifinals", name: "Semifinals", color: EPL_PALETTE.peach },
-            { dataKey: "finals", name: "Finals", color: EPL_PALETTE.navy },
+            { dataKey: "finals", name: "Finals", color: EPL_PALETTE.beige },
             { dataKey: "titles", name: "Championships", color: EPL_PALETTE.terracotta },
           ]}
           height={250}
@@ -175,7 +175,7 @@ export default function TeamsPage() {
         columns={columns}
         rowKey={(t, i) => `${t.team_name}-${i}`}
         title={`Franchise Performance Matrix (${teams.length} Teams)`}
-        subtitle="Sticky headers & pinned Franchise column • Click any metric to sort"
+        subtitle="Sticky headers & pinned Franchise column • Click any metric heading to sort"
         searchable
         defaultSortKey="win_percentage"
         highlightRow={(t) => t.win_percentage >= 75}

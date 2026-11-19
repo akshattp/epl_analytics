@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import {
   Trophy, Users, GitCompare, Sparkles, Activity,
   BarChart3, Shield, Layers, DollarSign, Bookmark,
-  Settings, Menu, X, ChevronDown, FlaskConical, History
+  Settings, Menu, X, ChevronDown, FlaskConical, History,
+  Award
 } from "lucide-react";
 
 const CURRENT_APP_VERSION = "1.3.0";
@@ -41,6 +42,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Overview", href: "/", icon: Trophy },
     { name: "Players", href: "/players", icon: Users },
+    { name: "Records & Hall of Fame", href: "/analytics/records", icon: Award },
     { name: "Advanced Analytics", href: "/analytics/advanced", icon: Activity },
     { name: "Intelligence Lab", href: "/intelligence-lab", icon: FlaskConical },
     { name: "Comparison", href: "/comparison", icon: GitCompare },
@@ -55,13 +57,13 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#07203F] text-[#EBDED4] border-b border-[#D9AA90]/20 shadow-md no-print">
+    <header className="sticky top-0 z-50 bg-[#02000D]/95 backdrop-blur border-b border-[#D9AA90]/25 shadow-md no-print text-[#EBDED4]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo & Editorial Title + Version Pill */}
           <div className="flex items-center space-x-3">
             <Link href="/" className="flex items-center space-x-2.5 group">
-              <div className="w-9 h-9 rounded bg-[#A65E46] flex items-center justify-center text-[#EBDED4] font-serif font-bold text-lg shadow">
+              <div className="w-9 h-9 rounded bg-[#A65E46] flex items-center justify-center text-[#EBDED4] font-serif font-bold text-lg shadow-md group-hover:scale-105 transition-transform">
                 E
               </div>
               <div>
@@ -76,13 +78,13 @@ export default function Navbar() {
 
             <Link
               href="/changelog"
-              title="View Version 1.1.0 Release Notes & Changelog"
-              className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#02000D]/60 border border-[#D9AA90]/35 text-[10px] font-mono text-[#D9AA90] hover:bg-[#A65E46] hover:text-[#EBDED4] transition-colors"
+              title="View Version 1.3.0 Release Notes & Changelog"
+              className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#07203F] border border-[#D9AA90]/35 text-[10px] font-mono text-[#D9AA90] hover:bg-[#A65E46] hover:text-[#EBDED4] transition-colors"
             >
               <span>v{CURRENT_APP_VERSION}</span>
               {hasUnseenRelease && (
                 <span
-                  className="inline-flex items-center gap-1 text-[9px] font-sans font-semibold text-[#EBDED4] bg-[#A65E46] px-1.5 py-0.2 rounded-full"
+                  className="inline-flex items-center gap-1 text-[9px] font-sans font-semibold text-[#EBDED4] bg-[#A65E46] px-1.5 py-0.2 rounded-full animate-pulse"
                   aria-label="New version available"
                 >
                   NEW
@@ -92,13 +94,13 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-0.5">
+          <nav className="hidden lg:flex items-center space-x-1">
             <Link
               href="/"
-              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 isActive("/") && pathname === "/"
-                  ? "bg-[#A65E46] text-[#EBDED4]"
-                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#02000D]/40"
+                  ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#07203F]"
               }`}
             >
               Overview
@@ -106,10 +108,10 @@ export default function Navbar() {
 
             <Link
               href="/players"
-              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 isActive("/players")
-                  ? "bg-[#A65E46] text-[#EBDED4]"
-                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#02000D]/40"
+                  ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#07203F]"
               }`}
             >
               Players
@@ -120,61 +122,61 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setAnalyticsOpen(!analyticsOpen)}
-                className={`px-2.5 py-1.5 rounded text-xs font-medium flex items-center space-x-1 transition-colors ${
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center space-x-1 transition-colors ${
                   pathname.startsWith("/analytics") || pathname.startsWith("/similar-players")
-                    ? "bg-[#A65E46] text-[#EBDED4]"
-                    : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#02000D]/40"
+                    ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                    : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#07203F]"
                 }`}
               >
                 <span>Analytics</span>
-                <ChevronDown className="w-3.5 h-3.5" />
+                <ChevronDown className="w-3.5 h-3.5 text-[#D9AA90]" />
               </button>
               {analyticsOpen && (
                 <div
-                  className="absolute left-0 mt-1 w-52 bg-[#07203F] border border-[#D9AA90]/30 rounded-lg shadow-xl py-1.5 z-50"
+                  className="absolute left-0 mt-1.5 w-56 bg-[#07203F] border border-[#D9AA90]/35 rounded-xl shadow-2xl py-1.5 z-50 overflow-hidden"
                   onMouseLeave={() => setAnalyticsOpen(false)}
                 >
                   <Link
+                    href="/analytics/records"
+                    onClick={() => setAnalyticsOpen(false)}
+                    className="block px-4 py-2 text-xs font-bold text-[#D9AA90] hover:bg-[#02000D] transition-colors border-b border-[#D9AA90]/20"
+                  >
+                    Tournament Records (v1.3)
+                  </Link>
+                  <Link
                     href="/analytics/advanced"
                     onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs font-semibold text-[#D9AA90] hover:bg-[#A65E46]/30 transition-colors border-b border-[#D9AA90]/15"
+                    className="block px-4 py-2 text-xs font-semibold text-[#EBDED4] hover:bg-[#02000D] transition-colors"
                   >
-                    Advanced Analytics (v1.1)
+                    Advanced Analytics
                   </Link>
                   <Link
                     href="/analytics/batting"
                     onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs text-[#EBDED4] hover:bg-[#A65E46]/30 transition-colors"
+                    className="block px-4 py-2 text-xs text-[#EBDED4]/90 hover:bg-[#02000D] transition-colors"
                   >
                     Batting Leaderboards
                   </Link>
                   <Link
                     href="/analytics/bowling"
                     onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs text-[#EBDED4] hover:bg-[#A65E46]/30 transition-colors"
+                    className="block px-4 py-2 text-xs text-[#EBDED4]/90 hover:bg-[#02000D] transition-colors"
                   >
                     Bowling Leaderboards
                   </Link>
                   <Link
                     href="/analytics/all-rounders"
                     onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs text-[#EBDED4] hover:bg-[#A65E46]/30 transition-colors"
+                    className="block px-4 py-2 text-xs text-[#EBDED4]/90 hover:bg-[#02000D] transition-colors"
                   >
                     All-Rounder Rankings
                   </Link>
                   <Link
                     href="/similar-players"
                     onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs text-[#EBDED4] hover:bg-[#A65E46]/30 transition-colors"
+                    className="block px-4 py-2 text-xs text-[#EBDED4]/90 hover:bg-[#02000D] transition-colors border-t border-[#D9AA90]/15"
                   >
                     Similar Player Cohorts
-                  </Link>
-                  <Link
-                    href="/analytics/records"
-                    onClick={() => setAnalyticsOpen(false)}
-                    className="block px-4 py-2 text-xs font-semibold text-[#D9AA90] hover:bg-[#A65E46]/30 transition-colors border-t border-[#D9AA90]/15"
-                  >
-                    Tournament Records &amp; Milestones (v1.3)
                   </Link>
                 </div>
               )}
@@ -182,10 +184,10 @@ export default function Navbar() {
 
             <Link
               href="/intelligence-lab"
-              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 isActive("/intelligence-lab")
-                  ? "bg-[#A65E46] text-[#EBDED4]"
-                  : "text-[#D9AA90] hover:text-[#EBDED4] hover:bg-[#02000D]/40"
+                  ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                  : "text-[#D9AA90] hover:text-[#EBDED4] hover:bg-[#07203F]"
               }`}
             >
               Intel Lab
@@ -193,10 +195,10 @@ export default function Navbar() {
 
             <Link
               href="/comparison"
-              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 isActive("/comparison")
-                  ? "bg-[#A65E46] text-[#EBDED4]"
-                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#02000D]/40"
+                  ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#07203F]"
               }`}
             >
               Compare
@@ -204,10 +206,10 @@ export default function Navbar() {
 
             <Link
               href="/insights"
-              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 isActive("/insights")
-                  ? "bg-[#A65E46] text-[#EBDED4]"
-                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#02000D]/40"
+                  ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#07203F]"
               }`}
             >
               Insights
@@ -215,10 +217,10 @@ export default function Navbar() {
 
             <Link
               href="/teams"
-              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 isActive("/teams")
-                  ? "bg-[#A65E46] text-[#EBDED4]"
-                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#02000D]/40"
+                  ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#07203F]"
               }`}
             >
               Teams
@@ -226,10 +228,10 @@ export default function Navbar() {
 
             <Link
               href="/seasons"
-              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 isActive("/seasons")
-                  ? "bg-[#A65E46] text-[#EBDED4]"
-                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#02000D]/40"
+                  ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#07203F]"
               }`}
             >
               Seasons
@@ -237,10 +239,10 @@ export default function Navbar() {
 
             <Link
               href="/auction"
-              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 isActive("/auction")
-                  ? "bg-[#A65E46] text-[#EBDED4]"
-                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#02000D]/40"
+                  ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#07203F]"
               }`}
             >
               Auction
@@ -248,10 +250,10 @@ export default function Navbar() {
 
             <Link
               href="/shortlists"
-              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                 isActive("/shortlists")
-                  ? "bg-[#A65E46] text-[#EBDED4]"
-                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#02000D]/40"
+                  ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                  : "text-[#EBDED4]/80 hover:text-[#EBDED4] hover:bg-[#07203F]"
               }`}
             >
               Shortlists
@@ -259,14 +261,14 @@ export default function Navbar() {
 
             <Link
               href="/admin"
-              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors border border-[#D9AA90]/30 ml-1 ${
+              className={`px-2 py-1 rounded-lg text-xs font-medium transition-colors border border-[#D9AA90]/35 ml-1 ${
                 isActive("/admin")
                   ? "bg-[#A65E46] text-[#EBDED4]"
-                  : "text-[#D9AA90] hover:bg-[#02000D]/40"
+                  : "text-[#D9AA90] hover:bg-[#07203F]"
               }`}
               title="Admin Portal"
             >
-              <Settings className="w-3.5 h-3.5 inline mr-1" />
+              <Settings className="w-3.5 h-3.5 inline mr-1 text-[#D9AA90]" />
               Admin
             </Link>
           </nav>
@@ -275,16 +277,16 @@ export default function Navbar() {
           <div className="flex lg:hidden items-center gap-2">
             <Link
               href="/changelog"
-              className="px-2 py-0.5 rounded-full bg-[#02000D]/60 border border-[#D9AA90]/35 text-[10px] font-mono text-[#D9AA90]"
+              className="px-2 py-0.5 rounded-full bg-[#07203F] border border-[#D9AA90]/35 text-[10px] font-mono text-[#D9AA90]"
             >
               v{CURRENT_APP_VERSION}
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[#EBDED4] hover:text-[#D9AA90]"
+              className="p-2 text-[#EBDED4] hover:text-[#D9AA90] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#D9AA90]"
               aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-[#A65E46]" /> : <Menu className="w-6 h-6 text-[#EBDED4]" />}
             </button>
           </div>
         </div>
@@ -292,21 +294,22 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#02000D] border-b border-[#D9AA90]/20 px-4 pt-2 pb-4 space-y-1">
+        <div className="lg:hidden bg-[#02000D] border-b border-[#D9AA90]/25 px-4 pt-2 pb-5 space-y-1.5 shadow-2xl">
           {navLinks.map((link) => {
             const Icon = link.icon;
+            const active = isActive(link.href) && (link.href === "/" ? pathname === "/" : true);
             return (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center space-x-3 px-3 py-2 rounded text-sm ${
-                  isActive(link.href)
-                    ? "bg-[#A65E46] text-[#EBDED4]"
-                    : "text-[#EBDED4]/80 hover:bg-[#07203F]"
+                className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors min-h-[44px] ${
+                  active
+                    ? "bg-[#A65E46] text-[#EBDED4] font-semibold"
+                    : "text-[#EBDED4]/85 hover:bg-[#07203F] hover:text-[#D9AA90]"
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className={`w-4 h-4 ${active ? "text-[#EBDED4]" : "text-[#D9AA90]"}`} />
                 <span>{link.name}</span>
               </Link>
             );

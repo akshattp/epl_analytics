@@ -21,12 +21,13 @@ export const EPL_PALETTE = {
 };
 
 const TOOLTIP_STYLE = {
-  backgroundColor: "#07203F",
+  backgroundColor: "#02000D",
   border: "1px solid #D9AA90",
-  borderRadius: "6px",
+  borderRadius: "8px",
   color: "#EBDED4",
   fontSize: "11px",
-  padding: "8px 10px",
+  padding: "8px 12px",
+  boxShadow: "0 6px 16px rgba(2, 0, 13, 0.7)",
 };
 
 interface ChartCardProps {
@@ -49,16 +50,16 @@ export function ChartCard({
   children,
 }: ChartCardProps) {
   return (
-    <div className="bg-white/95 rounded-xl border border-[#07203F]/15 shadow-sm p-5 flex flex-col justify-between print-avoid-break">
-      <div className="mb-3 border-b border-[#07203F]/10 pb-2.5">
-        <h3 className="font-serif text-base font-bold text-[#07203F]">{title}</h3>
-        <p className="text-[11px] text-[#07203F]/70 mt-0.5">{definition}</p>
+    <div className="bg-[#07203F] rounded-xl border border-[#D9AA90]/25 shadow-lg p-5 flex flex-col justify-between print-avoid-break text-[#EBDED4]">
+      <div className="mb-3 border-b border-[#D9AA90]/15 pb-2.5">
+        <h3 className="font-serif text-base font-bold text-[#EBDED4] tracking-tight">{title}</h3>
+        <p className="text-[11px] text-[#D9AA90]/80 mt-0.5">{definition}</p>
       </div>
 
       {empty ? (
         <div
           style={{ height }}
-          className="flex items-center justify-center bg-[#EBDED4]/30 rounded-lg border border-dashed border-[#07203F]/20 text-xs text-[#07203F]/65 italic px-4 text-center"
+          className="flex items-center justify-center bg-[#02000D]/50 rounded-lg border border-dashed border-[#D9AA90]/25 text-xs text-[#D9AA90]/70 italic px-4 text-center"
         >
           {emptyText}
         </div>
@@ -67,7 +68,7 @@ export function ChartCard({
       )}
 
       {interpretation && (
-        <div className="mt-3 pt-2.5 border-t border-[#07203F]/10 text-[11px] text-[#07203F]/85 leading-relaxed">
+        <div className="mt-3 pt-2.5 border-t border-[#D9AA90]/15 text-[11px] text-[#EBDED4]/85 leading-relaxed">
           <span className="font-semibold text-[#A65E46] uppercase tracking-wider text-[10px] mr-1.5">
             Interpretation:
           </span>
@@ -88,13 +89,13 @@ export function SeasonRunsWicketsChart({ data }: { data: any[] }) {
     >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 8, right: 16, left: 0, bottom: 4 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#07203F" strokeOpacity={0.1} />
-          <XAxis dataKey="season" tick={{ fill: "#07203F", fontSize: 11 }} />
-          <YAxis yAxisId="left" tick={{ fill: "#07203F", fontSize: 11 }} label={{ value: "Runs", angle: -90, position: "insideLeft", fill: "#07203F", fontSize: 10 }} />
-          <YAxis yAxisId="right" orientation="right" tick={{ fill: "#A65E46", fontSize: 11 }} label={{ value: "Wickets", angle: 90, position: "insideRight", fill: "#A65E46", fontSize: 10 }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(217, 170, 144, 0.15)" />
+          <XAxis dataKey="season" tick={{ fill: "#EBDED4", fontSize: 11 }} stroke="#D9AA90" />
+          <YAxis yAxisId="left" tick={{ fill: "#EBDED4", fontSize: 11 }} stroke="#D9AA90" label={{ value: "Runs", angle: -90, position: "insideLeft", fill: "#D9AA90", fontSize: 10 }} />
+          <YAxis yAxisId="right" orientation="right" tick={{ fill: "#A65E46", fontSize: 11 }} stroke="#A65E46" label={{ value: "Wickets", angle: 90, position: "insideRight", fill: "#A65E46", fontSize: 10 }} />
           <Tooltip contentStyle={TOOLTIP_STYLE} />
-          <Legend wrapperStyle={{ fontSize: "11px" }} />
-          <Bar yAxisId="left" dataKey="total_runs" name="Total Runs" fill={EPL_PALETTE.navy} radius={[4, 4, 0, 0]} />
+          <Legend wrapperStyle={{ fontSize: "11px", color: "#EBDED4" }} />
+          <Bar yAxisId="left" dataKey="total_runs" name="Total Runs" fill={EPL_PALETTE.peach} radius={[4, 4, 0, 0]} />
           <Bar yAxisId="right" dataKey="total_wickets" name="Total Wickets" fill={EPL_PALETTE.terracotta} radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
@@ -112,12 +113,12 @@ export function RunRateBoundaryTrendChart({ data }: { data: any[] }) {
     >
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 8, right: 16, left: 0, bottom: 4 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#07203F" strokeOpacity={0.1} />
-          <XAxis dataKey="season" tick={{ fill: "#07203F", fontSize: 11 }} />
-          <YAxis tick={{ fill: "#07203F", fontSize: 11 }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(217, 170, 144, 0.15)" />
+          <XAxis dataKey="season" tick={{ fill: "#EBDED4", fontSize: 11 }} stroke="#D9AA90" />
+          <YAxis tick={{ fill: "#EBDED4", fontSize: 11 }} stroke="#D9AA90" />
           <Tooltip contentStyle={TOOLTIP_STYLE} />
-          <Legend wrapperStyle={{ fontSize: "11px" }} />
-          <Line type="monotone" dataKey="run_rate" name="Run Rate (RPO)" stroke={EPL_PALETTE.navy} strokeWidth={2.5} dot={{ r: 4, fill: EPL_PALETTE.navy }} />
+          <Legend wrapperStyle={{ fontSize: "11px", color: "#EBDED4" }} />
+          <Line type="monotone" dataKey="run_rate" name="Run Rate (RPO)" stroke={EPL_PALETTE.peach} strokeWidth={2.5} dot={{ r: 4, fill: EPL_PALETTE.peach }} />
           <Line type="monotone" dataKey="boundaries_per_match" name="Boundaries / Match" stroke={EPL_PALETTE.terracotta} strokeWidth={2.5} dot={{ r: 4, fill: EPL_PALETTE.terracotta }} />
         </LineChart>
       </ResponsiveContainer>
@@ -136,12 +137,12 @@ export function TeamWinDistributionChart({ data }: { data: any[] }) {
     >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} layout="vertical" margin={{ top: 4, right: 18, left: 10, bottom: 4 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#07203F" strokeOpacity={0.1} />
-          <XAxis type="number" allowDecimals={false} tick={{ fill: "#07203F", fontSize: 11 }} />
-          <YAxis type="category" dataKey="team" width={115} tick={{ fill: "#02000D", fontSize: 10 }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(217, 170, 144, 0.15)" />
+          <XAxis type="number" allowDecimals={false} tick={{ fill: "#EBDED4", fontSize: 11 }} stroke="#D9AA90" />
+          <YAxis type="category" dataKey="team" width={115} tick={{ fill: "#EBDED4", fontSize: 10 }} stroke="#D9AA90" />
           <Tooltip contentStyle={TOOLTIP_STYLE} />
-          <Legend wrapperStyle={{ fontSize: "11px" }} />
-          <Bar dataKey="wins" name="Wins" stackId="a" fill={EPL_PALETTE.navy} />
+          <Legend wrapperStyle={{ fontSize: "11px", color: "#EBDED4" }} />
+          <Bar dataKey="wins" name="Wins" stackId="a" fill={EPL_PALETTE.terracotta} />
           <Bar dataKey="losses" name="Losses" stackId="a" fill={EPL_PALETTE.peach} radius={[0, 4, 4, 0]} />
         </BarChart>
       </ResponsiveContainer>
@@ -162,7 +163,7 @@ export function OutcomesSplitChart({
   data: any[];
   valueKey?: string;
 }) {
-  const colors = [EPL_PALETTE.navy, EPL_PALETTE.terracotta, EPL_PALETTE.peach, EPL_PALETTE.midnight];
+  const colors = [EPL_PALETTE.terracotta, EPL_PALETTE.peach, EPL_PALETTE.beige, EPL_PALETTE.navy];
   return (
     <ChartCard title={title} definition={definition} interpretation={interpretation} empty={!data || data.length === 0}>
       <ResponsiveContainer width="100%" height="100%">
@@ -180,11 +181,11 @@ export function OutcomesSplitChart({
             labelLine={false}
           >
             {data.map((_, idx) => (
-              <Cell key={idx} fill={colors[idx % colors.length]} />
+              <Cell key={idx} fill={colors[idx % colors.length]} stroke="#02000D" strokeWidth={1} />
             ))}
           </Pie>
           <Tooltip contentStyle={TOOLTIP_STYLE} />
-          <Legend wrapperStyle={{ fontSize: "11px" }} />
+          <Legend wrapperStyle={{ fontSize: "11px", color: "#EBDED4" }} />
         </PieChart>
       </ResponsiveContainer>
     </ChartCard>
@@ -202,13 +203,13 @@ export function PlayerSeasonProgressionChart({ data, playerName }: { data: any[]
     >
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={data} margin={{ top: 8, right: 16, left: 0, bottom: 4 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#07203F" strokeOpacity={0.1} />
-          <XAxis dataKey="season" tick={{ fill: "#07203F", fontSize: 11 }} />
-          <YAxis yAxisId="left" tick={{ fill: "#07203F", fontSize: 11 }} label={{ value: "Runs", angle: -90, position: "insideLeft", fill: "#07203F", fontSize: 10 }} />
-          <YAxis yAxisId="right" orientation="right" allowDecimals={false} tick={{ fill: "#A65E46", fontSize: 11 }} label={{ value: "Wkts", angle: 90, position: "insideRight", fill: "#A65E46", fontSize: 10 }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(217, 170, 144, 0.15)" />
+          <XAxis dataKey="season" tick={{ fill: "#EBDED4", fontSize: 11 }} stroke="#D9AA90" />
+          <YAxis yAxisId="left" tick={{ fill: "#EBDED4", fontSize: 11 }} stroke="#D9AA90" label={{ value: "Runs", angle: -90, position: "insideLeft", fill: "#D9AA90", fontSize: 10 }} />
+          <YAxis yAxisId="right" orientation="right" allowDecimals={false} tick={{ fill: "#A65E46", fontSize: 11 }} stroke="#A65E46" label={{ value: "Wkts", angle: 90, position: "insideRight", fill: "#A65E46", fontSize: 10 }} />
           <Tooltip contentStyle={TOOLTIP_STYLE} />
-          <Legend wrapperStyle={{ fontSize: "11px" }} />
-          <Bar yAxisId="left" dataKey="runs" name="Runs" fill={EPL_PALETTE.navy} radius={[4, 4, 0, 0]} />
+          <Legend wrapperStyle={{ fontSize: "11px", color: "#EBDED4" }} />
+          <Bar yAxisId="left" dataKey="runs" name="Runs" fill={EPL_PALETTE.peach} radius={[4, 4, 0, 0]} />
           <Line yAxisId="right" type="monotone" dataKey="wickets" name="Wickets" stroke={EPL_PALETTE.terracotta} strokeWidth={2.5} dot={{ r: 4, fill: EPL_PALETTE.terracotta }} />
         </ComposedChart>
       </ResponsiveContainer>
@@ -237,9 +238,9 @@ export function PlayerRatingRadarChart({
     >
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart data={data} cx="50%" cy="50%" outerRadius="72%">
-          <PolarGrid stroke="#07203F" strokeOpacity={0.2} />
-          <PolarAngleAxis dataKey="axis" tick={{ fill: "#07203F", fontSize: 11, fontWeight: 600 }} />
-          <PolarRadiusAxis domain={[0, 100]} tick={{ fill: "#07203F", fontSize: 9 }} />
+          <PolarGrid stroke="rgba(217, 170, 144, 0.25)" />
+          <PolarAngleAxis dataKey="axis" tick={{ fill: "#EBDED4", fontSize: 11, fontWeight: 600 }} />
+          <PolarRadiusAxis domain={[0, 100]} stroke="#D9AA90" strokeOpacity={0.4} tick={{ fill: "#D9AA90", fontSize: 9 }} />
           {series.map((s) => (
             <Radar
               key={s.dataKey}
@@ -247,12 +248,12 @@ export function PlayerRatingRadarChart({
               dataKey={s.dataKey}
               stroke={s.color}
               fill={s.color}
-              fillOpacity={0.22}
+              fillOpacity={0.25}
               strokeWidth={2}
             />
           ))}
           <Tooltip contentStyle={TOOLTIP_STYLE} />
-          <Legend wrapperStyle={{ fontSize: "11px" }} />
+          <Legend wrapperStyle={{ fontSize: "11px", color: "#EBDED4" }} />
         </RadarChart>
       </ResponsiveContainer>
     </ChartCard>
@@ -284,20 +285,20 @@ export function PlayerScatterChart({
     <ChartCard title={title} definition={definition} interpretation={interpretation} empty={!data || data.length === 0}>
       <ResponsiveContainer width="100%" height="100%">
         <ScatterChart margin={{ top: 10, right: 18, bottom: 16, left: 4 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#07203F" strokeOpacity={0.12} />
-          <XAxis type="number" dataKey={xKey} name={xLabel} tick={{ fill: "#07203F", fontSize: 10 }} label={{ value: xLabel, position: "insideBottom", offset: -8, fill: "#07203F", fontSize: 10 }} />
-          <YAxis type="number" dataKey={yKey} name={yLabel} tick={{ fill: "#07203F", fontSize: 10 }} label={{ value: yLabel, angle: -90, position: "insideLeft", fill: "#07203F", fontSize: 10 }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(217, 170, 144, 0.15)" />
+          <XAxis type="number" dataKey={xKey} name={xLabel} tick={{ fill: "#EBDED4", fontSize: 10 }} stroke="#D9AA90" label={{ value: xLabel, position: "insideBottom", offset: -8, fill: "#D9AA90", fontSize: 10 }} />
+          <YAxis type="number" dataKey={yKey} name={yLabel} tick={{ fill: "#EBDED4", fontSize: 10 }} stroke="#D9AA90" label={{ value: yLabel, angle: -90, position: "insideLeft", fill: "#D9AA90", fontSize: 10 }} />
           <ZAxis range={[45, 110]} />
           <Tooltip
-            cursor={{ strokeDasharray: "3 3" }}
+            cursor={{ strokeDasharray: "3 3", stroke: "#D9AA90" }}
             contentStyle={TOOLTIP_STYLE}
             formatter={(val: any, name: any) => [val, name]}
             labelFormatter={(_, payload) => payload?.[0]?.payload?.name || ""}
           />
-          <Legend wrapperStyle={{ fontSize: "11px" }} />
+          <Legend wrapperStyle={{ fontSize: "11px", color: "#EBDED4" }} />
           <Scatter name="EPL Peers" data={peers} fill={EPL_PALETTE.peach} fillOpacity={0.85} />
           {target.length > 0 && (
-            <Scatter name={target[0].name} data={target} fill={EPL_PALETTE.terracotta} stroke={EPL_PALETTE.midnight} strokeWidth={2} />
+            <Scatter name={target[0].name} data={target} fill={EPL_PALETTE.terracotta} stroke={EPL_PALETTE.beige} strokeWidth={2} />
           )}
         </ScatterChart>
       </ResponsiveContainer>
@@ -326,11 +327,11 @@ export function SimpleComparisonBarChart({
     <ChartCard title={title} definition={definition} interpretation={interpretation} empty={!data || data.length === 0} height={height}>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 8, right: 16, left: 0, bottom: 4 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#07203F" strokeOpacity={0.1} />
-          <XAxis dataKey={xKey} tick={{ fill: "#07203F", fontSize: 10 }} />
-          <YAxis tick={{ fill: "#07203F", fontSize: 10 }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(217, 170, 144, 0.15)" />
+          <XAxis dataKey={xKey} tick={{ fill: "#EBDED4", fontSize: 10 }} stroke="#D9AA90" />
+          <YAxis tick={{ fill: "#EBDED4", fontSize: 10 }} stroke="#D9AA90" />
           <Tooltip contentStyle={TOOLTIP_STYLE} />
-          <Legend wrapperStyle={{ fontSize: "11px" }} />
+          <Legend wrapperStyle={{ fontSize: "11px", color: "#EBDED4" }} />
           {bars.map((b) => (
             <Bar key={b.dataKey} dataKey={b.dataKey} name={b.name} fill={b.color} radius={[4, 4, 0, 0]} />
           ))}
