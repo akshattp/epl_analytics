@@ -33,6 +33,8 @@ else
   echo "[3/4] Unified Gateway already running on :8080"
 fi
 
+NGROK_BIN="$(command -v ngrok || echo '/opt/homebrew/bin/ngrok')"
+
 # 4. Launch ngrok pointing to unified gateway :8080
 echo "[4/4] Launching ngrok tunnel -> http://127.0.0.1:8080 (Serves UI + API + Live WebSocket WSS)..."
-exec ngrok http 8080
+exec "$NGROK_BIN" http 8080
