@@ -28,7 +28,7 @@ export function ParallelScrollColumns() {
     }
 
     const ctx = gsap.context(() => {
-      // Column 1: Moves upward (-180px)
+      // Column 1: Moves upward (-140px)
       if (col1Ref.current) {
         gsap.fromTo(
           col1Ref.current,
@@ -47,7 +47,7 @@ export function ParallelScrollColumns() {
         );
       }
 
-      // Column 2: Opposing direction! Moves downward (+180px)
+      // Column 2: Opposing direction! Moves downward (+120px)
       if (col2Ref.current) {
         gsap.fromTo(
           col2Ref.current,
@@ -66,7 +66,7 @@ export function ParallelScrollColumns() {
         );
       }
 
-      // Column 3: Moves upward at different velocity (-240px)
+      // Column 3: Moves upward at different velocity (-200px)
       if (col3Ref.current) {
         gsap.fromTo(
           col3Ref.current,
@@ -92,20 +92,20 @@ export function ParallelScrollColumns() {
   return (
     <section ref={sectionRef} className="relative py-12 overflow-hidden space-y-8">
       {/* Editorial Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E2E8F0] dark:border-[#334155] pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-6">
         <div className="space-y-1.5 max-w-2xl">
-          <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#2563EB] dark:text-[#38BDF8]">
+          <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#FF4B35]">
             02 • MULTI-AXIS HISTORICAL INTELLIGENCE
           </span>
-          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#101828] dark:text-[#F8FAFC] tracking-tight">
+          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#111318] dark:text-[#F1EBDD] tracking-tight">
             PARALLEL TELEMETRY STREAM
           </h2>
-          <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
             Three independent operational streams moving across distinct analytical dimensions: Velocity Records, Suppression Baselines, and Knockout Dynamics.
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs font-mono text-[#64748B] dark:text-[#94A3B8]">
-          <span className="w-2 h-2 rounded-full bg-[#0891B2] dark:bg-[#22D3EE] inline-block" />
+        <div className="flex items-center gap-2 text-xs font-mono text-[#5C584E] dark:text-[#A8A295]">
+          <span className="w-2 h-2 rounded-full bg-[#FF4B35] inline-block" />
           <span>Opposing Motion Synchronized via ScrollTrigger</span>
         </div>
       </div>
@@ -118,56 +118,56 @@ export function ParallelScrollColumns() {
           data-parallel-column="asc-1"
           className="space-y-5 will-change-transform"
         >
-          <div className="bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-amber-500/10 text-amber-500">
+              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
                 <Flame className="w-5 h-5" />
               </span>
-              <span className="font-mono text-[10px] text-amber-500 font-bold uppercase tracking-wider">
+              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
                 All-Time Run Benchmark
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-[#101828] dark:text-[#F8FAFC]">
+              <span className="font-display font-black text-4xl text-[#111318] dark:text-[#F1EBDD]">
                 138
               </span>
-              <span className="text-xs font-bold text-[#64748B] dark:text-[#94A3B8] block">
+              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
                 Total Runs (Sagar Kapadia)
               </span>
             </div>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
               134 regulation runs + 4 Super Over runs across 12 tournament matches. 17 all-time boundaries scored at 117.5 strike rate.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-blue-500/10 text-[#2563EB]">
+              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
                 <TrendingUp className="w-5 h-5" />
               </span>
-              <span className="font-mono text-[10px] text-[#2563EB] dark:text-[#38BDF8] font-bold uppercase tracking-wider">
+              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
                 Boundary Surge
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-[#2563EB] dark:text-[#38BDF8]">
+              <span className="font-display font-black text-4xl text-[#FF4B35]">
                 +96.5%
               </span>
-              <span className="text-xs font-bold text-[#64748B] dark:text-[#94A3B8] block">
+              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
                 Boundary Evolution Rate
               </span>
             </div>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
               Tournament boundary scoring doubled from 3.11 boundaries per match in 2023 to 6.11 per match in 2025 as hitting velocity matured.
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-3xl p-6 border border-white/10 shadow-lg space-y-3">
-            <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest font-bold block">
+          <div className="bg-gradient-to-br from-[#181A20] to-[#111318] text-[#F1EBDD] rounded-2xl p-6 border border-[#2A2E38] shadow-lg space-y-3">
+            <span className="text-[10px] font-mono text-[#FF4B35] uppercase tracking-widest font-bold block">
               Historic Innings
             </span>
             <div className="font-display font-black text-3xl">62/2</div>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-[#A8A295] leading-relaxed">
               Exotica Warriors (2025 Match 5) highest team innings total in EPL history. Required run rate reached 10.33 RPO.
             </p>
           </div>
@@ -179,58 +179,58 @@ export function ParallelScrollColumns() {
           data-parallel-column="desc-1"
           className="space-y-5 will-change-transform"
         >
-          <div className="bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-cyan-500/10 text-cyan-500">
+              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
                 <Shield className="w-5 h-5" />
               </span>
-              <span className="font-mono text-[10px] text-[#0891B2] dark:text-[#22D3EE] font-bold uppercase tracking-wider">
+              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
                 Economy Benchmark
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-[#0891B2] dark:text-[#22D3EE]">
+              <span className="font-display font-black text-4xl text-[#111318] dark:text-[#F1EBDD]">
                 3.57
               </span>
-              <span className="text-xs font-bold text-[#64748B] dark:text-[#94A3B8] block">
+              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
                 Career Economy (Smeet Shah)
               </span>
             </div>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
               Lowest economy rate among bowlers with &ge; 30 legal balls bowled. 44 legal deliveries, 26 runs conceded, 56.8% dot ball rate.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-emerald-500/10 text-emerald-500">
+              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
                 <Crosshair className="w-5 h-5" />
               </span>
-              <span className="font-mono text-[10px] text-emerald-500 font-bold uppercase tracking-wider">
+              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
                 Defensive Miracle
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-emerald-500">
+              <span className="font-display font-black text-4xl text-[#111318] dark:text-[#F1EBDD]">
                 30
               </span>
-              <span className="text-xs font-bold text-[#64748B] dark:text-[#94A3B8] block">
+              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
                 Lowest Defended Total
               </span>
             </div>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
               ACER ASPIRE successfully defended 30 runs against ACER SWIFT (24 all-out) in the 2024 Semifinal 2 under extreme knockout pressure.
             </p>
           </div>
 
-          <div className="bg-blue-50/80 dark:bg-[#0B1120] rounded-3xl p-6 border border-blue-200/80 dark:border-[#1E293B] shadow-sm space-y-2">
-            <span className="text-[10px] font-mono text-[#2563EB] dark:text-[#38BDF8] uppercase tracking-widest font-bold block">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-2">
+            <span className="text-[10px] font-mono text-[#FF4B35] uppercase tracking-widest font-bold block">
               Dot Ball Ledger
             </span>
-            <div className="font-display font-black text-3xl text-[#101828] dark:text-[#F8FAFC]">
+            <div className="font-display font-black text-3xl text-[#111318] dark:text-[#F1EBDD]">
               827
             </div>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
               Verified legal dot balls recorded across 277 regulation spells, representing 49.8% of all balls bowled.
             </p>
           </div>
@@ -242,58 +242,58 @@ export function ParallelScrollColumns() {
           data-parallel-column="asc-2"
           className="space-y-5 will-change-transform"
         >
-          <div className="bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-purple-500/10 text-purple-500">
+              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
                 <Trophy className="w-5 h-5" />
               </span>
-              <span className="font-mono text-[10px] text-purple-500 font-bold uppercase tracking-wider">
+              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
                 Toss Neutrality
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-purple-500">
+              <span className="font-display font-black text-4xl text-[#111318] dark:text-[#F1EBDD]">
                 48.1%
               </span>
-              <span className="text-xs font-bold text-[#64748B] dark:text-[#94A3B8] block">
+              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
                 Toss Winner Match Rate
               </span>
             </div>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
               Teams winning the coin toss won 13 of 27 matches, confirming zero systemic toss advantage in underarm conditions.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-rose-500/10 text-rose-500">
+              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
                 <Activity className="w-5 h-5" />
               </span>
-              <span className="font-mono text-[10px] text-rose-500 font-bold uppercase tracking-wider">
+              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
                 Run Chase Advantage
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-rose-500">
+              <span className="font-display font-black text-4xl text-[#FF4B35]">
                 55.6%
               </span>
-              <span className="text-xs font-bold text-[#64748B] dark:text-[#94A3B8] block">
+              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
                 Chasing Team Win Rate
               </span>
             </div>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
               Teams batting second won 15 of 27 matches, benefiting from clear target visibility in short 36-ball encounters.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-[#151F32] rounded-3xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3">
-            <span className="text-[10px] font-mono text-[#2563EB] dark:text-[#38BDF8] uppercase tracking-widest font-bold block">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
+            <span className="text-[10px] font-mono text-[#FF4B35] uppercase tracking-widest font-bold block">
               Knockout Crucible
             </span>
-            <div className="font-display font-black text-3xl text-[#101828] dark:text-[#F8FAFC]">
+            <div className="font-display font-black text-3xl text-[#111318] dark:text-[#F1EBDD]">
               9 Matches
             </div>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
               Semifinals and Finals audited with elevated leverage weighting in the 100-Point Player Intelligence Score.
             </p>
           </div>

@@ -115,15 +115,15 @@ export default function PlayerProfilePage() {
     return (
       <div className="py-28 text-center space-y-4">
         <div className="relative inline-block w-12 h-12">
-          <div className="w-12 h-12 rounded-full border-4 border-blue-500/20 border-t-[#2563EB] animate-spin" />
+          <div className="w-12 h-12 rounded-full border-4 border-[#FF4B35]/20 border-t-[#FF4B35] animate-spin" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <Activity className="w-5 h-5 text-[#2563EB] animate-pulse" />
+            <Activity className="w-5 h-5 text-[#FF4B35] animate-pulse" />
           </div>
         </div>
-        <p className="font-display text-lg font-bold text-[#101828] dark:text-[#F8FAFC]">
+        <p className="font-display text-lg font-bold text-[#111318] dark:text-[#F1EBDD]">
           Calibrating Athlete Dossier...
         </p>
-        <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+        <p className="text-xs text-[#5C584E] dark:text-[#A8A296]">
           Retrieving 3-season Bayesian telemetry, 6-over splits &amp; valuation matrix.
         </p>
       </div>
@@ -136,15 +136,15 @@ export default function PlayerProfilePage() {
         <div className="w-16 h-16 rounded-2xl bg-red-500/10 text-red-500 flex items-center justify-center mx-auto mb-2">
           <AlertCircle className="w-8 h-8" />
         </div>
-        <h2 className="font-display text-2xl font-bold text-[#101828] dark:text-[#F8FAFC]">
+        <h2 className="font-display text-2xl font-bold text-[#111318] dark:text-[#F1EBDD]">
           Player Profile Not Found
         </h2>
-        <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+        <p className="text-xs text-[#5C584E] dark:text-[#A8A296]">
           The requested permanent player ID ({id}) is not registered in the canonical registry.
         </p>
         <Link
           href="/players"
-          className="inline-block px-5 py-2.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-xl text-xs font-semibold shadow-md transition"
+          className="inline-block px-5 py-2.5 bg-[#FF4B35] hover:bg-[#E03E29] text-white rounded-xl text-xs font-semibold shadow-md transition"
         >
           Return to Player Directory
         </Link>
@@ -180,16 +180,16 @@ export default function PlayerProfilePage() {
     >
       {/* Public Read-Only Banner */}
       {isPublicMode && !isPrintMode && (
-        <div className="bg-blue-500/10 border border-blue-500/30 text-[#101828] dark:text-[#F8FAFC] px-4 py-3 rounded-2xl text-xs flex items-center justify-between no-print shadow-sm backdrop-blur-sm">
+        <div className="bg-[#FF4B35]/10 border border-[#FF4B35]/30 text-[#111318] dark:text-[#F1EBDD] px-4 py-3 rounded-2xl text-xs flex items-center justify-between no-print shadow-sm backdrop-blur-sm">
           <span className="inline-flex items-center gap-2">
-            <Globe className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
+            <Globe className="w-4 h-4 text-[#FF4B35]" />
             <span>
               <strong>Verified Public Dossier</strong> — EPL Historical Telemetry. Franchise private bidding sheets and security pins are hidden.
             </span>
           </span>
           <Link
             href="/players"
-            className="text-[#2563EB] dark:text-[#38BDF8] underline hover:opacity-80 font-semibold"
+            className="text-[#FF4B35] underline hover:opacity-80 font-semibold"
           >
             All Players
           </Link>
@@ -200,7 +200,7 @@ export default function PlayerProfilePage() {
       <div className="flex flex-wrap items-center justify-between gap-4 no-print">
         <Link
           href="/players"
-          className="inline-flex items-center space-x-2 text-xs font-semibold text-[#64748B] dark:text-[#94A3B8] hover:text-[#2563EB] dark:hover:text-[#38BDF8] transition"
+          className="inline-flex items-center space-x-2 text-xs font-semibold text-[#5C584E] dark:text-[#A8A296] hover:text-[#FF4B35] transition"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Player Registry</span>
@@ -209,9 +209,9 @@ export default function PlayerProfilePage() {
         <div className="flex items-center gap-2.5">
           <Link
             href={`/comparison?p1=${id}`}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-semibold text-[#101828] dark:text-[#F8FAFC] hover:bg-slate-200 dark:hover:bg-white/10 transition shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-xs font-semibold text-[#111318] dark:text-[#F1EBDD] hover:border-[#FF4B35] transition shadow-sm"
           >
-            <Sliders className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#38BDF8]" />
+            <Sliders className="w-3.5 h-3.5 text-[#FF4B35]" />
             <span>Compare H2H</span>
           </Link>
 
@@ -219,7 +219,7 @@ export default function PlayerProfilePage() {
             type="button"
             onClick={handleDownloadPdf}
             disabled={downloadingPdf}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold shadow-md shadow-blue-500/20 transition disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FF4B35] hover:bg-[#E03E29] text-white text-xs font-semibold shadow-md shadow-[#FF4B35]/20 transition disabled:opacity-50"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>{downloadingPdf ? "Compiling PDF..." : "Export PDF Dossier"}</span>
@@ -228,9 +228,9 @@ export default function PlayerProfilePage() {
           <button
             type="button"
             onClick={() => setShareOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white dark:bg-[#151F32] border border-[#E2E8F0] dark:border-[#334155] text-[#101828] dark:text-[#F8FAFC] hover:border-[#2563EB] text-xs font-semibold shadow-sm transition"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] hover:border-[#FF4B35] text-xs font-semibold shadow-sm transition"
           >
-            <Share2 className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#38BDF8]" />
+            <Share2 className="w-3.5 h-3.5 text-[#FF4B35]" />
             <span>Share</span>
           </button>
         </div>
@@ -268,10 +268,10 @@ export default function PlayerProfilePage() {
                   type="checkbox"
                   checked={sharePublicToggle}
                   onChange={(e) => setSharePublicToggle(e.target.checked)}
-                  className="accent-[#2563EB]"
+                  className="accent-[#FF4B35]"
                 />
                 <span>
-                  Enable public read-only mode (<code className="font-mono text-[11px] text-[#2563EB] dark:text-[#38BDF8]">?public=1</code>)
+                  Enable public read-only mode (<code className="font-mono text-[11px] text-[#FF4B35]">?public=1</code>)
                 </span>
               </label>
 
@@ -280,12 +280,12 @@ export default function PlayerProfilePage() {
                   type="text"
                   readOnly
                   value={shareUrl}
-                  className="flex-1 px-3 py-2 text-xs font-mono rounded-xl border border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC]"
+                  className="flex-1 px-3 py-2 text-xs font-mono rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] bg-[#FAF7F0] dark:bg-[#111318] text-[#111318] dark:text-[#F1EBDD]"
                 />
                 <button
                   type="button"
                   onClick={handleCopyShareUrl}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold shadow-sm transition"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FF4B35] hover:bg-[#E03E29] text-white text-xs font-semibold shadow-sm transition"
                 >
                   {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? "Copied" : "Copy"}</span>
@@ -293,15 +293,15 @@ export default function PlayerProfilePage() {
               </div>
 
               {isLocalHost ? (
-                <div className="bg-blue-500/10 border-l-4 border-[#2563EB] p-3 rounded-xl text-[11px] text-[#64748B] dark:text-[#94A3B8] space-y-1">
-                  <div className="font-bold flex items-center gap-1.5 text-[#2563EB] dark:text-[#38BDF8]">
+                <div className="bg-[#FF4B35]/10 border-l-4 border-[#FF4B35] p-3 rounded-xl text-[11px] text-[#5C584E] dark:text-[#A8A296] space-y-1">
+                  <div className="font-bold flex items-center gap-1.5 text-[#FF4B35]">
                     <Lock className="w-3.5 h-3.5" />
                     <span>Local Session Active</span>
                   </div>
                   <p>Running locally. Share through the active ngrok tunnel for external access.</p>
                 </div>
               ) : (
-                <div className="bg-slate-50 dark:bg-white/5 border-l-4 border-slate-300 dark:border-white/20 p-3 rounded-xl text-[11px] text-[#64748B] dark:text-[#94A3B8]">
+                <div className="bg-[#FAF7F0] dark:bg-[#181A20] border-l-4 border-[#DDD5C3] dark:border-[#2A2E38] p-3 rounded-xl text-[11px] text-[#5C584E] dark:text-[#A8A296]">
                   Direct public profile address. External scouts can load this dossier directly.
                 </div>
               )}
@@ -313,10 +313,10 @@ export default function PlayerProfilePage() {
       {/* ============================================================== */}
       {/* SIGNATURE ATHLETE DOSSIER HERO                                 */}
       {/* ============================================================== */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-slate-50/50 to-blue-50/20 dark:from-[#0B1120] dark:via-[#101828] dark:to-[#0F1F38] border border-[#E2E8F0] dark:border-[#1E293B] shadow-xl p-6 sm:p-10">
-        {/* Geometric Background Lattice Accent */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-10 -left-10 w-80 h-80 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative overflow-hidden rounded-3xl bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] shadow-xl p-6 sm:p-10">
+        {/* Subtle Luxury Radial Glow */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF4B35]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 -left-10 w-80 h-80 bg-[#FF4B35]/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
           {/* Athlete Monogram Crest & Typographic Identity */}
@@ -326,8 +326,8 @@ export default function PlayerProfilePage() {
               <div
                 className={`w-24 h-24 sm:w-28 sm:h-28 rounded-2xl flex items-center justify-center font-display font-black text-2xl sm:text-3xl tracking-tighter shadow-xl border ${
                   isMarquee
-                    ? "bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#0A2540] text-white border-blue-400/50 shadow-blue-500/25 ring-4 ring-blue-500/20"
-                    : "bg-gradient-to-br from-slate-800 to-slate-950 text-white dark:from-slate-700 dark:to-slate-900 border-white/20 shadow-slate-900/20"
+                    ? "bg-[#111318] text-[#F1EBDD] border-[#FF4B35] shadow-[#FF4B35]/20 ring-4 ring-[#FF4B35]/15"
+                    : "bg-[#181A20] text-[#F1EBDD] border-[#2A2E38] shadow-black/20"
                 }`}
               >
                 {getInitials(profile.name)}
@@ -335,9 +335,9 @@ export default function PlayerProfilePage() {
               {isMarquee && (
                 <div
                   title="Elite / Marquee Tier Rating"
-                  className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center shadow-lg border-2 border-white dark:border-[#0B1120]"
+                  className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-[#FF4B35] text-white flex items-center justify-center shadow-lg border-2 border-[#FAF7F0] dark:border-[#181A20]"
                 >
-                  <Star className="w-3.5 h-3.5 fill-slate-950" />
+                  <Star className="w-3.5 h-3.5 fill-white" />
                 </div>
               )}
             </div>
@@ -345,13 +345,13 @@ export default function PlayerProfilePage() {
             {/* Athlete Name & Identity Pills */}
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-[#2563EB] dark:text-[#38BDF8] font-bold bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+                <span className="font-mono text-xs text-[#FF4B35] font-bold bg-[#FF4B35]/10 px-3 py-1 rounded-full border border-[#FF4B35]/20">
                   {profile.player_id}
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider bg-[#2563EB] text-white px-3 py-1 rounded-full shadow-sm">
+                <span className="text-xs font-bold uppercase tracking-wider bg-[#FF4B35] text-white px-3 py-1 rounded-full shadow-sm">
                   {ar.role_classification || profile.primary_role}
                 </span>
-                <span className="text-xs font-medium text-[#64748B] dark:text-[#94A3B8] bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 px-3 py-1 rounded-full">
+                <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A296] bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38] px-3 py-1 rounded-full">
                   {profile.batting_hand}
                 </span>
                 {pi.confidence_level && (
@@ -360,7 +360,7 @@ export default function PlayerProfilePage() {
                       pi.confidence_level === "HIGH"
                         ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30"
                         : pi.confidence_level === "MEDIUM"
-                        ? "bg-blue-500/10 text-[#2563EB] dark:text-[#38BDF8] border-blue-500/30"
+                        ? "bg-[#FF4B35]/10 text-[#FF4B35] border-[#FF4B35]/30"
                         : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30"
                     }`}
                   >
@@ -369,50 +369,50 @@ export default function PlayerProfilePage() {
                 )}
               </div>
 
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#101828] dark:text-[#F8FAFC]">
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#111318] dark:text-[#F1EBDD]">
                 {profile.name}
               </h1>
 
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-medium text-[#64748B] dark:text-[#94A3B8]">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-medium text-[#5C584E] dark:text-[#A8A296]">
                 <span>
-                  Seasons Active: <strong className="text-[#101828] dark:text-[#F8FAFC]">{profile.seasons?.join(", ")}</strong>
+                  Seasons Active: <strong className="text-[#111318] dark:text-[#F1EBDD]">{profile.seasons?.join(", ")}</strong>
                 </span>
                 <span>•</span>
                 <span>
-                  Matches: <strong className="text-[#101828] dark:text-[#F8FAFC]">{profile.matches}</strong>
+                  Matches: <strong className="text-[#111318] dark:text-[#F1EBDD]">{profile.matches}</strong>
                 </span>
                 <span>•</span>
                 <span>
-                  Innings: <strong className="text-[#101828] dark:text-[#F8FAFC]">{profile.career_batting?.innings || 0} Bat / {profile.career_bowling?.innings || 0} Bowl</strong>
+                  Innings: <strong className="text-[#111318] dark:text-[#F1EBDD]">{profile.career_batting?.innings || 0} Bat / {profile.career_bowling?.innings || 0} Bowl</strong>
                 </span>
               </div>
             </div>
           </div>
 
           {/* Right Rail: 100-Point PIS & Valuation Matrix Pill */}
-          <div className="flex flex-row lg:flex-col items-center lg:items-end justify-between sm:justify-start gap-5 pt-4 lg:pt-0 border-t lg:border-t-0 border-slate-200 dark:border-white/10">
+          <div className="flex flex-row lg:flex-col items-center lg:items-end justify-between sm:justify-start gap-5 pt-4 lg:pt-0 border-t lg:border-t-0 border-[#DDD5C3] dark:border-[#2A2E38]">
             <div className="text-left lg:text-right">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#64748B] dark:text-[#94A3B8] block mb-1">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#5C584E] dark:text-[#A8A296] block mb-1">
                 EPL Intelligence Score (PIS)
               </span>
               <div className="flex items-center lg:justify-end gap-2">
                 <RatingBadge score={pi.overall_score || r.overall_rating || 0} size="lg" />
               </div>
-              <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block mt-1 font-mono">
+              <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] block mt-1 font-mono">
                 {pi.confidence_badge || "Bayesian Regressed Rating"}
               </span>
             </div>
 
-            <div className="bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-md p-4 rounded-2xl border border-slate-200 dark:border-[#1E293B] text-left lg:text-right min-w-[210px] shadow-sm">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-[#64748B] dark:text-[#94A3B8] block">
+            <div className="bg-[#F1EBDD]/90 dark:bg-[#111318]/90 backdrop-blur-md p-4 rounded-2xl border border-[#DDD5C3] dark:border-[#2A2E38] text-left lg:text-right min-w-[210px] shadow-sm">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-[#5C584E] dark:text-[#A8A296] block">
                 Auction Projected Tier
               </span>
-              <span className="text-sm font-display font-bold text-[#101828] dark:text-[#F8FAFC] block">
+              <span className="text-sm font-display font-bold text-[#111318] dark:text-[#F1EBDD] block">
                 {v.category || "Regulation Pool"}
               </span>
-              <div className="text-lg font-mono font-black text-[#2563EB] dark:text-[#38BDF8] mt-0.5">
+              <div className="text-lg font-mono font-black text-[#FF4B35] mt-0.5">
                 ₹{v.estimated_valuation?.toFixed(1)}L
-                <span className="text-[11px] font-normal text-[#64748B] dark:text-[#94A3B8] ml-1">
+                <span className="text-[11px] font-normal text-[#5C584E] dark:text-[#A8A296] ml-1">
                   (Base ₹{v.base_price?.toFixed(1)}L)
                 </span>
               </div>
@@ -424,19 +424,19 @@ export default function PlayerProfilePage() {
       {/* ============================================================== */}
       {/* 100-POINT PLAYER INTELLIGENCE SCORECARD (PIS)                  */}
       {/* ============================================================== */}
-      <section className="bg-white dark:bg-[#151F32] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E8F0] dark:border-[#334155] pb-4">
+      <section className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
-              <h3 className="font-display text-lg font-bold text-[#101828] dark:text-[#F8FAFC]">
+              <Sparkles className="w-4 h-4 text-[#FF4B35]" />
+              <h3 className="font-display text-lg font-bold text-[#111318] dark:text-[#F1EBDD]">
                 100-Point Player Intelligence Scorecard (PIS)
               </h3>
-              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-blue-500/10 text-[#2563EB] dark:text-[#38BDF8] border border-blue-500/20 font-bold">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-[#FF4B35]/10 text-[#FF4B35] border border-[#FF4B35]/20 font-bold">
                 EPL Rank #{pi.epl_rank || "—"} / 73
               </span>
             </div>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+            <p className="text-xs text-[#5C584E] dark:text-[#A8A296]">
               Multi-factor 6-over cricket rating model calibrated for small-sample variance. Non-participants in batting or bowling receive 0 penalty.
             </p>
           </div>
@@ -444,9 +444,9 @@ export default function PlayerProfilePage() {
           <button
             type="button"
             onClick={() => setShowFormulaDetails(!showFormulaDetails)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-[#0B1120] text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC] text-xs font-semibold border border-slate-200 dark:border-[#334155] transition self-start sm:self-auto"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F1EBDD] dark:bg-[#111318] text-[#5C584E] dark:text-[#A8A296] hover:text-[#111318] dark:hover:text-[#F1EBDD] text-xs font-semibold border border-[#DDD5C3] dark:border-[#2A2E38] transition self-start sm:self-auto"
           >
-            <Info className="w-3.5 h-3.5" />
+            <Info className="w-3.5 h-3.5 text-[#FF4B35]" />
             <span>{showFormulaDetails ? "Hide Methodology" : "Why this score?"}</span>
             {showFormulaDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
@@ -455,110 +455,110 @@ export default function PlayerProfilePage() {
         {/* 5-Pillar Score Cards with Visual Micro-Meters */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
           {/* Batting Intelligence */}
-          <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-[#1E293B] space-y-2">
+          <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-[#64748B] dark:text-[#94A3B8]">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-[#5C584E] dark:text-[#A8A296]">
                 Batting (BIS)
               </span>
-              <Target className="w-3 h-3 text-[#2563EB] dark:text-[#38BDF8]" />
+              <Target className="w-3 h-3 text-[#FF4B35]" />
             </div>
-            <div className="font-mono text-2xl font-bold text-[#101828] dark:text-[#F8FAFC]">
+            <div className="font-mono text-2xl font-bold text-[#111318] dark:text-[#F1EBDD]">
               {pi.batting_intelligence_score !== null && pi.batting_intelligence_score !== undefined
                 ? pi.batting_intelligence_score.toFixed(1)
-                : <span className="text-xs text-[#94A3B8] font-normal">N/A</span>}
+                : <span className="text-xs text-[#A8A296] font-normal">N/A</span>}
             </div>
             {/* Visual Micro-meter */}
-            <div className="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+            <div className="w-full bg-[#DDD5C3] dark:bg-[#2A2E38] h-1.5 rounded-full overflow-hidden">
               <div
-                className="bg-[#2563EB] h-full rounded-full transition-all duration-500"
+                className="bg-[#FF4B35] h-full rounded-full transition-all duration-500"
                 style={{ width: `${Math.min(100, Math.max(0, pi.batting_intelligence_score || 0))}%` }}
               />
             </div>
-            <div className="text-[10px] text-[#64748B] dark:text-[#94A3B8]">Volume &amp; Velocity</div>
+            <div className="text-[10px] text-[#5C584E] dark:text-[#A8A296]">Volume &amp; Velocity</div>
           </div>
 
           {/* Bowling Intelligence */}
-          <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-[#1E293B] space-y-2">
+          <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-[#64748B] dark:text-[#94A3B8]">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-[#5C584E] dark:text-[#A8A296]">
                 Bowling (BoIS)
               </span>
-              <Crosshair className="w-3 h-3 text-[#0891B2] dark:text-[#22D3EE]" />
+              <Crosshair className="w-3 h-3 text-[#FF4B35]" />
             </div>
-            <div className="font-mono text-2xl font-bold text-[#101828] dark:text-[#F8FAFC]">
+            <div className="font-mono text-2xl font-bold text-[#111318] dark:text-[#F1EBDD]">
               {pi.bowling_intelligence_score !== null && pi.bowling_intelligence_score !== undefined
                 ? pi.bowling_intelligence_score.toFixed(1)
-                : <span className="text-xs text-[#94A3B8] font-normal">N/A</span>}
+                : <span className="text-xs text-[#A8A296] font-normal">N/A</span>}
             </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+            <div className="w-full bg-[#DDD5C3] dark:bg-[#2A2E38] h-1.5 rounded-full overflow-hidden">
               <div
-                className="bg-[#0891B2] dark:bg-[#22D3EE] h-full rounded-full transition-all duration-500"
+                className="bg-[#5C584E] dark:bg-[#DDD5C3] h-full rounded-full transition-all duration-500"
                 style={{ width: `${Math.min(100, Math.max(0, pi.bowling_intelligence_score || 0))}%` }}
               />
             </div>
-            <div className="text-[10px] text-[#64748B] dark:text-[#94A3B8]">Wickets &amp; Economy</div>
+            <div className="text-[10px] text-[#5C584E] dark:text-[#A8A296]">Wickets &amp; Economy</div>
           </div>
 
           {/* All-Rounder Intelligence */}
-          <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-[#1E293B] space-y-2">
+          <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-[#64748B] dark:text-[#94A3B8]">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-[#5C584E] dark:text-[#A8A296]">
                 All-Round (AIS)
               </span>
               <Zap className="w-3 h-3 text-amber-500" />
             </div>
-            <div className="font-mono text-2xl font-bold text-[#101828] dark:text-[#F8FAFC]">
+            <div className="font-mono text-2xl font-bold text-[#111318] dark:text-[#F1EBDD]">
               {pi.all_rounder_intelligence_score?.toFixed(1) || "0.0"}
             </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+            <div className="w-full bg-[#DDD5C3] dark:bg-[#2A2E38] h-1.5 rounded-full overflow-hidden">
               <div
                 className="bg-amber-500 h-full rounded-full transition-all duration-500"
                 style={{ width: `${Math.min(100, Math.max(0, pi.all_rounder_intelligence_score || 0))}%` }}
               />
             </div>
-            <div className="text-[10px] text-[#64748B] dark:text-[#94A3B8]">
+            <div className="text-[10px] text-[#5C584E] dark:text-[#A8A296]">
               {ar.impact_all_rounder_matches || 0} dual games
             </div>
           </div>
 
           {/* Consistency Intelligence */}
-          <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-[#1E293B] space-y-2">
+          <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-[#64748B] dark:text-[#94A3B8]">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-[#5C584E] dark:text-[#A8A296]">
                 Consistency (CIS)
               </span>
               <BarChart2 className="w-3 h-3 text-emerald-500" />
             </div>
-            <div className="font-mono text-2xl font-bold text-[#101828] dark:text-[#F8FAFC]">
+            <div className="font-mono text-2xl font-bold text-[#111318] dark:text-[#F1EBDD]">
               {pi.consistency_intelligence_score?.toFixed(1) || "50.0"}
             </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+            <div className="w-full bg-[#DDD5C3] dark:bg-[#2A2E38] h-1.5 rounded-full overflow-hidden">
               <div
                 className="bg-emerald-500 h-full rounded-full transition-all duration-500"
                 style={{ width: `${Math.min(100, Math.max(0, pi.consistency_intelligence_score || 50))}%` }}
               />
             </div>
-            <div className="text-[10px] text-[#64748B] dark:text-[#94A3B8]">Variance Calibration</div>
+            <div className="text-[10px] text-[#5C584E] dark:text-[#A8A296]">Variance Calibration</div>
           </div>
 
           {/* Match Impact Intelligence */}
-          <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-[#1E293B] space-y-2 col-span-2 sm:col-span-1">
+          <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2 col-span-2 sm:col-span-1">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-[#2563EB] dark:text-[#38BDF8]">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-[#FF4B35]">
                 Match Impact (MIS)
               </span>
-              <Trophy className="w-3 h-3 text-[#2563EB] dark:text-[#38BDF8]" />
+              <Trophy className="w-3 h-3 text-[#FF4B35]" />
             </div>
-            <div className="font-mono text-2xl font-bold text-[#2563EB] dark:text-[#38BDF8]">
+            <div className="font-mono text-2xl font-bold text-[#FF4B35]">
               {pi.match_impact_intelligence_score?.toFixed(1) || "20.0"}
             </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+            <div className="w-full bg-[#DDD5C3] dark:bg-[#2A2E38] h-1.5 rounded-full overflow-hidden">
               <div
-                className="bg-[#2563EB] dark:bg-[#38BDF8] h-full rounded-full transition-all duration-500"
+                className="bg-[#FF4B35] h-full rounded-full transition-all duration-500"
                 style={{ width: `${Math.min(100, Math.max(0, (pi.match_impact_intelligence_score || 20) * 2.5))}%` }}
               />
             </div>
-            <div className="text-[10px] text-[#64748B] dark:text-[#94A3B8]">Milestones &amp; Playoff</div>
+            <div className="text-[10px] text-[#5C584E] dark:text-[#A8A296]">Milestones &amp; Playoff</div>
           </div>
         </div>
 
@@ -569,34 +569,34 @@ export default function PlayerProfilePage() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="overflow-hidden bg-[#F8FAFC] dark:bg-[#0B1120] p-5 rounded-2xl border border-slate-200 dark:border-[#334155] space-y-3 text-xs"
+              className="overflow-hidden bg-[#F1EBDD] dark:bg-[#111318] p-5 rounded-2xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3 text-xs"
             >
-              <h4 className="font-display font-bold text-[#2563EB] dark:text-[#38BDF8] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+              <h4 className="font-display font-bold text-[#FF4B35] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
                 <Shield className="w-3.5 h-3.5" />
                 <span>Audited EPL Mathematical Architecture</span>
               </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] text-[#101828] dark:text-[#F8FAFC]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] text-[#111318] dark:text-[#F1EBDD]">
                 <div className="space-y-1">
-                  <strong className="text-[#101828] dark:text-[#F8FAFC]">Batting Formulation (BIS):</strong>
-                  <p className="font-mono text-[10px] text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                  <strong className="text-[#111318] dark:text-[#F1EBDD]">Batting Formulation (BIS):</strong>
+                  <p className="font-mono text-[10px] text-[#5C584E] dark:text-[#A8A296] leading-relaxed">
                     {pi.explanations.batting}
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <strong className="text-[#101828] dark:text-[#F8FAFC]">Bowling Formulation (BoIS):</strong>
-                  <p className="font-mono text-[10px] text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                  <strong className="text-[#111318] dark:text-[#F1EBDD]">Bowling Formulation (BoIS):</strong>
+                  <p className="font-mono text-[10px] text-[#5C584E] dark:text-[#A8A296] leading-relaxed">
                     {pi.explanations.bowling}
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <strong className="text-[#101828] dark:text-[#F8FAFC]">All-Rounder Balance (AIS):</strong>
-                  <p className="font-mono text-[10px] text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                  <strong className="text-[#111318] dark:text-[#F1EBDD]">All-Rounder Balance (AIS):</strong>
+                  <p className="font-mono text-[10px] text-[#5C584E] dark:text-[#A8A296] leading-relaxed">
                     {pi.explanations.all_rounder}
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <strong className="text-[#101828] dark:text-[#F8FAFC]">Consistency &amp; Match Impact:</strong>
-                  <p className="font-mono text-[10px] text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                  <strong className="text-[#111318] dark:text-[#F1EBDD]">Consistency &amp; Match Impact:</strong>
+                  <p className="font-mono text-[10px] text-[#5C584E] dark:text-[#A8A296] leading-relaxed">
                     {pi.explanations.consistency} • {pi.explanations.match_impact}
                   </p>
                 </div>
@@ -609,7 +609,7 @@ export default function PlayerProfilePage() {
       {/* ============================================================== */}
       {/* TABS NAVIGATION                                                */}
       {/* ============================================================== */}
-      <div className="border-b border-[#E2E8F0] dark:border-[#334155] flex flex-wrap gap-2 text-xs font-semibold no-print">
+      <div className="border-b border-[#DDD5C3] dark:border-[#2A2E38] flex flex-wrap gap-2 text-xs font-semibold no-print">
         {[
           { id: "career", label: "Career & Visual Analytics" },
           { id: "situational", label: "Pressure Splits (1st vs Chasing)" },
@@ -622,15 +622,15 @@ export default function PlayerProfilePage() {
             onClick={() => setActiveTab(tab.id as any)}
             className={`relative pb-3 px-3.5 font-semibold transition ${
               activeTab === tab.id
-                ? "text-[#2563EB] dark:text-[#38BDF8] font-bold"
-                : "text-[#64748B] dark:text-[#94A3B8] hover:text-[#101828] dark:hover:text-[#F8FAFC]"
+                ? "text-[#FF4B35] font-bold"
+                : "text-[#5C584E] dark:text-[#A8A296] hover:text-[#111318] dark:hover:text-[#F1EBDD]"
             }`}
           >
             <span>{tab.label}</span>
             {activeTab === tab.id && (
               <motion.div
                 layoutId="activeTabUnderline"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2563EB] dark:bg-[#38BDF8]"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF4B35]"
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
@@ -651,19 +651,19 @@ export default function PlayerProfilePage() {
                 title="Career Runs"
                 value={b.total_runs || 0}
                 subtitle={`${b.innings || 0} inn, HS: ${b.highest_score_display || b.highest_score || 0}`}
-                icon={<Flame className="w-4 h-4 text-amber-500" />}
+                icon={<Flame className="w-4 h-4 text-[#FF4B35]" />}
               />
               <StatCard
                 title="Strike Rate"
                 value={b.strike_rate ? b.strike_rate.toFixed(1) : "0.0"}
                 subtitle={`${b.boundary_percentage?.toFixed(1) || "0.0"}% bnd`}
-                icon={<TrendingUp className="w-4 h-4 text-[#2563EB]" />}
+                icon={<TrendingUp className="w-4 h-4 text-[#FF4B35]" />}
               />
               <StatCard
                 title="15+ Scores"
                 value={b.scores_15_plus || 0}
                 subtitle={`${b.pct_15_plus || 0}% inn freq`}
-                icon={<Award className="w-4 h-4 text-purple-500" />}
+                icon={<Award className="w-4 h-4 text-[#FF4B35]" />}
               />
               <StatCard
                 title="Career Wickets"
@@ -675,13 +675,13 @@ export default function PlayerProfilePage() {
                 title="Economy Rate"
                 value={bw.legal_balls > 0 ? bw.economy.toFixed(2) : "—"}
                 subtitle={`${bw.dot_ball_percentage?.toFixed(1) || "0.0"}% dots`}
-                icon={<Crosshair className="w-4 h-4 text-cyan-500" />}
+                icon={<Crosshair className="w-4 h-4 text-[#FF4B35]" />}
               />
               <StatCard
                 title="Multi-Wkts (2+)"
                 value={bw.two_plus_wickets || 0}
                 subtitle={`${bw.multi_wicket_frequency || 0}% spell freq`}
-                icon={<Trophy className="w-4 h-4 text-rose-500" />}
+                icon={<Trophy className="w-4 h-4 text-[#FF4B35]" />}
               />
             </div>
           ) : isBowler ? (
@@ -697,19 +697,19 @@ export default function PlayerProfilePage() {
                 title="Bowling Economy"
                 value={bw.legal_balls > 0 ? bw.economy.toFixed(2) : "—"}
                 subtitle={`${bw.dot_ball_percentage ? bw.dot_ball_percentage.toFixed(1) : "0.0"}% dot balls`}
-                icon={<Trophy className="w-4 h-4 text-[#2563EB]" />}
+                icon={<Trophy className="w-4 h-4 text-[#FF4B35]" />}
               />
               <StatCard
                 title="Bowling Strike Rate"
                 value={bw.bowling_strike_rate ? `${bw.bowling_strike_rate.toFixed(1)} b/w` : "—"}
                 subtitle={`Best: ${bw.best_figures || "—"}`}
-                icon={<Crosshair className="w-4 h-4 text-cyan-500" />}
+                icon={<Crosshair className="w-4 h-4 text-[#FF4B35]" />}
               />
               <StatCard
                 title="Multi-Wicket Spells"
                 value={bw.two_plus_wickets || 0}
                 subtitle={`${bw.multi_wicket_frequency || 0}% spell rate`}
-                icon={<Award className="w-4 h-4 text-purple-500" />}
+                icon={<Award className="w-4 h-4 text-[#FF4B35]" />}
               />
             </div>
           ) : (
@@ -719,13 +719,13 @@ export default function PlayerProfilePage() {
                 title="Career Runs"
                 value={b.total_runs || 0}
                 subtitle={`${b.innings || 0} inn, HS: ${b.highest_score_display || b.highest_score || 0}`}
-                icon={<Flame className="w-4 h-4 text-amber-500" />}
+                icon={<Flame className="w-4 h-4 text-[#FF4B35]" />}
               />
               <StatCard
                 title="Strike Rate"
                 value={b.strike_rate ? b.strike_rate.toFixed(1) : "0.0"}
                 subtitle={`${b.boundary_percentage ? b.boundary_percentage.toFixed(1) : "0.0"}% boundary rate`}
-                icon={<TrendingUp className="w-4 h-4 text-[#2563EB]" />}
+                icon={<TrendingUp className="w-4 h-4 text-[#FF4B35]" />}
               />
               <StatCard
                 title="Batting Average"
@@ -737,52 +737,52 @@ export default function PlayerProfilePage() {
                 title="Balls / Boundary"
                 value={b.balls_per_boundary ? `${b.balls_per_boundary.toFixed(1)} b` : "—"}
                 subtitle={`${b.fours || 0}x4, ${b.sixes || 0}x6`}
-                icon={<Zap className="w-4 h-4 text-cyan-500" />}
+                icon={<Zap className="w-4 h-4 text-[#FF4B35]" />}
               />
             </div>
           )}
 
           {/* 6-Over Cricket Milestone Rack */}
-          <div className="bg-white dark:bg-[#151F32] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-4 text-[#101828] dark:text-[#F8FAFC]">
-            <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#334155] pb-3">
-              <span className="font-display text-base font-bold text-[#101828] dark:text-[#F8FAFC] flex items-center gap-2">
-                <Award className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-4 text-[#111318] dark:text-[#F1EBDD]">
+            <div className="flex items-center justify-between border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-3">
+              <span className="font-display text-base font-bold text-[#111318] dark:text-[#F1EBDD] flex items-center gap-2">
+                <Award className="w-4 h-4 text-[#FF4B35]" />
                 <span>6-Over Cricket Milestone Frequencies</span>
               </span>
-              <span className="text-[10px] font-mono text-[#64748B] dark:text-[#94A3B8]">
+              <span className="text-[10px] font-mono text-[#5C584E] dark:text-[#A8A296]">
                 Calibrated against 27 tournament matches
               </span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-6 gap-3 text-center">
-              <div className="p-3 rounded-xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#1E293B]">
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] uppercase block font-semibold">10+ Scores</span>
-                <span className="font-mono text-xl font-bold text-[#101828] dark:text-[#F8FAFC]">{b.scores_10_plus || 0}</span>
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block">{b.pct_10_plus || 0}% inn</span>
+              <div className="p-3 rounded-xl bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38]">
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] uppercase block font-semibold font-mono">10+ Scores</span>
+                <span className="font-mono text-xl font-bold text-[#111318] dark:text-[#F1EBDD]">{b.scores_10_plus || 0}</span>
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] block">{b.pct_10_plus || 0}% inn</span>
               </div>
-              <div className="p-3 rounded-xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#1E293B]">
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] uppercase block font-semibold">15+ Scores</span>
-                <span className="font-mono text-xl font-bold text-[#101828] dark:text-[#F8FAFC]">{b.scores_15_plus || 0}</span>
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block">{b.pct_15_plus || 0}% inn</span>
+              <div className="p-3 rounded-xl bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38]">
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] uppercase block font-semibold font-mono">15+ Scores</span>
+                <span className="font-mono text-xl font-bold text-[#111318] dark:text-[#F1EBDD]">{b.scores_15_plus || 0}</span>
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] block">{b.pct_15_plus || 0}% inn</span>
               </div>
-              <div className="p-3 rounded-xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#1E293B]">
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] uppercase block font-semibold">20+ Scores</span>
-                <span className="font-mono text-xl font-bold text-[#2563EB] dark:text-[#38BDF8]">{b.scores_20_plus || 0}</span>
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block">{b.pct_20_plus || 0}% inn</span>
+              <div className="p-3 rounded-xl bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38]">
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] uppercase block font-semibold font-mono">20+ Scores</span>
+                <span className="font-mono text-xl font-bold text-[#FF4B35]">{b.scores_20_plus || 0}</span>
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] block">{b.pct_20_plus || 0}% inn</span>
               </div>
-              <div className="p-3 rounded-xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#1E293B]">
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] uppercase block font-semibold">Multi-Wkts (2+)</span>
-                <span className="font-mono text-xl font-bold text-[#101828] dark:text-[#F8FAFC]">{bw.two_plus_wickets || 0}</span>
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block">{bw.multi_wicket_frequency || 0}% sp</span>
+              <div className="p-3 rounded-xl bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38]">
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] uppercase block font-semibold font-mono">Multi-Wkts (2+)</span>
+                <span className="font-mono text-xl font-bold text-[#111318] dark:text-[#F1EBDD]">{bw.two_plus_wickets || 0}</span>
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] block">{bw.multi_wicket_frequency || 0}% sp</span>
               </div>
-              <div className="p-3 rounded-xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#1E293B]">
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] uppercase block font-semibold">Ducks / Not-Outs</span>
-                <span className="font-mono text-xl font-bold text-[#101828] dark:text-[#F8FAFC]">{b.duck_count || 0} / {b.not_outs || 0}</span>
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block">{b.not_out_percentage || 0}% NO</span>
+              <div className="p-3 rounded-xl bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38]">
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] uppercase block font-semibold font-mono">Ducks / Not-Outs</span>
+                <span className="font-mono text-xl font-bold text-[#111318] dark:text-[#F1EBDD]">{b.duck_count || 0} / {b.not_outs || 0}</span>
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] block">{b.not_out_percentage || 0}% NO</span>
               </div>
-              <div className="p-3 rounded-xl bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#1E293B]">
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] uppercase block font-semibold">Explosiveness</span>
-                <span className="font-mono text-xl font-bold text-[#2563EB] dark:text-[#38BDF8]">{b.explosiveness_index || 0}</span>
-                <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block">Index / 100</span>
+              <div className="p-3 rounded-xl bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38]">
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] uppercase block font-semibold font-mono">Explosiveness</span>
+                <span className="font-mono text-xl font-bold text-[#FF4B35]">{b.explosiveness_index || 0}</span>
+                <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] block font-mono">Index / 100</span>
               </div>
             </div>
           </div>
@@ -790,28 +790,28 @@ export default function PlayerProfilePage() {
           {/* Batting & Bowling Deep Dive Grids */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Batting Metrics Card */}
-            <div className="bg-white dark:bg-[#151F32] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-4 text-[#101828] dark:text-[#F8FAFC]">
-              <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#334155] pb-3">
-                <h3 className="font-display text-lg font-bold text-[#101828] dark:text-[#F8FAFC] flex items-center gap-2">
-                  <Flame className="w-4 h-4 text-amber-500" />
+            <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-4 text-[#111318] dark:text-[#F1EBDD]">
+              <div className="flex items-center justify-between border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-3">
+                <h3 className="font-display text-lg font-bold text-[#111318] dark:text-[#F1EBDD] flex items-center gap-2">
+                  <Flame className="w-4 h-4 text-[#FF4B35]" />
                   <span>Batting Performance Analytics</span>
                 </h3>
-                <span className="font-mono text-xs font-bold text-[#2563EB] dark:text-[#38BDF8]">
+                <span className="font-mono text-xs font-bold text-[#FF4B35]">
                   {pi.batting_intelligence_score ? `${pi.batting_intelligence_score.toFixed(1)} / 100` : "N/A"}
                 </span>
               </div>
               <div className="space-y-2.5 text-xs">
-                <div className="flex justify-between py-1 border-b border-slate-100 dark:border-white/5">
-                  <span className="text-[#64748B] dark:text-[#94A3B8]">Batting Average</span>
-                  <span className="font-mono font-bold text-[#101828] dark:text-[#F8FAFC]">{b.average_display || b.batting_average?.toFixed(2)}</span>
+                <div className="flex justify-between py-1 border-b border-[#DDD5C3]/40 dark:border-[#2A2E38]/40">
+                  <span className="text-[#5C584E] dark:text-[#A8A296]">Batting Average</span>
+                  <span className="font-mono font-bold text-[#111318] dark:text-[#F1EBDD]">{b.average_display || b.batting_average?.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-100 dark:border-white/5">
-                  <span className="text-[#64748B] dark:text-[#94A3B8]">Runs Per Innings</span>
-                  <span className="font-mono font-bold text-[#101828] dark:text-[#F8FAFC]">{b.runs_per_innings?.toFixed(2) || "0.00"}</span>
+                <div className="flex justify-between py-1 border-b border-[#DDD5C3]/40 dark:border-[#2A2E38]/40">
+                  <span className="text-[#5C584E] dark:text-[#A8A296]">Runs Per Innings</span>
+                  <span className="font-mono font-bold text-[#111318] dark:text-[#F1EBDD]">{b.runs_per_innings?.toFixed(2) || "0.00"}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-100 dark:border-white/5">
-                  <span className="text-[#64748B] dark:text-[#94A3B8]">Balls Faced</span>
-                  <span className="font-mono font-bold text-[#101828] dark:text-[#F8FAFC]">{b.total_balls} balls</span>
+                <div className="flex justify-between py-1 border-b border-[#DDD5C3]/40 dark:border-[#2A2E38]/40">
+                  <span className="text-[#5C584E] dark:text-[#A8A296]">Balls Faced</span>
+                  <span className="font-mono font-bold text-[#111318] dark:text-[#F1EBDD]">{b.total_balls} balls</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-slate-100 dark:border-white/5">
                   <span className="text-[#64748B] dark:text-[#94A3B8]">Dismissals / Not-Outs</span>
@@ -837,13 +837,13 @@ export default function PlayerProfilePage() {
             </div>
 
             {/* Bowling Metrics Card */}
-            <div className="bg-white dark:bg-[#151F32] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-4 text-[#101828] dark:text-[#F8FAFC]">
-              <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#334155] pb-3">
-                <h3 className="font-display text-lg font-bold text-[#101828] dark:text-[#F8FAFC] flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-[#0891B2] dark:text-[#22D3EE]" />
+            <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-4 text-[#111318] dark:text-[#F1EBDD]">
+              <div className="flex items-center justify-between border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-3">
+                <h3 className="font-display text-lg font-bold text-[#111318] dark:text-[#F1EBDD] flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-emerald-500" />
                   <span>Bowling Performance Analytics</span>
                 </h3>
-                <span className="font-mono text-xs font-bold text-[#2563EB] dark:text-[#38BDF8]">
+                <span className="font-mono text-xs font-bold text-[#FF4B35]">
                   {pi.bowling_intelligence_score ? `${pi.bowling_intelligence_score.toFixed(1)} / 100` : "N/A"}
                 </span>
               </div>
@@ -973,60 +973,60 @@ export default function PlayerProfilePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Batting 1st vs Chasing */}
-            <div className="bg-white dark:bg-[#151F32] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-4 text-[#101828] dark:text-[#F8FAFC]">
-              <h4 className="font-display text-base font-bold text-[#101828] dark:text-[#F8FAFC] border-b border-[#E2E8F0] dark:border-[#334155] pb-3">
+            <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-4 text-[#111318] dark:text-[#F1EBDD]">
+              <h4 className="font-display text-base font-bold text-[#111318] dark:text-[#F1EBDD] border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-3">
                 Batting: Setting Target vs Run Chase
               </h4>
               <div className="grid grid-cols-2 gap-4 text-xs">
-                <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-[#1E293B] space-y-2">
-                  <span className="font-bold text-[#2563EB] dark:text-[#38BDF8] block">Batting 1st (Setting)</span>
-                  <div className="space-y-1.5 text-[#101828] dark:text-[#F8FAFC]">
-                    <div>Runs: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.batting_first?.total_runs || 0}</strong> ({ss.batting_first?.innings || 0} inn)</div>
-                    <div>SR: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.batting_first?.strike_rate?.toFixed(1) || "0.0"}</strong></div>
-                    <div>Avg: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.batting_first?.average_display || "0.00"}</strong></div>
-                    <div>Boundaries: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.batting_first?.fours || 0}x4, {ss.batting_first?.sixes || 0}x6</strong></div>
-                    <div>HS: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.batting_first?.highest_score_display || "0"}</strong></div>
+                <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
+                  <span className="font-bold text-[#FF4B35] block font-mono">Batting 1st (Setting)</span>
+                  <div className="space-y-1.5 text-[#111318] dark:text-[#F1EBDD]">
+                    <div>Runs: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.batting_first?.total_runs || 0}</strong> ({ss.batting_first?.innings || 0} inn)</div>
+                    <div>SR: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.batting_first?.strike_rate?.toFixed(1) || "0.0"}</strong></div>
+                    <div>Avg: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.batting_first?.average_display || "0.00"}</strong></div>
+                    <div>Boundaries: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.batting_first?.fours || 0}x4, {ss.batting_first?.sixes || 0}x6</strong></div>
+                    <div>HS: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.batting_first?.highest_score_display || "0"}</strong></div>
                   </div>
                 </div>
 
-                <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-[#1E293B] space-y-2">
-                  <span className="font-bold text-[#0891B2] dark:text-[#22D3EE] block">Chasing (Innings 2)</span>
-                  <div className="space-y-1.5 text-[#101828] dark:text-[#F8FAFC]">
-                    <div>Runs: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.chasing?.total_runs || 0}</strong> ({ss.chasing?.innings || 0} inn)</div>
-                    <div>SR: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.chasing?.strike_rate?.toFixed(1) || "0.0"}</strong></div>
-                    <div>Avg: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.chasing?.average_display || "0.00"}</strong></div>
-                    <div>Boundaries: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.chasing?.fours || 0}x4, {ss.chasing?.sixes || 0}x6</strong></div>
-                    <div>HS: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.chasing?.highest_score_display || "0"}</strong></div>
+                <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
+                  <span className="font-bold text-[#5C584E] dark:text-[#A8A296] block font-mono">Chasing (Innings 2)</span>
+                  <div className="space-y-1.5 text-[#111318] dark:text-[#F1EBDD]">
+                    <div>Runs: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.chasing?.total_runs || 0}</strong> ({ss.chasing?.innings || 0} inn)</div>
+                    <div>SR: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.chasing?.strike_rate?.toFixed(1) || "0.0"}</strong></div>
+                    <div>Avg: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.chasing?.average_display || "0.00"}</strong></div>
+                    <div>Boundaries: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.chasing?.fours || 0}x4, {ss.chasing?.sixes || 0}x6</strong></div>
+                    <div>HS: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.chasing?.highest_score_display || "0"}</strong></div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Bowling 1st vs Defending */}
-            <div className="bg-white dark:bg-[#151F32] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-4 text-[#101828] dark:text-[#F8FAFC]">
-              <h4 className="font-display text-base font-bold text-[#101828] dark:text-[#F8FAFC] border-b border-[#E2E8F0] dark:border-[#334155] pb-3">
+            <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-4 text-[#111318] dark:text-[#F1EBDD]">
+              <h4 className="font-display text-base font-bold text-[#111318] dark:text-[#F1EBDD] border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-3">
                 Bowling: First Inning vs Defending Total
               </h4>
               <div className="grid grid-cols-2 gap-4 text-xs">
-                <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-[#1E293B] space-y-2">
-                  <span className="font-bold text-[#2563EB] dark:text-[#38BDF8] block">Bowling 1st</span>
-                  <div className="space-y-1.5 text-[#101828] dark:text-[#F8FAFC]">
-                    <div>Overs: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.bowling_first?.overs_display || "0.0"}</strong></div>
-                    <div>Wickets: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.bowling_first?.wickets || 0}</strong></div>
-                    <div>Economy: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.bowling_first?.economy?.toFixed(2) || "0.00"}</strong></div>
-                    <div>Runs: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.bowling_first?.runs_conceded || 0}</strong></div>
-                    <div>Dots: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.bowling_first?.dot_balls || 0} ({ss.bowling_first?.dot_ball_percentage?.toFixed(1) || 0}%)</strong></div>
+                <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
+                  <span className="font-bold text-[#FF4B35] block font-mono">Bowling 1st</span>
+                  <div className="space-y-1.5 text-[#111318] dark:text-[#F1EBDD]">
+                    <div>Overs: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.bowling_first?.overs_display || "0.0"}</strong></div>
+                    <div>Wickets: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.bowling_first?.wickets || 0}</strong></div>
+                    <div>Economy: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.bowling_first?.economy?.toFixed(2) || "0.00"}</strong></div>
+                    <div>Runs: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.bowling_first?.runs_conceded || 0}</strong></div>
+                    <div>Dots: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.bowling_first?.dot_balls || 0} ({ss.bowling_first?.dot_ball_percentage?.toFixed(1) || 0}%)</strong></div>
                   </div>
                 </div>
 
-                <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-4 rounded-xl border border-slate-200 dark:border-[#1E293B] space-y-2">
-                  <span className="font-bold text-[#0891B2] dark:text-[#22D3EE] block">Defending Total</span>
-                  <div className="space-y-1.5 text-[#101828] dark:text-[#F8FAFC]">
-                    <div>Overs: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.defending?.overs_display || "0.0"}</strong></div>
-                    <div>Wickets: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.defending?.wickets || 0}</strong></div>
-                    <div>Economy: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.defending?.economy?.toFixed(2) || "0.00"}</strong></div>
-                    <div>Runs: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.defending?.runs_conceded || 0}</strong></div>
-                    <div>Dots: <strong className="text-[#101828] dark:text-[#F8FAFC]">{ss.defending?.dot_balls || 0} ({ss.defending?.dot_ball_percentage?.toFixed(1) || 0}%)</strong></div>
+                <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
+                  <span className="font-bold text-[#5C584E] dark:text-[#A8A296] block font-mono">Defending Total</span>
+                  <div className="space-y-1.5 text-[#111318] dark:text-[#F1EBDD]">
+                    <div>Overs: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.defending?.overs_display || "0.0"}</strong></div>
+                    <div>Wickets: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.defending?.wickets || 0}</strong></div>
+                    <div>Economy: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.defending?.economy?.toFixed(2) || "0.00"}</strong></div>
+                    <div>Runs: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.defending?.runs_conceded || 0}</strong></div>
+                    <div>Dots: <strong className="text-[#111318] dark:text-[#F1EBDD]">{ss.defending?.dot_balls || 0} ({ss.defending?.dot_ball_percentage?.toFixed(1) || 0}%)</strong></div>
                   </div>
                 </div>
               </div>
@@ -1046,34 +1046,34 @@ export default function PlayerProfilePage() {
               const sBat = sData.batting;
               const sBowl = sData.bowling;
               return (
-                <div key={sKey} className="bg-white dark:bg-[#151F32] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-4 text-[#101828] dark:text-[#F8FAFC]">
-                  <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#334155] pb-3">
-                    <span className="font-display text-xl font-bold text-[#101828] dark:text-[#F8FAFC]">EPL {sKey}</span>
-                    <span className="text-xs font-semibold bg-[#2563EB] text-white px-3 py-0.5 rounded-full">
+                <div key={sKey} className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-4 text-[#111318] dark:text-[#F1EBDD]">
+                  <div className="flex items-center justify-between border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-3">
+                    <span className="font-display text-xl font-bold text-[#111318] dark:text-[#F1EBDD]">EPL {sKey}</span>
+                    <span className="text-xs font-semibold bg-[#FF4B35] text-white px-3 py-0.5 rounded-full font-mono">
                       {sBat.matches || sBowl.matches} matches
                     </span>
                   </div>
                   <div className="space-y-3.5 text-xs">
                     <div>
-                      <div className="font-semibold text-[#2563EB] dark:text-[#38BDF8] mb-1.5 uppercase text-[10px] tracking-wider">Batting Performance</div>
-                      <div className="grid grid-cols-2 gap-2 text-[#64748B] dark:text-[#94A3B8]">
-                        <div>Runs: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBat.total_runs}</strong> ({sBat.innings} inn)</div>
-                        <div>SR: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBat.strike_rate?.toFixed(1)}</strong></div>
-                        <div>Avg: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBat.average_display || sBat.batting_average?.toFixed(1)}</strong></div>
-                        <div>HS: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBat.highest_score_display || sBat.highest_score}</strong></div>
-                        <div>10+ Scores: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBat.scores_10_plus || 0}</strong></div>
-                        <div>Boundaries: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBat.boundary_percentage?.toFixed(1)}%</strong></div>
+                      <div className="font-semibold text-[#FF4B35] mb-1.5 uppercase text-[10px] tracking-wider font-mono">Batting Performance</div>
+                      <div className="grid grid-cols-2 gap-2 text-[#5C584E] dark:text-[#A8A296]">
+                        <div>Runs: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBat.total_runs}</strong> ({sBat.innings} inn)</div>
+                        <div>SR: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBat.strike_rate?.toFixed(1)}</strong></div>
+                        <div>Avg: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBat.average_display || sBat.batting_average?.toFixed(1)}</strong></div>
+                        <div>HS: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBat.highest_score_display || sBat.highest_score}</strong></div>
+                        <div>10+ Scores: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBat.scores_10_plus || 0}</strong></div>
+                        <div>Boundaries: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBat.boundary_percentage?.toFixed(1)}%</strong></div>
                       </div>
                     </div>
-                    <div className="pt-3 border-t border-[#E2E8F0] dark:border-[#334155]">
-                      <div className="font-semibold text-[#0891B2] dark:text-[#22D3EE] mb-1.5 uppercase text-[10px] tracking-wider">Bowling Performance</div>
-                      <div className="grid grid-cols-2 gap-2 text-[#64748B] dark:text-[#94A3B8]">
-                        <div>Wickets: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBowl.wickets}</strong> ({sBowl.overs_display || sBowl.overs} ov)</div>
-                        <div>Economy: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBowl.legal_balls > 0 ? sBowl.economy?.toFixed(2) : "—"}</strong></div>
-                        <div>Runs C: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBowl.runs_conceded}</strong></div>
-                        <div>Dots: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBowl.dot_balls}</strong></div>
-                        <div>Best: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBowl.best_figures || "—"}</strong></div>
-                        <div>Multi-Wkts: <strong className="text-[#101828] dark:text-[#F8FAFC]">{sBowl.two_plus_wickets || 0}</strong></div>
+                    <div className="pt-3 border-t border-[#DDD5C3] dark:border-[#2A2E38]">
+                      <div className="font-semibold text-[#5C584E] dark:text-[#A8A296] mb-1.5 uppercase text-[10px] tracking-wider font-mono">Bowling Performance</div>
+                      <div className="grid grid-cols-2 gap-2 text-[#5C584E] dark:text-[#A8A296]">
+                        <div>Wickets: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBowl.wickets}</strong> ({sBowl.overs_display || sBowl.overs} ov)</div>
+                        <div>Economy: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBowl.legal_balls > 0 ? sBowl.economy?.toFixed(2) : "—"}</strong></div>
+                        <div>Runs C: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBowl.runs_conceded}</strong></div>
+                        <div>Dots: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBowl.dot_balls}</strong></div>
+                        <div>Best: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBowl.best_figures || "—"}</strong></div>
+                        <div>Multi-Wkts: <strong className="text-[#111318] dark:text-[#F1EBDD]">{sBowl.two_plus_wickets || 0}</strong></div>
                       </div>
                     </div>
                   </div>
@@ -1090,20 +1090,20 @@ export default function PlayerProfilePage() {
       {activeTab === "matches" && (
         <div className="space-y-4">
           {/* Season Filter Bar */}
-          <div className="flex items-center justify-between flex-wrap gap-3 bg-white dark:bg-[#151F32] p-4 rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-sm">
-            <div className="text-xs text-[#64748B] dark:text-[#94A3B8]">
-              Showing <strong className="text-[#101828] dark:text-[#F8FAFC]">{filteredMatches.length}</strong> of {profile.match_history?.length || 0} regulation innings
+          <div className="flex items-center justify-between flex-wrap gap-3 bg-[#FAF7F0] dark:bg-[#181A20] p-4 rounded-2xl border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm">
+            <div className="text-xs text-[#5C584E] dark:text-[#A8A296]">
+              Showing <strong className="text-[#111318] dark:text-[#F1EBDD]">{filteredMatches.length}</strong> of {profile.match_history?.length || 0} regulation innings
             </div>
             <div className="flex items-center gap-1.5 text-xs font-semibold">
-              <span className="text-[#64748B] dark:text-[#94A3B8] mr-1">Filter Season:</span>
+              <span className="text-[#5C584E] dark:text-[#A8A296] mr-1">Filter Season:</span>
               {["ALL", "2023", "2024", "2025"].map((yr) => (
                 <button
                   key={yr}
                   onClick={() => setMatchSeasonFilter(yr)}
                   className={`px-3 py-1 rounded-lg transition ${
                     matchSeasonFilter === yr
-                      ? "bg-[#2563EB] text-white"
-                      : "bg-slate-100 dark:bg-white/5 text-[#64748B] dark:text-[#94A3B8] hover:bg-slate-200"
+                      ? "bg-[#FF4B35] text-white"
+                      : "bg-[#F1EBDD] dark:bg-[#111318] text-[#5C584E] dark:text-[#A8A296] hover:border-[#FF4B35]"
                   }`}
                 >
                   {yr === "ALL" ? "All Seasons" : yr}
@@ -1116,7 +1116,7 @@ export default function PlayerProfilePage() {
             tabIndex={0}
             role="region"
             aria-label="Player Match History Log"
-            className="table-wrapper bg-white dark:bg-[#151F32] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-sm overflow-x-auto text-[#101828] dark:text-[#F8FAFC]"
+            className="table-wrapper bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm overflow-x-auto text-[#111318] dark:text-[#F1EBDD]"
           >
             <table className="w-full text-left text-xs table-editorial">
               <thead>
@@ -1147,32 +1147,32 @@ export default function PlayerProfilePage() {
                     >
                       <td className="p-3.5 font-medium">
                         <span className="font-bold text-[#101828] dark:text-[#F8FAFC]">EPL {m.season}</span>
-                        <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block">{m.stage}</span>
+                        <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] block">{m.stage}</span>
                       </td>
-                      <td className="p-3.5 font-semibold text-[#101828] dark:text-[#F8FAFC]">{m.opponent}</td>
+                      <td className="p-3.5 font-semibold text-[#111318] dark:text-[#F1EBDD]">{m.opponent}</td>
                       <td className="p-3.5">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-blue-500/10 border border-blue-500/20 text-[#2563EB] dark:text-[#38BDF8] font-semibold">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-[#FF4B35]/10 border border-[#FF4B35]/20 text-[#FF4B35] font-semibold">
                           {hasBat && hasBowl ? "Bat & Bowl" : hasBat ? "Batting" : hasBowl ? "Bowling" : "—"}
                         </span>
                       </td>
-                      <td className="p-3.5 font-mono font-bold text-[#101828] dark:text-[#F8FAFC]">
+                      <td className="p-3.5 font-mono font-bold text-[#111318] dark:text-[#F1EBDD]">
                         {hasBat ? (
-                          <span className={isHighBat ? "text-[#2563EB] dark:text-[#38BDF8] flex items-center gap-1" : ""}>
+                          <span className={isHighBat ? "text-[#FF4B35] flex items-center gap-1" : ""}>
                             {m.batting.runs}{m.batting.is_not_out ? "*" : ""} ({m.batting.balls}b)
-                            {isHighBat && <span className="text-[9px] bg-blue-500 text-white px-1.5 py-0.2 rounded font-sans">20+</span>}
+                            {isHighBat && <span className="text-[9px] bg-[#FF4B35] text-white px-1.5 py-0.2 rounded font-sans">20+</span>}
                           </span>
                         ) : "—"}
                       </td>
-                      <td className="p-3.5 font-mono text-[#64748B] dark:text-[#94A3B8]">
+                      <td className="p-3.5 font-mono text-[#5C584E] dark:text-[#A8A296]">
                         {hasBat && m.batting.strike_rate ? m.batting.strike_rate.toFixed(1) : "—"}
                       </td>
-                      <td className="p-3.5 text-[#64748B] dark:text-[#94A3B8]">
+                      <td className="p-3.5 text-[#5C584E] dark:text-[#A8A296]">
                         {hasBat ? (m.batting.dismissal || "not out") : "—"}
                       </td>
-                      <td className="p-3.5 font-mono text-[#101828] dark:text-[#F8FAFC]">
+                      <td className="p-3.5 font-mono text-[#111318] dark:text-[#F1EBDD]">
                         {hasBowl ? `${m.bowling.overs} ov` : "—"}
                       </td>
-                      <td className="p-3.5 font-mono font-bold text-[#2563EB] dark:text-[#38BDF8]">
+                      <td className="p-3.5 font-mono font-bold text-[#FF4B35]">
                         {hasBowl ? (
                           <span className={isHighBowl ? "text-emerald-500 flex items-center gap-1" : ""}>
                             {m.bowling.wickets}/{m.bowling.runs_conceded}
@@ -1196,49 +1196,49 @@ export default function PlayerProfilePage() {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Valuation Card */}
-            <div className="bg-white dark:bg-[#151F32] text-[#101828] dark:text-[#F8FAFC] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] space-y-4 shadow-sm">
-              <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#334155] pb-3">
-                <span className="text-xs uppercase font-bold text-[#2563EB] dark:text-[#38BDF8] tracking-wider flex items-center gap-1.5">
+            <div className="bg-[#FAF7F0] dark:bg-[#181A20] text-[#111318] dark:text-[#F1EBDD] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-4 shadow-sm">
+              <div className="flex items-center justify-between border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-3">
+                <span className="text-xs uppercase font-bold text-[#FF4B35] tracking-wider flex items-center gap-1.5 font-mono">
                   <DollarSign className="w-3.5 h-3.5" />
                   <span>Auction Economics &amp; Purse Strategy</span>
                 </span>
-                <span className="text-xs font-semibold bg-[#2563EB] text-white px-3 py-0.5 rounded-full">
+                <span className="text-xs font-semibold bg-[#FF4B35] text-white px-3 py-0.5 rounded-full">
                   {v.category}
                 </span>
               </div>
 
               <div className="space-y-3">
                 <div>
-                  <span className="text-xs text-[#64748B] dark:text-[#94A3B8] block">Projected Bidding Valuation</span>
-                  <div className="font-mono text-3xl font-black text-[#2563EB] dark:text-[#38BDF8] mt-1">
-                    ₹{v.estimated_valuation?.toFixed(1)} <span className="text-sm font-normal text-[#64748B] dark:text-[#94A3B8]">Lakhs</span>
+                  <span className="text-xs text-[#5C584E] dark:text-[#A8A296] block">Projected Bidding Valuation</span>
+                  <div className="font-mono text-3xl font-black text-[#FF4B35] mt-1">
+                    ₹{v.estimated_valuation?.toFixed(1)} <span className="text-sm font-normal text-[#5C584E] dark:text-[#A8A296]">Lakhs</span>
                   </div>
-                  <div className="text-xs text-[#64748B] dark:text-[#94A3B8] mt-0.5">
-                    Target Bidding Range: <strong className="text-[#101828] dark:text-[#F8FAFC]">{v.valuation_range}</strong> (Base: ₹{v.base_price?.toFixed(1)}L)
+                  <div className="text-xs text-[#5C584E] dark:text-[#A8A296] mt-0.5">
+                    Target Bidding Range: <strong className="text-[#111318] dark:text-[#F1EBDD]">{v.valuation_range}</strong> (Base: ₹{v.base_price?.toFixed(1)}L)
                   </div>
                 </div>
 
-                <div className="text-xs text-[#64748B] dark:text-[#94A3B8] space-y-2 pt-3 border-t border-[#E2E8F0] dark:border-[#334155]">
+                <div className="text-xs text-[#5C584E] dark:text-[#A8A296] space-y-2 pt-3 border-t border-[#DDD5C3] dark:border-[#2A2E38]">
                   <div className="flex justify-between">
-                    <span className="text-[#64748B] dark:text-[#94A3B8]">Scarcity Multiplier</span>
-                    <strong className="text-[#101828] dark:text-[#F8FAFC] font-mono">{v.scarcity_multiplier}x</strong>
+                    <span className="text-[#5C584E] dark:text-[#A8A296]">Scarcity Multiplier</span>
+                    <strong className="text-[#111318] dark:text-[#F1EBDD] font-mono">{v.scarcity_multiplier}x</strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#64748B] dark:text-[#94A3B8]">Knockout Playoff Premium</span>
-                    <strong className="text-[#101828] dark:text-[#F8FAFC] font-mono">+{v.knockout_premium} pts</strong>
+                    <span className="text-[#5C584E] dark:text-[#A8A296]">Knockout Playoff Premium</span>
+                    <strong className="text-[#111318] dark:text-[#F1EBDD] font-mono">+{v.knockout_premium} pts</strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#64748B] dark:text-[#94A3B8]">Valuation Confidence</span>
-                    <strong className="text-[#2563EB] dark:text-[#38BDF8]">{v.valuation_confidence}</strong>
+                    <span className="text-[#5C584E] dark:text-[#A8A296]">Valuation Confidence</span>
+                    <strong className="text-[#FF4B35]">{v.valuation_confidence}</strong>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Strengths & Tactical Considerations */}
-            <div className="bg-white dark:bg-[#151F32] text-[#101828] dark:text-[#F8FAFC] rounded-2xl p-6 border border-[#E2E8F0] dark:border-[#334155] space-y-4 shadow-sm">
-              <h3 className="font-display text-lg font-bold text-[#101828] dark:text-[#F8FAFC] flex items-center gap-2">
-                <Target className="w-4 h-4 text-[#2563EB] dark:text-[#38BDF8]" />
+            <div className="bg-[#FAF7F0] dark:bg-[#181A20] text-[#111318] dark:text-[#F1EBDD] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-4 shadow-sm">
+              <h3 className="font-display text-lg font-bold text-[#111318] dark:text-[#F1EBDD] flex items-center gap-2">
+                <Target className="w-4 h-4 text-[#FF4B35]" />
                 <span>Scouting Strengths &amp; Considerations</span>
               </h3>
 
@@ -1248,19 +1248,19 @@ export default function PlayerProfilePage() {
                     <CheckCircle2 className="w-4 h-4" />
                     <span>Verified Core Strengths</span>
                   </span>
-                  <ul className="list-disc list-inside space-y-1.5 text-[#64748B] dark:text-[#94A3B8] pl-1">
+                  <ul className="list-disc list-inside space-y-1.5 text-[#5C584E] dark:text-[#A8A296] pl-1">
                     {v.strengths?.map((str: string, i: number) => (
                       <li key={i}>{str}</li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="pt-3 border-t border-[#E2E8F0] dark:border-[#334155]">
+                <div className="pt-3 border-t border-[#DDD5C3] dark:border-[#2A2E38]">
                   <span className="font-semibold text-amber-600 dark:text-amber-400 flex items-center space-x-1.5 mb-2">
                     <AlertCircle className="w-4 h-4" />
                     <span>Tactical Considerations</span>
                   </span>
-                  <ul className="list-disc list-inside space-y-1.5 text-[#64748B] dark:text-[#94A3B8] pl-1">
+                  <ul className="list-disc list-inside space-y-1.5 text-[#5C584E] dark:text-[#A8A296] pl-1">
                     {v.weaknesses?.map((w: string, i: number) => (
                       <li key={i}>{w}</li>
                     ))}
@@ -1273,31 +1273,31 @@ export default function PlayerProfilePage() {
           {/* Similar Players / Auction Alternatives */}
           {profile.similar_players && profile.similar_players.length > 0 && (
             <div className="space-y-4 pt-4">
-              <div className="border-b border-[#E2E8F0] dark:border-[#334155] pb-2">
-                <h3 className="font-display text-xl font-bold text-[#101828] dark:text-[#F8FAFC]">
+              <div className="border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-2">
+                <h3 className="font-display text-xl font-bold text-[#111318] dark:text-[#F1EBDD]">
                   Auction Bidding Substitutes (Similar Profiles)
                 </h3>
-                <p className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+                <p className="text-xs text-[#5C584E] dark:text-[#A8A296]">
                   If bidding for {profile.name} exceeds purse threshold, these statistical alternatives provide comparable production profiles.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {profile.similar_players.map((sp: any) => (
-                  <div key={sp.player_id} className="bg-white dark:bg-[#151F32] rounded-2xl p-4 border border-[#E2E8F0] dark:border-[#334155] space-y-2.5 shadow-sm text-[#101828] dark:text-[#F8FAFC]">
+                  <div key={sp.player_id} className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-4 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2.5 shadow-sm text-[#111318] dark:text-[#F1EBDD]">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-sm text-[#101828] dark:text-[#F8FAFC]">{sp.player_name}</span>
+                      <span className="font-bold text-sm text-[#111318] dark:text-[#F1EBDD]">{sp.player_name}</span>
                       <RatingBadge score={sp.overall_rating} size="sm" />
                     </div>
-                    <div className="text-xs text-[#2563EB] dark:text-[#38BDF8] font-bold">
+                    <div className="text-xs text-[#FF4B35] font-bold font-mono">
                       {sp.similarity_score}% Statistical Match
                     </div>
-                    <p className="text-[11px] text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+                    <p className="text-[11px] text-[#5C584E] dark:text-[#A8A296] leading-relaxed">
                       {sp.key_differences.join("; ")}
                     </p>
                     <Link
                       href={`/players/${sp.player_id}`}
-                      className="block text-center text-xs font-semibold text-[#101828] dark:text-[#F8FAFC] bg-[#F8FAFC] dark:bg-[#0B1120] hover:bg-blue-50 dark:hover:bg-blue-900/20 py-2 rounded-xl border border-[#E2E8F0] dark:border-[#334155] transition"
+                      className="block text-center text-xs font-semibold text-[#111318] dark:text-[#F1EBDD] bg-[#F1EBDD] dark:bg-[#111318] hover:border-[#FF4B35] py-2 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] transition"
                     >
                       Compare Dossier →
                     </Link>

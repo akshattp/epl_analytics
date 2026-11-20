@@ -7,17 +7,17 @@ interface RatingBadgeProps {
 }
 
 export function RatingBadge({ score, label, size = "md" }: RatingBadgeProps) {
-  let tierColor = "bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700";
+  let tierColor = "bg-[#E8E1D1]/60 dark:bg-[#181A20] text-[#5C584E] dark:text-[#A8A295] border-[#DDD5C3] dark:border-[#2A2E38]";
   let tierLabel = "Specialist";
 
   if (score >= 75) {
-    tierColor = "bg-[#2563EB] dark:bg-[#3B82F6] text-white border-blue-600 dark:border-blue-400 font-bold shadow-sm";
+    tierColor = "bg-[#FF4B35] text-white border-[#E03E29] font-bold shadow-md shadow-[#FF4B35]/20";
     tierLabel = "Elite / Marquee";
   } else if (score >= 58) {
-    tierColor = "bg-cyan-50 dark:bg-cyan-950/70 text-cyan-800 dark:text-cyan-300 border-cyan-200 dark:border-cyan-700 font-semibold";
+    tierColor = "bg-[#181A20] text-[#F1EBDD] dark:bg-[#FAF7F0] dark:text-[#111318] border-[#2A2E38] dark:border-[#DDD5C3] font-semibold";
     tierLabel = "High Impact";
   } else if (score >= 42) {
-    tierColor = "bg-slate-100 dark:bg-[#1E293B] text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700 font-medium";
+    tierColor = "bg-[#FAF7F0] dark:bg-[#22252D] text-[#111318] dark:text-[#F1EBDD] border-[#DDD5C3] dark:border-[#2A2E38] font-medium";
     tierLabel = "Solid Core";
   }
 
@@ -33,7 +33,7 @@ export function RatingBadge({ score, label, size = "md" }: RatingBadgeProps) {
         {score.toFixed(1)}
       </span>
       {label && (
-        <span className="text-xs text-[#64748B] dark:text-[#94A3B8] font-medium">
+        <span className="text-xs text-[#5C584E] dark:text-[#A8A295] font-medium">
           {label}
         </span>
       )}

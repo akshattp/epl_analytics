@@ -10,7 +10,7 @@
 
 | Release ID | SemVer Tag | Codename | Date | Author / Lead | Verification Gate |
 | :--- | :--- | :--- | :---: | :--- | :--- |
-| **REL-009** | `2.0.1-dev` | Creative Overhaul & Documentation Governance | 2026-11-19 | Principal Architect & Lead Designer | 69 Backend Tests, Next.js Build 21 Routes, Screenshot Suite |
+| **REL-009** | `2.0.1-dev` | Luxury Creative Direction & 3D WebGL Transformation | 2026-11-19 | Creative Director, Principal UI/UX Architect & Lead Engineer | 72 Backend Tests (100%), Next.js Build 21/21 Routes, 10 Viewport Screenshot Suite |
 | **REL-008** | `2.0.0` | Signature Design Experience | 2026-11-19 | Creative Director & Frontend Lead | 69 Backend Tests, 21 Routes, 6 Viewport Screenshots |
 | **REL-007** | `1.5.0` | Global Dual-Theme Redesign | 2026-11-19 | Frontend Architect | 55 Backend Tests, 19 Compiled Routes |
 | **REL-006** | `1.4.0` | Premium Dark UI Modernization | 2026-11-19 | Senior Product Designer | 55 Backend Tests, Route Health Checks |

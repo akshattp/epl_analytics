@@ -7,32 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [2.0.1-dev] - 2026-11-19 (Landing Page Reconstruction & Scroll-Driven Parallel Motion)
-
-### Fixed
-- **Hero Vertical Whitespace Defect (B2)**: Eliminated massive top gap pushing the headline down (`y: 391px`). Resolved container margin collapse and `min-h-[85vh]` flex spacing. Playwright visual test confirms headline now begins at `y: 159px` (tightly integrated at the top fold).
-- **Hero Orphaned Loader Defect (B1)**: Removed solitary blue pulsing dot `<span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse">` that appeared as an unresolved loader above the headline. Replaced with structured static badge with `<Sparkles />` icon.
-- **Landing Page Runs & Wickets Zero Bug**: Fixed critical data binding bug in `frontend/src/app/page.tsx` and `backend/services/player_service.py` where featured player cards displayed `0` for Career Runs and Wickets. Enriched `get_all_players_summary` to provide both flat properties (`total_runs`, `wickets`) and nested objects (`career_batting`, `career_bowling`). Added fallback coalition (`p.total_runs ?? p.career_batting?.total_runs ?? 0`).
-- **Statistical Reconciliation**: Verified that all 73 canonical players have reconciled statistics between `/api/players`, `/api/players/{id}`, the directory, and the landing page.
+## [2.0.1-dev] - 2026-11-19 (Luxury Creative Direction, 3D WebGL Cricket Scene & Website-Wide Visual Transformation)
 
 ### Added
+- **Bold Luxury Colour Identity**: Replaced generic blue/purple AI palettes with Obsidian (`#111318`), Warm Ivory (`#F1EBDD`), and Electric Vermilion (`#FF4B35`). Light and dark themes art-directed as two distinct editorial experiences.
+- **Blender-Level 3D WebGL Cricket Scene (`Cricket3DScene.tsx`)**: Embedded Three.js (v187) 3D cricket match ball into the hero with procedural leather pores bump map, physically raised warm ivory seam (Torus geometry), 72 criss-cross cotton thread stitches, 3-point stadium lighting rig, cursor tracking with spring lerping, scroll scrubbing, and orbital motes.
+- **Redesigned Brand Identity & Top Navigation (`EplBrandLogo.tsx` & `Navbar.tsx`)**: Geometric architectural cricket crest with interlocking wickets and vermilion trajectory arc; dynamic scroll-responsive compacting (`h-16` -> `h-14`), luxury pills with vermilion active dot indicators, and live auction CTA.
+- **Website-Wide Luxury System Extension**: Fully extended the luxury obsidian, warm ivory, and electric vermilion design system across all 21 routes (`/players`, `/players/[id]`, `/dashboard`, `/teams`, `/comparison`, `/auction`).
 - **Asymmetric Hero Architecture (B3)**: Reconstructed hero into a 12-column asymmetric grid:
-  - **Left (7 cols)**: Editorial typography, Space Grotesk headline, format description, and 3 high-contrast action CTAs (Launch Terminal, Live Auction Room, Explore 73 Athlete Dossiers).
-  - **Right (5 cols)**: High-impact dark glass Cricket Telemetry HUD displaying verified tournament records: 62/2 (Highest Innings Total, Exotica Warriors), Sagar Kapadia 138 Runs (All-Time Leader, 17 boundaries), Smeet Shah 3.57 Econ (Benchmark Restrictive Spell), and atomic concurrency telemetry.
-- **GSAP Opposing-Direction Parallel Motion (`ParallelScrollColumns.tsx`)**: Implemented 3 independent vertical columns moving at distinct velocities tied to scroll progress via GSAP `ScrollTrigger` and `scrub: 1.2`:
-  - Column 1: Ascends upward (`y: -140px`).
-  - Column 2: Moves in opposite direction downward (`y: +120px`).
-  - Column 3: Ascends at faster velocity (`y: -200px`).
-- **GSAP Pinned Horizontal Scrolling Dossiers (`HorizontalScrollDossiers.tsx`)**: Vertical scroll drives smooth horizontal scrubbing across verified athlete cards with dynamic `scrollWidth` calculation, `gsap.context()` cleanup, and natural touch swiping fallback on mobile.
-- **Asymmetric Competition Architecture**: Completely eliminated generic 3-box layouts, replacing Section 01 with an asymmetric split-screen showcasing 6-over high-leverage geometry, 36-ball dynamics, and an interactive 6-franchise team telemetry matrix.
-- **Asymmetric Section Storytelling**: Redesigned all repetitive card sections with bespoke layouts (Batting Velocity Engine with 10+, 15+, 20+ milestone distribution + Bowling Dot-Ball Suppression).
-- **Responsive Verification Across 6 Viewports**: Automated Playwright test captures screenshots across 1440px, 1280px, 1024px, 768px, 390px, and 375px.
-- **Automated Documentation Governance**: Created `scripts/verify_documentation_governance.py` and instituted mandatory change-tracking rules.
-- **Automated Regression Suite**: Added `tests/test_v2_0_1_governance_and_fixes.py` verifying non-zero runs/wickets, version governance, and 72/72 passing backend tests.
+  - **Left (7 cols)**: Editorial typography, Space Grotesk headline, format description, and 3 high-contrast action CTAs.
+  - **Right (5 cols)**: 3D WebGL cricket match ball layered with real-time record telemetry cards (62/2 score, Sagar Kapadia 138 runs, Smeet Shah 3.57 econ).
+- **GSAP Opposing-Direction Parallel Motion (`ParallelScrollColumns.tsx`)**: 3 independent vertical columns moving at distinct velocities tied to scroll progress via GSAP `ScrollTrigger` and `scrub: 1.2` (`y: -140px`, `y: +120px`, `y: -200px`).
+- **GSAP Pinned Horizontal Scrolling Dossiers (`HorizontalScrollDossiers.tsx`)**: Vertical scroll drives smooth horizontal scrubbing across verified athlete cards with dynamic `scrollWidth` calculation and `gsap.context()` cleanup.
+- **Automated Documentation Governance & Regression**: Created `scripts/verify_documentation_governance.py` and `tests/test_v2_0_1_governance_and_fixes.py` (72/72 backend tests passing, 21/21 routes compiling).
 
-### Changed
-- **Athlete Dossiers (`/players/[id]`)**: Deepened role-adaptive prominence (batting-first, bowling-first, dual-impact) and interactive match timeline filtering.
-- **Brand Consistency**: Reinforced custom vector crest (`EplBrandLogo.tsx`) and polished 3D page-curl theme transition.
+### Fixed
+- **Hero Vertical Whitespace Defect (B2)**: Eliminated massive top gap pushing the headline down (`y: 391px`). Verified via Playwright automation: H1 begins at `y: 167px` (tightly integrated at top fold).
+- **Hero Orphaned Loader Defect (B1)**: Removed solitary blue pulsing dot that appeared as an unresolved loader above the headline. Replaced with structured static badge with `<Sparkles />` icon.
+- **Landing Page Runs & Wickets Zero Bug**: Fixed data binding bug in `frontend/src/app/page.tsx` and `backend/services/player_service.py` where featured player cards displayed `0` for Career Runs and Wickets. Enriched `get_all_players_summary` to provide both flat and nested properties with fallback coalition.
+- **Statistical Reconciliation**: Verified all 73 canonical players have reconciled statistics across directory, detail pages, and landing page.
 
 ---
 

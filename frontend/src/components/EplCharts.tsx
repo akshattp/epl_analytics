@@ -14,19 +14,24 @@ import {
 import { useTheme } from "@/lib/theme";
 
 export const EPL_PALETTE = {
-  blue: "#2563EB",
-  electricBlue: "#3B82F6",
-  cyan: "#22D3EE",
-  cyanDark: "#0891B2",
-  midnight: "#101828",
-  deepInk: "#172554",
-  slate: "#64748B",
-  slateLight: "#94A3B8",
-  // Backward compatibility keys mapped to new brand palette
-  peach: "#3B82F6",
-  terracotta: "#0891B2",
-  navy: "#172554",
-  beige: "#22D3EE",
+  blue: "#FF4B35", // Electric Vermilion accent
+  electricBlue: "#FF4B35",
+  vermilion: "#FF4B35",
+  vermilionDark: "#E03E29",
+  cyan: "#E8E1D1",
+  cyanDark: "#5C584E",
+  midnight: "#111318",
+  deepInk: "#181A20",
+  obsidian: "#111318",
+  ivory: "#F1EBDD",
+  ivoryLight: "#FAF7F0",
+  slate: "#5C584E",
+  slateLight: "#A8A296",
+  // Backward compatibility keys mapped to new luxury palette
+  peach: "#FF4B35",
+  terracotta: "#E03E29",
+  navy: "#111318",
+  beige: "#F1EBDD",
 };
 
 interface ChartCardProps {
@@ -49,16 +54,16 @@ export function ChartCard({
   children,
 }: ChartCardProps) {
   return (
-    <div className="bg-white dark:bg-[#151F32] rounded-xl border border-[#E2E8F0] dark:border-[#334155] shadow-sm hover:shadow-md transition-all duration-200 p-5 flex flex-col justify-between print-avoid-break text-[#101828] dark:text-[#F8FAFC]">
-      <div className="mb-3 border-b border-[#E2E8F0] dark:border-[#334155] pb-2.5">
-        <h3 className="font-display text-base font-bold text-[#101828] dark:text-[#F8FAFC] tracking-tight">{title}</h3>
-        <p className="text-[11px] text-[#64748B] dark:text-[#94A3B8] mt-0.5">{definition}</p>
+    <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm hover:shadow-md transition-all duration-200 p-5 flex flex-col justify-between print-avoid-break text-[#111318] dark:text-[#F1EBDD]">
+      <div className="mb-3 border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-2.5">
+        <h3 className="font-display text-base font-bold text-[#111318] dark:text-[#F1EBDD] tracking-tight">{title}</h3>
+        <p className="text-[11px] text-[#5C584E] dark:text-[#A8A296] mt-0.5">{definition}</p>
       </div>
 
       {empty ? (
         <div
           style={{ height }}
-          className="flex items-center justify-center bg-[#F8FAFC] dark:bg-[#0B1120] rounded-lg border border-dashed border-[#E2E8F0] dark:border-[#334155] text-xs text-[#64748B] dark:text-[#94A3B8] italic px-4 text-center"
+          className="flex items-center justify-center bg-[#F1EBDD] dark:bg-[#111318] rounded-lg border border-dashed border-[#DDD5C3] dark:border-[#2A2E38] text-xs text-[#5C584E] dark:text-[#A8A296] italic px-4 text-center"
         >
           {emptyText}
         </div>
@@ -67,8 +72,8 @@ export function ChartCard({
       )}
 
       {interpretation && (
-        <div className="mt-3 pt-2.5 border-t border-[#E2E8F0] dark:border-[#334155] text-[11px] text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
-          <span className="font-semibold text-[#2563EB] dark:text-[#38BDF8] uppercase tracking-wider text-[10px] mr-1.5">
+        <div className="mt-3 pt-2.5 border-t border-[#DDD5C3] dark:border-[#2A2E38] text-[11px] text-[#5C584E] dark:text-[#A8A296] leading-relaxed">
+          <span className="font-semibold text-[#FF4B35] uppercase tracking-wider text-[10px] mr-1.5 font-mono">
             Interpretation:
           </span>
           {interpretation}
@@ -85,20 +90,20 @@ function useChartTheme() {
   return {
     isDark,
     tooltipStyle: {
-      backgroundColor: isDark ? "#1E293B" : "#FFFFFF",
-      border: isDark ? "1px solid #334155" : "1px solid #E2E8F0",
+      backgroundColor: isDark ? "#181A20" : "#FAF7F0",
+      border: isDark ? "1px solid #2A2E38" : "1px solid #DDD5C3",
       borderRadius: "8px",
-      color: isDark ? "#F8FAFC" : "#101828",
+      color: isDark ? "#F1EBDD" : "#111318",
       fontSize: "11px",
       padding: "8px 12px",
       boxShadow: isDark ? "0 6px 16px rgba(0, 0, 0, 0.45)" : "0 4px 12px rgba(0, 0, 0, 0.08)",
     },
-    gridStroke: isDark ? "rgba(51, 65, 85, 0.45)" : "rgba(226, 232, 240, 0.8)",
-    axisColor: isDark ? "#94A3B8" : "#64748B",
-    primarySeries: isDark ? "#38BDF8" : "#2563EB",
-    secondarySeries: isDark ? "#22D3EE" : "#0891B2",
-    accentSeries: isDark ? "#818CF8" : "#4F46E5",
-    legendColor: isDark ? "#F8FAFC" : "#101828",
+    gridStroke: isDark ? "rgba(42, 46, 56, 0.6)" : "rgba(221, 213, 195, 0.8)",
+    axisColor: isDark ? "#A8A296" : "#5C584E",
+    primarySeries: "#FF4B35",
+    secondarySeries: isDark ? "#DDD5C3" : "#5C584E",
+    accentSeries: isDark ? "#FAF7F0" : "#111318",
+    legendColor: isDark ? "#F1EBDD" : "#111318",
   };
 }
 

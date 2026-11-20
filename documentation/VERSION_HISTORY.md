@@ -11,7 +11,7 @@
 
 | Version | Status | Release Date | Provenance & Documentation Evidence | Key Focus Area |
 | :--- | :--- | :---: | :--- | :--- |
-| **`2.0.1-dev`** | Active Dev | 2026-11-19 | Active development sprint | Landing page 0 runs/wickets fix, parallel scrolling reconstruction, documentation governance. |
+| **`2.0.1-dev`** | Active Dev | 2026-11-19 | Active development sprint | Luxury Obsidian-Ivory-Vermilion palette, Three.js 3D WebGL cricket match ball, website-wide visual transformation, parallel motion, and permanent documentation governance. |
 | **`2.0.0`** | Released | 2026-11-19 | Confirmed (Git commit `ab69371`, `epl_v2_*.md`) | Custom brand mark, 3D page curl transition, magnetic cursor, athlete dossier profile. |
 | **`1.5.0`** | Released | 2026-11-19 | Reconstructed from Git history (commit `6e434ef`) | Dual-theme system (Light/Dark), Space Grotesk typography, electric blue & cyan palette. |
 | **`1.4.0`** | Released | 2026-11-19 | Reconstructed from Git history (commit `c2a0b9a`) | Dark sports intelligence modernization across all 19 application routes. |
@@ -45,7 +45,9 @@ Between v1.3.0 and v2.0.0, the platform underwent significant front-end aestheti
 ## 3. Current Sprint: v2.0.1-dev
 
 * *Focus*:
-  1. Fix the critical bug causing player runs and wickets to display as zero on the landing page and dossiers.
-  2. Completely reconstruct the landing page with parallel scrolling and multi-layer parallax, eliminating generic AI-generated 3-box sections.
-  3. Introduce an asymmetric competition architecture section representing the six franchise teams and 6-over geometry.
-  4. Implement permanent automated documentation governance.
+  1. **Bold Luxury Colour Identity**: Transformed visual language around Obsidian (`#111318`), Warm Ivory (`#F1EBDD`), and Electric Vermilion (`#FF4B35`), art-directing light and dark themes as two distinct editorial experiences.
+  2. **Blender-Level 3D WebGL Cricket Scene (`Cricket3DScene.tsx`)**: Created interactive Three.js 3D cricket match ball with procedural leather pores bump map, physically raised seam with 72 stitches, 3-point stadium lighting rig, and cursor tracking.
+  3. **Website-Wide Luxury Transformation**: Extended the new palette, typography, hairline borders, and glassmorphism across `/players`, `/players/[id]`, `/dashboard`, `/teams`, `/comparison`, and `/auction`.
+  4. **Landing Page Reconstruction & Parallel Motion**: 12-column asymmetric hero, GSAP opposing parallel columns, pinned horizontal dossiers, and resolution of Defect B2 (H1 vertical position verified at `y = 167px`).
+  5. **Bug Resolution**: Fixed 0 runs/wickets data binding glitch on landing page and dossiers with unified schema enrichment and fallback coalition.
+  6. **Permanent Documentation Governance**: Created automated verification script enforcing documented change tracking across all 7 registers.

@@ -92,8 +92,8 @@ function PageCurlOverlay({ targetTheme }: { targetTheme: Theme }) {
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         className={`absolute inset-0 ${
           isTargetLight
-            ? "bg-[#F8FAFC]"
-            : "bg-[#0B1120]"
+            ? "bg-[#F1EBDD]"
+            : "bg-[#111318]"
         }`}
       />
 
@@ -124,17 +124,17 @@ function PageCurlOverlay({ targetTheme }: { targetTheme: Theme }) {
           transformStyle: "preserve-3d",
         }}
       >
-        {/* Curled sheet with realistic gradients, paper sheen & drop shadow */}
+        {/* Curled sheet with realistic luxury ivory/obsidian sheen, vermilion edge & drop shadow */}
         <div
           className={`w-full h-full ${
             isTargetLight
-              ? "bg-gradient-to-bl from-slate-900 via-slate-800 to-transparent"
-              : "bg-gradient-to-bl from-white via-slate-100 to-transparent"
+              ? "bg-gradient-to-bl from-[#181A20] via-[#111318] to-transparent border-b-2 border-[#FF4B35]"
+              : "bg-gradient-to-bl from-[#FAF7F0] via-[#F1EBDD] to-transparent border-b-2 border-[#FF4B35]"
           }`}
           style={{
             boxShadow: isTargetLight
-              ? "-20px 20px 60px rgba(0, 0, 0, 0.7), -5px 5px 20px rgba(0, 0, 0, 0.4)"
-              : "-20px 20px 60px rgba(15, 23, 42, 0.3), -5px 5px 20px rgba(15, 23, 42, 0.15)",
+              ? "-20px 20px 60px rgba(0, 0, 0, 0.8), -5px 5px 20px rgba(255, 75, 53, 0.2)"
+              : "-20px 20px 60px rgba(17, 19, 24, 0.25), -5px 5px 20px rgba(255, 75, 53, 0.15)",
             filter: "blur(0.5px)",
           }}
         />

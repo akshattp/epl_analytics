@@ -30,12 +30,11 @@ export function EplBrandLogo({
 
   const { crestSize, fontSize, textGap } = sizeMap[size];
 
-  // Original geometric cricket crest
-  // Combines:
-  // 1. Three vertical kinetic angled pillars (The 3 Stumps / Wickets of cricket)
-  // 2. Continuous interlocking aerodynamic ribbon forming 'E', 'P', and 'L'
-  // 3. Curved seam arc sweeping from bottom-left to top-right (Cricket ball seam & trajectory)
-  // 4. Precision analytical core point at apex
+  // Luxury Architectural Cricket Crest:
+  // - 3 Precision-Beveled Angular Wickets (The 3 Stumps of Cricket)
+  // - Interlocking Monogram Geometry forming 'E', 'P', and 'L'
+  // - Sweeping Electric Vermilion (#FF4B35) Seam Trajectory Arc
+  // - Precision Apex Diamond Telemetry Pip
   const CrestSvg = (
     <svg
       width={crestSize}
@@ -44,105 +43,105 @@ export function EplBrandLogo({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className="shrink-0 transition-transform duration-300 group-hover:scale-105"
-      aria-label="EPL Geometric Cricket Crest"
+      aria-label="EPL Luxury Cricket Crest"
     >
       <defs>
-        {/* Core Electric Blue to Cyan Gradient */}
-        <linearGradient id="epl-grad-primary" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#2563EB" />
-          <stop offset="50%" stopColor="#3B82F6" />
-          <stop offset="100%" stopColor="#0891B2" />
+        {/* Luxury Obsidian to Carbon Gradient */}
+        <linearGradient id="epl-obsidian-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#22252D" />
+          <stop offset="60%" stopColor="#181A20" />
+          <stop offset="100%" stopColor="#111318" />
         </linearGradient>
 
-        {/* Speed Arc Gradient */}
-        <linearGradient id="epl-grad-accent" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#0891B2" />
-          <stop offset="60%" stopColor="#22D3EE" />
-          <stop offset="100%" stopColor="#38BDF8" />
+        {/* Warm Ivory Facet Gradient */}
+        <linearGradient id="epl-ivory-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="50%" stopColor="#F1EBDD" />
+          <stop offset="100%" stopColor="#DDD5C3" />
         </linearGradient>
 
-        {/* Deep Ink Facet Gradient */}
-        <linearGradient id="epl-grad-dark" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#1E293B" />
-          <stop offset="100%" stopColor="#0F172A" />
+        {/* Electric Vermilion Speed Gradient */}
+        <linearGradient id="epl-vermilion-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#E03E29" />
+          <stop offset="60%" stopColor="#FF4B35" />
+          <stop offset="100%" stopColor="#FF6452" />
         </linearGradient>
 
-        {/* Dynamic Glow Filter */}
-        <filter id="epl-glow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="4" result="blur" />
+        {/* Dynamic Vermilion Glow Filter */}
+        <filter id="epl-vermilion-glow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="3.5" result="blur" />
           <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
       </defs>
 
       {/* Outer Hexagonal Shield Contour */}
       <polygon
-        points="50,4 90,26 90,74 50,96 10,74 10,26"
-        className="stroke-[#E2E8F0] dark:stroke-[#334155]"
-        strokeWidth="2"
+        points="50,5 88,27 88,73 50,95 12,73 12,27"
+        className="stroke-[#DDD5C3] dark:stroke-[#2A2E38]"
+        strokeWidth="1.5"
         fill="none"
-        opacity="0.4"
+        opacity="0.85"
       />
 
       {/* Kinetic Pillar 1 (Left Stump / Stem of E) */}
       <path
         d="M24 30 L32 25 L32 75 L24 70 Z"
-        fill="url(#epl-grad-primary)"
+        className="fill-[#111318] dark:fill-[#FAF7F0]"
       />
 
       {/* Kinetic Pillar 2 (Center Middle Stump / Core Spine of P) */}
       <path
         d="M44 20 L52 15 L52 75 L44 80 Z"
-        fill="url(#epl-grad-primary)"
+        className="fill-[#181A20] dark:fill-[#F1EBDD]"
         opacity="0.95"
       />
 
       {/* Kinetic Pillar 3 (Right Stump / Leg of L) */}
       <path
         d="M64 35 L72 30 L72 85 L64 80 Z"
-        fill="url(#epl-grad-accent)"
+        className="fill-[#5C584E] dark:fill-[#DDD5C3]"
       />
 
-      {/* Horizontal Stance Bars forming 'E' and 'L' Baseline */}
-      {/* Top Bar of 'E' */}
+      {/* Horizontal Stance Bars forming 'E' */}
       <path
         d="M32 25 L58 25 L54 33 L32 33 Z"
-        fill="url(#epl-grad-primary)"
+        className="fill-[#111318] dark:fill-[#FAF7F0]"
       />
-      {/* Middle Bar of 'E' */}
       <path
         d="M32 46 L50 46 L46 53 L32 53 Z"
-        fill="url(#epl-grad-accent)"
+        fill="url(#epl-vermilion-grad)"
       />
-      {/* Dynamic Loop of 'P' (Sweeping Arc) */}
+
+      {/* Dynamic Loop of 'P' */}
       <path
         d="M52 20 C68 20, 78 28, 78 40 C78 52, 66 58, 52 58 L52 48 C60 48, 66 45, 66 39 C66 33, 60 30, 52 30 Z"
-        fill="url(#epl-grad-accent)"
+        className="fill-[#181A20] dark:fill-[#F1EBDD]"
       />
 
       {/* Baseline Foot of 'L' */}
       <path
         d="M64 74 L84 74 L80 82 L64 82 Z"
-        fill="url(#epl-grad-primary)"
+        className="fill-[#111318] dark:fill-[#FAF7F0]"
       />
 
       {/* Cricket Ball Dynamic Seam Swoosh (Transversal 45-degree Kinetic Trajectory) */}
       <path
         d="M14 78 Q 48 58, 86 22"
-        stroke="url(#epl-grad-accent)"
+        stroke="url(#epl-vermilion-grad)"
         strokeWidth="3.5"
         strokeLinecap="round"
         strokeDasharray="6 3"
       />
 
-      {/* Analytical Precision Core Point (Apex Sensor) */}
+      {/* Analytical Precision Core Point (Apex Vermilion Sensor) */}
       <circle
         cx="86"
         cy="22"
         r="4.5"
-        fill="#22D3EE"
-        filter="url(#epl-glow)"
+        fill="#FF4B35"
+        filter="url(#epl-vermilion-glow)"
       />
-      <circle cx="86" cy="22" r="2.5" fill="#FFFFFF" />
+      <circle cx="86" cy="22" r="2.2" fill="#F1EBDD" />
     </svg>
   );
 
@@ -175,8 +174,8 @@ export function EplBrandLogo({
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="relative group mb-4"
         >
-          {/* Ambient Glow Aura */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-blue-600/20 via-cyan-500/25 to-blue-600/20 blur-2xl rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          {/* Ambient Glow Aura in Vermilion & Warm Ivory */}
+          <div className="absolute -inset-4 bg-gradient-to-r from-[#FF4B35]/20 via-[#F1EBDD]/15 to-[#FF4B35]/20 blur-2xl rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
           {CrestSvg}
         </motion.div>
 
@@ -187,17 +186,17 @@ export function EplBrandLogo({
           className="space-y-1"
         >
           <div className="flex items-center justify-center gap-3">
-            <span className="font-display font-black tracking-tight text-4xl sm:text-6xl text-[#101828] dark:text-[#F8FAFC]">
+            <span className="font-display font-black tracking-[-0.03em] text-4xl sm:text-6xl text-[#111318] dark:text-[#F1EBDD]">
               EPL
             </span>
-            <span className="h-8 w-[2px] bg-[#E2E8F0] dark:bg-[#334155] rounded-full mx-1"></span>
-            <span className="font-display font-extrabold tracking-widest text-3xl sm:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#0891B2] dark:from-[#3B82F6] dark:to-[#22D3EE]">
+            <span className="h-8 w-[2px] bg-[#DDD5C3] dark:bg-[#2A2E38] rounded-full mx-1"></span>
+            <span className="font-display font-extrabold tracking-widest text-3xl sm:text-5xl text-[#FF4B35]">
               INTELLIGENCE
             </span>
           </div>
           {showSubtitle && (
-            <p className="font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#64748B] dark:text-[#94A3B8]">
-              Exotica Premier League • Cricket Analytics Platform
+            <p className="font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#5C584E] dark:text-[#A8A295]">
+              Exotica Premier League • Luxury Cricket Analytics
             </p>
           )}
         </motion.div>
@@ -212,15 +211,15 @@ export function EplBrandLogo({
 
       <div className="flex flex-col justify-center select-none">
         <div className="flex items-center gap-1.5 leading-none">
-          <span className={`font-display font-black tracking-tight text-[#101828] dark:text-[#F8FAFC] ${fontSize}`}>
+          <span className={`font-display font-black tracking-[-0.03em] text-[#111318] dark:text-[#F1EBDD] ${fontSize}`}>
             EPL
           </span>
-          <span className={`font-display font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#0891B2] dark:from-[#3B82F6] dark:to-[#22D3EE] ${fontSize}`}>
+          <span className={`font-display font-bold tracking-tight text-[#FF4B35] ${fontSize}`}>
             ANALYTICS
           </span>
         </div>
         {showSubtitle && (
-          <span className="text-[9px] sm:text-[10px] font-sans uppercase tracking-[0.18em] font-semibold text-[#64748B] dark:text-[#94A3B8] mt-0.5 leading-none">
+          <span className="text-[9px] sm:text-[10px] font-sans uppercase tracking-[0.18em] font-semibold text-[#5C584E] dark:text-[#A8A295] mt-0.5 leading-none">
             Exotica Premier League
           </span>
         )}

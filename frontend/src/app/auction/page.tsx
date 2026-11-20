@@ -480,55 +480,55 @@ export default function AuctionCenterPage() {
   return (
     <div className="space-y-6">
       {/* Top Banner & Persona Authentication */}
-      <div className="bg-white dark:bg-[#151F32] text-[#101828] dark:text-[#F8FAFC] p-5 sm:p-6 rounded-xl border border-[#E2E8F0] dark:border-[#334155] shadow-lg">
+      <div className="bg-[#FAF7F0] dark:bg-[#181A20] text-[#111318] dark:text-[#F1EBDD] p-5 sm:p-6 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] shadow-lg">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#64748B] dark:text-[#94A3B8] uppercase tracking-wider mb-1">
-              <Gavel className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
+            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#5C584E] dark:text-[#A8A296] uppercase tracking-wider mb-1">
+              <Gavel className="w-4 h-4 text-[#FF4B35]" />
               <span>{config?.auction_name || "EPL Official Player Auction"}</span>
-              <span className="px-2.5 py-0.5 rounded-full bg-[#F8FAFC] dark:bg-[#0B1120] border border-[#E2E8F0] dark:border-[#334155] font-mono text-[10px]">
+              <span className="px-2.5 py-0.5 rounded-full bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38] font-mono text-[10px]">
                 LIFECYCLE: {config?.status || "DRAFT"}
               </span>
               <span className={`px-2.5 py-0.5 rounded-full font-mono text-[10px] border ${
-                wsConnected ? "bg-[#F8FAFC] dark:bg-[#0B1120] text-[#64748B] dark:text-[#94A3B8] border-blue-200 dark:border-[#334155]" : "bg-blue-100 dark:bg-blue-900/40 text-[#101828] dark:text-[#F8FAFC] border-[#2563EB]"
+                wsConnected ? "bg-[#FF4B35]/10 text-[#FF4B35] border-[#FF4B35]/30" : "bg-[#F1EBDD] dark:bg-[#111318] text-[#5C584E] dark:text-[#A8A296] border-[#DDD5C3] dark:border-[#2A2E38]"
               }`}>
                 {wsConnected ? "● LIVE SYNC" : "○ CONNECTING"}
               </span>
             </div>
-            <h1 className="font-display text-2xl sm:text-3xl font-bold text-[#101828] dark:text-[#F8FAFC]">
+            <h1 className="font-display text-2xl sm:text-3xl font-bold text-[#111318] dark:text-[#F1EBDD]">
               Tournament Auction Management Center
             </h1>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] mt-1 max-w-2xl leading-relaxed">
+            <p className="text-xs text-[#5C584E] dark:text-[#A8A296] mt-1 max-w-2xl leading-relaxed">
               Full pre-auction setup wizard, authenticated six-owner live bidding, atomic reserve enforcement, and final squad reporting.
             </p>
           </div>
 
           {/* Persona Authentication Switcher */}
-          <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-3.5 rounded-xl border border-[#E2E8F0] dark:border-[#334155] min-w-[310px]">
-            <div className="text-[10px] uppercase font-bold text-[#64748B] dark:text-[#94A3B8] flex justify-between items-center mb-1.5">
+          <div className="bg-[#F1EBDD] dark:bg-[#111318] p-3.5 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] min-w-[310px]">
+            <div className="text-[10px] uppercase font-bold text-[#5C584E] dark:text-[#A8A296] flex justify-between items-center mb-1.5 font-mono">
               <span>AUTHENTICATED IDENTITY</span>
               {currentUser ? (
-                <button onClick={handleLogout} className="text-[10px] text-[#2563EB] dark:text-[#3B82F6] hover:text-[#64748B] dark:text-[#94A3B8] underline font-semibold">
+                <button onClick={handleLogout} className="text-[10px] text-[#FF4B35] hover:underline font-semibold">
                   Switch Account
                 </button>
               ) : (
-                <span className="text-[#64748B] dark:text-[#94A3B8]">SPECTATOR MODE</span>
+                <span className="text-[#5C584E] dark:text-[#A8A296]">SPECTATOR MODE</span>
               )}
             </div>
             {currentUser ? (
               <div className="space-y-1">
-                <div className="font-display font-bold text-sm text-[#101828] dark:text-[#F8FAFC] flex items-center gap-1.5">
-                  <Shield className="w-4 h-4 text-[#64748B] dark:text-[#94A3B8]" />
+                <div className="font-display font-bold text-sm text-[#111318] dark:text-[#F1EBDD] flex items-center gap-1.5">
+                  <Shield className="w-4 h-4 text-[#5C584E] dark:text-[#A8A296]" />
                   <span>{currentUser.display_name}</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#2563EB] text-white">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FF4B35] text-white">
                     {currentUser.role === "auctioneer" ? "AUCTIONEER" : `TEAM ${currentUser.team_id}`}
                   </span>
                 </div>
                 {isOwner && currentOwnerTeam && (
-                  <div className="text-[11px] text-[#64748B] dark:text-[#94A3B8] flex justify-between pt-1 border-t border-[#E2E8F0] dark:border-[#334155] font-mono">
+                  <div className="text-[11px] text-[#5C584E] dark:text-[#A8A296] flex justify-between pt-1 border-t border-[#DDD5C3] dark:border-[#2A2E38] font-mono">
                     <span>Purse: <strong>₹{currentOwnerTeam.purse_remaining}L</strong></span>
                     <span>Slots: <strong>{currentOwnerTeam.squad_size}/{currentOwnerTeam.max_squad_size}</strong></span>
-                    <span>Max Bid: <strong className="text-[#2563EB] dark:text-[#3B82F6]">₹{maxBidPossible.toFixed(1)}L</strong></span>
+                    <span>Max Bid: <strong className="text-[#FF4B35]">₹{maxBidPossible.toFixed(1)}L</strong></span>
                   </div>
                 )}
               </div>
@@ -538,7 +538,7 @@ export default function AuctionCenterPage() {
                   aria-label="Select Auction Account"
                   value={loginUsername}
                   onChange={(e) => setLoginUsername(e.target.value)}
-                  className="w-full px-2.5 py-1 text-[11px] rounded-lg bg-white dark:bg-[#151F32] text-[#101828] dark:text-[#F8FAFC] border border-[#E2E8F0] dark:border-[#334155]"
+                  className="w-full px-2.5 py-1 text-[11px] rounded-lg bg-[#FAF7F0] dark:bg-[#181A20] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38]"
                 >
                   {accounts.map((acc) => (
                     <option key={acc.username} value={acc.username}>
@@ -553,12 +553,12 @@ export default function AuctionCenterPage() {
                     onChange={(e) => setLoginPin(e.target.value)}
                     placeholder="Enter account PIN..."
                     aria-label="Account PIN"
-                    className="flex-1 px-2.5 py-1 text-[11px] font-mono rounded-lg bg-white dark:bg-[#151F32] text-[#101828] dark:text-[#F8FAFC] border border-[#E2E8F0] dark:border-[#334155] focus:outline-none focus:border-[#2563EB]"
+                    className="flex-1 px-2.5 py-1 text-[11px] font-mono rounded-lg bg-[#FAF7F0] dark:bg-[#181A20] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38] focus:outline-none focus:border-[#FF4B35]"
                   />
                   <button
                     type="submit"
                     disabled={authLoading}
-                    className="px-3.5 py-1 rounded-lg bg-[#2563EB] text-white hover:bg-[#1D4ED8] text-[11px] font-bold transition disabled:opacity-50"
+                    className="px-3.5 py-1 rounded-lg bg-[#FF4B35] text-white hover:bg-[#E03E29] text-[11px] font-bold transition disabled:opacity-50"
                   >
                     {authLoading ? "..." : "Sign In"}
                   </button>
@@ -572,19 +572,19 @@ export default function AuctionCenterPage() {
         {bidAlert && (
           <div className={`mt-3 px-3.5 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-between border ${
             bidAlert.type === "error"
-              ? "bg-[#2563EB] text-white border-[#E2E8F0] dark:border-[#334155]"
-              : "bg-[#F8FAFC] dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] border-blue-200 dark:border-[#334155]"
+              ? "bg-[#FF4B35] text-white border-[#FF4B35]"
+              : "bg-[#F1EBDD] dark:bg-[#111318] text-[#111318] dark:text-[#F1EBDD] border-[#DDD5C3] dark:border-[#2A2E38]"
           }`}>
             <div className="flex items-center gap-2">
-              {bidAlert.type === "success" ? <CheckCircle2 className="w-4 h-4 text-[#64748B] dark:text-[#94A3B8]" /> : <AlertCircle className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />}
+              {bidAlert.type === "success" ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <AlertCircle className="w-4 h-4 text-[#FF4B35]" />}
               <span>{bidAlert.message}</span>
             </div>
-            <button onClick={() => setBidAlert(null)} className="text-xs hover:text-white px-1">✕</button>
+            <button onClick={() => setBidAlert(null)} className="text-xs hover:opacity-75 px-1">✕</button>
           </div>
         )}
 
         {/* 5-Stage Lifecycle Tabs */}
-        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-[#E2E8F0] dark:border-[#334155] text-xs">
+        <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-[#DDD5C3] dark:border-[#2A2E38] text-xs">
           {[
             { id: "setup", label: "1. Pre-Auction Setup Wizard", icon: Sliders },
             { id: "live", label: "2. Live Bidding Room", icon: Gavel },
@@ -599,8 +599,8 @@ export default function AuctionCenterPage() {
                 onClick={() => setActiveTab(t.id as any)}
                 className={`px-3 py-1.5 rounded-lg font-semibold transition inline-flex items-center gap-1.5 ${
                   activeTab === t.id
-                    ? "bg-[#2563EB] text-white shadow"
-                    : "bg-[#F8FAFC] dark:bg-[#0B1120] text-[#64748B] dark:text-[#94A3B8] border border-[#E2E8F0] dark:border-[#334155] hover:bg-white dark:bg-[#151F32] hover:text-[#101828] dark:text-[#F8FAFC]"
+                    ? "bg-[#FF4B35] text-white shadow-sm"
+                    : "bg-[#F1EBDD] dark:bg-[#111318] text-[#5C584E] dark:text-[#A8A296] border border-[#DDD5C3] dark:border-[#2A2E38] hover:border-[#FF4B35] hover:text-[#111318] dark:hover:text-[#F1EBDD]"
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />

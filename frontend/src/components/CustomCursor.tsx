@@ -85,17 +85,17 @@ export function CustomCursor() {
           width: cursorType === "view" ? 64 : isExpanded ? 48 : 24,
           height: cursorType === "view" ? 64 : isExpanded ? 48 : 24,
           backgroundColor: cursorType === "view"
-            ? "rgba(37, 99, 235, 0.9)"
+            ? "rgba(255, 75, 53, 0.95)"
             : isExpanded
-            ? "rgba(37, 99, 235, 0.15)"
-            : "rgba(37, 99, 235, 0.05)",
-          borderColor: isExpanded ? "rgba(34, 211, 238, 0.8)" : "rgba(59, 130, 246, 0.4)",
+            ? "rgba(255, 75, 53, 0.15)"
+            : "rgba(255, 75, 53, 0.05)",
+          borderColor: isExpanded ? "rgba(255, 75, 53, 0.8)" : "rgba(241, 235, 221, 0.4)",
         }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
         className="rounded-full border flex items-center justify-center backdrop-blur-[1px] transition-colors"
       >
         {cursorLabel && (
-          <span className="text-[10px] font-display font-extrabold text-white tracking-widest uppercase">
+          <span className="text-[10px] font-display font-extrabold text-[#F1EBDD] tracking-widest uppercase">
             {cursorLabel}
           </span>
         )}
@@ -113,7 +113,7 @@ export function CustomCursor() {
           scale: isExpanded ? 0 : 1,
           opacity: isExpanded ? 0 : 1,
         }}
-        className="w-1.5 h-1.5 bg-[#2563EB] dark:bg-[#38BDF8] rounded-full shadow-sm"
+        className="w-1.5 h-1.5 bg-[#FF4B35] rounded-full shadow-sm"
       />
     </div>
   );

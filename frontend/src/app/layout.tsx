@@ -22,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="color-scheme" content="light dark" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <script
           dangerouslySetInnerHTML={{
@@ -41,7 +42,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-[#F8FAFC] dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] min-h-screen flex flex-col font-sans antialiased selection:bg-[#3B82F6] selection:text-white transition-colors duration-200">
+      <body className="bg-[#F1EBDD] dark:bg-[#111318] text-[#111318] dark:text-[#F1EBDD] min-h-screen flex flex-col font-sans antialiased selection:bg-[#FF4B35] selection:text-white transition-colors duration-200">
         <ThemeProvider>
           <CustomCursor />
           <Navbar />

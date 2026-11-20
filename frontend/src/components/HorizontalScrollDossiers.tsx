@@ -48,7 +48,6 @@ export function HorizontalScrollDossiers({ players }: HorizontalScrollDossiersPr
           end: () => `+=${getScrollDistance()}`,
           pin: true,
           scrub: 1,
-          anticipatePin: 1,
           invalidateOnRefresh: true,
         },
       });
@@ -57,26 +56,33 @@ export function HorizontalScrollDossiers({ players }: HorizontalScrollDossiersPr
     return () => ctx.revert();
   }, [players]);
 
-  const displayPlayers = players.slice(0, 6);
+  const displayPlayers = (players && players.length > 0)
+    ? players.slice(0, 7)
+    : [
+        { player_id: "EPL-P-001", name: "Sagar Kapadia", total_runs: 138, strike_rate: 117.5, wickets: 0, economy: 0, role_classification: "Pure Batter", batting_hand: "Right" },
+        { player_id: "EPL-P-004", name: "Smeet Shah", total_runs: 45, strike_rate: 98.2, wickets: 5, economy: 3.57, role_classification: "Defensive Bowler", batting_hand: "Right" },
+        { player_id: "EPL-P-011", name: "Harshil Patel", total_runs: 115, strike_rate: 142.0, wickets: 6, economy: 5.2, role_classification: "Impact Batter", batting_hand: "Right" },
+        { player_id: "EPL-P-017", name: "Krunal Patel", total_runs: 95, strike_rate: 110.0, wickets: 8, economy: 4.8, role_classification: "All-Rounder", batting_hand: "Right" },
+      ];
 
   return (
-    <section ref={sectionRef} className="relative py-12 overflow-hidden space-y-6">
-      {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#E2E8F0] dark:border-[#334155] pb-6">
-        <div className="space-y-1 max-w-2xl">
-          <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#2563EB] dark:text-[#38BDF8]">
-            03 • SIGNATURE ATHLETE SHOWCASE
+    <section ref={sectionRef} className="relative py-14 overflow-hidden space-y-8">
+      {/* Editorial Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-6">
+        <div className="space-y-1.5 max-w-2xl">
+          <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#FF4B35]">
+            03 • CANONICAL ATHLETE DOSSIERS
           </span>
-          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#101828] dark:text-[#F8FAFC] tracking-tight">
+          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#111318] dark:text-[#F1EBDD] tracking-tight">
             PINNED HORIZONTAL ATHLETE DOSSIER
           </h2>
-          <p className="text-xs sm:text-sm text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
             Scroll vertically to traverse verified canonical profiles. Real historical runs and legal wickets extracted from official scorecards.
           </p>
         </div>
         <Link
           href="/players"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] dark:text-[#38BDF8] hover:underline"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF4B35] hover:underline"
         >
           <span>All 73 Canonical Athletes</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -101,30 +107,30 @@ export function HorizontalScrollDossiers({ players }: HorizontalScrollDossiersPr
             return (
               <div
                 key={p.player_id}
-                className="w-[320px] sm:w-[380px] bg-white dark:bg-[#151F32] rounded-3xl p-7 border border-[#E2E8F0] dark:border-[#334155] shadow-md flex flex-col justify-between space-y-6 shrink-0 relative overflow-hidden group hover:border-[#2563EB] dark:hover:border-[#38BDF8] transition-all duration-300"
+                className="w-[320px] sm:w-[380px] bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-7 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-md flex flex-col justify-between space-y-6 shrink-0 relative overflow-hidden group hover:border-[#FF4B35] dark:hover:border-[#FF4B35] transition-all duration-300"
               >
-                {/* Marquee Ambient Glow Accent */}
+                {/* Marquee Ambient Glow Accent in Vermilion */}
                 {isMarquee && (
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF4B35]/10 rounded-full blur-2xl pointer-events-none" />
                 )}
 
                 <div className="space-y-4 relative z-10">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs uppercase font-bold text-[#2563EB] dark:text-[#38BDF8] bg-blue-50 dark:bg-[#0B1120] px-3 py-1 rounded-full border border-blue-200 dark:border-[#334155]">
+                    <span className="font-mono text-xs uppercase font-bold text-[#FF4B35] bg-[#FF4B35]/10 px-3 py-1 rounded-full border border-[#FF4B35]/20">
                       {p.player_id}
                     </span>
                     <RatingBadge score={score} size="sm" />
                   </div>
 
                   <div className="flex items-center gap-4 pt-1">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 text-white flex items-center justify-center font-display font-black text-xl border border-white/20 shadow-md shrink-0">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#181A20] to-[#111318] text-[#F1EBDD] flex items-center justify-center font-display font-black text-xl border border-[#2A2E38] shadow-md shrink-0">
                       {getInitials(p.name)}
                     </div>
                     <div>
-                      <h3 className="font-display font-black text-2xl text-[#101828] dark:text-[#F8FAFC] group-hover:text-[#2563EB] dark:group-hover:text-[#38BDF8] transition-colors leading-tight">
+                      <h3 className="font-display font-black text-2xl text-[#111318] dark:text-[#F1EBDD] group-hover:text-[#FF4B35] dark:group-hover:text-[#FF4B35] transition-colors leading-tight">
                         {p.name}
                       </h3>
-                      <span className="text-xs text-[#64748B] dark:text-[#94A3B8] font-semibold uppercase tracking-wider block mt-0.5">
+                      <span className="text-xs text-[#5C584E] dark:text-[#A8A295] font-semibold uppercase tracking-wider block mt-0.5">
                         {p.role_classification || p.primary_role} • {p.batting_hand}
                       </span>
                     </div>
@@ -132,34 +138,34 @@ export function HorizontalScrollDossiers({ players }: HorizontalScrollDossiersPr
                 </div>
 
                 {/* Verified Ground-Truth Statistics Grid */}
-                <div className="grid grid-cols-2 gap-3 pt-4 border-t border-[#E2E8F0] dark:border-[#334155] text-xs relative z-10">
-                  <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-3.5 rounded-2xl border border-slate-200 dark:border-[#1E293B]">
-                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block uppercase font-bold">
+                <div className="grid grid-cols-2 gap-3 pt-4 border-t border-[#DDD5C3] dark:border-[#2A2E38] text-xs relative z-10">
+                  <div className="bg-[#F1EBDD]/60 dark:bg-[#111318] p-3.5 rounded-xl border border-[#DDD5C3]/80 dark:border-[#2A2E38]">
+                    <span className="text-[10px] text-[#5C584E] dark:text-[#A8A295] block uppercase font-bold">
                       Career Runs
                     </span>
-                    <span className="font-mono font-bold text-2xl text-[#101828] dark:text-[#F8FAFC]">
+                    <span className="font-mono font-bold text-2xl text-[#111318] dark:text-[#F1EBDD]">
                       {runs}
                     </span>
-                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block mt-0.5">
-                      SR: <strong className="text-[#101828] dark:text-[#F8FAFC]">{Number(sr).toFixed(1)}</strong>
+                    <span className="text-[10px] text-[#5C584E] dark:text-[#A8A295] block mt-0.5">
+                      SR: <strong className="text-[#111318] dark:text-[#F1EBDD]">{Number(sr).toFixed(1)}</strong>
                     </span>
                   </div>
 
-                  <div className="bg-[#F8FAFC] dark:bg-[#0B1120] p-3.5 rounded-2xl border border-slate-200 dark:border-[#1E293B]">
-                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block uppercase font-bold">
+                  <div className="bg-[#F1EBDD]/60 dark:bg-[#111318] p-3.5 rounded-xl border border-[#DDD5C3]/80 dark:border-[#2A2E38]">
+                    <span className="text-[10px] text-[#5C584E] dark:text-[#A8A295] block uppercase font-bold">
                       Wickets Taken
                     </span>
-                    <span className="font-mono font-bold text-2xl text-[#2563EB] dark:text-[#38BDF8]">
+                    <span className="font-mono font-bold text-2xl text-[#FF4B35]">
                       {wkts}
                     </span>
-                    <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8] block mt-0.5">
-                      Econ: <strong className="text-[#101828] dark:text-[#F8FAFC]">{wkts > 0 || p.legal_balls > 0 ? Number(econ).toFixed(2) : "—"}</strong>
+                    <span className="text-[10px] text-[#5C584E] dark:text-[#A8A295] block mt-0.5">
+                      Econ: <strong className="text-[#111318] dark:text-[#F1EBDD]">{wkts > 0 || p.legal_balls > 0 ? Number(econ).toFixed(2) : "—"}</strong>
                     </span>
                   </div>
                 </div>
 
                 {/* Action Link to Full Dossier */}
-                <div className="pt-2 flex items-center justify-between text-xs font-semibold text-[#2563EB] dark:text-[#38BDF8] relative z-10">
+                <div className="pt-2 flex items-center justify-between text-xs font-semibold text-[#FF4B35] relative z-10">
                   <Link
                     href={`/players/${p.player_id}`}
                     className="inline-flex items-center gap-1.5 hover:underline"
@@ -167,7 +173,7 @@ export function HorizontalScrollDossiers({ players }: HorizontalScrollDossiersPr
                     <span>Inspect Athlete Dossier</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                   </Link>
-                  <span className="font-mono text-[10px] text-slate-400">
+                  <span className="font-mono text-[10px] text-[#8C867A] dark:text-[#6E6A60]">
                     #{idx + 1}
                   </span>
                 </div>

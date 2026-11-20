@@ -1,8 +1,8 @@
 # EPL Platform UI/UX Changelog & Visual Evolution Register
 
 **Current UI Version:** `2.0.1-dev`  
-**Aesthetic Standard:** Premium Sports Intelligence & Contemporary Broadcasting Editorial  
-**Design Systems Lead:** Principal UI/UX Designer & Motion Director  
+**Aesthetic Standard:** Luxury Sports Intelligence, Editorial Restraint & High-Craft 3D WebGL Motion  
+**Design Systems Lead:** Creative Director & Principal UI/UX Architect  
 
 ---
 
@@ -17,52 +17,53 @@ Gen 1.5 (Nov 19): Global Dual-Theme Redesign (Space Grotesk, Electric Blue & Las
         ↓
 Gen 2.0 (Nov 19): Signature Design Experience (Custom Vector Crest, 3D Page-Curl, Magnetic Cursor)
         ↓
-Gen 2.0.1 (Current): Creative Overhaul & Parallel Scrolling (Asymmetric Layouts, Parallax, Zero AI Clichés)
+Gen 2.0.1 (Current): Luxury Obsidian-Ivory-Vermilion & Three.js 3D Cricket WebGL Scene
 ```
 
 ---
 
 ## 2. Granular UI/UX Changelog
 
-### Version 2.0.1-dev (Landing Page Reconstruction & Scroll-Driven Parallel Motion)
-* **Hero Whitespace & Bounding Box Optimization**:
-  * Corrected container margin collapse that pushed the headline down to `y: 391px`.
-  * Verified via Playwright automation: H1 begins at `y: 159px` (tightly integrated at top fold).
-* **Elimination of Orphaned Pulsing Loader**:
-  * Removed solitary pulsing blue dot in the top eyebrow badge that resembled an unresolved spinner.
-  * Replaced with structured badge with `<Sparkles />` icon.
+### Version 2.0.1-dev — Luxury Creative Direction & 3D WebGL Transformation
+* **Bold Luxury Colour Identity**:
+  * Completely reassessed colour scheme, eliminating generic blue/purple AI gradients and Bootstrap dashboard conventions.
+  * Primary Canvas: Obsidian (`#111318`) for dark theme, Warm Ivory (`#F1EBDD`) for light theme.
+  * Surfaces: Matte obsidian (`#181A20`, `#22252D`) and warm ivory cards (`#FAF7F0`, `#E8E1D1`) with hairline borders (`#DDD5C3` / `#2A2E38`).
+  * Accent: Electric Vermilion (`#FF4B35`, `#E03E29`) used with laser discipline for ~10% of elements (key records, active dot indicators, rating badges, auction CTAs).
+* **Blender-Level 3D WebGL Cricket Scene (`Cricket3DScene.tsx`)**:
+  * Interactive 3D cricket match ball embedded directly into the hero viewport.
+  * High-subdivision sphere (64x64 segments) with procedural leather pores bump map and ACESFilmic tone mapping.
+  * Physical raised warm ivory seam (Torus geometry) with 72 criss-cross cotton thread relief stitches.
+  * 3-point stadium lighting rig (Key floodlight, warm ground fill, electric vermilion rim light, cursor spotlight).
+  * Cursor tracking with spring lerping (`lerp(current, target, 0.05)`), scroll-driven acceleration, and orbital floating motes.
+  * Viewport optimization via `IntersectionObserver` auto-pausing render loop; graceful SVG fallback.
+* **Redesigned Top Navigation & Brand Crest (`EplBrandLogo.tsx` & `Navbar.tsx`)**:
+  * Architectural geometric cricket crest with interlocking obsidian/ivory wickets and vermilion trajectory arc.
+  * Dynamic scroll-responsive compacting (`h-16` -> `h-14`, intensified glassmorphism backdrop blur).
+  * Luxury pill navigation links with electric vermilion dot indicators on active routes.
+  * Live Auction Room vermilion CTA pill with pulsing state.
 * **12-Column Asymmetric Hero Stage**:
-  * Left (7 cols): Bold editorial typography, Space Grotesk headline, format description, and 3 high-contrast CTAs.
-  * Right (5 cols): High-impact dark glass Cricket Telemetry HUD displaying verified tournament records (62/2 score, Sagar Kapadia 138 runs, Smeet Shah 3.57 econ, atomic concurrency indicator).
-* **GSAP Opposing-Direction Parallel Motion (`ParallelScrollColumns.tsx`)**:
-  * 3 independent vertical columns moving at distinct velocities tied to scroll progress via GSAP `ScrollTrigger` and `scrub: 1.2`.
-  * Column 1: Ascends upward (`y: -140px`).
-  * Column 2: Descends downward in opposite direction (`y: +120px`).
-  * Column 3: Ascends at faster velocity (`y: -200px`).
-* **GSAP Pinned Horizontal Scrolling Dossiers (`HorizontalScrollDossiers.tsx`)**:
-  * Vertical scroll drives smooth horizontal scrubbing across verified athlete cards with dynamic `scrollWidth` calculation and `gsap.context()` cleanup.
-  * Natural touch swiping fallback on mobile (< 768px).
-* **Zero Runs/Wickets Bug Resolution**:
-  * Fixed display glitch where athlete cards showed 0 runs and 0 wickets due to accessing undefined nested properties. Now pulls verified database figures.
-* **Elimination of Repetitive 3-Box Clichés**:
-  * Section 01: Asymmetric split-screen (sticky 36-ball manifesto left, 6-team interactive competition grid right).
-  * Section 04: Data Intelligence Cockpit (Dominant Batting Velocity Engine with 10+, 15+, 20+ milestone distribution + Restrictive Bowling Suppression).
-* **Cross-Device Responsive Verification**:
-  * Automated testing across 6 viewports: 1440px, 1280px, 1024px, 768px, 390px, 375px.
-* **Athlete Performance Dossier (`/players/[id]`)**:
-  * Enhanced role-prioritized metric layout (batters highlight runs, SR, boundary %; bowlers highlight wickets, economy, dots; all-rounders highlight dual balance).
-  * Season filterable match timeline log.
+  * Left (7 cols): Oversized Space Grotesk headline with vermilion gradient accent, format manifesto, and 3 high-contrast CTAs.
+  * Right (5 cols): Embedded 3D cricket match ball layered with real-time record telemetry cards (62/2 score, Sagar Kapadia 138 runs, Smeet Shah 3.57 econ).
+  * Resolved Defect B2: H1 headline vertical position verified at `y = 167px` (tightly integrated at top fold).
+* **GSAP Parallel Motion & Horizontal Dossiers**:
+  * Opposing-direction parallel columns (`ParallelScrollColumns.tsx`) moving at distinct vertical velocities (`y: -140px`, `y: +120px`, `y: -200px`).
+  * Pinned horizontal scrolling dossiers (`HorizontalScrollDossiers.tsx`) driven smoothly by vertical scroll.
+* **Website-Wide Luxury Extension**:
+  * `/players`: Vermilion role pills, ivory card containers, obsidian typography, hairline borders.
+  * `/players/[id]`: Monogram crests, 100-Point PIS scorecard with micro-meters, pressure splits, auction economics.
+  * `/dashboard`: Luxury KPI cards, updated `v2.0.1-dev` release strip, Recharts custom-themed charts.
+  * `/teams`: Franchise matrix with net run rate color coding and win distribution charts.
+  * `/comparison`: Head-to-head comparison table with leader stars and category banners.
+  * `/auction`: Authenticated six-owner live bidding cockpit with atomic reserve verification.
+* **Automated Visual Verification**:
+  * Playwright automated testing across all 6 viewports (1440 light/dark, 1280, 1024, 768, 390, 375).
+  * 72/72 backend pytests passing, 21/21 Next.js routes compiling with 0 errors.
+
+---
 
 ### Version 2.0.0 (Signature Release)
 * **Brand Logo System (`EplBrandLogo.tsx`)**: Geometric vector identity replacing clipart.
 * **3D Page-Curl Transition (`PageCurlTransition.tsx`)**: Tactile page peeling corner animation when switching themes.
 * **Custom Magnetic Cursor (`CustomCursor.tsx`)**: Desktop spring follower with hover state expansions.
 * **Cinematic Landing Page (`/`)**: Staggered typography reveals and live telemetry counters.
-
-### Version 1.5.0 (Reconstructed from Git commit 6e434ef)
-* **Dual-Theme System**: Integrated light and dark theme mode toggle with CSS custom properties.
-* **Space Grotesk & Inter Typography**: Bold geometric headers and legible data typography.
-* **Palette Refresh**: Electric Blue (`#2563EB`) and Laser Cyan (`#0891B2`).
-
-### Version 1.4.0 (Reconstructed from Git commit c2a0b9a)
-* **Dark Sports Modernization**: Dark backgrounds (`#0B1120`, `#151F32`), high-contrast borders (`#334155`), and elevated stat cards.

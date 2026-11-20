@@ -72,11 +72,16 @@ Total: **21 Compiled Routes**:
 
 ## 4. Key Custom Frontend Components
 
-* `EplBrandLogo.tsx`: Custom vector geometric crest (full, monogram, hero, icon).
-* `PageCurlTransition.tsx`: 3D corner-fold glossy sheet theme transition.
-* `CustomCursor.tsx`: Desktop spring-follower cursor with `"VIEW"` expansion.
+* `EplBrandLogo.tsx`: Custom vector architectural geometric crest (interlocking wicket pillars, vermilion trajectory arc, apex diamond).
+* `Cricket3DScene.tsx`: Custom Three.js 3D WebGL cricket match ball with procedural leather bump mapping, raised Torus seam, 72 cotton thread relief stitches, 3-point stadium lighting, interactive cursor spring lerping, scroll scrubbing, and IntersectionObserver auto-pausing.
+* `PageCurlTransition.tsx`: 3D corner-fold glossy sheet theme transition with electric vermilion foil edge.
+* `CustomCursor.tsx`: Desktop spring-follower cursor with electric vermilion aura and precision dot.
+* `ParallelScrollColumns.tsx`: GSAP ScrollTrigger opposing-direction 3-column kinetic motion.
+* `HorizontalScrollDossiers.tsx`: GSAP ScrollTrigger pinned horizontal scrolling athlete showcase.
 * `AnimatedCounter.tsx`: Scroll-triggered high-performance numeric counter.
-* `DataTable.tsx`: Accessible, sortable, paginated data table with sticky headers.
-* `EplCharts.tsx`: Dual-theme Recharts charts (Radar, Scatter, Progression, Comparison).
-* `RatingBadge.tsx`: 100-Point PIS score badge.
-* `Navbar.tsx`: Header navigation with brand logo, version pill, and theme toggle.
+* `DataTable.tsx`: Accessible, sortable, paginated data table with hairline borders and sticky headers.
+* `EplCharts.tsx`: Luxury-themed Recharts charts (Radar, Scatter, Progression, Comparison) driven by `EPL_PALETTE`.
+* `StatCard.tsx`: Luxury telemetry KPI card with obsidian/ivory container, micro-meter bar, and hairline borders.
+* `RatingBadge.tsx`: 100-Point PIS score badge with electric vermilion tier accents.
+* `ExportButtonsBar.tsx`: Luxury-themed CSV/JSON/Print export action bar.
+* `Navbar.tsx`: Header navigation with brand logo, scroll-responsive compacting (`h-16` -> `h-14`), glassmorphism blur, and electric vermilion dot active indicators.

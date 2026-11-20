@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,37 +9,41 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Global Light Theme Design Tokens */
-  --bg-main: #F8FAFC;
-  --bg-surface: #FFFFFF;
-  --bg-elevated: #F1F5F9;
-  --text-primary: #101828;
-  --text-secondary: #64748B;
-  --text-muted: #94A3B8;
-  --border: #E2E8F0;
-  --accent: #2563EB;
-  --accent-hover: #1D4ED8;
-  --accent-cyan: #0891B2;
-  --accent-soft: #DBEAFE;
-  --accent-cyan-soft: #CFFAFE;
+  /* Luxury Light Theme Tokens: Warm Ivory Dominant, Obsidian Typography, Electric Vermilion Precision */
+  --bg-main: #F1EBDD;
+  --bg-surface: #FAF7F0;
+  --bg-elevated: #FFFFFF;
+  --bg-subtle: #E8E1D1;
+  --text-primary: #111318;
+  --text-secondary: #5C584E;
+  --text-muted: #8C867A;
+  --border: #DDD5C3;
+  --border-focus: #111318;
+  --accent: #FF4B35;
+  --accent-hover: #E03E29;
+  --accent-soft: rgba(255, 75, 53, 0.10);
+  --accent-glow: rgba(255, 75, 53, 0.25);
+  --card-glass: rgba(250, 247, 240, 0.85);
 
   color-scheme: light;
 }
 
 html.dark {
-  /* Global Dark Theme Design Tokens */
-  --bg-main: #0B1120;
-  --bg-surface: #151F32;
-  --bg-elevated: #1E293B;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --border: #334155;
-  --accent: #60A5FA;
-  --accent-hover: #3B82F6;
-  --accent-cyan: #22D3EE;
-  --accent-soft: #1E3A8A;
-  --accent-cyan-soft: #164E63;
+  /* Luxury Dark Theme Tokens: Obsidian Dominant, Warm Ivory Typography, Electric Vermilion Precision */
+  --bg-main: #111318;
+  --bg-surface: #181A20;
+  --bg-elevated: #21242C;
+  --bg-subtle: #14161C;
+  --text-primary: #F1EBDD;
+  --text-secondary: #A8A295;
+  --text-muted: #6E6A60;
+  --border: #2A2E38;
+  --border-focus: #F1EBDD;
+  --accent: #FF4B35;
+  --accent-hover: #FF6452;
+  --accent-soft: rgba(255, 75, 53, 0.12);
+  --accent-glow: rgba(255, 75, 53, 0.35);
+  --card-glass: rgba(24, 26, 32, 0.80);
 
   color-scheme: dark;
 }
@@ -53,10 +57,19 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar adhering to modern-web-guidance */
+* {
+  scrollbar-color: rgba(140, 134, 122, 0.45) transparent;
+  scrollbar-width: thin;
+}
+
+html.dark * {
+  scrollbar-color: rgba(168, 162, 149, 0.35) transparent;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -67,12 +80,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(100, 116, 139, 0.4);
+  background: rgba(140, 134, 122, 0.4);
   border-radius: 9999px;
 }
 
 html.dark ::-webkit-scrollbar-thumb {
-  background: rgba(51, 65, 85, 0.7);
+  background: rgba(168, 162, 149, 0.3);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -80,7 +93,7 @@ html.dark ::-webkit-scrollbar-thumb {
 }
 
 /* =====================================================================
-   UNIVERSAL STICKY & RESPONSIVE DATA TABLE SYSTEM (Dual-Theme Enabled)
+   LUXURY ARCHITECTURAL DATA TABLE SYSTEM (Dual-Theme Enabled)
    ===================================================================== */
 .table-wrapper {
   overflow-x: auto;
@@ -105,8 +118,8 @@ html.dark ::-webkit-scrollbar-thumb {
   position: sticky;
   top: 0;
   z-index: 20;
-  background-color: #F1F5F9 !important;
-  color: #475569 !important;
+  background-color: #E8E1D1 !important;
+  color: #5C584E !important;
   font-family: var(--font-sans);
   font-size: 0.72rem;
   font-weight: 600;
@@ -115,15 +128,15 @@ html.dark ::-webkit-scrollbar-thumb {
   line-height: 1.3;
   white-space: normal;
   vertical-align: bottom;
-  border-bottom: 2px solid #2563EB;
+  border-bottom: 2px solid #FF4B35;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 html.dark .table-editorial thead th {
-  background-color: #0B1120 !important;
-  color: #94A3B8 !important;
-  border-bottom: 2px solid #3B82F6;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  background-color: #14161C !important;
+  color: #A8A295 !important;
+  border-bottom: 2px solid #FF4B35;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
 }
 
 .table-editorial tbody td {
@@ -139,19 +152,19 @@ html.dark .table-editorial thead th {
 }
 
 .table-editorial tbody tr:nth-child(even) {
-  background-color: rgba(241, 245, 249, 0.5);
+  background-color: rgba(232, 225, 209, 0.35);
 }
 
 html.dark .table-editorial tbody tr:nth-child(even) {
-  background-color: rgba(11, 17, 32, 0.45);
+  background-color: rgba(20, 22, 28, 0.55);
 }
 
 .table-editorial tbody tr:hover {
-  background-color: rgba(219, 234, 254, 0.45);
+  background-color: rgba(255, 75, 53, 0.06);
 }
 
 html.dark .table-editorial tbody tr:hover {
-  background-color: rgba(30, 41, 59, 0.7);
+  background-color: rgba(255, 75, 53, 0.09);
 }
 
 /* Sticky identifying first column for wide horizontal tables */
@@ -159,13 +172,13 @@ html.dark .table-editorial tbody tr:hover {
   position: sticky;
   left: 0;
   z-index: 30;
-  background-color: #F1F5F9 !important;
+  background-color: #E8E1D1 !important;
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.06);
 }
 
 html.dark .table-sticky-col th:first-child {
-  background-color: #0B1120 !important;
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
+  background-color: #14161C !important;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.45);
 }
 
 .table-sticky-col td:first-child {
@@ -178,24 +191,46 @@ html.dark .table-sticky-col th:first-child {
 }
 
 html.dark .table-sticky-col td:first-child {
-  background-color: #151F32 !important;
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.35);
+  background-color: #181A20 !important;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.45);
 }
 
 .table-sticky-col tbody tr:nth-child(even) td:first-child {
-  background-color: #F8FAFC !important;
+  background-color: #F1EBDD !important;
 }
 
 html.dark .table-sticky-col tbody tr:nth-child(even) td:first-child {
-  background-color: #0f172a !important;
+  background-color: #14161C !important;
 }
 
 .table-sticky-col tbody tr:hover td:first-child {
-  background-color: #EFF6FF !important;
+  background-color: #FAF7F0 !important;
 }
 
 html.dark .table-sticky-col tbody tr:hover td:first-child {
-  background-color: #1e293b !important;
+  background-color: #21242C !important;
+}
+
+/* =====================================================================
+   GLASSMORPHISM & LUXURY ARCHITECTURAL SURFACES
+   ===================================================================== */
+.glass-luxury {
+  background: var(--card-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+}
+
+.glass-nav {
+  background: rgba(241, 235, 221, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(221, 213, 195, 0.8);
+}
+
+html.dark .glass-nav {
+  background: rgba(17, 19, 24, 0.85);
+  border-bottom: 1px solid rgba(42, 46, 56, 0.8);
 }
 
 /* Micro-interaction & Motion Accessibility */
@@ -221,7 +256,7 @@ html.dark .table-sticky-col tbody tr:hover td:first-child {
 
   body {
     background-color: #FFFFFF !important;
-    color: #101828 !important;
+    color: #111318 !important;
   }
 
   .table-wrapper {

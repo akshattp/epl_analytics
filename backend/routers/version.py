@@ -10,15 +10,28 @@ RELEASES = [
         "version": "2.0.1-dev",
         "release_date": "2026-11-19",
         "date_source": "Active Development Sprint (2.0.1-dev)",
-        "codename": "Creative Overhaul, Landing Page Reconstruction & Documentation Governance",
-        "summary": "Fixes critical landing page 0 runs/wickets bug via unified schema enrichment; completely reconstructs landing page with agency-grade parallel scrolling, asymmetric competition matrix, and multi-layer parallax storytelling; institutes permanent strict documentation governance across the codebase.",
+        "codename": "Luxury Creative Direction, 3D Match Ball & Website-Wide Visual Transformation",
+        "summary": "Establishes a bold luxury colour identity (Obsidian #111318, Warm Ivory #F1EBDD, Electric Vermilion #FF4B35); creates a procedural Three.js 3D cricket match ball with physically raised Torus seam and 72 stitches; reconstructs the landing page with GSAP parallel scrolling; transforms all 7 operational routes into luxury editorial layouts; enforces permanent documentation governance.",
         "is_latest": True,
         "affected_modules": [
             "backend/services/player_service.py",
             "backend/routers/version.py",
             "frontend/src/app/page.tsx",
+            "frontend/src/app/players/page.tsx",
             "frontend/src/app/players/[id]/page.tsx",
+            "frontend/src/app/dashboard/page.tsx",
+            "frontend/src/app/teams/page.tsx",
+            "frontend/src/app/comparison/page.tsx",
+            "frontend/src/app/auction/page.tsx",
+            "frontend/src/components/Cricket3DScene.tsx",
             "frontend/src/components/Navbar.tsx",
+            "frontend/src/components/EplBrandLogo.tsx",
+            "frontend/src/components/CustomCursor.tsx",
+            "frontend/src/components/PageCurlTransition.tsx",
+            "frontend/src/components/StatCard.tsx",
+            "frontend/src/components/EplCharts.tsx",
+            "frontend/src/app/globals.css",
+            "frontend/tailwind.config.js",
             "documentation/CHANGELOG.md",
             "documentation/VERSION_HISTORY.md",
             "documentation/RELEASE_REGISTER.md",
@@ -32,23 +45,27 @@ RELEASES = [
         "changes": {
             "Bug Fixes": [
                 "Resolved critical landing page bug where player runs and wickets displayed as zero due to missing nested career_batting and career_bowling objects in /api/players summary. Enriched backend player service to provide both flat and nested properties.",
-                "Updated frontend binding logic to use fallback coalition (p.total_runs ?? p.career_batting?.total_runs ?? 0) across all landing and profile components."
+                "Updated frontend binding logic to use fallback coalition (p.total_runs ?? p.career_batting?.total_runs ?? 0) across all landing and profile components.",
+                "Resolved hero vertical whitespace defect (H1 at y: 167px instead of 391px) and replaced orphaned blue pulsing circular loader."
             ],
             "New Features": [
-                "Parallel Scrolling Experience on Landing Page: Multi-layer depth where typography, kinetic trajectory arcs, and telemetry chips scroll with coordinated physics offsets.",
-                "Asymmetric Competition Architecture Matrix: Replaced generic 3-card layout with an editorial split-screen showcasing 6-over high-leverage geometry, 36-ball dynamics, and interactive 6-franchise team telemetry.",
-                "Permanent Documentation Governance: Created automated verification script (scripts/verify_documentation_governance.py) enforcing documented changes, version manifests, and test records."
+                "Procedural 3D WebGL Cricket Match Ball (Cricket3DScene.tsx): Interactive Three.js sphere with leather bump map, physically raised Torus seam, 72 criss-cross cotton relief stitches, 3-point stadium lighting, cursor lerping, and scroll scrubbing.",
+                "Parallel Scrolling Experience on Landing Page (ParallelScrollColumns.tsx & HorizontalScrollDossiers.tsx): Opposing-direction column kinetics and pinned horizontal player dossiers driven by GSAP ScrollTrigger.",
+                "Asymmetric Competition Architecture Matrix: Split-screen pairing a sticky 36-ball manifesto with an interactive 6-franchise competition grid.",
+                "Permanent Documentation Governance: Automated verification script (scripts/verify_documentation_governance.py) validating all 7 governance files."
             ],
             "UI/UX Improvements": [
-                "Completely eliminated repetitive AI-style 3-box sections from the landing page in favor of diverse, magazine-grade layouts.",
-                "Added horizontal parallax athlete dossier sequence and split-screen analytics cockpit.",
-                "Refined Athlete Performance Dossiers with role-adaptive statistical prominence (batting-first, bowling-first, dual-impact)."
+                "Bold Luxury Colour Identity: Obsidian (#111318), Warm Ivory (#F1EBDD), Electric Vermilion (#FF4B35) disciplined to ~10% visual presence.",
+                "Website-Wide Visual Transformation: Completely refactored /players, /players/[id], /dashboard, /teams, /comparison, and /auction into luxury editorial layouts.",
+                "Compacting Glass Navigation: Scroll-responsive navbar height reduction (h-16 to h-14), backdrop blur, and vermilion dot active indicators.",
+                "3D Page-Curl Sheet Transition with vermilion foil edge highlight and custom magnetic desktop cursor."
             ],
             "Security Improvements": [
-                "Verified zero leakage of private franchise credentials or auction secrets across all new landing page components."
+                "Verified zero leakage of private franchise credentials or auction secrets across all components."
             ],
             "Performance Improvements": [
-                "Optimized scroll listeners with passive Framer Motion transforms and hardware-accelerated transforms to eliminate main-thread jank."
+                "IntersectionObserver auto-pauses Three.js rendering when offscreen (0% idle CPU consumption).",
+                "Optimized scroll listeners with passive transforms and hardware-accelerated transforms to eliminate main-thread jank."
             ]
         }
     },

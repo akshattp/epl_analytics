@@ -72,38 +72,38 @@ export default function ComparisonPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="border-b border-[#E2E8F0] dark:border-[#334155] pb-6 pt-2">
+      <div className="border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-6 pt-2">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <div className="text-xs uppercase font-semibold tracking-wider text-[#2563EB] dark:text-[#3B82F6] mb-1">
+            <div className="text-xs uppercase font-semibold tracking-wider text-[#FF4B35] mb-1 font-mono">
               Multi-Player Head-to-Head Evaluation
             </div>
-            <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#101828] dark:text-[#F8FAFC]">
+            <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#111318] dark:text-[#F1EBDD]">
               Player Comparison
             </h1>
-            <p className="text-sm text-[#64748B] dark:text-[#94A3B8] mt-1 max-w-xl leading-relaxed">
+            <p className="text-sm text-[#5C584E] dark:text-[#A8A296] mt-1 max-w-xl leading-relaxed">
               Side-by-side performance audit across all batting, bowling, ratings, and auction valuation metrics. Category leaders highlighted.
             </p>
           </div>
-          <div className="text-xs text-[#2563EB] dark:text-[#3B82F6] bg-blue-50 dark:bg-[#151F32] px-3 py-1.5 rounded-lg border border-blue-200 dark:border-[#334155] font-semibold">
+          <div className="text-xs text-[#FF4B35] bg-[#FF4B35]/10 px-3 py-1.5 rounded-lg border border-[#FF4B35]/20 font-semibold font-mono">
             Comparing {comparedData.length} of max 4 players
           </div>
         </div>
       </div>
 
       {/* Player Selector Bar */}
-      <div className="bg-white dark:bg-[#151F32] rounded-xl p-4 border border-[#E2E8F0] dark:border-[#334155] shadow-sm space-y-3">
+      <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-4 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
         <div className="flex flex-wrap items-center gap-2.5">
-          <span className="text-xs font-semibold uppercase text-[#64748B] dark:text-[#94A3B8] mr-1">Selected:</span>
+          <span className="text-xs font-semibold uppercase text-[#5C584E] dark:text-[#A8A296] mr-1 font-mono">Selected:</span>
           {comparedData.map((p) => (
             <div 
               key={p.player_id}
-              className="inline-flex items-center space-x-2 bg-blue-50 dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] border border-blue-200 dark:border-[#334155] px-3 py-1.5 rounded-lg text-xs"
+              className="inline-flex items-center space-x-2 bg-[#F1EBDD] dark:bg-[#111318] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38] px-3 py-1.5 rounded-lg text-xs"
             >
               <span className="font-bold">{p.name}</span>
               <button 
                 onClick={() => removePlayer(p.player_id)}
-                className="text-[#64748B] dark:text-[#94A3B8] hover:text-red-500 transition ml-1"
+                className="text-[#5C584E] dark:text-[#A8A296] hover:text-[#FF4B35] transition ml-1"
                 aria-label={`Remove ${p.name}`}
               >
                 <X className="w-3.5 h-3.5" />
@@ -122,7 +122,7 @@ export default function ComparisonPage() {
                 }}
                 defaultValue=""
                 aria-label="Add player to comparison"
-                className="px-3 py-1.5 text-xs rounded-lg border border-[#E2E8F0] dark:border-[#334155] bg-white dark:bg-[#0B1120] text-[#101828] dark:text-[#F8FAFC] focus:outline-none focus:border-[#2563EB]"
+                className="px-3 py-1.5 text-xs rounded-lg border border-[#DDD5C3] dark:border-[#2A2E38] bg-[#FAF7F0] dark:bg-[#111318] text-[#111318] dark:text-[#F1EBDD] focus:outline-none focus:border-[#FF4B35]"
               >
                 <option value="" disabled>+ Add Player to Compare...</option>
                 {allPlayers
@@ -199,25 +199,25 @@ export default function ComparisonPage() {
           tabIndex={0}
           role="region"
           aria-label="Player Comparison Metrics Matrix"
-          className="table-wrapper bg-white dark:bg-[#151F32] rounded-xl border border-[#E2E8F0] dark:border-[#334155] shadow-sm overflow-x-auto text-[#101828] dark:text-[#F8FAFC]"
+          className="table-wrapper bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm overflow-x-auto text-[#111318] dark:text-[#F1EBDD]"
         >
           <table className="w-full text-left table-editorial table-sticky-col">
             <thead>
               <tr>
                 <th scope="col" className="p-3.5 w-1/4">Metric</th>
                 {comparedData.map((p) => (
-                  <th key={p.player_id} scope="col" className="p-3.5 text-center border-l border-[#E2E8F0] dark:border-[#334155]">
-                    <div className="font-display font-bold text-base text-[#101828] dark:text-[#F8FAFC]">{p.name}</div>
-                    <div className="text-[10px] text-[#2563EB] dark:text-[#3B82F6] uppercase tracking-wider">{p.primary_role}</div>
+                  <th key={p.player_id} scope="col" className="p-3.5 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38]">
+                    <div className="font-display font-bold text-base text-[#111318] dark:text-[#F1EBDD]">{p.name}</div>
+                    <div className="text-[10px] text-[#FF4B35] uppercase tracking-wider font-mono">{p.primary_role}</div>
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody className="text-xs">
               {/* Category 1: Ratings & PIS */}
-              <tr className="bg-[#F8FAFC] dark:bg-[#0B1120] font-semibold">
-                <td colSpan={comparedData.length + 1} className="p-2.5 text-[#2563EB] dark:text-[#3B82F6] uppercase tracking-wider text-[11px] border-b border-[#E2E8F0] dark:border-[#334155]">
-                  1. Ratings &amp; Player Intelligence (v1.3 PIS)
+              <tr className="bg-[#F1EBDD] dark:bg-[#111318] font-semibold">
+                <td colSpan={comparedData.length + 1} className="p-2.5 text-[#FF4B35] uppercase tracking-wider text-[11px] border-b border-[#DDD5C3] dark:border-[#2A2E38] font-mono">
+                  1. Ratings &amp; Player Intelligence (PIS)
                 </td>
               </tr>
               <tr>
@@ -227,25 +227,25 @@ export default function ComparisonPage() {
                   const allVals = comparedData.map((x) => x.player_intelligence?.overall_player_intelligence_score || x.ratings?.overall_rating || 0);
                   const isTop = isLeader(val, allVals, "high");
                   return (
-                    <td key={p.player_id} className={`p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-display font-bold text-base ${isTop ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-[#101828] dark:text-[#F8FAFC]"}`}>
+                    <td key={p.player_id} className={`p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-display font-bold text-base ${isTop ? "text-[#FF4B35]" : "text-[#111318] dark:text-[#F1EBDD]"}`}>
                       {val.toFixed(1)} / 100 {isTop && <span className="text-[10px] ml-1 text-emerald-600 dark:text-emerald-400 font-sans">★ Leader</span>}
                     </td>
                   );
                 })}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Role Classification</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Role Classification</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-semibold text-[#64748B] dark:text-[#94A3B8]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-semibold text-[#5C584E] dark:text-[#A8A296]">
                     {p.all_rounder_metrics?.role_classification || p.primary_role}
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Confidence Level</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Confidence Level</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono text-[11px]">
-                    <span className="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-[#0B1120] border border-blue-200 dark:border-[#334155] text-[#2563EB] dark:text-[#3B82F6] font-semibold">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono text-[11px]">
+                    <span className="px-2 py-0.5 rounded-full bg-[#FF4B35]/10 border border-[#FF4B35]/20 text-[#FF4B35] font-semibold">
                       {p.player_intelligence?.confidence_level || "MEDIUM"}
                     </span>
                   </td>
@@ -260,74 +260,74 @@ export default function ComparisonPage() {
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Estimated Auction Value</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Estimated Auction Value</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono font-bold text-sm text-[#2563EB] dark:text-[#3B82F6]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono font-bold text-sm text-[#FF4B35]">
                     ₹{p.valuation?.estimated_valuation?.toFixed(1)}L
                   </td>
                 ))}
               </tr>
 
               {/* Category 2: Batting Metrics */}
-              <tr className="bg-[#F8FAFC] dark:bg-[#0B1120] font-semibold">
-                <td colSpan={comparedData.length + 1} className="p-2.5 text-[#2563EB] dark:text-[#3B82F6] uppercase tracking-wider text-[11px] border-b border-[#E2E8F0] dark:border-[#334155]">
+              <tr className="bg-[#F1EBDD] dark:bg-[#111318] font-semibold">
+                <td colSpan={comparedData.length + 1} className="p-2.5 text-[#FF4B35] uppercase tracking-wider text-[11px] border-b border-[#DDD5C3] dark:border-[#2A2E38] font-mono">
                   2. Batting Performance Metrics
                 </td>
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Matches / Innings</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Matches / Innings</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono text-[#101828] dark:text-[#F8FAFC]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono text-[#111318] dark:text-[#F1EBDD]">
                     {p.matches_played || p.matches} m / {p.career_batting?.innings || 0} inn
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Total Runs Scored</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Total Runs Scored</td>
                 {comparedData.map((p) => {
                   const val = p.career_batting?.total_runs || 0;
                   const allVals = comparedData.map((x) => x.career_batting?.total_runs || 0);
                   const isTop = isLeader(val, allVals, "high");
                   return (
-                    <td key={p.player_id} className={`p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono font-bold text-sm ${isTop ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-[#101828] dark:text-[#F8FAFC]"}`}>
+                    <td key={p.player_id} className={`p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono font-bold text-sm ${isTop ? "text-[#FF4B35]" : "text-[#111318] dark:text-[#F1EBDD]"}`}>
                       {val} {isTop && <span className="text-[10px] ml-1 text-emerald-600 dark:text-emerald-400">★</span>}
                     </td>
                   );
                 })}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Strike Rate</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Strike Rate</td>
                 {comparedData.map((p) => {
                   const val = p.career_batting?.strike_rate || 0;
                   const allVals = comparedData.map((x) => x.career_batting?.strike_rate || 0);
                   const isTop = isLeader(val, allVals, "high");
                   return (
-                    <td key={p.player_id} className={`p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono font-bold ${isTop ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-[#101828] dark:text-[#F8FAFC]"}`}>
+                    <td key={p.player_id} className={`p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono font-bold ${isTop ? "text-[#FF4B35]" : "text-[#111318] dark:text-[#F1EBDD]"}`}>
                       {val.toFixed(1)} {isTop && <span className="text-[10px] ml-1 text-emerald-600 dark:text-emerald-400">★</span>}
                     </td>
                   );
                 })}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Batting Average</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Batting Average</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono text-[#101828] dark:text-[#F8FAFC]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono text-[#111318] dark:text-[#F1EBDD]">
                     {p.career_batting?.average_display || p.career_batting?.batting_average?.toFixed(2) || "0.00"}
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Boundaries (4s / 6s)</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Boundaries (4s / 6s)</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono text-[#101828] dark:text-[#F8FAFC]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono text-[#111318] dark:text-[#F1EBDD]">
                     {p.career_batting?.fours || 0}x4 / {p.career_batting?.sixes || 0}x6 ({p.career_batting?.boundary_percentage?.toFixed(1) || 0}%)
                   </td>
                 ))}
               </tr>
 
               {/* Category 3: Bowling Metrics */}
-              <tr className="bg-[#F8FAFC] dark:bg-[#0B1120] font-semibold">
-                <td colSpan={comparedData.length + 1} className="p-2.5 text-[#2563EB] dark:text-[#3B82F6] uppercase tracking-wider text-[11px] border-b border-[#E2E8F0] dark:border-[#334155]">
+              <tr className="bg-[#F1EBDD] dark:bg-[#111318] font-semibold">
+                <td colSpan={comparedData.length + 1} className="p-2.5 text-[#FF4B35] uppercase tracking-wider text-[11px] border-b border-[#DDD5C3] dark:border-[#2A2E38] font-mono">
                   3. Bowling Performance Metrics
                 </td>
               </tr>
@@ -346,20 +346,20 @@ export default function ComparisonPage() {
                   const allVals = comparedData.map((x) => x.career_bowling?.wickets || 0);
                   const isTop = isLeader(val, allVals, "high");
                   return (
-                    <td key={p.player_id} className={`p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono font-bold text-sm ${isTop ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-[#101828] dark:text-[#F8FAFC]"}`}>
+                    <td key={p.player_id} className={`p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono font-bold text-sm ${isTop ? "text-[#FF4B35]" : "text-[#111318] dark:text-[#F1EBDD]"}`}>
                       {val} {isTop && <span className="text-[10px] ml-1 text-emerald-600 dark:text-emerald-400">★</span>}
                     </td>
                   );
                 })}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Economy Rate (Legal Balls)</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Economy Rate (Legal Balls)</td>
                 {comparedData.map((p) => {
                   const val = p.career_bowling?.legal_balls > 0 ? p.career_bowling.economy : 99;
                   const allVals = comparedData.map((x) => (x.career_bowling?.legal_balls > 0 ? x.career_bowling.economy : 99));
                   const isTop = isLeader(val, allVals, "low") && val < 90;
                   return (
-                    <td key={p.player_id} className={`p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono font-bold ${isTop ? "text-[#0891B2] dark:text-[#22D3EE]" : "text-[#101828] dark:text-[#F8FAFC]"}`}>
+                    <td key={p.player_id} className={`p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono font-bold ${isTop ? "text-[#FF4B35]" : "text-[#111318] dark:text-[#F1EBDD]"}`}>
                       {p.career_bowling?.legal_balls > 0 ? `${p.career_bowling.economy.toFixed(2)}` : "—"}
                       {isTop && <span className="text-[10px] ml-1 text-emerald-600 dark:text-emerald-400">★</span>}
                     </td>
@@ -367,56 +367,56 @@ export default function ComparisonPage() {
                 })}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Dot Ball Percentage</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Dot Ball Percentage</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono text-[#101828] dark:text-[#F8FAFC]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono text-[#111318] dark:text-[#F1EBDD]">
                     {p.career_bowling?.dot_ball_percentage?.toFixed(1) || 0}% ({p.career_bowling?.dot_balls || 0} dots)
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Best Bowling Figures</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Best Bowling Figures</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono font-bold text-[#101828] dark:text-[#F8FAFC]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono font-bold text-[#111318] dark:text-[#F1EBDD]">
                     {p.career_bowling?.best_figures || "—"}
                   </td>
                 ))}
               </tr>
 
               {/* Category 4: Situational Splits & 6-Over Milestones */}
-              <tr className="bg-[#F8FAFC] dark:bg-[#0B1120] font-semibold">
-                <td colSpan={comparedData.length + 1} className="p-2.5 text-[#2563EB] dark:text-[#3B82F6] uppercase tracking-wider text-[11px] border-b border-[#E2E8F0] dark:border-[#334155]">
-                  4. Situational Splits &amp; 6-Over Milestones (v1.3)
+              <tr className="bg-[#F1EBDD] dark:bg-[#111318] font-semibold">
+                <td colSpan={comparedData.length + 1} className="p-2.5 text-[#FF4B35] uppercase tracking-wider text-[11px] border-b border-[#DDD5C3] dark:border-[#2A2E38] font-mono">
+                  4. Situational Splits &amp; 6-Over Milestones
                 </td>
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Setting (1st) vs Chasing Runs</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Setting (1st) vs Chasing Runs</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono text-[#101828] dark:text-[#F8FAFC]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono text-[#111318] dark:text-[#F1EBDD]">
                     {p.situational_splits?.batting_first?.total_runs || 0} runs (1st) / {p.situational_splits?.chasing?.total_runs || 0} runs (Chase)
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Bowling 1st vs Defending Economy</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Bowling 1st vs Defending Economy</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono text-[#101828] dark:text-[#F8FAFC]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono text-[#111318] dark:text-[#F1EBDD]">
                     {p.situational_splits?.bowling_first?.economy ? `${p.situational_splits.bowling_first.economy.toFixed(2)}` : "—"} / {p.situational_splits?.defending?.economy ? `${p.situational_splits.defending.economy.toFixed(2)}` : "—"} RPO
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">10+ / 15+ / 20+ Innings</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">10+ / 15+ / 20+ Innings</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono font-semibold text-[#2563EB] dark:text-[#3B82F6]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono font-semibold text-[#FF4B35]">
                     {p.career_batting?.scores_10_plus || 0} / {p.career_batting?.scores_15_plus || 0} / {p.career_batting?.scores_20_plus || 0}
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Multi-Wicket Spells (2+ Wkts)</td>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Multi-Wicket Spells (2+ Wkts)</td>
                 {comparedData.map((p) => (
-                  <td key={p.player_id} className="p-3 text-center border-l border-[#E2E8F0] dark:border-[#334155] font-mono font-semibold text-[#0891B2] dark:text-[#22D3EE]">
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono font-semibold text-[#5C584E] dark:text-[#A8A296]">
                     {p.career_bowling?.two_plus_wickets || 0} spells ({p.career_bowling?.multi_wicket_frequency || 0}%)
                   </td>
                 ))}
@@ -425,7 +425,7 @@ export default function ComparisonPage() {
           </table>
         </div>
       ) : (
-        <div className="py-16 text-center text-xs text-[#64748B] dark:text-[#94A3B8] bg-white dark:bg-[#151F32] rounded-xl border border-[#E2E8F0] dark:border-[#334155]">
+        <div className="py-16 text-center text-xs text-[#5C584E] dark:text-[#A8A296] bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38]">
           Select players above to generate side-by-side comparison.
         </div>
       )}
