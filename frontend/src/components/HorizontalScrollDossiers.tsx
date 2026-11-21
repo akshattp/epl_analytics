@@ -59,10 +59,10 @@ export function HorizontalScrollDossiers({ players }: HorizontalScrollDossiersPr
   const displayPlayers = (players && players.length > 0)
     ? players.slice(0, 7)
     : [
-        { player_id: "EPL-P-001", name: "Sagar Kapadia", total_runs: 138, strike_rate: 117.5, wickets: 0, economy: 0, role_classification: "Pure Batter", batting_hand: "Right" },
-        { player_id: "EPL-P-004", name: "Smeet Shah", total_runs: 45, strike_rate: 98.2, wickets: 5, economy: 3.57, role_classification: "Defensive Bowler", batting_hand: "Right" },
+        { player_id: "EPL-P-001", name: "Sagar Kapadia", total_runs: 134, strike_rate: 117.5, wickets: 10, economy: 3.59, role_classification: "Balanced All-Rounder", batting_hand: "Right" },
+        { player_id: "EPL-P-004", name: "Smeet Shah", total_runs: 74, strike_rate: 91.4, wickets: 5, economy: 3.57, role_classification: "Balanced All-Rounder", batting_hand: "Right" },
         { player_id: "EPL-P-011", name: "Harshil Patel", total_runs: 115, strike_rate: 142.0, wickets: 6, economy: 5.2, role_classification: "Impact Batter", batting_hand: "Right" },
-        { player_id: "EPL-P-017", name: "Krunal Patel", total_runs: 95, strike_rate: 110.0, wickets: 8, economy: 4.8, role_classification: "All-Rounder", batting_hand: "Right" },
+        { player_id: "EPL-P-017", name: "Krunal Patel", total_runs: 95, strike_rate: 110.0, wickets: 8, economy: 4.8, role_classification: "Balanced All-Rounder", batting_hand: "Right" },
       ];
 
   return (

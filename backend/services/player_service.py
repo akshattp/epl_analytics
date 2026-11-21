@@ -14,6 +14,7 @@ from backend.analytics.cricket_math import (
 )
 from backend.analytics.ratings_engine import calculate_player_ratings
 from backend.analytics.player_intelligence import calculate_player_intelligence
+from backend.analytics.classification_engine import classify_player
 from backend.auction.valuation_engine import calculate_player_valuation
 
 def get_player_full_profile(db: Session, player_id: str) -> Optional[Dict[str, Any]]:
@@ -131,7 +132,23 @@ def get_player_full_profile(db: Session, player_id: str) -> Optional[Dict[str, A
         career_seasons=list(seasons_seen)
     )
 
-    # EPL v1.3 Player Intelligence Suite (PIS)
+    # Master Classification & Rule Engine (v2.0.1-dev)
+    # Separates: Experience, Batting Evidence, Bowling Evidence, All-round Contribution, Overall Score, Statistical Confidence
+    classification = classify_player(
+        matches_played=matches_played,
+        career_batting=career_batting,
+        career_bowling=career_bowling,
+        all_rounder_metrics=all_rounder_metrics,
+        career_seasons=list(seasons_seen)
+    )
+
+    # Harmonize roles, tags and scores across all modules
+    ratings["primary_role"] = classification["primary_role"]
+    ratings["secondary_roles"] = classification["performance_tags"]
+    ratings["overall_rating"] = classification["intelligence_suite"]["overall_player_intelligence_score"]
+    all_rounder_metrics["role_classification"] = classification["role_classification"]
+
+    # EPL v1.3 Player Intelligence Suite (PIS) & v2.0.1-dev Rule Engine Enrichment
     player_intelligence = calculate_player_intelligence(
         career_batting=career_batting,
         career_bowling=career_bowling,
@@ -141,6 +158,27 @@ def get_player_full_profile(db: Session, player_id: str) -> Optional[Dict[str, A
         knockout_bowling=ko_bowling,
         matches_played=matches_played
     )
+
+    # Enrich player_intelligence with definitive classification engine results
+    player_intelligence["experience_level"] = classification["experience_level"]
+    player_intelligence["experience_label"] = classification["experience_label"]
+    player_intelligence["batting_evidence"] = classification["batting_evidence"]
+    player_intelligence["is_batting_eligible"] = classification["is_batting_eligible"]
+    player_intelligence["bowling_evidence"] = classification["bowling_evidence"]
+    player_intelligence["is_bowling_eligible"] = classification["is_bowling_eligible"]
+    player_intelligence["is_all_rounder_eligible"] = classification["is_all_rounder_eligible"]
+    player_intelligence["confidence_level"] = classification["confidence_level"]
+    player_intelligence["confidence_score"] = classification["confidence_score"]
+    player_intelligence["confidence_badge"] = classification["confidence_badge"]
+    player_intelligence["performance_tags"] = classification["performance_tags"]
+    player_intelligence["tags_detail"] = classification["tags_detail"]
+    player_intelligence["audit_reason"] = classification["audit_reason"]
+    player_intelligence["overall_player_intelligence_score"] = classification["intelligence_suite"]["overall_player_intelligence_score"]
+    player_intelligence["overall_score"] = classification["intelligence_suite"]["overall_player_intelligence_score"]
+    player_intelligence["batting_intelligence_score"] = classification["intelligence_suite"]["batting_intelligence_score"]
+    player_intelligence["bowling_intelligence_score"] = classification["intelligence_suite"]["bowling_intelligence_score"]
+    player_intelligence["all_rounder_intelligence_score"] = classification["intelligence_suite"]["all_rounder_intelligence_score"]
+    player_intelligence["role_classification"] = classification["role_classification"]
 
     # Auction Valuation
     valuation = calculate_player_valuation(
@@ -203,6 +241,20 @@ def get_player_full_profile(db: Session, player_id: str) -> Optional[Dict[str, A
         "trial_rating": player.trial_rating,
         "primary_role": ratings["primary_role"],
         "secondary_roles": ratings["secondary_roles"],
+        "role_classification": classification["role_classification"],
+        "experience_level": classification["experience_level"],
+        "experience_label": classification["experience_label"],
+        "batting_evidence": classification["batting_evidence"],
+        "bowling_evidence": classification["bowling_evidence"],
+        "is_batting_eligible": classification["is_batting_eligible"],
+        "is_bowling_eligible": classification["is_bowling_eligible"],
+        "is_all_rounder_eligible": classification["is_all_rounder_eligible"],
+        "confidence_level": classification["confidence_level"],
+        "confidence_score": classification["confidence_score"],
+        "confidence_badge": classification["confidence_badge"],
+        "performance_tags": classification["performance_tags"],
+        "tags_detail": classification["tags_detail"],
+        "audit_reason": classification["audit_reason"],
         "career_seasons": sorted(list(seasons_seen)),
         "matches_played": matches_played,
         "career_batting": career_batting,
@@ -231,7 +283,20 @@ def get_all_players_summary(db: Session) -> List[Dict[str, Any]]:
                 "batting_hand": prof["batting_hand"],
                 "primary_role": prof["primary_role"],
                 "secondary_roles": prof["secondary_roles"],
-                "role_classification": prof["all_rounder_metrics"]["role_classification"],
+                "role_classification": prof["role_classification"],
+                "experience_level": prof.get("experience_level"),
+                "experience_label": prof.get("experience_label"),
+                "batting_evidence": prof.get("batting_evidence"),
+                "bowling_evidence": prof.get("bowling_evidence"),
+                "is_batting_eligible": prof.get("is_batting_eligible"),
+                "is_bowling_eligible": prof.get("is_bowling_eligible"),
+                "is_all_rounder_eligible": prof.get("is_all_rounder_eligible"),
+                "confidence_level": prof.get("confidence_level"),
+                "confidence_score": prof.get("confidence_score"),
+                "confidence_badge": prof.get("confidence_badge"),
+                "performance_tags": prof.get("performance_tags", []),
+                "tags_detail": prof.get("tags_detail", []),
+                "audit_reason": prof.get("audit_reason"),
                 "is_new_player": prof["is_new_player"],
                 "matches": prof["matches_played"],
                 "innings": prof["career_batting"]["innings"],

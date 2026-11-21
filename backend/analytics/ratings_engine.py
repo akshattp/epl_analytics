@@ -125,32 +125,36 @@ def calculate_player_ratings(
         knockout_rating = round((batting_rating + bowling_rating) * 0.25, 1)
 
     # ---------------- PRIMARY & SECONDARY ROLES ----------------
-    if batting_rating >= 45.0 and bowling_rating >= 45.0:
+    if batting_rating >= 35.0 and bowling_rating >= 35.0 and balls >= 24 and runs >= 20:
         primary_role = "All-rounder"
-    elif bowling_rating > batting_rating and bowling_rating >= 30.0:
+    elif bowling_rating > batting_rating and (balls >= 12 or bowling_rating >= 25.0):
         primary_role = "Specialist Bowler"
-    elif batting_rating >= 25.0:
+    elif batting_rating >= 20.0 or runs >= 10:
         primary_role = "Specialist Batsman"
+    elif balls >= 6:
+        primary_role = "Specialist Bowler"
     else:
-        primary_role = "All-rounder"
+        primary_role = "Specialist Batsman"
 
-    # Secondary styles
+    # Secondary styles - Controlled vocabulary & sample-gated tags
     secondary_roles = []
-    if sr >= 115.0 and inn >= 2:
-        secondary_roles.append("Aggressive Batsman")
-    if avg >= 15.0 and inn >= 3:
-        secondary_roles.append("Consistent Scorer")
-    if bpct >= 50.0 and runs >= 25:
-        secondary_roles.append("Boundary Hitter")
-    if bowling_stats.get("bowling_strike_rate") and bowling_stats["bowling_strike_rate"] <= 10.0 and wkts >= 3:
-        secondary_roles.append("Wicket-taking Bowler")
-    if eco <= 5.0 and balls >= 18:
+    if sr >= 135.0 and inn >= 3 and balls >= 25 and bpct >= 45.0:
+        secondary_roles.append("Explosive Batter")
+    if avg >= 16.0 and inn >= 4 and runs >= 40:
+        secondary_roles.append("Consistent Run Scorer")
+    if runs >= 40 and inn >= 4 and bowling_stats.get("scores_15_plus", 0) >= 2:
+        secondary_roles.append("High-Impact Batter")
+    if bowling_stats.get("bowling_strike_rate") and bowling_stats["bowling_strike_rate"] <= 9.0 and wkts >= 3 and balls >= 24:
+        secondary_roles.append("Strike Bowler")
+    if eco <= 5.0 and balls >= 24:
         secondary_roles.append("Economical Bowler")
-    if knockout_rating >= 65.0 and (ko_inn >= 2 or ko_balls >= 12):
-        secondary_roles.append("Big-match Performer")
-    if batting_rating >= 45.0 and bowling_rating >= 45.0:
-        secondary_roles.append("Consistent All-rounder")
-    if 2025 in career_seasons and len(career_seasons) == 1 and (runs >= 20 or wkts >= 2):
+    if wkts >= 5 and balls >= 36:
+        secondary_roles.append("Wicket-Taking Specialist")
+    if batting_rating >= 30.0 and bowling_rating >= 30.0 and balls >= 24 and runs >= 25:
+        secondary_roles.append("Genuine All-round Contributor")
+    if inn <= 2 and balls < 18 and runs < 15 and wkts < 2:
+        secondary_roles.append("Limited Sample Size")
+    elif (inn <= 2 or len(career_seasons) == 1) and ((runs >= 15 and sr >= 125.0) or (wkts >= 2 and eco <= 6.5)):
         secondary_roles.append("Emerging Talent")
 
     # ---------------- OVERALL EPL RATING (0-100) ----------------

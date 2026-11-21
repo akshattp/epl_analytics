@@ -15,6 +15,7 @@ export default function PlayersPage() {
   const [roleFilter, setRoleFilter] = useState("ALL");
   const [categoryFilter, setCategoryFilter] = useState("ALL");
   const [seasonFilter, setSeasonFilter] = useState("ALL");
+  const [experienceFilter, setExperienceFilter] = useState("ALL");
 
   useEffect(() => {
     async function loadPlayers() {
@@ -38,12 +39,13 @@ export default function PlayersPage() {
           return false;
         }
       }
-      if (roleFilter !== "ALL" && p.primary_role !== roleFilter) return false;
+      if (roleFilter !== "ALL" && p.primary_role !== roleFilter && p.role_classification !== roleFilter) return false;
       if (categoryFilter !== "ALL" && p.valuation?.category !== categoryFilter) return false;
       if (seasonFilter !== "ALL" && !(p.seasons || []).includes(parseInt(seasonFilter))) return false;
+      if (experienceFilter !== "ALL" && (p.experience_level || "").toLowerCase() !== experienceFilter.toLowerCase()) return false;
       return true;
     });
-  }, [players, search, roleFilter, categoryFilter, seasonFilter]);
+  }, [players, search, roleFilter, categoryFilter, seasonFilter, experienceFilter]);
 
   const getInitials = (name: string) => {
     const parts = name.replace(/\([^)]*\)/g, "").trim().split(" ");
@@ -51,25 +53,27 @@ export default function PlayersPage() {
     return (name[0] || "P").toUpperCase();
   };
 
-  const getRoleBadge = (role: string) => {
+  const getRoleBadge = (p: any) => {
+    const role = p.role_classification || p.primary_role || "";
     const r = role.toLowerCase();
+    const conf = p.confidence_level;
     if (r.includes("all-round")) {
       return (
-        <span className="px-2 py-0.5 rounded-full bg-[#FF4B35]/10 text-[#FF4B35] border border-[#FF4B35]/30 text-[10px] font-bold tracking-wide">
-          All-Rounder
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#FF4B35]/10 text-[#FF4B35] border border-[#FF4B35]/30 text-[10px] font-bold tracking-wide">
+          <span>{role}</span>
         </span>
       );
     }
     if (r.includes("bat")) {
       return (
-        <span className="px-2 py-0.5 rounded-full bg-[#FAF7F0] dark:bg-[#181A20] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38] text-[10px] font-semibold tracking-wide">
-          Pure Batsman
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#FAF7F0] dark:bg-[#181A20] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38] text-[10px] font-semibold tracking-wide">
+          <span>{role}</span>
         </span>
       );
     }
     return (
-      <span className="px-2 py-0.5 rounded-full bg-[#E8E1D1]/60 dark:bg-[#22252D] text-[#5C584E] dark:text-[#A8A296] border border-[#DDD5C3] dark:border-[#2A2E38] text-[10px] font-medium tracking-wide">
-        Pure Bowler
+      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E8E1D1]/60 dark:bg-[#22252D] text-[#5C584E] dark:text-[#A8A296] border border-[#DDD5C3] dark:border-[#2A2E38] text-[10px] font-medium tracking-wide">
+        <span>{role}</span>
       </span>
     );
   };
@@ -99,10 +103,49 @@ export default function PlayersPage() {
     },
     {
       key: "primary_role",
-      header: "Role",
-      tooltip: "Primary Playing Discipline",
-      minWidth: "130px",
-      render: (p) => getRoleBadge(p.primary_role),
+      header: "Classification",
+      tooltip: "Audited Role & Statistical Confidence",
+      minWidth: "155px",
+      render: (p) => (
+        <div className="space-y-0.5">
+          <div>{getRoleBadge(p)}</div>
+          <div className="flex items-center gap-1 text-[9px] font-mono text-[#5C584E] dark:text-[#A8A296]">
+            <span className={`w-1.5 h-1.5 rounded-full ${
+              p.confidence_level === "HIGH" ? "bg-emerald-500" :
+              p.confidence_level === "MEDIUM" ? "bg-[#FF4B35]" : "bg-amber-500"
+            }`} />
+            <span>{p.experience_level || "Emerging"} • {p.confidence_level || "LOW"} Conf</span>
+          </div>
+        </div>
+      ),
+    },
+    {
+      key: "tags",
+      header: "Performance Tags",
+      tooltip: "Controlled Vocabulary Performance Tags",
+      minWidth: "165px",
+      render: (p) => (
+        <div className="flex flex-wrap gap-1 max-w-[170px]">
+          {(p.performance_tags || []).length > 0 ? (
+            p.performance_tags.slice(0, 2).map((t: string, idx: number) => (
+              <span
+                key={idx}
+                className={`text-[9px] px-1.5 py-0.5 rounded font-medium border ${
+                  t === "Limited Sample Size"
+                    ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                    : t.includes("All-round")
+                    ? "bg-[#FF4B35]/10 text-[#FF4B35] border-[#FF4B35]/20 font-bold"
+                    : "bg-[#F1EBDD] dark:bg-[#111318] text-[#111318] dark:text-[#F1EBDD] border-[#DDD5C3] dark:border-[#2A2E38]"
+                }`}
+              >
+                {t}
+              </span>
+            ))
+          ) : (
+            <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] italic">—</span>
+          )}
+        </div>
+      ),
     },
     {
       key: "matches",
@@ -238,7 +281,7 @@ export default function PlayersPage() {
       </div>
 
       {/* Modern Filters Bar */}
-      <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-4 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-4 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
         <div className="relative">
           <Search className="w-4 h-4 absolute left-3 top-2.5 text-[#5C584E] dark:text-[#A8A296] pointer-events-none" />
           <input
@@ -251,6 +294,19 @@ export default function PlayersPage() {
         </div>
 
         <select
+          value={experienceFilter}
+          onChange={(e) => setExperienceFilter(e.target.value)}
+          aria-label="Filter by experience level"
+          className="px-3 py-1.5 text-xs rounded-lg border border-[#DDD5C3] dark:border-[#2A2E38] bg-[#F1EBDD] dark:bg-[#111318] text-[#111318] dark:text-[#F1EBDD] focus:outline-none focus:border-[#FF4B35] transition"
+        >
+          <option value="ALL">All Experience Levels</option>
+          <option value="Proven">Proven (10+ Matches)</option>
+          <option value="Established">Established (6–9 Matches)</option>
+          <option value="Developing">Developing (3–5 Matches)</option>
+          <option value="Emerging">Emerging (1–2 Matches)</option>
+        </select>
+
+        <select
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
           aria-label="Filter by role"
@@ -258,7 +314,7 @@ export default function PlayersPage() {
         >
           <option value="ALL">All Playing Roles</option>
           <option value="All-rounder">All-rounders</option>
-          <option value="Specialist Batsman">Specialist Batsmen</option>
+          <option value="Specialist Batsman">Specialist Batsmen / Batters</option>
           <option value="Specialist Bowler">Specialist Bowlers</option>
         </select>
 

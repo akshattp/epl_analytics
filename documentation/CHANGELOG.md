@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.1-dev] - 2026-11-19 (Luxury Creative Direction, 3D WebGL Cricket Scene & Website-Wide Visual Transformation)
 
 ### Added
+- **Player Intelligence, Tagging & Classification Rule Engine (`backend/analytics/classification_engine.py`)**:
+  - Independent Experience Categories: `Emerging` (1–2 matches), `Developing` (3–5), `Established` (6–9), `Proven` (10+).
+  - Multi-tier Evidence & Eligibility Thresholds: Evaluates batting and bowling independently (`Established Evidence`, `Developing Evidence`, `Limited Sample`, `Did Not Bat`/`Did Not Bowl`).
+  - Statistical Confidence Metric ($C_f \in [0.0, 1.0]$): Rated into `HIGH` ($\ge 0.70$), `MEDIUM` ($0.45 \le C_f < 0.70$), `LOW` ($0.25 \le C_f < 0.45$), `VERY LOW` ($< 0.25$).
+  - Bayesian Shrinkage towards League Baseline ($\mu = 30.0$): Prevents single-match outliers with inflated strike rates from topping rankings.
+  - 10 Controlled Vocabulary Performance Tags: `Limited Sample Size`, `Emerging Talent`, `Explosive Batter`, `Consistent Run Scorer`, `High-Impact Batter`, `Reliable Finisher`, `Strike Bowler`, `Economical Bowler`, `Wicket-Taking Specialist`, `Genuine All-round Contributor`.
+  - Comprehensive 73-Player Classification Audit: Audited all 73 canonical players with zero anomalies (`/api/players/classification-audit` and `documentation/PLAYER_CLASSIFICATION_AUDIT.md`).
 - **Bold Luxury Colour Identity**: Replaced generic blue/purple AI palettes with Obsidian (`#111318`), Warm Ivory (`#F1EBDD`), and Electric Vermilion (`#FF4B35`). Light and dark themes art-directed as two distinct editorial experiences.
 - **Blender-Level 3D WebGL Cricket Scene (`Cricket3DScene.tsx`)**: Embedded Three.js (v187) 3D cricket match ball into the hero with procedural leather pores bump map, physically raised warm ivory seam (Torus geometry), 72 criss-cross cotton thread stitches, 3-point stadium lighting rig, cursor tracking with spring lerping, scroll scrubbing, and orbital motes.
 - **Redesigned Brand Identity & Top Navigation (`EplBrandLogo.tsx` & `Navbar.tsx`)**: Geometric architectural cricket crest with interlocking wickets and vermilion trajectory arc; dynamic scroll-responsive compacting (`h-16` -> `h-14`), luxury pills with vermilion active dot indicators, and live auction CTA.
@@ -22,6 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Automated Documentation Governance & Regression**: Created `scripts/verify_documentation_governance.py` and `tests/test_v2_0_1_governance_and_fixes.py` (72/72 backend tests passing, 21/21 routes compiling).
 
 ### Fixed
+- **All-Rounder Over-Classification Defect**: Eliminated fall-through `else: primary_role = "All-rounder"` bug in `ratings_engine.py` that previously misclassified 37 players (50.7% of the league) as all-rounders; strict two-way evidence gating reduced this to 16 genuine all-rounders.
+- **Sample-Size Ranking Bias**: Prevented low-sample players (e.g. Vikas Yadav, Yogesh Chandorkar, Shailesh Mali) from acquiring unearned consistency or all-rounder badges without requisite tournament sample sizes.
 - **Hero Vertical Whitespace Defect (B2)**: Eliminated massive top gap pushing the headline down (`y: 391px`). Verified via Playwright automation: H1 begins at `y: 167px` (tightly integrated at top fold).
 - **Hero Orphaned Loader Defect (B1)**: Removed solitary blue pulsing dot that appeared as an unresolved loader above the headline. Replaced with structured static badge with `<Sparkles />` icon.
 - **Landing Page Runs & Wickets Zero Bug**: Fixed data binding bug in `frontend/src/app/page.tsx` and `backend/services/player_service.py` where featured player cards displayed `0` for Career Runs and Wickets. Enriched `get_all_players_summary` to provide both flat and nested properties with fallback coalition.

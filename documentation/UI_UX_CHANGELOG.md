@@ -50,15 +50,20 @@ Gen 2.0.1 (Current): Luxury Obsidian-Ivory-Vermilion & Three.js 3D Cricket WebGL
   * Opposing-direction parallel columns (`ParallelScrollColumns.tsx`) moving at distinct vertical velocities (`y: -140px`, `y: +120px`, `y: -200px`).
   * Pinned horizontal scrolling dossiers (`HorizontalScrollDossiers.tsx`) driven smoothly by vertical scroll.
 * **Website-Wide Luxury Extension**:
-  * `/players`: Vermilion role pills, ivory card containers, obsidian typography, hairline borders.
-  * `/players/[id]`: Monogram crests, 100-Point PIS scorecard with micro-meters, pressure splits, auction economics.
+  * `/players`: Vermilion role pills, ivory card containers, obsidian typography, hairline borders, and experience filter dropdown (`Proven`, `Established`, `Developing`, `Emerging`).
+  * `/players/[id]`: Monogram crests, 100-Point PIS scorecard with micro-meters, pressure splits, auction economics, confidence rating indicator, interactive performance tags with category badges, and sample size volatility warnings.
   * `/dashboard`: Luxury KPI cards, updated `v2.0.1-dev` release strip, Recharts custom-themed charts.
   * `/teams`: Franchise matrix with net run rate color coding and win distribution charts.
-  * `/comparison`: Head-to-head comparison table with leader stars and category banners.
+  * `/comparison`: Head-to-head comparison table with leader stars, category banners, and experience level / performance tags comparison.
   * `/auction`: Authenticated six-owner live bidding cockpit with atomic reserve verification.
+* **Player Intelligence & Confidence Micro-UI Components**:
+  * Experience tier pills (`Proven`, `Established`, `Developing`, `Emerging`) with subtle hairline border framing.
+  * Confidence level pills (`HIGH`, `MEDIUM`, `LOW`, `VERY LOW`) with color-coded dot indicators.
+  * Controlled vocabulary performance tag badges with category-coded fills (Electric Vermilion for explosive, Emerald for consistency, Laser Cyan for bowling, Amber for sample warnings) and hover tooltip descriptions.
+  * High-visibility sample size warning callout on profiles with low statistical confidence ($C_f < 0.35$).
 * **Automated Visual Verification**:
   * Playwright automated testing across all 6 viewports (1440 light/dark, 1280, 1024, 768, 390, 375).
-  * 72/72 backend pytests passing, 21/21 Next.js routes compiling with 0 errors.
+  * 79/79 backend pytests passing, 21/21 Next.js routes compiling with 0 errors.
 
 ---
 

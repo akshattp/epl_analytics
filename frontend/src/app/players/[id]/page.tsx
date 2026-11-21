@@ -349,22 +349,25 @@ export default function PlayerProfilePage() {
                   {profile.player_id}
                 </span>
                 <span className="text-xs font-bold uppercase tracking-wider bg-[#FF4B35] text-white px-3 py-1 rounded-full shadow-sm">
-                  {ar.role_classification || profile.primary_role}
+                  {profile.role_classification || ar.role_classification || profile.primary_role}
+                </span>
+                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#E8E1D1]/60 dark:bg-[#22252D] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38]">
+                  {profile.experience_label || `${profile.matches} Matches`}
                 </span>
                 <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A296] bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38] px-3 py-1 rounded-full">
                   {profile.batting_hand}
                 </span>
-                {pi.confidence_level && (
+                {profile.confidence_level && (
                   <span
                     className={`text-[11px] font-mono uppercase px-3 py-1 rounded-full border font-semibold ${
-                      pi.confidence_level === "HIGH"
+                      profile.confidence_level === "HIGH"
                         ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30"
-                        : pi.confidence_level === "MEDIUM"
+                        : profile.confidence_level === "MEDIUM"
                         ? "bg-[#FF4B35]/10 text-[#FF4B35] border-[#FF4B35]/30"
                         : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30"
                     }`}
                   >
-                    {pi.confidence_level} Confidence ({profile.matches}M)
+                    {profile.confidence_level} Confidence
                   </span>
                 )}
               </div>
@@ -372,6 +375,45 @@ export default function PlayerProfilePage() {
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#111318] dark:text-[#F1EBDD]">
                 {profile.name}
               </h1>
+
+              {/* Controlled Vocabulary Performance Tags */}
+              <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                {(profile.tags_detail && profile.tags_detail.length > 0) ? (
+                  profile.tags_detail.map((t: any, idx: number) => (
+                    <div
+                      key={idx}
+                      title={t.explanation}
+                      className={`group relative inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border transition shadow-xs cursor-help ${
+                        t.category === "Confidence"
+                          ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30"
+                          : t.category === "Potential"
+                          ? "bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/30"
+                          : t.category === "All-Round"
+                          ? "bg-[#FF4B35]/10 text-[#FF4B35] border-[#FF4B35]/30 font-bold"
+                          : t.category === "Batting"
+                          ? "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30"
+                          : "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
+                      }`}
+                    >
+                      <span>{t.tag}</span>
+                      <Info className="w-3 h-3 opacity-60 group-hover:opacity-100" />
+                    </div>
+                  ))
+                ) : (profile.performance_tags && profile.performance_tags.length > 0) ? (
+                  profile.performance_tags.map((tag: string, idx: number) => (
+                    <span
+                      key={idx}
+                      className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#E8E1D1]/60 dark:bg-[#22252D] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38]"
+                    >
+                      {tag}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-[11px] font-mono text-[#5C584E] dark:text-[#A8A296] bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38] px-2.5 py-0.5 rounded-md">
+                    Standard Squad Contributor
+                  </span>
+                )}
+              </div>
 
               <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-medium text-[#5C584E] dark:text-[#A8A296]">
                 <span>
@@ -384,6 +426,10 @@ export default function PlayerProfilePage() {
                 <span>•</span>
                 <span>
                   Innings: <strong className="text-[#111318] dark:text-[#F1EBDD]">{profile.career_batting?.innings || 0} Bat / {profile.career_bowling?.innings || 0} Bowl</strong>
+                </span>
+                <span>•</span>
+                <span>
+                  Evidence: <strong className="text-[#111318] dark:text-[#F1EBDD]">{profile.batting_evidence || "Batting"} &amp; {profile.bowling_evidence || "Bowling"}</strong>
                 </span>
               </div>
             </div>
@@ -643,6 +689,24 @@ export default function PlayerProfilePage() {
       {/* ============================================================== */}
       {(activeTab === "career" || isPrintMode) && (
         <div className="space-y-8">
+          {/* Sample Size Warning if Evidence is Limited */}
+          {((profile.is_batting_eligible === false && b.innings > 0) || (profile.is_bowling_eligible === false && bw.legal_balls > 0)) && (
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-amber-800 dark:text-amber-300">
+              <span className="flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>
+                  <strong>Sample Size Safeguard:</strong>{" "}
+                  {profile.is_batting_eligible === false && b.innings > 0 && `Batting sample is developing/limited (${b.total_balls || 0} balls faced). `}
+                  {profile.is_bowling_eligible === false && bw.legal_balls > 0 && `Bowling sample is limited (${bw.legal_balls || 0} legal balls bowled). `}
+                  Rate metrics should be evaluated within the context of demonstrated sample size.
+                </span>
+              </span>
+              <span className="font-mono text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-amber-500/20 shrink-0 self-start sm:self-auto">
+                {profile.confidence_level || "LIMITED"} SAMPLE
+              </span>
+            </div>
+          )}
+
           {/* ROLE-PRIORITIZED KEY STATS RACK */}
           {isAllRounder ? (
             /* Dual Impact Rack for All-Rounders */

@@ -29,8 +29,11 @@
 ## 2. Backend Services & API Endpoints (`FastAPI` on Port 8000)
 
 * `backend/main.py`: Entry point, CORS middleware, API route mounting.
+* `backend/analytics/classification_engine.py`: Canonical Player Classification, Sample Gating, Statistical Confidence ($C_f$), Bayesian Shrinkage, and Tagging Engine.
+* `backend/analytics/ratings_engine.py`: 100-Point PIS Suite (BIS, BoIS, AIS, CIS, MIS) with strict role assignment.
+* `backend/services/player_service.py`: Service layer orchestrating database queries, career stats, and classification engine enrichment.
 * `backend/routers/overview.py`: Tournament KPIs, champions, season totals.
-* `backend/routers/players.py`: Player directory, full athlete profile, similar cohort lookup.
+* `backend/routers/players.py`: Player directory, full athlete profile, similar cohort lookup, and 73-player classification audit (`/api/players/classification-audit`).
 * `backend/routers/analytics.py`: Batting, bowling, all-rounder leaderboards, tournament records.
 * `backend/routers/insights.py`: 16 dynamic tournament insights with ground-truth verification.
 * `backend/routers/teams.py`: 6 franchise head-to-head records and net run rate telemetry.
@@ -85,3 +88,12 @@ Total: **21 Compiled Routes**:
 * `RatingBadge.tsx`: 100-Point PIS score badge with electric vermilion tier accents.
 * `ExportButtonsBar.tsx`: Luxury-themed CSV/JSON/Print export action bar.
 * `Navbar.tsx`: Header navigation with brand logo, scroll-responsive compacting (`h-16` -> `h-14`), glassmorphism blur, and electric vermilion dot active indicators.
+
+---
+
+## 5. Verification & Governance Assets
+
+* `documentation/PLAYER_CLASSIFICATION_AUDIT.md`: Complete 73-player ground-truth classification audit table and anomaly report.
+* `documentation/screenshots/`: Responsive visual verification captures across 6 viewports.
+* `scripts/verify_documentation_governance.py`: Automated documentation verification gate.
+* `tests/`: 79 automated pytest test suites (100% passing across extraction, calculations, auction concurrency, and classification rules).

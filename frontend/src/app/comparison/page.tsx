@@ -234,10 +234,18 @@ export default function ComparisonPage() {
                 })}
               </tr>
               <tr>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Experience Level</td>
+                {comparedData.map((p) => (
+                  <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-semibold text-[#111318] dark:text-[#F1EBDD]">
+                    {p.experience_label || p.player_intelligence?.experience_label || `${p.matches_played || p.matches || 0} Matches`}
+                  </td>
+                ))}
+              </tr>
+              <tr>
                 <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Role Classification</td>
                 {comparedData.map((p) => (
                   <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-semibold text-[#5C584E] dark:text-[#A8A296]">
-                    {p.all_rounder_metrics?.role_classification || p.primary_role}
+                    {p.role_classification || p.all_rounder_metrics?.role_classification || p.primary_role}
                   </td>
                 ))}
               </tr>
@@ -246,10 +254,31 @@ export default function ComparisonPage() {
                 {comparedData.map((p) => (
                   <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38] font-mono text-[11px]">
                     <span className="px-2 py-0.5 rounded-full bg-[#FF4B35]/10 border border-[#FF4B35]/20 text-[#FF4B35] font-semibold">
-                      {p.player_intelligence?.confidence_level || "MEDIUM"}
+                      {p.confidence_level || p.player_intelligence?.confidence_level || "MEDIUM"}
                     </span>
                   </td>
                 ))}
+              </tr>
+              <tr>
+                <td className="p-3 font-medium text-[#111318] dark:text-[#F1EBDD]">Performance Tags</td>
+                {comparedData.map((p) => {
+                  const tags = p.performance_tags || p.player_intelligence?.performance_tags || p.secondary_roles || [];
+                  return (
+                    <td key={p.player_id} className="p-3 text-center border-l border-[#DDD5C3] dark:border-[#2A2E38]">
+                      <div className="flex flex-wrap justify-center gap-1">
+                        {tags.length > 0 ? (
+                          tags.map((t: string, idx: number) => (
+                            <span key={idx} className="text-[10px] px-1.5 py-0.5 rounded font-mono bg-[#E8E1D1]/60 dark:bg-[#22252D] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38]">
+                              {t}
+                            </span>
+                          ))
+                        ) : (
+                          <span className="text-[10px] text-[#5C584E] dark:text-[#A8A296] italic">—</span>
+                        )}
+                      </div>
+                    </td>
+                  );
+                })}
               </tr>
               <tr>
                 <td className="p-3 font-medium text-[#101828] dark:text-[#F8FAFC]">Auction Valuation Tier</td>

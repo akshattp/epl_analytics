@@ -11,10 +11,13 @@ RELEASES = [
         "release_date": "2026-11-19",
         "date_source": "Active Development Sprint (2.0.1-dev)",
         "codename": "Luxury Creative Direction, 3D Match Ball & Website-Wide Visual Transformation",
-        "summary": "Establishes a bold luxury colour identity (Obsidian #111318, Warm Ivory #F1EBDD, Electric Vermilion #FF4B35); creates a procedural Three.js 3D cricket match ball with physically raised Torus seam and 72 stitches; reconstructs the landing page with GSAP parallel scrolling; transforms all 7 operational routes into luxury editorial layouts; enforces permanent documentation governance.",
+        "summary": "Establishes a bold luxury colour identity (Obsidian #111318, Warm Ivory #F1EBDD, Electric Vermilion #FF4B35); creates a procedural Three.js 3D cricket match ball with physically raised Torus seam and 72 stitches; reconstructs the landing page with GSAP parallel scrolling; implements the Player Intelligence & Classification Rule Engine with Bayesian shrinkage and 73-player audit; transforms all operational routes into luxury editorial layouts; enforces permanent documentation governance.",
         "is_latest": True,
         "affected_modules": [
+            "backend/analytics/classification_engine.py",
+            "backend/analytics/ratings_engine.py",
             "backend/services/player_service.py",
+            "backend/routers/players.py",
             "backend/routers/version.py",
             "frontend/src/app/page.tsx",
             "frontend/src/app/players/page.tsx",
@@ -24,6 +27,7 @@ RELEASES = [
             "frontend/src/app/comparison/page.tsx",
             "frontend/src/app/auction/page.tsx",
             "frontend/src/components/Cricket3DScene.tsx",
+            "frontend/src/components/HorizontalScrollDossiers.tsx",
             "frontend/src/components/Navbar.tsx",
             "frontend/src/components/EplBrandLogo.tsx",
             "frontend/src/components/CustomCursor.tsx",
@@ -39,19 +43,24 @@ RELEASES = [
             "documentation/UI_UX_CHANGELOG.md",
             "documentation/DESIGN_SYSTEM.md",
             "documentation/RELEASES/v2.0.1_release_notes.md",
+            "documentation/PLAYER_CLASSIFICATION_AUDIT.md",
             "scripts/verify_documentation_governance.py",
-            "tests/test_v2_0_1_governance_and_fixes.py"
+            "tests/test_v2_0_1_governance_and_fixes.py",
+            "tests/test_player_classification_engine.py"
         ],
         "changes": {
             "Bug Fixes": [
                 "Resolved critical landing page bug where player runs and wickets displayed as zero due to missing nested career_batting and career_bowling objects in /api/players summary. Enriched backend player service to provide both flat and nested properties.",
                 "Updated frontend binding logic to use fallback coalition (p.total_runs ?? p.career_batting?.total_runs ?? 0) across all landing and profile components.",
-                "Resolved hero vertical whitespace defect (H1 at y: 167px instead of 391px) and replaced orphaned blue pulsing circular loader."
+                "Resolved hero vertical whitespace defect (H1 at y: 167px instead of 391px) and replaced orphaned blue pulsing circular loader.",
+                "Fixed All-Rounder over-classification defect in ratings engine (which previously assigned 37 players as All-rounders due to an unweighted fall-through default), reducing true all-rounders to 16 verified contributors."
             ],
             "New Features": [
+                "Player Intelligence, Tagging & Classification Rule Engine (classification_engine.py): Decoupled experience tiers (Emerging, Developing, Established, Proven), independent batting/bowling evidence thresholds, statistical confidence scores (HIGH, MEDIUM, LOW, VERY LOW), and Bayesian shrinkage towards league replacement baseline (mu = 30.0).",
+                "Controlled Vocabulary Performance Tags: 10 strictly audited performance tags with clear qualification gates and human-readable tooltips.",
+                "Player Classification Audit Route (/api/players/classification-audit) and comprehensive 73-player audit documentation.",
                 "Procedural 3D WebGL Cricket Match Ball (Cricket3DScene.tsx): Interactive Three.js sphere with leather bump map, physically raised Torus seam, 72 criss-cross cotton relief stitches, 3-point stadium lighting, cursor lerping, and scroll scrubbing.",
                 "Parallel Scrolling Experience on Landing Page (ParallelScrollColumns.tsx & HorizontalScrollDossiers.tsx): Opposing-direction column kinetics and pinned horizontal player dossiers driven by GSAP ScrollTrigger.",
-                "Asymmetric Competition Architecture Matrix: Split-screen pairing a sticky 36-ball manifesto with an interactive 6-franchise competition grid.",
                 "Permanent Documentation Governance: Automated verification script (scripts/verify_documentation_governance.py) validating all 7 governance files."
             ],
             "UI/UX Improvements": [

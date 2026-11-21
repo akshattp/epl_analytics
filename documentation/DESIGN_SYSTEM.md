@@ -106,3 +106,59 @@ The luxury design system is strictly propagated across all 21 compiled routes:
 * **Franchise Performance (`/teams`)**: Pinned franchise data tables, win distribution bar charts, and net run rate indicators.
 * **Head-to-Head Comparison (`/comparison`)**: Side-by-side metric matrix with leader star indicators.
 * **Auction Command Center (`/auction`)**: Authenticated six-owner live bidding cockpit, atomic reserve verification, and real-time WebSocket sync.
+
+---
+
+## 7. Player Classification, Experience & Evidence System
+
+To prevent statistical misrepresentation of limited-sample players, the platform enforces a formal classification and evidence engine (`backend/analytics/classification_engine.py`):
+
+### 1. Experience Tiers
+Experience is evaluated independently from performance:
+* **Emerging**: 1–2 matches (limited tournament exposure).
+* **Developing**: 3–5 matches (building sample size).
+* **Established**: 6–9 matches (substantive league track record).
+* **Proven**: 10+ matches (comprehensive, multi-season campaign history).
+
+### 2. Evidence & Sample-Size Thresholds
+Batting and bowling disciplines are evaluated independently:
+* **Batting Evidence**:
+  * `Established Evidence`: $\ge 6$ innings OR $\ge 50$ balls faced.
+  * `Developing Evidence`: 3–5 innings OR 20–49 balls faced.
+  * `Limited Sample`: 1–2 innings AND $< 20$ balls faced.
+  * `Did Not Bat`: 0 innings and 0 balls faced.
+* **Bowling Evidence**:
+  * `Established Evidence`: $\ge 6$ innings bowled OR $\ge 48$ legal balls (8.0 overs).
+  * `Developing Evidence`: 3–5 innings bowled OR 18–47 legal balls (3.0–7.5 overs).
+  * `Limited Sample`: 1–2 innings bowled AND $< 18$ legal balls.
+  * `Did Not Bowl`: 0 innings and 0 legal balls bowled.
+* **Two-Way All-Rounder Gating**:
+  * Genuine All-Rounder status requires either both disciplines to meet $\ge \text{Developing Evidence}$, OR one discipline $\ge \text{Established Evidence}$ while the other meets $\ge \text{Developing Evidence}$ (minimum 2 wickets and 18 legal balls, and minimum 20 runs and 20 balls faced). Eliminates fall-through default misclassifications.
+
+### 3. Statistical Confidence Score
+Calculated as a harmonic, sample-weighted metric ($C_f \in [0.0, 1.0]$):
+$$C_f = \min(1.0, 0.40 \cdot \frac{M}{10} + 0.35 \cdot \frac{\min(BF, 60)}{60} + 0.25 \cdot \frac{\min(LB, 48)}{48})$$
+* **HIGH**: $C_f \ge 0.70$ (Proven/Established sample size across both facets).
+* **MEDIUM**: $0.45 \le C_f < 0.70$ (Developing sample with dependable core data).
+* **LOW**: $0.25 \le C_f < 0.45$ (Limited sample, high volatility).
+* **VERY LOW**: $C_f < 0.25$ (Extreme sample constraint; 1–2 matches or single-ball exposure).
+
+### 4. Bayesian Shrinkage towards League Prior
+To prevent 1-match debutants with inflated averages or strike rates from outranking proven veterans, the Player Intelligence Score (PIS) shrinks towards the league replacement baseline ($\mu = 30.0$):
+$$PIS_{adjusted} = C_f \cdot PIS_{raw} + (1.0 - C_f) \cdot 30.0$$
+Discipline ratings shrink proportionally to evidence:
+$$BIS_{adj} = \frac{BF}{BF + 30} \cdot BIS_{raw} + \frac{30}{BF + 30} \cdot 30.0$$
+$$BoIS_{adj} = \frac{LB}{LB + 24} \cdot BoIS_{raw} + \frac{24}{LB + 24} \cdot 30.0$$
+
+### 5. Controlled Vocabulary Performance Tags
+1. `Limited Sample Size`: Assigned when $C_f < 0.35$ or matches $\le 2$, warning analysts of volatility.
+2. `Emerging Talent`: Assigned to 1–3 match players demonstrating high raw efficiency (Raw PIS $\ge 50.0$).
+3. `Explosive Batter`: Strike Rate $\ge 140.0$, boundary run $\% \ge 50.0\%$, and balls faced $\ge 20$.
+4. `Consistent Run Scorer`: Batting Average $\ge 25.0$, Innings $\ge 4$, runs per inning $\ge 18.0$.
+5. `High-Impact Batter`: Boundary $\% \ge 55.0\%$, Strike Rate $\ge 130.0$, balls faced $\ge 30$.
+6. `Reliable Finisher`: Batting Average $\ge 25.0$, Strike Rate $\ge 130.0$, Not Outs $\ge 2$, Innings $\ge 4$.
+7. `Strike Bowler`: Bowling Strike Rate $\le 10.0$ balls/wkt, wickets $\ge 5$, legal balls $\ge 30$.
+8. `Economical Bowler`: Economy Rate $\le 7.50$ RPO, legal balls $\ge 36$ (6.0 overs).
+9. `Wicket-Taking Specialist`: Wickets per match $\ge 1.0$, total wickets $\ge 6$, legal balls $\ge 36$.
+10. `Genuine All-round Contributor`: Meets two-way eligibility, runs $\ge 50$, wickets $\ge 4$, matches $\ge 5$.
+
