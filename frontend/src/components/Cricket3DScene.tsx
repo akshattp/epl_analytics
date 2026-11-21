@@ -271,13 +271,17 @@ export function Cricket3DScene({ className = "", isDark = true }: Cricket3DScene
     });
     observer.observe(container);
 
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
+    let lastTime = startTime;
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
       if (!isVisible) return;
 
-      const delta = clock.getDelta();
+      const now = performance.now();
+      const delta = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+      const elapsedTime = (now - startTime) / 1000;
 
       // Continuous Seam Spin
       if (!prefersReducedMotion) {
@@ -289,7 +293,6 @@ export function Cricket3DScene({ className = "", isDark = true }: Cricket3DScene
         ballGroup.rotation.x += (targetRotationX - ballGroup.rotation.x) * 0.05;
 
         // Subtle Floating Oscillation
-        const elapsedTime = clock.getElapsedTime();
         ballGroup.position.y = Math.sin(elapsedTime * 1.5) * 0.08;
         ringMesh.rotation.z += 0.15 * delta;
 
