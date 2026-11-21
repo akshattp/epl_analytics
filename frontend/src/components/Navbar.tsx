@@ -7,12 +7,12 @@ import {
   Trophy, Users, GitCompare, Sparkles, Activity,
   BarChart3, Shield, Layers, DollarSign, Bookmark,
   Settings, Menu, X, ChevronDown, FlaskConical, History,
-  Award, Sun, Moon, LayoutDashboard
+  Award, Sun, Moon, LayoutDashboard, Star
 } from "lucide-react";
 import { useTheme } from "@/lib/theme";
 import { EplBrandLogo } from "@/components/EplBrandLogo";
 
-const CURRENT_APP_VERSION = "2.0.1-dev";
+const CURRENT_APP_VERSION = "2.1-dev";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -56,6 +56,7 @@ export default function Navbar() {
     { name: "Landing", href: "/", icon: Trophy },
     { name: "Terminal", href: "/dashboard", icon: LayoutDashboard },
     { name: "Players", href: "/players", icon: Users },
+    { name: "Rankings", href: "/rankings", icon: Star },
     { name: "Records", href: "/analytics/records", icon: Award },
     { name: "Advanced", href: "/analytics/advanced", icon: Activity },
     { name: "Intel Lab", href: "/intelligence-lab", icon: FlaskConical },
@@ -122,6 +123,19 @@ export default function Navbar() {
               {isActive("/players") && <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B35]" />}
               <Users className="w-3.5 h-3.5" />
               <span>Athletes</span>
+            </Link>
+
+            <Link
+              href="/rankings"
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                isActive("/rankings")
+                  ? "bg-[#FAF7F0] dark:bg-[#181A20] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm font-bold"
+                  : "text-[#5C584E] dark:text-[#A8A295] hover:text-[#111318] dark:hover:text-[#F1EBDD] hover:bg-[#E8E1D1]/40 dark:hover:bg-[#181A20]/60"
+              }`}
+            >
+              {isActive("/rankings") && <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B35]" />}
+              <Trophy className="w-3.5 h-3.5" />
+              <span>Rankings</span>
             </Link>
 
             {/* Analytics Dropdown */}
@@ -230,11 +244,11 @@ export default function Navbar() {
 
             {/* Prominent Live Auction Action */}
             <Link
-              href="/auction"
+              href="/auction-portal/login"
               className="ml-1 px-4 py-1.5 rounded-xl text-xs font-display font-bold transition-all flex items-center gap-1.5 bg-[#FF4B35] hover:bg-[#E03E29] text-white shadow-md shadow-[#FF4B35]/20 hover:scale-[1.02]"
             >
               <DollarSign className="w-3.5 h-3.5 text-white/90" />
-              <span>Live Auction</span>
+              <span>Auction Portal</span>
             </Link>
           </nav>
 

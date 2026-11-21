@@ -1,7 +1,7 @@
 # EPL Current System Inventory & Architectural Topology
 
-**Version:** `2.0.1-dev`  
-**Date:** November 19, 2026  
+**Version:** `2.1-dev`  
+**Date:** November 21, 2026  
 **Status:** Operational Production Baseline  
 
 ---
@@ -29,6 +29,8 @@
 ## 2. Backend Services & API Endpoints (`FastAPI` on Port 8000)
 
 * `backend/main.py`: Entry point, CORS middleware, API route mounting.
+* `backend/analytics/ranking_engine.py`: Four-Tier Independent Player Intelligence & Leaderboards Engine (BAT, BOWL, AR, OVERALL) with Bayesian small-sample shrinkage and empirical confidence grading.
+* `backend/routers/rankings.py`: Independent leaderboard APIs (`/api/rankings/batting`, `/bowling`, `/allround`, `/overall`, `/player/{player_id}`).
 * `backend/analytics/classification_engine.py`: Canonical Player Classification, Sample Gating, Statistical Confidence ($C_f$), Bayesian Shrinkage, and Tagging Engine.
 * `backend/analytics/ratings_engine.py`: 100-Point PIS Suite (BIS, BoIS, AIS, CIS, MIS) with strict role assignment.
 * `backend/services/player_service.py`: Service layer orchestrating database queries, career stats, and classification engine enrichment.
@@ -40,7 +42,7 @@
 * `backend/routers/seasons.py`: Multi-year comparative analytics (2023–2025).
 * `backend/routers/auction.py`: Live auction state machine, bids, WebSocket channel.
 * `backend/routers/auction_setup.py`: 18-parameter auction configuration and team manager.
-* `backend/routers/auth.py`: Token authentication for auctioneer and 6 franchise owners.
+* `backend/routers/auth.py`: Token authentication for auctioneer, 6 franchise owners, and super_admin.
 * `backend/routers/exports.py`: PDF, Excel, and CSV streaming exports.
 * `backend/routers/version.py`: Centralized version and changelog registry.
 
@@ -48,28 +50,34 @@
 
 ## 3. Frontend Architecture (`Next.js 14 App Router` on Port 3000)
 
-Total: **21 Compiled Routes**:
+Total: **27 Compiled Routes**:
 1. `/` — Reconstructed Cinematic Landing Page with Parallel Parallax
 2. `/dashboard` — Preserved Operational Telemetry Terminal
 3. `/players` — Filterable 73-Athlete Directory
-4. `/players/[id]` — Signature Athlete Performance Dossier
-5. `/comparison` — Multi-Player Radar & Head-to-Head Comparison
-6. `/similar-players` — Cosine Similarity Tactical Cohorts
-7. `/analytics/batting` — Batting Velocity, Boundary % & Milestones
-8. `/analytics/bowling` — Restrictive Bowling Economy & Dot-Ball Pressure
-9. `/analytics/all-rounders` — Dual-Discipline Impact Index
-10. `/analytics/records` — All-Time Tournament Records & Milestones
-11. `/analytics/advanced` — Situational Splits, Phase Distributions
-12. `/intelligence-lab` — 2/3 Player Franchise Combination Finder
-13. `/insights` — 16 Verified Tournament Intelligence Insights
-14. `/teams` — Franchise Standings & Telemetry
-15. `/seasons` — 3-Season Historical Breakdown
-16. `/auction` — Real-Time WebSocket Auction Terminal
-17. `/shortlists` — Franchise Private Bidding Board
-18. `/admin` — Data Quality & Integrity Controls
-19. `/changelog` — Complete Interactive Release History
-20. `/_not-found` — 404 Handler
-21. Root Metadata / Favicon (`/favicon.svg`)
+4. `/players/[id]` — Signature Athlete Performance Dossier with 4-Tier Intelligence Card
+5. `/rankings` — Four-Tier Independent Player Intelligence Leaderboards (BAT, BOWL, AR, OVERALL)
+6. `/comparison` — Multi-Player Radar & Head-to-Head Comparison
+7. `/similar-players` — Cosine Similarity Tactical Cohorts
+8. `/analytics/batting` — Batting Velocity, Boundary % & Milestones
+9. `/analytics/bowling` — Restrictive Bowling Economy & Dot-Ball Pressure
+10. `/analytics/all-rounders` — Dual-Discipline Impact Index
+11. `/analytics/records` — All-Time Tournament Records & Milestones
+12. `/analytics/advanced` — Situational Splits, Phase Distributions
+13. `/intelligence-lab` — 2/3 Player Franchise Combination Finder
+14. `/insights` — 16 Verified Tournament Intelligence Insights
+15. `/teams` — Franchise Standings & Telemetry
+16. `/seasons` — 3-Season Historical Breakdown
+17. `/auction` — Real-Time WebSocket Auction Terminal
+18. `/auction-portal` — Dedicated Auction Intelligence Portal Redirect Hub
+19. `/auction-portal/login` — Secured Authentication Terminal
+20. `/auction-portal/owner/[teamId]` — Franchise Owner Command Center
+21. `/auction-portal/auctioneer` — Auctioneer Lot Controller Terminal
+22. `/auction-portal/admin` — Super Admin Auction Governance Console
+23. `/auction-portal/live` — Synchronized Live Bidding Terminal
+24. `/shortlists` — Franchise Private Bidding Board
+25. `/admin` — Data Quality & Integrity Controls
+26. `/changelog` — Complete Interactive Release History
+27. `/_not-found` — 404 Handler
 
 ---
 

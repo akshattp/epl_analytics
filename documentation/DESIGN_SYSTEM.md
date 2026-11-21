@@ -1,9 +1,32 @@
 # EPL v2.0 Design System & Brand Guidelines
 ## Luxury Obsidian, Warm Ivory & Electric Vermilion Visual Identity
 
-**Version:** `2.0.1-dev`  
+**Version:** `2.1-dev`  
 **Foundational Typefaces:** Space Grotesk, Inter, JetBrains Mono  
 **Brand Essence:** Luxury Sports Intelligence, Editorial Restraint, High-Craft 3D WebGL Physics, Contemporary Broadcasting Authority  
+
+---
+
+## 0. Version 2.1-dev Extensions
+
+### 0.1 Four-Tier Intelligence Tokens & Visual Hierarchy
+* **BAT (Batting)**: Blue-500 accent (`#3B82F6`) for volume, velocity (SR), reliability (average), boundary share, and milestone metrics.
+* **BOWL (Bowling)**: Emerald-500 accent (`#10B981`) for wicket threat, economy run-suppression, dot-ball pressure, and spell consistency.
+* **AR (All-Round)**: Purple-400 accent (`#C084FC`) indicating qualified dual-discipline athletes with balanced contributions and same-match dual bonuses.
+* **OVERALL (Composite)**: Electric Vermilion accent (`#FF4B35`) representing universal cross-discipline performance damped by empirical sample confidence.
+* **Confidence Badges**:
+  * `HIGH`: Emerald-500 badge (`bg-emerald-500/15 text-emerald-500 border-emerald-500/30`)
+  * `MEDIUM`: Amber-500 badge (`bg-amber-500/15 text-amber-500 border-amber-500/30`)
+  * `LOW`: Orange-500 badge (`bg-orange-500/15 text-orange-500 border-orange-500/30`)
+  * `VERY LOW`: Red-500 badge (`bg-red-500/15 text-red-500 border-red-500/30`)
+
+### 0.2 Auction Portal Franchise Accent System
+* Victory Vipers: Emerald (`#10B981`)
+* Exotica Warriors: Royal Blue (`#3B82F6`)
+* The Ultimates: Purple (`#8B5CF6`)
+* Exotica Panthers: Orange (`#F97316`)
+* Living Legenda: Gold (`#EAB308`)
+* Lions Pride: Crimson Red (`#EF4444`)
 
 ---
 

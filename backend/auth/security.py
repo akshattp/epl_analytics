@@ -108,6 +108,13 @@ def init_default_users(db: Session):
             "role": "team_owner",
             "team_id": 6,
             "display_name": "Exotica Lions Pride (Yash Patel)"
+        },
+        {
+            "username": "admin",
+            "password": "epladmin2026!",
+            "role": "super_admin",
+            "team_id": None,
+            "display_name": "EPL System Administrator"
         }
     ]
 

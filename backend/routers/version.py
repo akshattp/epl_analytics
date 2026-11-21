@@ -2,17 +2,58 @@ from fastapi import APIRouter
 
 router = APIRouter(prefix="/api", tags=["Version & Changelog"])
 
-CURRENT_VERSION = "2.0.1-dev"
-RELEASE_DATE = "2026-11-19"
+CURRENT_VERSION = "2.1-dev"
+RELEASE_DATE = "2026-11-21"
 
 RELEASES = [
+    {
+        "version": "2.1-dev",
+        "release_date": "2026-11-21",
+        "date_source": "Active Development Sprint (2.1-dev)",
+        "codename": "Four-Tier Player Intelligence & Premium Auction Portal",
+        "summary": "Builds four separate, mathematically independent player ranking systems (BAT, BOWL, AR, OVERALL) with Bayesian small-sample shrinkage, strict discipline isolation, and separate confidence grading; introduces the dedicated Auction Intelligence Portal (/auction-portal) with role-based authentication (PBKDF2-HMAC-SHA256, Super Admin, Auctioneer, Team Owners, Spectators), live bidding terminals with real-time WebSocket state, franchise purse management, and comprehensive documentation governance.",
+        "is_latest": True,
+        "affected_modules": [
+            "backend/analytics/ranking_engine.py",
+            "backend/routers/rankings.py",
+            "backend/routers/auth.py",
+            "backend/auth/security.py",
+            "backend/routers/version.py",
+            "backend/main.py",
+            "frontend/src/app/rankings/page.tsx",
+            "frontend/src/app/auction-portal/page.tsx",
+            "frontend/src/app/auction-portal/login/page.tsx",
+            "frontend/src/app/auction-portal/admin/page.tsx",
+            "frontend/src/app/auction-portal/auctioneer/page.tsx",
+            "frontend/src/app/auction-portal/owner/[teamId]/page.tsx",
+            "frontend/src/app/auction-portal/live/page.tsx",
+            "frontend/src/app/players/[id]/page.tsx",
+            "frontend/src/components/Navbar.tsx",
+            "tests/test_ranking_engine.py",
+            "documentation/CHANGELOG.md",
+            "documentation/VERSION_HISTORY.md",
+            "documentation/RELEASE_REGISTER.md",
+            "documentation/CURRENT_SYSTEM_INVENTORY.md",
+            "documentation/UI_UX_CHANGELOG.md",
+            "documentation/DESIGN_SYSTEM.md",
+            "documentation/RELEASES/v2.1_release_notes.md"
+        ],
+        "key_changes": [
+            "BAT Ranking Engine: pure batting-only metrics (Volume, Velocity-SR, Reliability-Avg, Boundary%, Milestones) with Bayesian shrinkage towards league median (28.0). Bowling has zero influence.",
+            "BOWL Ranking Engine: pure bowling-only metrics (Wicket-taking, Economy suppression, Dot-ball pressure, Spell consistency) with Bayesian shrinkage. Batting has zero influence.",
+            "AR Ranking Engine: true dual-discipline model with exposure weighting, discipline balance ratio bonus (+10 max), and same-match dual contribution bonus (+8 max). Strict qualification thresholds.",
+            "OVERALL Ranking Engine: role-normalized cross-discipline leaderboard covering all 73 canonical players with confidence-damped Bayesian shrinkage towards league floor (25.0).",
+            "Auction Intelligence Portal: dedicated portal with Super Admin governance, Auctioneer lot controller, franchise owner command center, and shared live terminal.",
+            "Identity & Access Control: Added super_admin role with emergency auction state reset, persistent user sessions, and team-scoped bid verification."
+        ]
+    },
     {
         "version": "2.0.1-dev",
         "release_date": "2026-11-19",
         "date_source": "Active Development Sprint (2.0.1-dev)",
         "codename": "Luxury Creative Direction, 3D Match Ball & Website-Wide Visual Transformation",
         "summary": "Establishes a bold luxury colour identity (Obsidian #111318, Warm Ivory #F1EBDD, Electric Vermilion #FF4B35); creates a procedural Three.js 3D cricket match ball with physically raised Torus seam and 72 stitches; reconstructs the landing page with GSAP parallel scrolling; implements the Player Intelligence & Classification Rule Engine with Bayesian shrinkage and 73-player audit; transforms all operational routes into luxury editorial layouts; enforces permanent documentation governance.",
-        "is_latest": True,
+        "is_latest": False,
         "affected_modules": [
             "backend/analytics/classification_engine.py",
             "backend/analytics/ratings_engine.py",

@@ -35,6 +35,7 @@ export default function PlayerProfilePage() {
   const id = params?.id as string;
   const [profile, setProfile] = useState<any>(null);
   const [charts, setCharts] = useState<any>(null);
+  const [fourTierRankings, setFourTierRankings] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"career" | "situational" | "seasons" | "matches" | "auction">("career");
   const [matchSeasonFilter, setMatchSeasonFilter] = useState<string>("ALL");
@@ -62,12 +63,16 @@ export default function PlayerProfilePage() {
   useEffect(() => {
     async function loadProfile() {
       try {
-        const [res, chartRes] = await Promise.all([
+        const [res, chartRes, rankingRes] = await Promise.all([
           fetchApi(`/api/players/${id}`),
           fetchApi(`/api/advanced/charts/player/${id}`).catch(() => null),
+          fetchApi(`/api/rankings/player/${id}`).catch(() => null),
         ]);
         setProfile(res);
         setCharts(chartRes);
+        if (rankingRes && rankingRes.rankings) {
+          setFourTierRankings(rankingRes.rankings);
+        }
       } catch (err) {
         console.error("Error loading profile:", err);
       } finally {
@@ -466,6 +471,177 @@ export default function PlayerProfilePage() {
           </div>
         </div>
       </section>
+
+      {/* ============================================================== */}
+      {/* EPL 2.1-dev FOUR-TIER INDEPENDENT RANKINGS SECTION            */}
+      {/* ============================================================== */}
+      {fourTierRankings && (
+        <section className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <Trophy className="w-5 h-5 text-[#FF4B35]" />
+                <h3 className="font-display text-lg font-bold text-[#111318] dark:text-[#F1EBDD]">
+                  Four-Tier Independent Player Intelligence &amp; Rankings
+                </h3>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase font-bold bg-[#FF4B35]/15 text-[#FF4B35] border border-[#FF4B35]/30">
+                  v2.1-dev
+                </span>
+              </div>
+              <p className="text-xs text-[#5C584E] dark:text-[#A8A296]">
+                Four separate rankings computed with discipline-isolated mathematical models and Bayesian sample shrinkage.
+              </p>
+            </div>
+            <Link
+              href="/rankings"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F1EBDD] dark:bg-[#111318] text-[#111318] dark:text-[#F1EBDD] hover:text-[#FF4B35] dark:hover:text-[#FF4B35] text-xs font-semibold border border-[#DDD5C3] dark:border-[#2A2E38] transition self-start sm:self-auto"
+            >
+              <span>View Leaderboards</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* 1. BAT */}
+            <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] uppercase font-bold tracking-wider text-[#5C584E] dark:text-[#A8A296] flex items-center gap-1.5">
+                  <Flame className="w-3.5 h-3.5 text-blue-500" />
+                  Batting (BAT)
+                </span>
+                <span className="text-[10px] font-mono font-bold text-[#5C584E] dark:text-[#A8A296]">
+                  {fourTierRankings.batting.rank ? `#${fourTierRankings.batting.rank} / ${fourTierRankings.batting.rank_of}` : "Unranked"}
+                </span>
+              </div>
+              <div className="flex items-baseline justify-between">
+                <div className="font-mono text-3xl font-extrabold text-[#111318] dark:text-[#F1EBDD]">
+                  {fourTierRankings.batting.score !== null ? fourTierRankings.batting.score.toFixed(1) : "—"}
+                </div>
+                <span className={`text-[9px] px-2 py-0.5 rounded-full font-mono uppercase font-bold border ${
+                  fourTierRankings.batting.confidence_level === "HIGH" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30" :
+                  fourTierRankings.batting.confidence_level === "MEDIUM" ? "bg-amber-500/10 text-amber-400 border-amber-500/30" :
+                  "bg-red-500/10 text-red-400 border-red-500/30"
+                }`}>
+                  {fourTierRankings.batting.confidence_level} CONF
+                </span>
+              </div>
+              <div className="w-full bg-[#DDD5C3] dark:bg-[#2A2E38] h-1.5 rounded-full overflow-hidden">
+                <div
+                  className="bg-blue-500 h-full rounded-full transition-all duration-500"
+                  style={{ width: `${Math.min(100, Math.max(0, fourTierRankings.batting.score || 0))}%` }}
+                />
+              </div>
+              <div className="text-[10px] text-[#5C584E] dark:text-[#A8A296] leading-tight">
+                {fourTierRankings.batting.eligible
+                  ? "Pure batting performance. Bowling has 0 influence."
+                  : (fourTierRankings.batting.eligibility_reason || "Did not bat")}
+              </div>
+            </div>
+
+            {/* 2. BOWL */}
+            <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] uppercase font-bold tracking-wider text-[#5C584E] dark:text-[#A8A296] flex items-center gap-1.5">
+                  <Shield className="w-3.5 h-3.5 text-emerald-500" />
+                  Bowling (BOWL)
+                </span>
+                <span className="text-[10px] font-mono font-bold text-[#5C584E] dark:text-[#A8A296]">
+                  {fourTierRankings.bowling.rank ? `#${fourTierRankings.bowling.rank} / ${fourTierRankings.bowling.rank_of}` : "Unranked"}
+                </span>
+              </div>
+              <div className="flex items-baseline justify-between">
+                <div className="font-mono text-3xl font-extrabold text-[#111318] dark:text-[#F1EBDD]">
+                  {fourTierRankings.bowling.score !== null ? fourTierRankings.bowling.score.toFixed(1) : "—"}
+                </div>
+                <span className={`text-[9px] px-2 py-0.5 rounded-full font-mono uppercase font-bold border ${
+                  fourTierRankings.bowling.confidence_level === "HIGH" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30" :
+                  fourTierRankings.bowling.confidence_level === "MEDIUM" ? "bg-amber-500/10 text-amber-400 border-amber-500/30" :
+                  "bg-red-500/10 text-red-400 border-red-500/30"
+                }`}>
+                  {fourTierRankings.bowling.confidence_level} CONF
+                </span>
+              </div>
+              <div className="w-full bg-[#DDD5C3] dark:bg-[#2A2E38] h-1.5 rounded-full overflow-hidden">
+                <div
+                  className="bg-emerald-500 h-full rounded-full transition-all duration-500"
+                  style={{ width: `${Math.min(100, Math.max(0, fourTierRankings.bowling.score || 0))}%` }}
+                />
+              </div>
+              <div className="text-[10px] text-[#5C584E] dark:text-[#A8A296] leading-tight">
+                {fourTierRankings.bowling.eligible
+                  ? "Pure bowling suppression & strike rate. Batting has 0 influence."
+                  : (fourTierRankings.bowling.eligibility_reason || "Did not bowl")}
+              </div>
+            </div>
+
+            {/* 3. AR */}
+            <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] uppercase font-bold tracking-wider text-[#5C584E] dark:text-[#A8A296] flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-purple-400" />
+                  All-Round (AR)
+                </span>
+                <span className="text-[10px] font-mono font-bold text-[#5C584E] dark:text-[#A8A296]">
+                  {fourTierRankings.allround.rank ? `#${fourTierRankings.allround.rank} / ${fourTierRankings.allround.rank_of}` : "Unranked"}
+                </span>
+              </div>
+              <div className="flex items-baseline justify-between">
+                <div className="font-mono text-3xl font-extrabold text-[#111318] dark:text-[#F1EBDD]">
+                  {fourTierRankings.allround.score !== null ? fourTierRankings.allround.score.toFixed(1) : "—"}
+                </div>
+                <span className={`text-[9px] px-2 py-0.5 rounded-full font-mono uppercase font-bold border ${
+                  fourTierRankings.allround.eligible
+                    ? "bg-purple-500/10 text-purple-400 border-purple-500/30"
+                    : "bg-[#2A2E38]/50 text-[#5C584E] border-[#2A2E38]"
+                }`}>
+                  {fourTierRankings.allround.eligible ? "QUALIFIED" : "INELIGIBLE"}
+                </span>
+              </div>
+              <div className="w-full bg-[#DDD5C3] dark:bg-[#2A2E38] h-1.5 rounded-full overflow-hidden">
+                <div
+                  className="bg-purple-500 h-full rounded-full transition-all duration-500"
+                  style={{ width: `${Math.min(100, Math.max(0, fourTierRankings.allround.score || 0))}%` }}
+                />
+              </div>
+              <div className="text-[10px] text-[#5C584E] dark:text-[#A8A296] leading-tight truncate" title={fourTierRankings.allround.eligibility_reason}>
+                {fourTierRankings.allround.eligible
+                  ? "Dual discipline exposure with same-match balance bonus."
+                  : fourTierRankings.allround.eligibility_reason}
+              </div>
+            </div>
+
+            {/* 4. OVERALL */}
+            <div className="bg-[#F1EBDD] dark:bg-[#111318] p-4 rounded-xl border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] uppercase font-bold tracking-wider text-[#5C584E] dark:text-[#A8A296] flex items-center gap-1.5">
+                  <Star className="w-3.5 h-3.5 text-[#FF4B35]" />
+                  Overall Score
+                </span>
+                <span className="text-[10px] font-mono font-bold text-[#FF4B35]">
+                  {fourTierRankings.overall.rank ? `#${fourTierRankings.overall.rank} / ${fourTierRankings.overall.rank_of}` : "—"}
+                </span>
+              </div>
+              <div className="flex items-baseline justify-between">
+                <div className="font-mono text-3xl font-extrabold text-[#FF4B35]">
+                  {fourTierRankings.overall.score !== null ? fourTierRankings.overall.score.toFixed(1) : "—"}
+                </div>
+                <span className="text-[9px] px-2 py-0.5 rounded-full font-mono uppercase font-bold bg-[#FF4B35]/10 text-[#FF4B35] border border-[#FF4B35]/30">
+                  {fourTierRankings.overall.path}
+                </span>
+              </div>
+              <div className="w-full bg-[#DDD5C3] dark:bg-[#2A2E38] h-1.5 rounded-full overflow-hidden">
+                <div
+                  className="bg-[#FF4B35] h-full rounded-full transition-all duration-500"
+                  style={{ width: `${Math.min(100, Math.max(0, fourTierRankings.overall.score || 0))}%` }}
+                />
+              </div>
+              <div className="text-[10px] text-[#5C584E] dark:text-[#A8A296] leading-tight">
+                Role-normalized cross-discipline score with Bayesian confidence damping.
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ============================================================== */}
       {/* 100-POINT PLAYER INTELLIGENCE SCORECARD (PIS)                  */}

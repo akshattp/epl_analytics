@@ -1,8 +1,8 @@
 # EPL Platform Version History & Evolutionary Lineage
 
-**Current Version:** `2.0.1-dev` (Active Development)  
+**Current Version:** `2.1-dev` (Active Development)  
 **Last Formally Released Version:** `2.0.0`  
-**Last Previously Detailed Documented Version:** `1.3.0`  
+**Last Previously Detailed Documented Version:** `2.0.1-dev`  
 **Governance Policy:** Non-negotiable permanent rule. Every change must be tracked and recorded.
 
 ---
@@ -11,7 +11,8 @@
 
 | Version | Status | Release Date | Provenance & Documentation Evidence | Key Focus Area |
 | :--- | :--- | :---: | :--- | :--- |
-| **`2.0.1-dev`** | Active Dev | 2026-11-19 | Active development sprint | Luxury Obsidian-Ivory-Vermilion palette, Three.js 3D WebGL cricket match ball, website-wide visual transformation, player intelligence & classification rule engine with Bayesian shrinkage, 73-player audit, and permanent documentation governance. |
+| **`2.1-dev`** | Active Dev | 2026-11-21 | Active development sprint (`v2.1_release_notes.md`) | Four independent player ranking systems (BAT, BOWL, AR, OVERALL) with Bayesian shrinkage and confidence grading; dedicated Auction Intelligence Portal (`/auction-portal`) with Super Admin, Auctioneer, Owner, and live terminal roles; PBKDF2 security governance. |
+| **`2.0.1-dev`** | Completed | 2026-11-19 | Confirmed (`v2.0.1_release_notes.md`) | Luxury Obsidian-Ivory-Vermilion palette, Three.js 3D WebGL cricket match ball, website-wide visual transformation, player intelligence & classification rule engine with Bayesian shrinkage, 73-player audit, and permanent documentation governance. |
 | **`2.0.0`** | Released | 2026-11-19 | Confirmed (Git commit `ab69371`, `epl_v2_*.md`) | Custom brand mark, 3D page curl transition, magnetic cursor, athlete dossier profile. |
 | **`1.5.0`** | Released | 2026-11-19 | Reconstructed from Git history (commit `6e434ef`) | Dual-theme system (Light/Dark), Space Grotesk typography, electric blue & cyan palette. |
 | **`1.4.0`** | Released | 2026-11-19 | Reconstructed from Git history (commit `c2a0b9a`) | Dark sports intelligence modernization across all 19 application routes. |

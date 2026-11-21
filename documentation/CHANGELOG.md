@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1-dev] - 2026-11-21 (Four-Tier Player Intelligence & Premium Auction Portal)
+
+### Added
+- **Four Independent Player Ranking Systems (`backend/analytics/ranking_engine.py` & `/api/rankings`)**:
+  - **BAT Rankings (0–100)**: Evaluates pure batting metrics exclusively (Volume [25], Velocity [30], Reliability [25], Boundary% [10], Milestones [10]) with Bayesian shrinkage towards league median ($28.0$). Bowling has zero weight.
+  - **BOWL Rankings (0–100)**: Evaluates pure bowling metrics exclusively (Wicket threat [35], Economy suppression [30], Dot-ball pressure [20], Spell consistency [15]) with Bayesian shrinkage towards league median ($28.0$). Batting has zero weight.
+  - **AR Rankings (0–100)**: True all-rounder contribution leaderboard requiring strict qualification ($\ge 20$ runs, $\ge 18$ balls faced, $\ge 3$ wickets, $\ge 18$ legal balls, $\ge 3$ matches). Incorporates exposure weighting, balance ratio bonus (up to $+10.0$ pts), and same-match dual contribution bonus (up to $+8.0$ pts).
+  - **OVERALL Rankings (0–100)**: Universal cross-discipline leaderboard encompassing all 73 canonical players with role-specific paths and empirical confidence damping.
+  - **Empirical Confidence Metric**: Evaluated independently from score based on observations (`HIGH`, `MEDIUM`, `LOW`, `VERY LOW`).
+- **Interactive Four-Tier Rankings UI (`/rankings`)**:
+  - Four independent tabs (`OVERALL`, `BATTING`, `BOWLING`, `ALL-ROUND`) with sortable tables, rank indicators, score meters, and confidence badges.
+  - Interactive drill-down expanding mathematical component breakdown per player.
+  - Collapsible ineligible players registry stating specific exclusion reasons.
+- **Dedicated Auction Intelligence Portal (`/auction-portal`)**:
+  - Secure entry hub (`/auction-portal/login`) with glassmorphic obsidian styling and brand insignia.
+  - Franchise Owner Command Center (`/auction-portal/owner/[teamId]`) with real-time purse monitor, acquired squad roster, 4-tier scouting tabs, and shortlist toggling.
+  - Auctioneer Controller (`/auction-portal/auctioneer`) with player lot nomination, live bid stream, team purse status, and lot state declarations (`SOLD`, `UNSOLD`, `PAUSE`, `RESUME`).
+  - Super Admin Governance Console (`/auction-portal/admin`) with full user account registry and emergency auction reset.
+  - Shared Real-Time Live Bidding Terminal (`/auction-portal/live`) with WebSocket state synchronization, live athlete 4-tier dossier preview, current bid display, and franchise-authenticated bidding actions.
+- **Player Profile 4-Tier Dossier Card (`/players/[id]`)**:
+  - Added dedicated Four-Tier Independent Rankings section directly to athlete dossiers showing BAT, BOWL, AR, and OVERALL ranks, scores, confidence pills, and role paths.
+- **Identity & Access Governance**:
+  - Added `admin` account with `super_admin` role for tournament oversight.
+  - Enhanced WebSocket verification guaranteeing team owners can only submit bids scoped to their own franchise ID.
+- **Comprehensive Test Suite (`tests/test_ranking_engine.py`)**:
+  - 11 comprehensive tests validating discipline isolation, small-sample shrinkage, eligibility rules, and API endpoints (full test suite passes 90/90).
+
+---
+
 ## [2.0.1-dev] - 2026-11-19 (Luxury Creative Direction, 3D WebGL Cricket Scene & Website-Wide Visual Transformation)
 
 ### Added

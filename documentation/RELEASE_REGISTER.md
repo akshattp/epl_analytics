@@ -1,7 +1,7 @@
 # EPL Platform Release Register & Governance Index
 
 **Governing Standard:** IEEE 829 Software Release Documentation Standard & SemVer 2.0.0  
-**Current Release Status:** `2.0.1-dev` (Sprint Active)  
+**Current Release Status:** `2.1-dev` (Sprint Active)  
 **Permanent Rule:** Every code modification must map to a tracked release register entry.
 
 ---
@@ -10,6 +10,7 @@
 
 | Release ID | SemVer Tag | Codename | Date | Author / Lead | Verification Gate |
 | :--- | :--- | :--- | :---: | :--- | :--- |
+| **REL-010** | **`2.1-dev`** | Four-Tier Player Intelligence & Premium Auction Portal | 2026-11-21 | Cricket Data Scientist, Principal UI/UX Architect & Lead Full-Stack Engineer | 90 Backend Tests (100%), Next.js Build 27/27 Routes, 73-Player 4-Tier Leaderboard Verification, PBKDF2 RBAC Audit |
 | **REL-009** | `2.0.1-dev` | Luxury Creative Direction & 3D WebGL Transformation | 2026-11-19 | Creative Director, Principal UI/UX Architect & Lead Engineer | 79 Backend Tests (100%), Next.js Build 21/21 Routes, 73-Player Classification Audit, 10 Viewport Screenshot Suite |
 | **REL-008** | `2.0.0` | Signature Design Experience | 2026-11-19 | Creative Director & Frontend Lead | 69 Backend Tests, 21 Routes, 6 Viewport Screenshots |
 | **REL-007** | `1.5.0` | Global Dual-Theme Redesign | 2026-11-19 | Frontend Architect | 55 Backend Tests, 19 Compiled Routes |

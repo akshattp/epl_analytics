@@ -6,6 +6,7 @@ from backend.routers import (
     overview, players, analytics, insights, teams, seasons, auction, admin, auth,
     version, advanced_analytics, exports, auction_setup
 )
+from backend.routers.rankings import router as rankings_router
 from backend.auction.live_auction_manager import auction_manager
 
 # Create tables if not present
@@ -40,6 +41,7 @@ app.include_router(auth.router)
 app.include_router(version.router)
 app.include_router(advanced_analytics.router)
 app.include_router(exports.router)
+app.include_router(rankings_router)
 
 
 @app.on_event("startup")

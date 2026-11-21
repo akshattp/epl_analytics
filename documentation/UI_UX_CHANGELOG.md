@@ -1,6 +1,6 @@
 # EPL Platform UI/UX Changelog & Visual Evolution Register
 
-**Current UI Version:** `2.0.1-dev`  
+**Current UI Version:** `2.1-dev`  
 **Aesthetic Standard:** Luxury Sports Intelligence, Editorial Restraint & High-Craft 3D WebGL Motion  
 **Design Systems Lead:** Creative Director & Principal UI/UX Architect  
 
@@ -17,12 +17,35 @@ Gen 1.5 (Nov 19): Global Dual-Theme Redesign (Space Grotesk, Electric Blue & Las
         ↓
 Gen 2.0 (Nov 19): Signature Design Experience (Custom Vector Crest, 3D Page-Curl, Magnetic Cursor)
         ↓
-Gen 2.0.1 (Current): Luxury Obsidian-Ivory-Vermilion & Three.js 3D Cricket WebGL Scene
+Gen 2.0.1 (Nov 19): Luxury Obsidian-Ivory-Vermilion & Three.js 3D Cricket WebGL Scene
+        ↓
+Gen 2.1 (Current): Four-Tier Leaderboards & Dedicated Live Auction Intelligence Portal
 ```
 
 ---
 
 ## 2. Granular UI/UX Changelog
+
+### Version 2.1-dev — Four-Tier Player Intelligence & Premium Auction Portal
+* **Four-Tier Rankings Leaderboard Experience (`/rankings`)**:
+  * Four distinct discipline tabs (`OVERALL`, `BATTING`, `BOWLING`, `ALL-ROUND`) with luxury dark styling.
+  * Score progress bars color-coded by performance tiers.
+  * Interactive row expansion revealing transparent mathematical breakdowns (Volume, Velocity, Reliability, Milestones, Boundary Share, Wicket Threat, Economy, Dot Balls, Balance Bonus, Same-Match Bonus).
+  * Collapsible disqualification register explaining specific thresholds missed by ineligible players.
+* **Dedicated Franchise Auction Portal (`/auction-portal`)**:
+  * Luxury Obsidian login interface (`/auction-portal/login`) with radial warmth glow and brand crest.
+  * Franchise Owner Command Hub (`/auction-portal/owner/[teamId]`) with custom franchise theme accent palettes (Victory Vipers Emerald, Warriors Royal Blue, Ultimates Purple, Panthers Orange, Legenda Gold, Lions Red), live purse usage meters, current squad roster, 4-tier scouting tabs, and shortlist stars.
+  * Auctioneer Lot Controller (`/auction-portal/auctioneer`) with nominated athlete spotlight, single-click decision buttons (`SOLD`, `UNSOLD`, `PAUSE`), live bid history feed, and franchise purse overview.
+  * Super Admin Console (`/auction-portal/admin`) with full identity and access matrix, role badges, and emergency auction state reset.
+  * Synchronized Live Bidding Terminal (`/auction-portal/live`) with real-time WebSocket state, athlete 4-tier dossier preview, animated leading bid counters, and authenticated bidding buttons.
+* **Athlete Performance Dossier Upgrade (`/players/[id]`)**:
+  * Added prominent Four-Tier Independent Rankings section directly to athlete dossiers showing BAT, BOWL, AR, and OVERALL ranks, scores, confidence pills, and role paths.
+* **Global Navigation Integration (`Navbar.tsx`)**:
+  * Added Rankings link to desktop and mobile navigation menus with active dot indicator.
+  * Updated Auction CTA to point to the dedicated Auction Portal.
+  * Bumped version badge to `v2.1-dev`.
+
+---
 
 ### Version 2.0.1-dev — Luxury Creative Direction & 3D WebGL Transformation
 * **Bold Luxury Colour Identity**:

@@ -18,6 +18,7 @@ REQUIRED_DOCS = [
     "documentation/RELEASES/v1.3.0_release_notes.md",
     "documentation/RELEASES/v2.0.0_release_notes.md",
     "documentation/RELEASES/v2.0.1_release_notes.md",
+    "documentation/RELEASES/v2.1_release_notes.md",
 ]
 
 def verify_documentation():
