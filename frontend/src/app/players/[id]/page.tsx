@@ -185,7 +185,7 @@ export default function PlayerProfilePage() {
     >
       {/* Public Read-Only Banner */}
       {isPublicMode && !isPrintMode && (
-        <div className="bg-[#FF4B35]/10 border border-[#FF4B35]/30 text-[#111318] dark:text-[#F1EBDD] px-4 py-3 rounded-2xl text-xs flex items-center justify-between no-print shadow-sm backdrop-blur-sm">
+        <div className="bg-[#FF4B35]/10 border border-[#FF4B35]/30 text-[#111318] dark:text-[#F1EBDD] px-4 py-3 rounded-lg text-xs flex items-center justify-between no-print">
           <span className="inline-flex items-center gap-2">
             <Globe className="w-4 h-4 text-[#FF4B35]" />
             <span>
@@ -214,7 +214,7 @@ export default function PlayerProfilePage() {
         <div className="flex items-center gap-2.5">
           <Link
             href={`/comparison?p1=${id}`}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-xs font-semibold text-[#111318] dark:text-[#F1EBDD] hover:border-[#FF4B35] transition shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-xs font-semibold text-[#111318] dark:text-[#F1EBDD] hover:border-[#FF4B35] transition"
           >
             <Sliders className="w-3.5 h-3.5 text-[#FF4B35]" />
             <span>Compare H2H</span>
@@ -224,7 +224,7 @@ export default function PlayerProfilePage() {
             type="button"
             onClick={handleDownloadPdf}
             disabled={downloadingPdf}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FF4B35] hover:bg-[#E03E29] text-white text-xs font-semibold shadow-md shadow-[#FF4B35]/20 transition disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#FF4B35] hover:bg-[#E03E29] text-white text-xs font-semibold transition disabled:opacity-50"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>{downloadingPdf ? "Compiling PDF..." : "Export PDF Dossier"}</span>
@@ -233,7 +233,7 @@ export default function PlayerProfilePage() {
           <button
             type="button"
             onClick={() => setShareOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] hover:border-[#FF4B35] text-xs font-semibold shadow-sm transition"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] hover:border-[#FF4B35] text-xs font-semibold transition"
           >
             <Share2 className="w-3.5 h-3.5 text-[#FF4B35]" />
             <span>Share</span>
@@ -350,21 +350,21 @@ export default function PlayerProfilePage() {
             {/* Athlete Name & Identity Pills */}
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-[#FF4B35] font-bold bg-[#FF4B35]/10 px-3 py-1 rounded-full border border-[#FF4B35]/20">
+                <span className="font-mono text-xs text-[#5C584E] dark:text-[#A8A295] bg-[#E8E1D1]/60 dark:bg-[#22252D] px-2.5 py-0.5 rounded-md">
                   {profile.player_id}
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider bg-[#FF4B35] text-white px-3 py-1 rounded-full shadow-sm">
+                <span className="text-xs font-semibold uppercase tracking-wider bg-[#FF4B35] text-white px-2.5 py-0.5 rounded-md">
                   {profile.role_classification || ar.role_classification || profile.primary_role}
                 </span>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#E8E1D1]/60 dark:bg-[#22252D] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38]">
+                <span className="text-xs font-medium px-2.5 py-0.5 rounded-md bg-[#E8E1D1]/60 dark:bg-[#22252D] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38]">
                   {profile.experience_label || `${profile.matches} Matches`}
                 </span>
-                <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A296] bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38] px-3 py-1 rounded-full">
+                <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A296] bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38] px-2.5 py-0.5 rounded-md">
                   {profile.batting_hand}
                 </span>
                 {profile.confidence_level && (
                   <span
-                    className={`text-[11px] font-mono uppercase px-3 py-1 rounded-full border font-semibold ${
+                    className={`text-[11px] font-mono uppercase px-2.5 py-0.5 rounded-md border font-semibold ${
                       profile.confidence_level === "HIGH"
                         ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30"
                         : profile.confidence_level === "MEDIUM"
@@ -377,7 +377,7 @@ export default function PlayerProfilePage() {
                 )}
               </div>
 
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#111318] dark:text-[#F1EBDD]">
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#111318] dark:text-[#F1EBDD]">
                 {profile.name}
               </h1>
 

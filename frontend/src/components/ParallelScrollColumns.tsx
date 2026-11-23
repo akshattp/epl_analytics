@@ -1,138 +1,50 @@
 "use client";
 
-import React, { useLayoutEffect, useRef } from "react";
+import React from "react";
 import Link from "next/link";
-import { Flame, Shield, Trophy, Activity, Award, TrendingUp, Crosshair, ArrowRight, Sparkles } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Flame, Shield, Trophy, Activity, TrendingUp, Crosshair } from "lucide-react";
 
 export function ParallelScrollColumns() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const col1Ref = useRef<HTMLDivElement | null>(null);
-  const col2Ref = useRef<HTMLDivElement | null>(null);
-  const col3Ref = useRef<HTMLDivElement | null>(null);
-
-  useLayoutEffect(() => {
-    // Register plugin inside client effect safely
-    gsap.registerPlugin(ScrollTrigger);
-
-    const section = sectionRef.current;
-    if (!section) return;
-
-    // Check reduced motion or narrow screen
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isMobile = window.innerWidth < 768;
-
-    if (prefersReducedMotion || isMobile) {
-      return; // Fall back to natural, non-animated grid for accessibility and performance
-    }
-
-    const ctx = gsap.context(() => {
-      // Column 1: Moves upward (-140px)
-      if (col1Ref.current) {
-        gsap.fromTo(
-          col1Ref.current,
-          { y: 80 },
-          {
-            y: -140,
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.2,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
-      }
-
-      // Column 2: Opposing direction! Moves downward (+120px)
-      if (col2Ref.current) {
-        gsap.fromTo(
-          col2Ref.current,
-          { y: -100 },
-          {
-            y: 120,
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.2,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
-      }
-
-      // Column 3: Moves upward at different velocity (-200px)
-      if (col3Ref.current) {
-        gsap.fromTo(
-          col3Ref.current,
-          { y: 120 },
-          {
-            y: -200,
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.2,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
-      }
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={sectionRef} className="relative py-12 overflow-hidden space-y-8">
+    <section className="relative py-12 space-y-8">
       {/* Editorial Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-6">
         <div className="space-y-1.5 max-w-2xl">
-          <span className="text-xs uppercase font-mono font-bold tracking-widest text-[#FF4B35]">
-            02 • MULTI-AXIS HISTORICAL INTELLIGENCE
+          <span className="text-xs uppercase font-mono font-semibold tracking-wider text-[#FF4B35]">
+            02 • Historical intelligence
           </span>
-          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#111318] dark:text-[#F1EBDD] tracking-tight">
-            PARALLEL TELEMETRY STREAM
+          <h2 className="font-display font-semibold text-3xl sm:text-4xl text-[#111318] dark:text-[#F1EBDD] tracking-tight">
+            Tournament telemetry breakdown
           </h2>
           <p className="text-xs sm:text-sm text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
-            Three independent operational streams moving across distinct analytical dimensions: Velocity Records, Suppression Baselines, and Knockout Dynamics.
+            Three independent operational streams: scoring velocity records, defensive suppression baselines, and knockout dynamics.
           </p>
         </div>
         <div className="flex items-center gap-2 text-xs font-mono text-[#5C584E] dark:text-[#A8A295]">
-          <span className="w-2 h-2 rounded-full bg-[#FF4B35] inline-block" />
-          <span>Opposing Motion Synchronized via ScrollTrigger</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B35] inline-block" />
+          <span>Extracted from 27 verified match logs</span>
         </div>
       </div>
 
-      {/* 3-Column Parallel Moving Canvas */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 min-h-[580px]">
-        {/* COLUMN 1: Ascending Stream (Velocity Records) */}
-        <div
-          ref={col1Ref}
-          data-parallel-column="asc-1"
-          className="space-y-5 will-change-transform"
-        >
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
+      {/* 3-Column Static Balanced Intelligence Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 items-start">
+        {/* COLUMN 1: Velocity Records */}
+        <div className="space-y-5">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
-                <Flame className="w-5 h-5" />
+              <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
+                <Flame className="w-4 h-4" />
               </span>
-              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
-                All-Time Run Benchmark
+              <span className="font-mono text-[10px] text-[#5C584E] dark:text-[#A8A295] font-semibold uppercase tracking-wider">
+                All-time runs
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-[#111318] dark:text-[#F1EBDD]">
+              <span className="font-display font-semibold text-3xl text-[#111318] dark:text-[#F1EBDD] tabular-nums">
                 138
               </span>
-              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
-                Total Runs (Sagar Kapadia)
+              <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A295] block">
+                Total runs (Sagar Kapadia)
               </span>
             </div>
             <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
@@ -140,60 +52,56 @@ export function ParallelScrollColumns() {
             </p>
           </div>
 
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
-                <TrendingUp className="w-5 h-5" />
+              <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
+                <TrendingUp className="w-4 h-4" />
               </span>
-              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
-                Boundary Surge
+              <span className="font-mono text-[10px] text-[#5C584E] dark:text-[#A8A295] font-semibold uppercase tracking-wider">
+                Boundary surge
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-[#FF4B35]">
+              <span className="font-display font-semibold text-3xl text-[#FF4B35] tabular-nums">
                 +96.5%
               </span>
-              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
-                Boundary Evolution Rate
+              <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A295] block">
+                Boundary evolution rate
               </span>
             </div>
             <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
-              Tournament boundary scoring doubled from 3.11 boundaries per match in 2023 to 6.11 per match in 2025 as hitting velocity matured.
+              Tournament boundary scoring increased from 3.11 boundaries per match in 2023 to 6.11 per match in 2025 as hitting velocity matured.
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-[#181A20] to-[#111318] text-[#F1EBDD] rounded-2xl p-6 border border-[#2A2E38] shadow-lg space-y-3">
-            <span className="text-[10px] font-mono text-[#FF4B35] uppercase tracking-widest font-bold block">
-              Historic Innings
+          <div className="bg-[#181A20] text-[#F1EBDD] rounded-xl p-6 border border-[#2A2E38] space-y-2">
+            <span className="text-[10px] font-mono text-[#A8A295] uppercase tracking-wider font-semibold block">
+              Historic innings
             </span>
-            <div className="font-display font-black text-3xl">62/2</div>
+            <div className="font-display font-semibold text-3xl tabular-nums">62/2</div>
             <p className="text-xs text-[#A8A295] leading-relaxed">
               Exotica Warriors (2025 Match 5) highest team innings total in EPL history. Required run rate reached 10.33 RPO.
             </p>
           </div>
         </div>
 
-        {/* COLUMN 2: Descending Stream (Suppression & Defensive Anchors) - Opposing Direction! */}
-        <div
-          ref={col2Ref}
-          data-parallel-column="desc-1"
-          className="space-y-5 will-change-transform"
-        >
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
+        {/* COLUMN 2: Suppression & Defensive Anchors */}
+        <div className="space-y-5">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
-                <Shield className="w-5 h-5" />
+              <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
+                <Shield className="w-4 h-4" />
               </span>
-              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
-                Economy Benchmark
+              <span className="font-mono text-[10px] text-[#5C584E] dark:text-[#A8A295] font-semibold uppercase tracking-wider">
+                Economy benchmark
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-[#111318] dark:text-[#F1EBDD]">
+              <span className="font-display font-semibold text-3xl text-[#111318] dark:text-[#F1EBDD] tabular-nums">
                 3.57
               </span>
-              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
-                Career Economy (Smeet Shah)
+              <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A295] block">
+                Career economy (Smeet Shah)
               </span>
             </div>
             <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
@@ -201,33 +109,33 @@ export function ParallelScrollColumns() {
             </p>
           </div>
 
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
-                <Crosshair className="w-5 h-5" />
+              <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
+                <Crosshair className="w-4 h-4" />
               </span>
-              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
-                Defensive Miracle
+              <span className="font-mono text-[10px] text-[#5C584E] dark:text-[#A8A295] font-semibold uppercase tracking-wider">
+                Defensive record
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-[#111318] dark:text-[#F1EBDD]">
+              <span className="font-display font-semibold text-3xl text-[#111318] dark:text-[#F1EBDD] tabular-nums">
                 30
               </span>
-              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
-                Lowest Defended Total
+              <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A295] block">
+                Lowest defended total
               </span>
             </div>
             <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
-              ACER ASPIRE successfully defended 30 runs against ACER SWIFT (24 all-out) in the 2024 Semifinal 2 under extreme knockout pressure.
+              ACER ASPIRE successfully defended 30 runs against ACER SWIFT (24 all-out) in the 2024 Semifinal 2 under knockout pressure.
             </p>
           </div>
 
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-2">
-            <span className="text-[10px] font-mono text-[#FF4B35] uppercase tracking-widest font-bold block">
-              Dot Ball Ledger
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
+            <span className="text-[10px] font-mono text-[#5C584E] dark:text-[#A8A295] uppercase tracking-wider font-semibold block">
+              Dot ball ledger
             </span>
-            <div className="font-display font-black text-3xl text-[#111318] dark:text-[#F1EBDD]">
+            <div className="font-display font-semibold text-3xl text-[#111318] dark:text-[#F1EBDD] tabular-nums">
               827
             </div>
             <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
@@ -236,27 +144,23 @@ export function ParallelScrollColumns() {
           </div>
         </div>
 
-        {/* COLUMN 3: Fast Ascending Stream (Knockout & Situational Dynamics) */}
-        <div
-          ref={col3Ref}
-          data-parallel-column="asc-2"
-          className="space-y-5 will-change-transform"
-        >
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
+        {/* COLUMN 3: Knockout & Situational Dynamics */}
+        <div className="space-y-5">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
-                <Trophy className="w-5 h-5" />
+              <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
+                <Trophy className="w-4 h-4" />
               </span>
-              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
-                Toss Neutrality
+              <span className="font-mono text-[10px] text-[#5C584E] dark:text-[#A8A295] font-semibold uppercase tracking-wider">
+                Toss neutrality
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-[#111318] dark:text-[#F1EBDD]">
+              <span className="font-display font-semibold text-3xl text-[#111318] dark:text-[#F1EBDD] tabular-nums">
                 48.1%
               </span>
-              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
-                Toss Winner Match Rate
+              <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A295] block">
+                Toss winner match rate
               </span>
             </div>
             <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
@@ -264,21 +168,21 @@ export function ParallelScrollColumns() {
             </p>
           </div>
 
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="p-2 rounded-xl bg-[#FF4B35]/10 text-[#FF4B35]">
-                <Activity className="w-5 h-5" />
+              <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
+                <Activity className="w-4 h-4" />
               </span>
-              <span className="font-mono text-[10px] text-[#FF4B35] font-bold uppercase tracking-wider">
-                Run Chase Advantage
+              <span className="font-mono text-[10px] text-[#5C584E] dark:text-[#A8A295] font-semibold uppercase tracking-wider">
+                Run chase advantage
               </span>
             </div>
             <div className="space-y-1">
-              <span className="font-display font-black text-4xl text-[#FF4B35]">
+              <span className="font-display font-semibold text-3xl text-[#FF4B35] tabular-nums">
                 55.6%
               </span>
-              <span className="text-xs font-bold text-[#5C584E] dark:text-[#A8A295] block">
-                Chasing Team Win Rate
+              <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A295] block">
+                Chasing team win rate
               </span>
             </div>
             <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
@@ -286,12 +190,12 @@ export function ParallelScrollColumns() {
             </p>
           </div>
 
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-2xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] shadow-sm space-y-3">
-            <span className="text-[10px] font-mono text-[#FF4B35] uppercase tracking-widest font-bold block">
-              Knockout Crucible
+          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
+            <span className="text-[10px] font-mono text-[#5C584E] dark:text-[#A8A295] uppercase tracking-wider font-semibold block">
+              Knockout crucible
             </span>
-            <div className="font-display font-black text-3xl text-[#111318] dark:text-[#F1EBDD]">
-              9 Matches
+            <div className="font-display font-semibold text-3xl text-[#111318] dark:text-[#F1EBDD] tabular-nums">
+              9 matches
             </div>
             <p className="text-xs text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
               Semifinals and Finals audited with elevated leverage weighting in the 100-Point Player Intelligence Score.

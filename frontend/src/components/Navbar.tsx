@@ -89,10 +89,10 @@ export default function Navbar() {
 
             <Link
               href="/changelog"
-              title="View Version 2.0.1-dev Release Notes"
-              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E8E1D1]/60 dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[10px] font-mono text-[#5C584E] dark:text-[#A8A295] hover:text-[#FF4B35] dark:hover:text-[#FF4B35] hover:border-[#FF4B35] transition-colors"
+              title="View Version 2.1-dev Release Notes"
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#E8E1D1]/60 dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[11px] font-mono text-[#5C584E] dark:text-[#A8A295] hover:text-[#FF4B35] dark:hover:text-[#FF4B35] hover:border-[#FF4B35] transition-colors"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B35] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B35]" />
               <span>v{CURRENT_APP_VERSION}</span>
             </Link>
           </div>
@@ -245,7 +245,7 @@ export default function Navbar() {
             {/* Prominent Live Auction Action */}
             <Link
               href="/auction-portal/login"
-              className="ml-1 px-4 py-1.5 rounded-xl text-xs font-display font-bold transition-all flex items-center gap-1.5 bg-[#FF4B35] hover:bg-[#E03E29] text-white shadow-md shadow-[#FF4B35]/20 hover:scale-[1.02]"
+              className="ml-1 px-4 py-2 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 bg-[#FF4B35] hover:bg-[#E03E29] text-white"
             >
               <DollarSign className="w-3.5 h-3.5 text-white/90" />
               <span>Auction Portal</span>
@@ -254,13 +254,12 @@ export default function Navbar() {
 
           {/* Right Controls: Sun/Moon Theme Toggle + Mobile Menu Trigger */}
           <div className="flex items-center space-x-2">
-            {/* Signature Page-Curl Theme Toggle Button */}
+            {/* Theme Toggle Button */}
             <button
               type="button"
               onClick={toggleTheme}
               aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode (Page Curl)`}
-              className="relative p-2 rounded-xl bg-[#E8E1D1]/60 dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] hover:text-[#FF4B35] dark:hover:text-[#FF4B35] hover:border-[#FF4B35] dark:hover:border-[#FF4B35] transition-all shadow-sm group"
+              className="p-2 rounded-lg bg-[#E8E1D1]/60 dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] hover:text-[#FF4B35] dark:hover:text-[#FF4B35] hover:border-[#FF4B35] transition-colors"
             >
               {mounted && theme === "dark" ? (
                 <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />

@@ -20,11 +20,38 @@ Gen 2.0 (Nov 19): Signature Design Experience (Custom Vector Crest, 3D Page-Curl
 Gen 2.0.1 (Nov 19): Luxury Obsidian-Ivory-Vermilion & Three.js 3D Cricket WebGL Scene
         ↓
 Gen 2.1 (Current): Four-Tier Leaderboards & Dedicated Live Auction Intelligence Portal
+        ↓
+Gen 2.1-unslop (Current): Full Unslop Design System Overhaul (Restraint, Calm Chrome, Nested Radii)
 ```
 
 ---
 
 ## 2. Granular UI/UX Changelog
+
+### Version 2.1-dev (Unslopped) — Design Craftsmanship & Noise Elimination
+* **Skill Integration (`unslop`)**:
+  * Adopted the modern frontend craftsmanship methodology from Damir's `unslop` system.
+  * Formulated and executed strict design direction:
+    * *Character:* Exact, authoritative, quiet, athletic.
+    * *World:* Leather ball under stadium lights, scorecard paper and ink, scoreboard digits.
+    * *Moments:* Authentic Three.js 3D match ball with physically raised Torus seam; real tournament records.
+    * *Signature:* Discrete scorecard delivery pips (`●`/`○`), monospace tabular figures (`tabular-nums`), and hairline borders.
+* **Elimination of AI Visual Clutter & Slop**:
+  * Removed artificial custom cursor trails (`CustomCursor.tsx`) to restore native OS accessibility and responsiveness.
+  * Removed decorative SVG gradient glows and blur filters (`#epl-vermilion-glow` / `feGaussianBlur`).
+  * Removed background animated kinetic trajectory vectors (`trajectoryY1` SVG loops) on the landing page.
+  * Converted shouting all-caps headings (`MORE THAN A GAME. A GAME OF NUMBERS.`) into exact, solid sentence-case typography (`The numbers behind every over.`).
+  * Eliminated sparkles (`<Sparkles>`) and hype badges in favor of verified factual telemetry strips (`3 seasons • 27 matches • 73 athletes`).
+  * Replaced opposing parallel scroll parallax (`ParallelScrollColumns`) with a static, balanced 3-column performance intelligence grid (Velocity Records, Defensive Suppression, Knockout Dynamics).
+  * Replaced ubiquitous `rounded-full` pills with calculated nested radii (controls: `rounded-lg` 8px, cards: `rounded-xl` 12px, panels: `rounded-2xl` 16px).
+  * Set `tabular-nums` on all historical statistics, milestone numbers, and monetary figures to prevent layout shift.
+  * Removed artificial micro-animation bounce (`hover:scale-[1.02]`) and perpetual pulsing (`animate-pulse`) across CTAs and stat cards.
+* **Global Consistency & Verification**:
+  * Refined Landing Page (`/`), Dashboard (`/dashboard`), Rankings (`/rankings`), and Player Profile Dossiers (`/players/[id]`).
+  * All 27 Next.js routes compile cleanly in production builds (`next build`).
+  * 100% test pass rate preserved (90/90 backend tests passing).
+
+---
 
 ### Version 2.1-dev — Four-Tier Player Intelligence & Premium Auction Portal
 * **Four-Tier Rankings Leaderboard Experience (`/rankings`)**:

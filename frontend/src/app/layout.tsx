@@ -44,7 +44,6 @@ export default function RootLayout({
       </head>
       <body className="bg-[#F1EBDD] dark:bg-[#111318] text-[#111318] dark:text-[#F1EBDD] min-h-screen flex flex-col font-sans antialiased selection:bg-[#FF4B35] selection:text-white transition-colors duration-200">
         <ThemeProvider>
-          <CustomCursor />
           <Navbar />
           <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             {children}

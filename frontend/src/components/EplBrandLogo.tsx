@@ -42,7 +42,7 @@ export function EplBrandLogo({
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="shrink-0 transition-transform duration-300 group-hover:scale-105"
+      className="shrink-0"
       aria-label="EPL Luxury Cricket Crest"
     >
       <defs>
@@ -66,12 +66,6 @@ export function EplBrandLogo({
           <stop offset="60%" stopColor="#FF4B35" />
           <stop offset="100%" stopColor="#FF6452" />
         </linearGradient>
-
-        {/* Dynamic Vermilion Glow Filter */}
-        <filter id="epl-vermilion-glow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="3.5" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
       </defs>
 
       {/* Outer Hexagonal Shield Contour */}
@@ -139,7 +133,6 @@ export function EplBrandLogo({
         cy="22"
         r="4.5"
         fill="#FF4B35"
-        filter="url(#epl-vermilion-glow)"
       />
       <circle cx="86" cy="22" r="2.2" fill="#F1EBDD" />
     </svg>
@@ -172,10 +165,8 @@ export function EplBrandLogo({
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative group mb-4"
+          className="relative mb-4"
         >
-          {/* Ambient Glow Aura in Vermilion & Warm Ivory */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-[#FF4B35]/20 via-[#F1EBDD]/15 to-[#FF4B35]/20 blur-2xl rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
           {CrestSvg}
         </motion.div>
 

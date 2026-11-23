@@ -62,22 +62,22 @@ export default function OverviewPage() {
   return (
     <div className="space-y-10">
       {/* Top Release Telemetry Strip */}
-      <div className="bg-[#FAF7F0] dark:bg-[#181A20] text-[#111318] dark:text-[#F1EBDD] rounded-xl px-4 py-3 border border-[#DDD5C3] dark:border-[#2A2E38] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-sm transition-colors duration-200">
+      <div className="bg-[#FAF7F0] dark:bg-[#181A20] text-[#111318] dark:text-[#F1EBDD] rounded-lg px-4 py-3 border border-[#DDD5C3] dark:border-[#2A2E38] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs transition-colors duration-200">
         <div className="flex items-center space-x-2.5">
-          <span className="px-2 py-0.5 rounded-full bg-[#FF4B35] text-white font-mono text-[10px] font-bold tracking-wider">
+          <span className="px-2 py-0.5 rounded-md bg-[#FAF7F0] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] font-mono text-[11px] font-semibold">
             v2.0.1-dev
           </span>
-          <span className="text-[#5C584E] dark:text-[#A8A296] font-medium">
-            Active: 100-Pt Player Intelligence Scores (PIS), Situational Splits, 6-Over Milestones &amp; Live Auction Engine.
+          <span className="text-[#5C584E] dark:text-[#A8A296] font-normal">
+            100-point Bayesian scores (PIS), situational pressure splits, 6-over milestones &amp; auction economics.
           </span>
         </div>
         <div className="flex items-center space-x-3 shrink-0">
-          <Link href="/analytics/records" className="text-[#FF4B35] hover:underline font-semibold inline-flex items-center gap-1 transition">
-            <Award className="w-3.5 h-3.5" />
+          <Link href="/analytics/records" className="text-[#5C584E] dark:text-[#A8A296] hover:text-[#111318] dark:hover:text-[#F1EBDD] font-medium inline-flex items-center gap-1 transition">
+            <Award className="w-3.5 h-3.5 text-[#FF4B35]" />
             <span>Records</span>
           </Link>
-          <Link href="/intelligence-lab" className="text-[#FF4B35] hover:underline font-semibold inline-flex items-center gap-1 transition">
-            <FlaskConical className="w-3.5 h-3.5" />
+          <Link href="/intelligence-lab" className="text-[#5C584E] dark:text-[#A8A296] hover:text-[#111318] dark:hover:text-[#F1EBDD] font-medium inline-flex items-center gap-1 transition">
+            <FlaskConical className="w-3.5 h-3.5 text-[#FF4B35]" />
             <span>Intel Lab</span>
           </Link>
           <Link href="/changelog" className="text-[#5C584E] dark:text-[#A8A296] hover:text-[#111318] dark:hover:text-[#F1EBDD] underline inline-flex items-center gap-1 transition">
@@ -91,14 +91,14 @@ export default function OverviewPage() {
       <div className="border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-8 pt-1">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="space-y-2.5">
-            <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-[#FF4B35] bg-[#FF4B35]/10 border border-[#FF4B35]/20 px-3 py-1 rounded-full font-mono">
-              <span>Historical Tournament Analytics</span>
+            <div className="inline-flex items-center space-x-2 text-xs font-mono text-[#5C584E] dark:text-[#A8A296]">
+              <span>3 seasons (2023–2025)</span>
               <span>•</span>
-              <span>3 Seasons (2023 – 2025)</span>
+              <span>27 verified matches</span>
               <span>•</span>
-              <span>27 Verified Matches</span>
+              <span>73 athletes</span>
             </div>
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#111318] dark:text-[#F1EBDD] leading-tight">
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#111318] dark:text-[#F1EBDD] leading-tight">
               Exotica Premier League
             </h1>
             <p className="text-sm sm:text-base text-[#5C584E] dark:text-[#A8A296] max-w-2xl leading-relaxed">
@@ -108,24 +108,24 @@ export default function OverviewPage() {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/auction"
-              className="inline-flex items-center space-x-2 bg-[#FF4B35] hover:bg-[#E03E29] text-white px-4 py-2.5 rounded-lg text-xs font-bold transition shadow-sm"
+              className="inline-flex items-center space-x-2 bg-[#FF4B35] hover:bg-[#E03E29] text-white px-4 py-2.5 rounded-lg text-xs font-medium transition"
             >
               <DollarSign className="w-4 h-4" />
-              <span>Live Auction Room</span>
+              <span>Live auction room</span>
             </Link>
             <Link
               href="/analytics/records"
-              className="inline-flex items-center space-x-2 bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] px-4 py-2.5 rounded-lg text-xs font-semibold hover:border-[#FF4B35] transition shadow-sm"
+              className="inline-flex items-center space-x-2 bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] px-4 py-2.5 rounded-lg text-xs font-medium hover:border-[#FF4B35] transition"
             >
               <Award className="w-4 h-4 text-[#FF4B35]" />
-              <span>Tournament Records</span>
+              <span>Tournament records</span>
             </Link>
             <Link
               href="/players"
-              className="inline-flex items-center space-x-2 bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] px-4 py-2.5 rounded-lg text-xs font-semibold hover:border-[#FF4B35] transition shadow-sm"
+              className="inline-flex items-center space-x-2 bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] px-4 py-2.5 rounded-lg text-xs font-medium hover:border-[#FF4B35] transition"
             >
               <Users className="w-4 h-4 text-[#FF4B35]" />
-              <span>Players Directory</span>
+              <span>Players directory</span>
             </Link>
           </div>
         </div>

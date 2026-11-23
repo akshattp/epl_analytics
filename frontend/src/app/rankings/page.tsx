@@ -94,7 +94,7 @@ const PATH_COLOURS: Record<string, string> = {
 function ConfidenceBadge({ level }: { level: string }) {
   const cls = CONFIDENCE_COLOURS[level] || CONFIDENCE_COLOURS["N/A"];
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide border ${cls}`}>
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wide border ${cls}`}>
       {level}
     </span>
   );
@@ -103,7 +103,7 @@ function ConfidenceBadge({ level }: { level: string }) {
 function PathBadge({ path }: { path: string }) {
   const cls = PATH_COLOURS[path] || PATH_COLOURS["No Evidence"];
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold border ${cls}`}>
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold border ${cls}`}>
       {path}
     </span>
   );
@@ -116,8 +116,8 @@ function ScoreBar({ score, max = 100 }: { score: number; max?: number }) {
     pct >= 50 ? "bg-amber-500" :
     pct >= 30 ? "bg-blue-500" : "bg-[#4A5068]";
   return (
-    <div className="w-full h-1.5 rounded-full bg-[#2A2E38] overflow-hidden">
-      <div className={`h-full rounded-full transition-all ${color}`} style={{ width: `${pct}%` }} />
+    <div className="w-full h-1.5 rounded-sm bg-[#2A2E38] overflow-hidden">
+      <div className={`h-full rounded-sm transition-all ${color}`} style={{ width: `${pct}%` }} />
     </div>
   );
 }
@@ -403,10 +403,10 @@ export default function RankingsPage() {
   };
 
   const TABS: { key: Tab; label: string; icon: React.ReactNode; desc: string }[] = [
-    { key: "overall",  label: "OVERALL",    icon: <Star className="w-4 h-4" />,     desc: "All 73 players — cross-role ranking" },
-    { key: "batting",  label: "BATTING",    icon: <Trophy className="w-4 h-4" />,   desc: "Pure batting score. Zero bowling influence." },
-    { key: "bowling",  label: "BOWLING",    icon: <Shield className="w-4 h-4" />,   desc: "Pure bowling score. Zero batting influence." },
-    { key: "allround", label: "ALL-ROUND",  icon: <Zap className="w-4 h-4" />,      desc: "Genuine all-rounders only. Dual-discipline eligibility required." },
+    { key: "overall",  label: "Overall",    icon: <Star className="w-4 h-4" />,     desc: "All 73 players — cross-role ranking" },
+    { key: "batting",  label: "Batting",    icon: <Trophy className="w-4 h-4" />,   desc: "Pure batting score. Zero bowling influence." },
+    { key: "bowling",  label: "Bowling",    icon: <Shield className="w-4 h-4" />,   desc: "Pure bowling score. Zero batting influence." },
+    { key: "allround", label: "All-Round",  icon: <Zap className="w-4 h-4" />,      desc: "Genuine all-rounders only. Dual-discipline eligibility required." },
   ];
 
   const currentData = data[activeTab];
