@@ -138,10 +138,10 @@ export default function LandingPage() {
           >
             {/* LEFT COLUMN: Editorial Typography & Action Hub (7 Cols) */}
             <div className="lg:col-span-7 space-y-6 sm:space-y-8">
-              {/* Context bar with discrete facts */}
+              {/* Context bar with glassmorphic pill */}
               <div className="flex flex-wrap items-center gap-3">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-xs font-mono">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B35]" />
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#FAF7F0]/80 dark:bg-[#181A20]/80 backdrop-blur-md border border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 text-xs font-mono shadow-xs hover:scale-105 transition-transform duration-200">
+                  <span className="w-2 h-2 rounded-full bg-[#FF4B35] animate-pulse" />
                   <span className="font-semibold text-[#111318] dark:text-[#F1EBDD]">EPL Cricket Intelligence</span>
                   <span className="text-[#8C867A] dark:text-[#6E6A60]">|</span>
                   <span className="text-[#5C584E] dark:text-[#A8A295]">27 scorecards audited</span>
@@ -175,7 +175,7 @@ export default function LandingPage() {
                 </motion.p>
               </div>
 
-              {/* Action Hub CTAs with quiet chrome */}
+              {/* Action Hub CTAs with interactive hover feedback */}
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -184,16 +184,16 @@ export default function LandingPage() {
               >
                 <Link
                   href="/dashboard"
-                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-lg bg-[#FF4B35] hover:bg-[#E03E29] text-white font-medium text-sm transition"
+                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#FF4B35] hover:bg-[#E03E29] text-white font-medium text-sm shadow-md shadow-[#FF4B35]/20 hover:scale-[1.02] transition-all duration-200"
                 >
                   <LayoutDashboard className="w-4 h-4 text-white/90" />
                   <span>Launch terminal</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
 
                 <Link
                   href="/auction"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[#FAF7F0] dark:bg-[#181A20] border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] font-medium text-sm hover:border-[#FF4B35] dark:hover:border-[#FF4B35] transition"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#FAF7F0]/80 dark:bg-[#181A20]/80 backdrop-blur-md border border-[#DDD5C3] dark:border-[#2A2E38] text-[#111318] dark:text-[#F1EBDD] font-medium text-sm hover:border-[#FF4B35] dark:hover:border-[#FF4B35] hover:scale-[1.02] transition-all duration-200"
                 >
                   <DollarSign className="w-4 h-4 text-[#FF4B35]" />
                   <span>Live auction room</span>
@@ -201,7 +201,7 @@ export default function LandingPage() {
 
                 <Link
                   href="/players"
-                  className="text-xs font-medium text-[#5C584E] dark:text-[#A8A295] hover:text-[#111318] dark:hover:text-[#F1EBDD] px-2 py-2 transition-colors"
+                  className="text-xs font-medium text-[#5C584E] dark:text-[#A8A295] hover:text-[#111318] dark:hover:text-[#F1EBDD] px-2 py-2 hover:translate-x-1 transition-all duration-200"
                 >
                   Explore 73 athlete dossiers →
                 </Link>

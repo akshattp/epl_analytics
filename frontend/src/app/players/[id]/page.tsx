@@ -347,29 +347,29 @@ export default function PlayerProfilePage() {
               )}
             </div>
 
-            {/* Athlete Name & Identity Pills */}
+            {/* Athlete Name & Identity Pills with Glassmorphism */}
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-[#5C584E] dark:text-[#A8A295] bg-[#E8E1D1]/60 dark:bg-[#22252D] px-2.5 py-0.5 rounded-md">
+                <span className="font-mono text-xs text-[#5C584E] dark:text-[#A8A295] bg-[#E8E1D1]/60 dark:bg-[#22252D]/80 backdrop-blur-md px-3 py-1 rounded-lg border border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 shadow-xs hover:scale-105 transition-transform duration-200">
                   {profile.player_id}
                 </span>
-                <span className="text-xs font-semibold uppercase tracking-wider bg-[#FF4B35] text-white px-2.5 py-0.5 rounded-md">
+                <span className="text-xs font-semibold uppercase tracking-wider bg-[#FF4B35]/90 backdrop-blur-md text-white px-3 py-1 rounded-lg shadow-sm shadow-[#FF4B35]/20 hover:scale-105 transition-transform duration-200">
                   {profile.role_classification || ar.role_classification || profile.primary_role}
                 </span>
-                <span className="text-xs font-medium px-2.5 py-0.5 rounded-md bg-[#E8E1D1]/60 dark:bg-[#22252D] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38]">
+                <span className="text-xs font-medium px-3 py-1 rounded-lg bg-[#FAF7F0]/80 dark:bg-[#22252D]/80 backdrop-blur-md text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38] shadow-xs hover:scale-105 transition-transform duration-200">
                   {profile.experience_label || `${profile.matches} Matches`}
                 </span>
-                <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A296] bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38] px-2.5 py-0.5 rounded-md">
+                <span className="text-xs font-medium text-[#5C584E] dark:text-[#A8A296] bg-[#FAF7F0]/80 dark:bg-[#111318]/80 backdrop-blur-md border border-[#DDD5C3] dark:border-[#2A2E38] px-3 py-1 rounded-lg shadow-xs hover:scale-105 transition-transform duration-200">
                   {profile.batting_hand}
                 </span>
                 {profile.confidence_level && (
                   <span
-                    className={`text-[11px] font-mono uppercase px-2.5 py-0.5 rounded-md border font-semibold ${
+                    className={`text-[11px] font-mono uppercase px-3 py-1 rounded-lg border font-semibold backdrop-blur-md shadow-xs hover:scale-105 transition-transform duration-200 ${
                       profile.confidence_level === "HIGH"
-                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30"
+                        ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30"
                         : profile.confidence_level === "MEDIUM"
-                        ? "bg-[#FF4B35]/10 text-[#FF4B35] border-[#FF4B35]/30"
-                        : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30"
+                        ? "bg-[#FF4B35]/15 text-[#FF4B35] border-[#FF4B35]/30"
+                        : "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30"
                     }`}
                   >
                     {profile.confidence_level} Confidence
@@ -381,23 +381,23 @@ export default function PlayerProfilePage() {
                 {profile.name}
               </h1>
 
-              {/* Controlled Vocabulary Performance Tags */}
+              {/* Controlled Vocabulary Performance Tags with Morphism */}
               <div className="flex flex-wrap items-center gap-1.5 pt-1">
                 {(profile.tags_detail && profile.tags_detail.length > 0) ? (
                   profile.tags_detail.map((t: any, idx: number) => (
                     <div
                       key={idx}
                       title={t.explanation}
-                      className={`group relative inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border transition shadow-xs cursor-help ${
+                      className={`group relative inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold border backdrop-blur-md transition-all duration-200 hover:scale-105 shadow-xs cursor-help ${
                         t.category === "Confidence"
-                          ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30"
+                          ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30"
                           : t.category === "Potential"
-                          ? "bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/30"
+                          ? "bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30"
                           : t.category === "All-Round"
-                          ? "bg-[#FF4B35]/10 text-[#FF4B35] border-[#FF4B35]/30 font-bold"
+                          ? "bg-[#FF4B35]/15 text-[#FF4B35] border-[#FF4B35]/30 font-bold"
                           : t.category === "Batting"
-                          ? "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30"
-                          : "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
+                          ? "bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30"
+                          : "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
                       }`}
                     >
                       <span>{t.tag}</span>
@@ -408,13 +408,13 @@ export default function PlayerProfilePage() {
                   profile.performance_tags.map((tag: string, idx: number) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#E8E1D1]/60 dark:bg-[#22252D] text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38]"
+                      className="px-3 py-1 rounded-lg text-xs font-semibold bg-[#E8E1D1]/60 dark:bg-[#22252D]/80 backdrop-blur-md text-[#111318] dark:text-[#F1EBDD] border border-[#DDD5C3] dark:border-[#2A2E38] shadow-xs hover:scale-105 transition-transform duration-200"
                     >
                       {tag}
                     </span>
                   ))
                 ) : (
-                  <span className="text-[11px] font-mono text-[#5C584E] dark:text-[#A8A296] bg-[#F1EBDD] dark:bg-[#111318] border border-[#DDD5C3] dark:border-[#2A2E38] px-2.5 py-0.5 rounded-md">
+                  <span className="text-[11px] font-mono text-[#5C584E] dark:text-[#A8A296] bg-[#F1EBDD]/70 dark:bg-[#111318]/70 backdrop-blur-md border border-[#DDD5C3] dark:border-[#2A2E38] px-2.5 py-0.5 rounded-md">
                     Standard Squad Contributor
                   </span>
                 )}

@@ -1,12 +1,94 @@
 "use client";
 
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import { Flame, Shield, Trophy, Activity, TrendingUp, Crosshair } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function ParallelScrollColumns() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const col1Ref = useRef<HTMLDivElement | null>(null);
+  const col2Ref = useRef<HTMLDivElement | null>(null);
+  const col3Ref = useRef<HTMLDivElement | null>(null);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.innerWidth < 768;
+
+    if (prefersReducedMotion || isMobile) {
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      // Column 1: Moves upward (-120px)
+      if (col1Ref.current) {
+        gsap.fromTo(
+          col1Ref.current,
+          { y: 60 },
+          {
+            y: -120,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      }
+
+      // Column 2: Opposing direction! Moves downward (+100px)
+      if (col2Ref.current) {
+        gsap.fromTo(
+          col2Ref.current,
+          { y: -80 },
+          {
+            y: 100,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      }
+
+      // Column 3: Moves upward at different velocity (-160px)
+      if (col3Ref.current) {
+        gsap.fromTo(
+          col3Ref.current,
+          { y: 90 },
+          {
+            y: -160,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      }
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative py-12 space-y-8">
+    <section ref={sectionRef} className="relative py-12 overflow-hidden space-y-8">
       {/* Editorial Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#DDD5C3] dark:border-[#2A2E38] pb-6">
         <div className="space-y-1.5 max-w-2xl">
@@ -17,20 +99,20 @@ export function ParallelScrollColumns() {
             Tournament telemetry breakdown
           </h2>
           <p className="text-xs sm:text-sm text-[#5C584E] dark:text-[#A8A295] leading-relaxed">
-            Three independent operational streams: scoring velocity records, defensive suppression baselines, and knockout dynamics.
+            Three independent operational streams moving across distinct analytical dimensions with synchronized opposing motion.
           </p>
         </div>
         <div className="flex items-center gap-2 text-xs font-mono text-[#5C584E] dark:text-[#A8A295]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B35] inline-block" />
-          <span>Extracted from 27 verified match logs</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B35] inline-block animate-pulse" />
+          <span>Opposing motion synchronized via ScrollTrigger</span>
         </div>
       </div>
 
-      {/* 3-Column Static Balanced Intelligence Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 items-start">
-        {/* COLUMN 1: Velocity Records */}
-        <div className="space-y-5">
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
+      {/* 3-Column Parallel Moving Canvas with Glassmorphic Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 items-start min-h-[580px]">
+        {/* COLUMN 1: Ascending Stream */}
+        <div ref={col1Ref} className="space-y-5 will-change-transform">
+          <div className="bg-[#FAF7F0]/80 dark:bg-[#181A20]/80 backdrop-blur-md rounded-xl p-6 border border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-3 group">
             <div className="flex items-center justify-between">
               <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
                 <Flame className="w-4 h-4" />
@@ -52,7 +134,7 @@ export function ParallelScrollColumns() {
             </p>
           </div>
 
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
+          <div className="bg-[#FAF7F0]/80 dark:bg-[#181A20]/80 backdrop-blur-md rounded-xl p-6 border border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-3 group">
             <div className="flex items-center justify-between">
               <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
                 <TrendingUp className="w-4 h-4" />
@@ -74,7 +156,7 @@ export function ParallelScrollColumns() {
             </p>
           </div>
 
-          <div className="bg-[#181A20] text-[#F1EBDD] rounded-xl p-6 border border-[#2A2E38] space-y-2">
+          <div className="bg-[#181A20]/90 backdrop-blur-md text-[#F1EBDD] rounded-xl p-6 border border-[#2A2E38] shadow-sm hover:scale-[1.02] transition-all duration-300 space-y-2">
             <span className="text-[10px] font-mono text-[#A8A295] uppercase tracking-wider font-semibold block">
               Historic innings
             </span>
@@ -85,9 +167,9 @@ export function ParallelScrollColumns() {
           </div>
         </div>
 
-        {/* COLUMN 2: Suppression & Defensive Anchors */}
-        <div className="space-y-5">
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
+        {/* COLUMN 2: Descending Stream (Opposing Direction!) */}
+        <div ref={col2Ref} className="space-y-5 will-change-transform">
+          <div className="bg-[#FAF7F0]/80 dark:bg-[#181A20]/80 backdrop-blur-md rounded-xl p-6 border border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-3 group">
             <div className="flex items-center justify-between">
               <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
                 <Shield className="w-4 h-4" />
@@ -109,7 +191,7 @@ export function ParallelScrollColumns() {
             </p>
           </div>
 
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
+          <div className="bg-[#FAF7F0]/80 dark:bg-[#181A20]/80 backdrop-blur-md rounded-xl p-6 border border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-3 group">
             <div className="flex items-center justify-between">
               <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
                 <Crosshair className="w-4 h-4" />
@@ -131,7 +213,7 @@ export function ParallelScrollColumns() {
             </p>
           </div>
 
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
+          <div className="bg-[#FAF7F0]/80 dark:bg-[#181A20]/80 backdrop-blur-md rounded-xl p-6 border border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-2 group">
             <span className="text-[10px] font-mono text-[#5C584E] dark:text-[#A8A295] uppercase tracking-wider font-semibold block">
               Dot ball ledger
             </span>
@@ -144,9 +226,9 @@ export function ParallelScrollColumns() {
           </div>
         </div>
 
-        {/* COLUMN 3: Knockout & Situational Dynamics */}
-        <div className="space-y-5">
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
+        {/* COLUMN 3: Fast Ascending Stream */}
+        <div ref={col3Ref} className="space-y-5 will-change-transform">
+          <div className="bg-[#FAF7F0]/80 dark:bg-[#181A20]/80 backdrop-blur-md rounded-xl p-6 border border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-3 group">
             <div className="flex items-center justify-between">
               <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
                 <Trophy className="w-4 h-4" />
@@ -168,7 +250,7 @@ export function ParallelScrollColumns() {
             </p>
           </div>
 
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-3">
+          <div className="bg-[#FAF7F0]/80 dark:bg-[#181A20]/80 backdrop-blur-md rounded-xl p-6 border border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-3 group">
             <div className="flex items-center justify-between">
               <span className="p-2 rounded-lg bg-[#FF4B35]/10 text-[#FF4B35]">
                 <Activity className="w-4 h-4" />
@@ -190,7 +272,7 @@ export function ParallelScrollColumns() {
             </p>
           </div>
 
-          <div className="bg-[#FAF7F0] dark:bg-[#181A20] rounded-xl p-6 border border-[#DDD5C3] dark:border-[#2A2E38] space-y-2">
+          <div className="bg-[#FAF7F0]/80 dark:bg-[#181A20]/80 backdrop-blur-md rounded-xl p-6 border border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-2 group">
             <span className="text-[10px] font-mono text-[#5C584E] dark:text-[#A8A295] uppercase tracking-wider font-semibold block">
               Knockout crucible
             </span>

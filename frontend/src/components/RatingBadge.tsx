@@ -7,17 +7,17 @@ interface RatingBadgeProps {
 }
 
 export function RatingBadge({ score, label, size = "md" }: RatingBadgeProps) {
-  let tierColor = "bg-[#E8E1D1]/60 dark:bg-[#181A20] text-[#5C584E] dark:text-[#A8A295] border-[#DDD5C3] dark:border-[#2A2E38]";
+  let tierColor = "bg-[#FAF7F0]/70 dark:bg-[#181A20]/70 backdrop-blur-md text-[#5C584E] dark:text-[#A8A295] border-[#DDD5C3]/80 dark:border-[#2A2E38]/80 shadow-xs";
   let tierLabel = "Specialist";
 
   if (score >= 75) {
-    tierColor = "bg-[#FF4B35] text-white border-[#E03E29] font-bold shadow-md shadow-[#FF4B35]/20";
+    tierColor = "bg-[#FF4B35]/90 backdrop-blur-md text-white border-[#E03E29] font-bold shadow-md shadow-[#FF4B35]/25 hover:scale-105 transition-transform duration-200";
     tierLabel = "Elite / Marquee";
   } else if (score >= 58) {
-    tierColor = "bg-[#181A20] text-[#F1EBDD] dark:bg-[#FAF7F0] dark:text-[#111318] border-[#2A2E38] dark:border-[#DDD5C3] font-semibold";
+    tierColor = "bg-[#181A20]/80 text-[#F1EBDD] dark:bg-[#FAF7F0]/85 dark:text-[#111318] backdrop-blur-md border-[#2A2E38] dark:border-[#DDD5C3] font-semibold hover:scale-105 transition-transform duration-200";
     tierLabel = "High Impact";
   } else if (score >= 42) {
-    tierColor = "bg-[#FAF7F0] dark:bg-[#22252D] text-[#111318] dark:text-[#F1EBDD] border-[#DDD5C3] dark:border-[#2A2E38] font-medium";
+    tierColor = "bg-[#FAF7F0]/75 dark:bg-[#22252D]/75 text-[#111318] dark:text-[#F1EBDD] backdrop-blur-md border-[#DDD5C3] dark:border-[#2A2E38] font-medium hover:scale-105 transition-transform duration-200";
     tierLabel = "Solid Core";
   }
 

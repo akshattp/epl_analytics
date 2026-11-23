@@ -76,25 +76,25 @@ type Tab = "batting" | "bowling" | "allround" | "overall";
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 const CONFIDENCE_COLOURS: Record<string, string> = {
-  HIGH:     "bg-emerald-500/15 text-emerald-500 border-emerald-500/30",
-  MEDIUM:   "bg-amber-500/15 text-amber-500 border-amber-500/30",
-  LOW:      "bg-orange-500/15 text-orange-500 border-orange-500/30",
-  "VERY LOW": "bg-red-500/15 text-red-500 border-red-500/30",
-  "N/A":    "bg-[#2A2E38]/40 text-[#A8A295] border-[#2A2E38]",
+  HIGH:     "bg-emerald-500/15 backdrop-blur-md text-emerald-500 border-emerald-500/30 shadow-xs shadow-emerald-500/10",
+  MEDIUM:   "bg-amber-500/15 backdrop-blur-md text-amber-500 border-amber-500/30 shadow-xs shadow-amber-500/10",
+  LOW:      "bg-orange-500/15 backdrop-blur-md text-orange-500 border-orange-500/30 shadow-xs shadow-orange-500/10",
+  "VERY LOW": "bg-red-500/15 backdrop-blur-md text-red-500 border-red-500/30 shadow-xs shadow-red-500/10",
+  "N/A":    "bg-[#2A2E38]/50 backdrop-blur-md text-[#A8A295] border-[#2A2E38]",
 };
 
 const PATH_COLOURS: Record<string, string> = {
-  "All-Round":        "bg-purple-500/15 text-purple-400 border-purple-500/30",
-  "Batting":          "bg-blue-500/15 text-blue-400 border-blue-500/30",
-  "Bowling":          "bg-green-500/15 text-green-400 border-green-500/30",
-  "Dual-Discipline":  "bg-cyan-500/15 text-cyan-400 border-cyan-500/30",
-  "No Evidence":      "bg-[#2A2E38]/40 text-[#A8A295] border-[#2A2E38]",
+  "All-Round":        "bg-purple-500/15 backdrop-blur-md text-purple-400 border-purple-500/30 shadow-xs shadow-purple-500/10",
+  "Batting":          "bg-blue-500/15 backdrop-blur-md text-blue-400 border-blue-500/30 shadow-xs shadow-blue-500/10",
+  "Bowling":          "bg-green-500/15 backdrop-blur-md text-green-400 border-green-500/30 shadow-xs shadow-green-500/10",
+  "Dual-Discipline":  "bg-cyan-500/15 backdrop-blur-md text-cyan-400 border-cyan-500/30 shadow-xs shadow-cyan-500/10",
+  "No Evidence":      "bg-[#2A2E38]/50 backdrop-blur-md text-[#A8A295] border-[#2A2E38]",
 };
 
 function ConfidenceBadge({ level }: { level: string }) {
   const cls = CONFIDENCE_COLOURS[level] || CONFIDENCE_COLOURS["N/A"];
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wide border ${cls}`}>
+    <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-wide border transition-all duration-200 hover:scale-105 ${cls}`}>
       {level}
     </span>
   );
@@ -103,7 +103,7 @@ function ConfidenceBadge({ level }: { level: string }) {
 function PathBadge({ path }: { path: string }) {
   const cls = PATH_COLOURS[path] || PATH_COLOURS["No Evidence"];
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold border ${cls}`}>
+    <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-semibold border transition-all duration-200 hover:scale-105 ${cls}`}>
       {path}
     </span>
   );
@@ -475,16 +475,16 @@ export default function RankingsPage() {
             </div>
           </div>
 
-          {/* Tab bar */}
-          <div className="flex gap-2 mt-8 overflow-x-auto pb-1">
+          {/* Tab bar with glassmorphic pills */}
+          <div className="flex gap-2.5 mt-8 overflow-x-auto pb-1">
             {TABS.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => handleTabChange(tab.key)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all whitespace-nowrap ${
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase transition-all duration-200 whitespace-nowrap backdrop-blur-md ${
                   activeTab === tab.key
-                    ? "bg-[#FF4B35] text-white shadow-lg shadow-[#FF4B35]/20"
-                    : "bg-[#181A20] text-[#A8A295] border border-[#2A2E38] hover:border-[#FF4B35]/40 hover:text-[#F1EBDD]"
+                    ? "bg-[#FF4B35] text-white shadow-lg shadow-[#FF4B35]/30 border border-[#FF4B35] scale-[1.02]"
+                    : "bg-[#181A20]/75 text-[#A8A295] border border-[#2A2E38]/80 hover:border-[#FF4B35]/40 hover:text-[#F1EBDD] hover:scale-[1.02]"
                 }`}
               >
                 {tab.icon}
